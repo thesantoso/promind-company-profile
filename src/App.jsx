@@ -5,73 +5,83 @@ const copy = {
   id: {
     nav: ['Layanan', 'Pendekatan', 'Di lapangan', 'Sektor', 'Tentang'],
     contact: 'Hubungi kami', skip: 'Lewati ke konten',
-    hero: ['Konsultan manajemen properti', 'Aset terjaga.', 'Bisnis lebih siap melangkah.', 'PROMIND membantu pemilik dan pengelola properti menjaga kinerja aset melalui strategi yang jelas dan operasional yang rapi. Dari kondisi bangunan hingga pengalaman penggunanya, setiap keputusan punya alasan.', 'Bicarakan aset Anda', 'Jelajahi layanan', 'Visual ilustratif, bukan portofolio proyek PROMIND'],
-    intro: ['Perspektif kami', 'Performa properti dibangun setiap hari.', 'Gedung yang nyaman dan andal lahir dari banyak keputusan kecil: kapan sistem diperiksa, apa yang perlu diperbaiki lebih dulu, dan bagaimana layanan dijalankan. Kami membantu melihat gambaran besarnya tanpa melewatkan hal-hal yang terjadi di lapangan.'],
-    services: ['Layanan kami', 'Dari rencana hingga operasional harian.', 'Kami menyesuaikan lingkup pendampingan dengan jenis properti, kondisi aset, dan tujuan pemiliknya.'],
+    hero: ['Manajemen properti terintegrasi', 'Properti terkelola.', 'Nilainya terus terjaga.', 'PROMIND mendampingi pemilik aset sejak persiapan operasional hingga pengelolaan gedung sehari-hari. Tim manajemen, engineering, HSE, dan layanan tenant bekerja dalam satu arah: menjaga bangunan tetap andal dan nyaman digunakan.', 'Diskusikan properti Anda', 'Lihat layanan kami', 'Visual ilustratif, bukan portofolio proyek PROMIND'],
+    intro: ['Mengapa PROMIND', 'Aset yang baik perlu dikelola dengan perhatian yang sama baiknya.', 'Kinerja properti tidak berhenti pada bangunan yang selesai dibangun. Sistem harus dirawat, biaya dikendalikan, kebutuhan tenant ditangani, dan risiko kerja diawasi. PROMIND membantu menyatukan pekerjaan tersebut dalam pengelolaan yang tertata dan dapat dipantau.'],
+    services: ['Layanan kami', 'Dukungan lengkap untuk setiap tahap properti.', 'Mulai dari persiapan gedung, pengelolaan operasional, hingga pengembangan tim dan sistem kerja. Ruang lingkupnya disesuaikan dengan kebutuhan aset Anda.'],
     serviceItems: [
-      ['Manajemen properti & fasilitas', 'Menata operasional gedung, jadwal pemeliharaan, kinerja vendor, dan layanan agar properti siap digunakan setiap hari.'],
-      ['Strategi aset & konsultasi', 'Membaca kondisi dan biaya operasional aset, lalu membantu menentukan prioritas perbaikan serta arah pengelolaannya.'],
-      ['Manajemen proyek', 'Mendampingi renovasi, fit-out, dan peningkatan fasilitas dengan perhatian pada biaya, mutu, jadwal, dan dampaknya bagi operasional.'],
-      ['Keberlanjutan bangunan', 'Meninjau penggunaan sumber daya dan mencari langkah efisiensi yang masuk akal untuk dijalankan di gedung.'],
+      ['Persiapan operasional & serah terima', 'Pendampingan teknis sebelum gedung beroperasi, termasuk kesiapan sistem dan proses serah terima unit kepada pengguna.'],
+      ['Asesmen & manajemen properti', 'Menilai kondisi aset, menyusun rencana operasional, lalu memantau pelaksanaannya agar keputusan pengelolaan tetap tepat sasaran.'],
+      ['Engineering & pemeliharaan', 'Mengelola pemeriksaan dan perawatan berkala pada peralatan serta infrastruktur gedung untuk menjaga keandalannya.'],
+      ['Operasional gedung terintegrasi', 'Koordinasi building management, housekeeping, keamanan, dan parkir dalam standar layanan yang selaras.'],
+      ['HSE & hubungan tenant', 'Mengelola risiko keselamatan kerja sekaligus membantu merespons kebutuhan, masukan, dan keluhan tenant secara profesional.'],
+      ['Keuangan & administrasi properti', 'Mendukung anggaran, pelaporan keuangan, dan pengelolaan tagihan seperti service charge, sinking fund, serta utilitas.'],
+      ['Penyediaan SDM & pelatihan', 'Dukungan personel dan pengembangan kompetensi untuk fungsi building management, engineering, HSE, serta operasional gedung.'],
+      ['Sistem manajemen properti', 'Pemanfaatan Pro-Apps untuk membantu pencatatan, pemantauan, dan koordinasi pekerjaan pengelolaan properti.'],
     ],
-    approach: ['Cara kerja', 'Berangkat dari kondisi nyata, lalu bergerak dengan rencana.', 'Setiap properti punya tantangan sendiri. Kami mulai dengan memahami tujuan pemilik dan kondisi di lapangan, kemudian menyusun langkah yang bisa dijalankan oleh tim operasional.'],
+    approach: ['Cara kerja', 'Rencana yang jelas. Pelaksanaan yang terpantau.', 'Pengelolaan dimulai dengan memahami aset, kemudian diterjemahkan menjadi pekerjaan harian yang punya penanggung jawab dan dapat dievaluasi.'],
     steps: [
-      ['Pahami kebutuhannya', 'Kami mendengar tujuan pemilik, kebutuhan pengguna, dan kendala yang paling terasa dalam operasional.'],
-      ['Periksa kondisi aset', 'Data, proses kerja, dan temuan di lapangan kami lihat bersama agar masalahnya jelas.'],
-      ['Susun prioritas', 'Langkah kerja, penanggung jawab, dan anggaran diselaraskan dengan kebutuhan aset.'],
-      ['Tinjau hasilnya', 'Pelaksanaan ditinjau berkala agar rencana tetap relevan saat kondisi berubah.'],
+      ['Kenali kebutuhan aset', 'Tujuan pemilik, karakter properti, dan kebutuhan pengguna menjadi titik awal perencanaan.'],
+      ['Lakukan asesmen', 'Kondisi fisik, sistem teknis, data operasional, dan proses kerja ditinjau untuk menemukan prioritas.'],
+      ['Jalankan operasional', 'Tugas tim, jadwal pemeliharaan, vendor, dan standar layanan dikoordinasikan dalam pekerjaan sehari-hari.'],
+      ['Pantau dan evaluasi', 'Hasil kerja dan temuan lapangan ditinjau berkala sebagai dasar perbaikan berikutnya.'],
     ],
-    fieldwork: ['Di lapangan', 'Detail di lapangan menentukan langkah berikutnya.', 'Asesmen bangunan, pemeliharaan terjadwal, dan keselamatan kerja membantu menjaga properti tetap siap digunakan.', 'Foto editorial sebagai ilustrasi aktivitas, bukan dokumentasi tim atau proyek PROMIND.', 'Sumber foto'],
+    fieldwork: ['Aktivitas kami', 'Di balik gedung yang berfungsi baik, ada tim yang bekerja.', 'Dari koordinasi operasional hingga layanan tenant, pengelolaan properti berjalan melalui perhatian pada detail setiap hari.', 'Foto arsip operasional. Elemen identitas visual pada foto telah disesuaikan untuk PROMIND.'],
     fieldworkItems: [
-      ['Asesmen gedung', 'Kondisi bangunan diperiksa untuk melihat apa yang perlu ditangani sekarang dan apa yang bisa direncanakan.', 'Petugas berhelm memeriksa kondisi jendela sambil mencatat temuan.'],
-      ['Preventive maintenance', 'Pemeriksaan rutin pada sistem teknis membantu menemukan potensi gangguan lebih awal.', 'Teknisi memeriksa komponen pada panel listrik.'],
-      ['HSE & keselamatan kerja', 'Risiko kerja perlu dikenali, dibicarakan, dan dikendalikan sebelum pekerjaan dimulai.', 'Dua pekerja beralat pelindung diri berkoordinasi di area kerja.'],
+      ['Operasional gedung', 'Koordinasi tim di lapangan membantu memastikan fasilitas, keamanan, dan pekerjaan harian berjalan sesuai rencana.', 'Tim operasional gedung berkoordinasi di area luar bangunan.'],
+      ['Engineering & pemeliharaan', 'Pemeriksaan peralatan dan sistem teknis membantu tim menemukan potensi gangguan lebih awal.', 'Dua anggota tim engineering meninjau peralatan di ruang teknis.'],
+      ['HSE & keselamatan kerja', 'Pemeriksaan risiko dan kesiapan sistem keselamatan menjadi bagian dari pengawasan gedung.', 'Petugas HSE meninjau instalasi pompa pemadam kebakaran.'],
+      ['Hubungan tenant', 'Komunikasi yang responsif membantu kebutuhan dan masukan pengguna gedung ditangani dengan baik.', 'Petugas layanan tenant berbicara dengan pengguna di meja layanan.'],
     ],
-    sectors: ['Properti yang kami layani', 'Kebutuhan tiap properti berbeda. Cara mengelolanya juga.', 'Kami menyesuaikan fokus pengelolaan dengan fungsi aset dan orang-orang yang beraktivitas di dalamnya.'],
+    sectors: ['Properti yang kami layani', 'Satu pendekatan tidak cukup untuk semua aset.', 'Prioritas operasional disesuaikan dengan fungsi bangunan, pola penggunaan, dan kebutuhan pemilik maupun penggunanya.'],
     sectorItems: [
       ['Office building', 'Kesiapan fasilitas, kelancaran operasional, dan layanan bagi tenant.'],
       ['Apartemen', 'Perawatan area bersama, keandalan sistem, dan kenyamanan penghuni.'],
       ['Mall', 'Kesiapan fasilitas publik, koordinasi tenant, dan aktivitas harian yang dinamis.'],
       ['Real estate', 'Pemeliharaan aset dan pengelolaan kawasan yang tertata.'],
     ],
-    about: ['Tentang PROMIND', 'Melihat nilai aset sampai ke detail operasionalnya.', 'PT Properti Manajemen Inovasi Indonesia (PROMIND) bergerak di bidang konsultasi dan manajemen properti. Kami menghubungkan kebutuhan pemilik aset dengan pekerjaan sehari-hari yang menjaga bangunan tetap berfungsi.', 'Pendekatan kami sederhana: pahami kondisi sebenarnya, sepakati prioritas, lalu jalankan rencana bersama pihak yang bertanggung jawab.'],
-    closing: ['Mari berbicara', 'Ada properti yang perlu ditangani lebih baik?', 'Ceritakan jenis aset, kondisi saat ini, dan hal yang ingin Anda perbaiki. Kami siap membahas langkah awal yang paling relevan.', 'Hubungi PROMIND', 'Diskusi kebutuhan manajemen properti'],
+    about: ['Tentang PROMIND', 'Pengelolaan properti yang dekat dengan kebutuhan pemilik dan pengguna.', 'PT Properti Manajemen Inovasi Indonesia (PROMIND) menyediakan layanan manajemen properti terintegrasi, mulai dari persiapan operasional, pengelolaan gedung, hingga dukungan tim dan sistem kerja.', 'Fokus kami adalah menjaga keandalan bangunan, keteraturan operasional, dan kualitas layanan bagi orang yang menggunakan properti setiap hari.'],
+    closing: ['Mari berbicara', 'Mari bahas kebutuhan properti Anda.', 'Sedang menyiapkan gedung baru atau meninjau kembali pengelolaan aset yang sudah berjalan? Ceritakan kondisinya, dan kami akan membantu menentukan ruang lingkup yang sesuai.', 'Hubungi PROMIND', 'Diskusi kebutuhan manajemen properti'],
     footer: { address: 'Alamat kantor', contact: 'Hubungi kami', standards: 'Sertifikasi ISO', back: 'Kembali ke atas', rights: 'Hak cipta dilindungi.' }
   },
   en: {
     nav: ['Services', 'Approach', 'In the field', 'Sectors', 'About'],
     contact: 'Contact us', skip: 'Skip to content',
-    hero: ['Property management consultancy', 'Protect the asset.', 'Keep the business moving.', 'PROMIND helps owners and property managers maintain asset performance through clear strategy and well-run operations. From building condition to occupant experience, every decision has a purpose.', 'Talk to us about your asset', 'Explore our services', 'Illustrative image, not a PROMIND project'],
-    intro: ['Our perspective', 'Property performance is built every day.', 'A reliable, welcoming building depends on everyday decisions: when to inspect a system, what to fix first, and how to deliver consistent service. We help you see the whole picture while staying close to what happens on site.'],
-    services: ['Our services', 'From planning to daily operations.', 'We tailor our support to the property type, asset condition, and owner’s objectives.'],
+    hero: ['Integrated property management', 'Well-managed property.', 'Lasting asset value.', 'PROMIND supports asset owners from operational preparation through the day-to-day management of their buildings. Management, engineering, HSE, and tenant services work toward one goal: reliable buildings that people feel comfortable using.', 'Discuss your property', 'Explore our services', 'Illustrative image, not a PROMIND project'],
+    intro: ['Why PROMIND', 'A good asset deserves equally good management.', 'Property performance does not end when construction is complete. Systems need maintenance, costs need control, tenant needs must be addressed, and workplace risks must be managed. PROMIND brings these responsibilities into a coordinated operation that owners can follow.'],
+    services: ['Our services', 'Support for every stage of the property.', 'From building preparation and daily operations to team development and management systems, the scope is tailored to your asset.'],
     serviceItems: [
-      ['Property & facilities management', 'Organising building operations, maintenance schedules, vendor performance, and services that keep the property ready each day.'],
-      ['Asset strategy & advisory', 'Reviewing asset condition and operating costs to help set improvement priorities and a practical direction for management.'],
-      ['Project management', 'Supporting renovations, fit-outs, and facility upgrades with attention to cost, quality, schedule, and operational impact.'],
-      ['Building sustainability', 'Reviewing resource use and identifying efficiency measures that make sense for the building.'],
+      ['Operational preparation & handover', 'Technical support before a building opens, including system readiness and the handover process for occupants.'],
+      ['Property assessment & management', 'Assessing asset condition, planning operations, and monitoring delivery to keep management decisions focused.'],
+      ['Engineering & maintenance', 'Managing regular inspections and maintenance of building equipment and infrastructure to support reliability.'],
+      ['Integrated building operations', 'Coordinating building management, housekeeping, security, and parking around consistent service standards.'],
+      ['HSE & tenant relations', 'Managing workplace safety risks while responding professionally to tenant requests, feedback, and complaints.'],
+      ['Property finance & administration', 'Supporting budgets, financial reporting, and billing for service charges, sinking funds, and utilities.'],
+      ['Staffing & training', 'Personnel support and skills development for building management, engineering, HSE, and operational roles.'],
+      ['Property management systems', 'Using Pro-Apps to support records, monitoring, and coordination across property management work.'],
     ],
-    approach: ['Our approach', 'Start with the facts on site. Move forward with a plan.', 'Every property has its own challenges. We begin with the owner’s goals and conditions on site, then develop steps the operations team can put into practice.'],
+    approach: ['Our approach', 'A clear plan. Work you can follow.', 'Management starts with understanding the asset, then turns that understanding into daily work with clear responsibilities and regular review.'],
     steps: [
-      ['Understand the needs', 'We listen to the owner’s goals, occupant needs, and the issues felt most in daily operations.'],
-      ['Inspect the asset', 'We look at data, workflows, and site observations together to make the issues clear.'],
-      ['Set priorities', 'Actions, responsibilities, and budgets are aligned with what the asset needs.'],
-      ['Review the results', 'Progress is reviewed regularly so the plan stays relevant as conditions change.'],
+      ['Understand the asset', 'The owner’s goals, the property’s character, and occupant needs shape the starting point.'],
+      ['Assess its condition', 'Physical condition, technical systems, operating data, and workflows are reviewed to identify priorities.'],
+      ['Run the operation', 'Team responsibilities, maintenance schedules, vendors, and service standards come together in daily work.'],
+      ['Monitor and improve', 'Results and site observations are reviewed regularly to guide the next improvements.'],
     ],
-    fieldwork: ['In the field', 'The details on site shape the next move.', 'Building assessments, scheduled maintenance, and safe working practices help keep properties ready for use.', 'Editorial photographs illustrate the activities. They do not depict PROMIND staff or projects.', 'Photo sources'],
+    fieldwork: ['Our work', 'Behind a well-run building is a team at work.', 'From operational coordination to tenant service, good property management depends on attention to everyday details.', 'Operational archive photos. Visual identity in the images has been updated for PROMIND.'],
     fieldworkItems: [
-      ['Building assessment', 'Inspecting the building helps distinguish what needs attention now from what can be planned.', 'A worker in a hard hat checks a window and records observations.'],
-      ['Preventive maintenance', 'Routine checks on technical systems help identify potential disruptions early.', 'A technician checks components inside an electrical panel.'],
-      ['HSE & workplace safety', 'Workplace risks need to be identified, discussed, and controlled before work begins.', 'Two workers wearing protective equipment coordinate on site.'],
+      ['Building operations', 'On-site coordination helps keep facilities, security, and daily work aligned with the plan.', 'Building operations staff coordinate outside a building.'],
+      ['Engineering & maintenance', 'Checks on equipment and technical systems help teams identify potential disruptions early.', 'Two engineering team members review equipment in a plant room.'],
+      ['HSE & workplace safety', 'Risk checks and the readiness of safety systems are part of building oversight.', 'An HSE worker inspects a fire pump installation.'],
+      ['Tenant relations', 'Responsive communication helps occupant requests and feedback receive proper attention.', 'A tenant service worker speaks with a visitor at a reception desk.'],
     ],
-    sectors: ['Properties we serve', 'Different properties call for different priorities.', 'We adapt the management focus to each asset’s purpose and the people who use it.'],
+    sectors: ['Properties we serve', 'One approach cannot serve every asset.', 'Operational priorities reflect how a property is used and what its owners and occupants need.'],
     sectorItems: [
       ['Office buildings', 'Facility readiness, smooth operations, and tenant services.'],
       ['Apartments', 'Common-area upkeep, reliable building systems, and resident comfort.'],
       ['Shopping malls', 'Public facilities, tenant coordination, and busy daily operations.'],
       ['Real estate', 'Planned asset maintenance and well-organised estate management.'],
     ],
-    about: ['About PROMIND', 'Seeing asset value through the details of daily operations.', 'PT Properti Manajemen Inovasi Indonesia (PROMIND) works in property management and advisory. We connect the owner’s objectives with the daily work that keeps a building running.', 'Our approach is straightforward: understand the real conditions, agree on priorities, and work through the plan with the people responsible.'],
-    closing: ['Let’s talk', 'Could your property be working better?', 'Tell us about the asset, its current condition, and what you want to improve. We are ready to discuss the most relevant first steps.', 'Contact PROMIND', 'Property management enquiry'],
+    about: ['About PROMIND', 'Property management shaped around owners and occupants.', 'PT Properti Manajemen Inovasi Indonesia (PROMIND) provides integrated property management services, from operational preparation and building management to teams and management systems.', 'Our focus is on building reliability, orderly operations, and the quality of service experienced by the people who use the property each day.'],
+    closing: ['Let’s talk', 'Tell us what your property needs.', 'Preparing a new building or reviewing an existing operation? Share the situation with us and we can discuss the right scope of support.', 'Contact PROMIND', 'Property management enquiry'],
     footer: { address: 'Office address', contact: 'Contact us', standards: 'ISO certifications', back: 'Back to top', rights: 'All rights reserved.' }
   }
 };
@@ -79,9 +89,10 @@ const copy = {
 const ids = ['services', 'approach', 'fieldwork', 'sectors', 'about'];
 const logo = '/images/promind-header-brand.png';
 const fieldworkPhotos = [
-  { image: '/images/fieldwork-assessment.jpg', source: 'https://www.pexels.com/photo/a-man-wearing-a-hard-hat-while-looking-at-the-glass-window-8292802/', credit: 'RDNE Stock project' },
-  { image: '/images/fieldwork-maintenance.jpg', source: 'https://www.pexels.com/photo/close-up-photo-of-a-man-checking-a-power-voltage-10871929/', credit: 'Annas Zakaria' },
-  { image: '/images/fieldwork-hse.jpg', source: 'https://www.pexels.com/photo/construction-workers-wearing-hardhats-8961064/', credit: 'Mikael Blomkvist' },
+  '/images/promind-building-operations.jpg',
+  '/images/promind-engineering.jpg',
+  '/images/promind-hse.jpg',
+  '/images/promind-tenant-relations.jpg',
 ];
 
 export default function App() {
@@ -135,10 +146,13 @@ export default function App() {
       <section id="fieldwork" className="fieldwork section-pad"><div className="wrap">
         <div className="fieldwork-heading"><div><p className="eyebrow">{t.fieldwork[0]}</p><h2>{t.fieldwork[1]}</h2></div><p>{t.fieldwork[2]}</p></div>
         <div className="fieldwork-grid">{t.fieldworkItems.map(([title, description, alt], i) => <figure className={'fieldwork-item fieldwork-item-' + (i + 1)} key={title}>
-          <div className="fieldwork-photo"><img src={fieldworkPhotos[i].image} alt={alt} loading="lazy" decoding="async" /></div>
+          <div className="fieldwork-photo">
+            <img src={fieldworkPhotos[i]} alt={alt} loading="lazy" decoding="async" />
+            <span className="fieldwork-brand" aria-hidden="true"><img src="/favicon.svg" alt="" /><strong>PROMIND</strong></span>
+          </div>
           <figcaption><span className="fieldwork-number">0{i + 1}</span><div><h3>{title}</h3><p>{description}</p></div></figcaption>
         </figure>)}</div>
-        <p className="fieldwork-disclaimer">{t.fieldwork[3]} <span>{t.fieldwork[4]}: {fieldworkPhotos.map((photo, i) => <span key={photo.credit}>{i > 0 && ' · '}<a href={photo.source} target="_blank" rel="noopener noreferrer">{photo.credit}</a></span>)}</span></p>
+        <p className="fieldwork-disclaimer">{t.fieldwork[3]}</p>
       </div></section>
 
       <section id="sectors" className="sectors section-pad"><div className="wrap sectors-grid"><div><p className="eyebrow">{t.sectors[0]}</p><h2>{t.sectors[1]}</h2><p>{t.sectors[2]}</p></div><ul>{t.sectorItems.map(([title, description]) => <li key={title}><strong>{title}</strong><span>{description}</span></li>)}</ul></div></section>
