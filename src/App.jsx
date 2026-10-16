@@ -25,7 +25,7 @@ const copy = {
       ['Jalankan operasional', 'Tugas tim, jadwal pemeliharaan, vendor, dan standar layanan dikoordinasikan dalam pekerjaan sehari-hari.'],
       ['Pantau dan evaluasi', 'Hasil kerja dan temuan lapangan ditinjau berkala sebagai dasar perbaikan berikutnya.'],
     ],
-    fieldwork: ['Aktivitas kami', 'Di balik gedung yang berfungsi baik, ada tim yang bekerja.', 'Dari koordinasi operasional hingga layanan tenant, pengelolaan properti berjalan melalui perhatian pada detail setiap hari.', 'Foto arsip operasional. Elemen identitas visual pada foto telah disesuaikan untuk PROMIND.'],
+    fieldwork: ['Aktivitas kami', 'Di balik gedung yang berfungsi baik, ada tim yang bekerja.', 'Dari koordinasi operasional hingga layanan tenant, pengelolaan properti berjalan melalui perhatian pada detail setiap hari.'],
     fieldworkItems: [
       ['Operasional gedung', 'Koordinasi tim di lapangan membantu memastikan fasilitas, keamanan, dan pekerjaan harian berjalan sesuai rencana.', 'Tim operasional gedung berkoordinasi di area luar bangunan.'],
       ['Engineering & pemeliharaan', 'Pemeriksaan peralatan dan sistem teknis membantu tim menemukan potensi gangguan lebih awal.', 'Dua anggota tim engineering meninjau peralatan di ruang teknis.'],
@@ -66,7 +66,7 @@ const copy = {
       ['Run the operation', 'Team responsibilities, maintenance schedules, vendors, and service standards come together in daily work.'],
       ['Monitor and improve', 'Results and site observations are reviewed regularly to guide the next improvements.'],
     ],
-    fieldwork: ['Our work', 'Behind a well-run building is a team at work.', 'From operational coordination to tenant service, good property management depends on attention to everyday details.', 'Operational archive photos. Visual identity in the images has been updated for PROMIND.'],
+    fieldwork: ['Our work', 'Behind a well-run building is a team at work.', 'From operational coordination to tenant service, good property management depends on attention to everyday details.'],
     fieldworkItems: [
       ['Building operations', 'On-site coordination helps keep facilities, security, and daily work aligned with the plan.', 'Building operations staff coordinate outside a building.'],
       ['Engineering & maintenance', 'Checks on equipment and technical systems help teams identify potential disruptions early.', 'Two engineering team members review equipment in a plant room.'],
@@ -89,10 +89,10 @@ const copy = {
 const ids = ['services', 'approach', 'fieldwork', 'sectors', 'about'];
 const logo = '/images/promind-header-brand.png';
 const fieldworkPhotos = [
-  '/images/promind-building-operations.jpg',
-  '/images/promind-engineering.jpg',
-  '/images/promind-hse.jpg',
-  '/images/promind-tenant-relations.jpg',
+  '/images/promind-building-operations-v2.jpg',
+  '/images/promind-engineering-v2.jpg',
+  '/images/promind-hse-v2.jpg',
+  '/images/promind-tenant-relations-v2.jpg',
 ];
 
 export default function App() {
@@ -146,13 +146,9 @@ export default function App() {
       <section id="fieldwork" className="fieldwork section-pad"><div className="wrap">
         <div className="fieldwork-heading"><div><p className="eyebrow">{t.fieldwork[0]}</p><h2>{t.fieldwork[1]}</h2></div><p>{t.fieldwork[2]}</p></div>
         <div className="fieldwork-grid">{t.fieldworkItems.map(([title, description, alt], i) => <figure className={'fieldwork-item fieldwork-item-' + (i + 1)} key={title}>
-          <div className="fieldwork-photo">
-            <img src={fieldworkPhotos[i]} alt={alt} loading="lazy" decoding="async" />
-            <span className="fieldwork-brand" aria-hidden="true"><img src="/favicon.svg" alt="" /><strong>PROMIND</strong></span>
-          </div>
+          <div className="fieldwork-photo"><img src={fieldworkPhotos[i]} alt={alt} loading="lazy" decoding="async" /></div>
           <figcaption><span className="fieldwork-number">0{i + 1}</span><div><h3>{title}</h3><p>{description}</p></div></figcaption>
         </figure>)}</div>
-        <p className="fieldwork-disclaimer">{t.fieldwork[3]}</p>
       </div></section>
 
       <section id="sectors" className="sectors section-pad"><div className="wrap sectors-grid"><div><p className="eyebrow">{t.sectors[0]}</p><h2>{t.sectors[1]}</h2><p>{t.sectors[2]}</p></div><ul>{t.sectorItems.map(([title, description]) => <li key={title}><strong>{title}</strong><span>{description}</span></li>)}</ul></div></section>

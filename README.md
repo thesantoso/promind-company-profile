@@ -17,7 +17,7 @@ The page introduces PROMIND through its service scope, working approach, asset t
 
 The original PROMIND logo is in `public/images/promind-header-brand.png`. The architectural hero image in `public/images/promind-architecture-editorial.png` was generated for this site as a conceptual editorial visual; it is explicitly labeled as an illustration, not a project or portfolio image.
 
-The “Aktivitas kami” section uses four photographs from the company's earlier operations archive: building operations, engineering, HSE, and tenant relations. The source files were promotional posters with embedded headings and former visual identity. Image edits removed the poster text and former marks while retaining the photographed activities. The final local assets are `public/images/promind-building-operations.jpg`, `promind-engineering.jpg`, `promind-hse.jpg`, and `promind-tenant-relations.jpg`. The website discloses that the archive photos were adjusted for PROMIND's visual identity.
+The “Aktivitas kami” section uses four photographs from the company's earlier operations archive: building operations, engineering, HSE, and tenant relations. The source files were promotional posters with embedded headings and former visual identity. Image edits removed the poster treatment and former marks, then applied restrained PROMIND workwear attributes such as helmet decals, embroidered wordmarks, blue lanyards, and ID badges. The final website assets use the `public/images/promind-*-v2.jpg` filenames. The page discloses that the archive photos were adjusted for PROMIND's visual identity.
 
 The favicon uses a simplified vector version of the building mark inside the logo’s “O” at `public/favicon.svg`, with 32 px PNG and Apple touch fallbacks.
 
