@@ -17,6 +17,8 @@ The page introduces PROMIND through its service scope, working approach, asset t
 
 The original PROMIND logo is in `public/images/promind-header-brand.png`. The architectural hero image in `public/images/promind-architecture-editorial.png` was generated for this site as a conceptual editorial visual; it is explicitly labeled as an illustration, not a project or portfolio image.
 
+The favicon uses a simplified vector version of the building mark inside the logo’s “O” at `public/favicon.svg`, with 32 px PNG and Apple touch fallbacks.
+
 Design direction: a restrained consulting profile with Promind blue, warm neutral backgrounds, architectural photography, editorial typography, and generous spacing. Energy 2 / rhythm 2 / motion 1. The image gives the page a real-estate context; service rows emphasize scope over decorative cards; the dark blue working-method section creates a clear pause in the narrative.
 
 ## Company information
