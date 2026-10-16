@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { ArrowUpRight, Menu, Pause, Play, X } from 'lucide-react';
 
 const copy = {
   id: {
-    nav: ['Layanan', 'Pendekatan', 'Di lapangan', 'Sektor', 'Tentang'],
+    nav: ['Layanan', 'Pendekatan', 'Di lapangan', 'Sektor', 'Portofolio', 'Tentang'],
     contact: 'Hubungi kami', skip: 'Lewati ke konten',
     hero: ['Manajemen properti terintegrasi', 'Properti terkelola.', 'Nilainya terus terjaga.', 'PROMIND mendampingi pemilik aset sejak persiapan operasional hingga pengelolaan gedung sehari-hari. Tim manajemen, engineering, HSE, dan layanan tenant bekerja dalam satu arah: menjaga bangunan tetap andal dan nyaman digunakan.', 'Diskusikan properti Anda', 'Lihat layanan kami', 'Visual ilustratif, bukan portofolio proyek PROMIND'],
     intro: ['Mengapa PROMIND', 'Aset yang baik perlu dikelola dengan perhatian yang sama baiknya.', 'Kinerja properti tidak berhenti pada bangunan yang selesai dibangun. Sistem harus dirawat, biaya dikendalikan, kebutuhan tenant ditangani, dan risiko kerja diawasi. PROMIND membantu menyatukan pekerjaan tersebut dalam pengelolaan yang tertata dan dapat dipantau.'],
@@ -39,12 +39,14 @@ const copy = {
       ['Mall', 'Kesiapan fasilitas publik, koordinasi tenant, dan aktivitas harian yang dinamis.'],
       ['Real estate', 'Pemeliharaan aset dan pengelolaan kawasan yang tertata.'],
     ],
+    clients: ['Pengalaman kami', 'Properti yang pernah kami tangani.', 'Pengalaman operasional kami mencakup beragam properti residensial, komersial, pendidikan, dan kawasan.', 'Jeda pergerakan logo', 'Jalankan pergerakan logo'],
+    clientNote: 'Daftar properti dan organisasi berdasarkan rekam pengalaman perusahaan.',
     about: ['Tentang PROMIND', 'Pengelolaan properti yang dekat dengan kebutuhan pemilik dan pengguna.', 'PT Properti Manajemen Inovasi Indonesia (PROMIND) menyediakan layanan manajemen properti terintegrasi, mulai dari persiapan operasional, pengelolaan gedung, hingga dukungan tim dan sistem kerja.', 'Fokus kami adalah menjaga keandalan bangunan, keteraturan operasional, dan kualitas layanan bagi orang yang menggunakan properti setiap hari.'],
     closing: ['Mari berbicara', 'Mari bahas kebutuhan properti Anda.', 'Sedang menyiapkan gedung baru atau meninjau kembali pengelolaan aset yang sudah berjalan? Ceritakan kondisinya, dan kami akan membantu menentukan ruang lingkup yang sesuai.', 'Hubungi PROMIND', 'Diskusi kebutuhan manajemen properti'],
     footer: { address: 'Alamat kantor', contact: 'Hubungi kami', standards: 'Sertifikasi ISO', back: 'Kembali ke atas', rights: 'Hak cipta dilindungi.' }
   },
   en: {
-    nav: ['Services', 'Approach', 'In the field', 'Sectors', 'About'],
+    nav: ['Services', 'Approach', 'In the field', 'Sectors', 'Portfolio', 'About'],
     contact: 'Contact us', skip: 'Skip to content',
     hero: ['Integrated property management', 'Well-managed property.', 'Lasting asset value.', 'PROMIND supports asset owners from operational preparation through the day-to-day management of their buildings. Management, engineering, HSE, and tenant services work toward one goal: reliable buildings that people feel comfortable using.', 'Discuss your property', 'Explore our services', 'Illustrative image, not a PROMIND project'],
     intro: ['Why PROMIND', 'A good asset deserves equally good management.', 'Property performance does not end when construction is complete. Systems need maintenance, costs need control, tenant needs must be addressed, and workplace risks must be managed. PROMIND brings these responsibilities into a coordinated operation that owners can follow.'],
@@ -80,14 +82,32 @@ const copy = {
       ['Shopping malls', 'Public facilities, tenant coordination, and busy daily operations.'],
       ['Real estate', 'Planned asset maintenance and well-organised estate management.'],
     ],
+    clients: ['Our experience', 'Properties we have worked with.', 'Our operational experience spans residential, commercial, educational, and estate properties.', 'Pause logo movement', 'Play logo movement'],
+    clientNote: 'Property and organisation names are based on the company’s experience records.',
     about: ['About PROMIND', 'Property management shaped around owners and occupants.', 'PT Properti Manajemen Inovasi Indonesia (PROMIND) provides integrated property management services, from operational preparation and building management to teams and management systems.', 'Our focus is on building reliability, orderly operations, and the quality of service experienced by the people who use the property each day.'],
     closing: ['Let’s talk', 'Tell us what your property needs.', 'Preparing a new building or reviewing an existing operation? Share the situation with us and we can discuss the right scope of support.', 'Contact PROMIND', 'Property management enquiry'],
     footer: { address: 'Office address', contact: 'Contact us', standards: 'ISO certifications', back: 'Back to top', rights: 'All rights reserved.' }
   }
 };
 
-const ids = ['services', 'approach', 'fieldwork', 'sectors', 'about'];
+const ids = ['services', 'approach', 'fieldwork', 'sectors', 'clients', 'about'];
 const logo = '/images/promind-header-brand.png';
+const clients = [
+  ['Icon Apartment', 'Gresik'],
+  ['Kingsland', 'International'],
+  ['Mandiri University', 'Education facility'],
+  ['NT Tower', 'Office building'],
+  ['Paladian Park', 'Apartment'],
+  ['Park Royale', 'Tower 1 & 2'],
+  ['Permata Hijau', 'Residences'],
+  ['Plaza Pasifik', 'Commercial property'],
+  ['Prasastha', 'Residential property'],
+  ['Ravindo', 'Property'],
+  ['Taman Sari', 'Property'],
+  ['The Park', 'Residence'],
+  ['Patra Jasa', 'Property'],
+  ['WIKA', 'Property'],
+];
 const fieldworkPhotos = [
   '/images/promind-building-operations-v2.jpg',
   '/images/promind-engineering-v2.jpg',
@@ -98,6 +118,7 @@ const fieldworkPhotos = [
 export default function App() {
   const [lang, setLang] = useState('id');
   const [menuOpen, setMenuOpen] = useState(false);
+  const [marqueePaused, setMarqueePaused] = useState(false);
   const t = copy[lang];
   const email = 'corporate@promind.id';
   const mailLink = 'mailto:' + email + '?subject=' + encodeURIComponent(t.closing[4]);
@@ -152,6 +173,18 @@ export default function App() {
       </div></section>
 
       <section id="sectors" className="sectors section-pad"><div className="wrap sectors-grid"><div><p className="eyebrow">{t.sectors[0]}</p><h2>{t.sectors[1]}</h2><p>{t.sectors[2]}</p></div><ul>{t.sectorItems.map(([title, description]) => <li key={title}><strong>{title}</strong><span>{description}</span></li>)}</ul></div></section>
+
+      <section id="clients" className="clients section-pad"><div className="wrap">
+        <div className="clients-heading"><div><p className="eyebrow">{t.clients[0]}</p><h2>{t.clients[1]}</h2></div><div className="clients-intro"><p>{t.clients[2]}</p><button className="marquee-control" type="button" aria-pressed={marqueePaused} onClick={() => setMarqueePaused(!marqueePaused)}>{marqueePaused ? <Play size={15} /> : <Pause size={15} />} {marqueePaused ? t.clients[4] : t.clients[3]}</button></div></div>
+        <div className={'client-marquee' + (marqueePaused ? ' is-paused' : '')}>
+          <div className="client-marquee-track" aria-hidden="true">
+            <img src="/images/promind-client-logos.png" alt="" />
+            <img src="/images/promind-client-logos.png" alt="" />
+          </div>
+        </div>
+        <ul className="sr-only">{clients.map(([name, type]) => <li key={name}>{name}, {type}</li>)}</ul>
+        <p className="client-note">{t.clientNote}</p>
+      </div></section>
 
       <section id="about" className="about section-pad"><div className="wrap about-grid"><div><p className="eyebrow">{t.about[0]}</p><h2>{t.about[1]}</h2></div><div className="about-copy"><p>{t.about[2]}</p><p>{t.about[3]}</p></div></div></section>
 

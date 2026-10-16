@@ -19,6 +19,8 @@ The original PROMIND logo is in `public/images/promind-header-brand.png`. The ar
 
 The “Aktivitas kami” section uses four photographs from the company's earlier operations archive: building operations, engineering, HSE, and tenant relations. The source files were promotional posters with embedded headings and former visual identity. Image edits removed the poster treatment and former marks, then applied restrained PROMIND workwear attributes such as helmet decals, embroidered wordmarks, blue lanyards, and ID badges. The final website assets use the `public/images/promind-*-v2.jpg` filenames. The page discloses that the archive photos were adjusted for PROMIND's visual identity.
 
+The portfolio section presents 14 supplied experience references in a continuously moving logo board, including WIKA. Its cleaned logo asset is `public/images/promind-client-logos.png`. The motion pauses on hover or through an explicit control and is disabled when the browser requests reduced motion.
+
 The favicon uses a simplified vector version of the building mark inside the logo’s “O” at `public/favicon.svg`, with 32 px PNG and Apple touch fallbacks.
 
 Design direction: a restrained consulting profile with Promind blue, warm neutral backgrounds, architectural photography, editorial typography, and generous spacing. Energy 2 / rhythm 2 / motion 1. The image gives the page a real-estate context; service rows emphasize scope over decorative cards; the dark blue working-method section creates a clear pause in the narrative.
