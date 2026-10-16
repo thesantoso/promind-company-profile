@@ -9,15 +9,15 @@ npm install
 npm run dev
 ```
 
-Build for production with `npm run build`.
+Build for production with `npm run build`. Run the inquiry-form unit tests with `npm test`.
 
 ## Content and design
 
-The page introduces PROMIND through its service scope, working approach, asset types, and a direct email contact. The Indonesian and English copy is maintained in `src/App.jsx`.
+The page introduces PROMIND through the value it brings to asset owners, service scope, engagement models, working approach, ProApps workflow, asset types, past experience, concrete deliverables, and a structured consultation form. The Indonesian and English copy is maintained in `src/App.jsx`.
 
 The original PROMIND logo is in `public/images/promind-header-brand.png`. The architectural hero image in `public/images/promind-architecture-editorial.png` was generated for this site as a conceptual editorial visual; it is explicitly labeled as an illustration, not a project or portfolio image.
 
-The “Aktivitas kami” section uses four photographs from the company's earlier operations archive: building operations, engineering, HSE, and tenant relations. The source files were promotional posters with embedded headings and former visual identity. Image edits removed the poster treatment and former marks, then applied restrained PROMIND workwear attributes such as helmet decals, embroidered wordmarks, blue lanyards, and ID badges. The final website assets use the `public/images/promind-*-v2.jpg` filenames. The page discloses that the archive photos were adjusted for PROMIND's visual identity.
+The “Aktivitas kami” section uses four photographs from the company's earlier operations archive: building operations, engineering, HSE, and tenant relations. The source files were promotional posters with embedded headings and former visual identity. Image edits removed the poster treatment and former marks, then applied restrained PROMIND workwear attributes such as helmet decals, embroidered wordmarks, blue lanyards, and ID badges. The final website assets use the `public/images/promind-*-v2.jpg` filenames.
 
 The portfolio section presents 14 supplied experience references in a continuously moving logo board, including WIKA. Its cleaned logo asset is `public/images/promind-client-logos.png`. The motion pauses on hover or through an explicit control and is disabled when the browser requests reduced motion.
 
@@ -27,4 +27,4 @@ Design direction: a restrained consulting profile with Promind blue, warm neutra
 
 ## Company information
 
-The office address and `corporate@promind.id` come from the project’s PROMIND brand asset and were confirmed by the user. The user also confirmed ISO 41001, ISO 55001, and ISO 9001 certifications. The footer lists the standard numbers without edition years because certificate editions and expiry dates were not provided. No form backend is connected; the contact action opens an email draft.
+The office address and `corporate@promind.id` come from the project’s PROMIND brand asset and were confirmed by the user. The user also confirmed ISO 41001, ISO 55001, and ISO 9001 certifications. The footer lists the standard numbers without edition years because certificate editions and expiry dates were not provided. The consultation form assembles the visitor's structured input into an email draft addressed to `corporate@promind.id`; no form backend is connected.
