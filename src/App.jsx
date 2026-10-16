@@ -3,7 +3,7 @@ import { ArrowUpRight, Menu, X } from 'lucide-react';
 
 const copy = {
   id: {
-    nav: ['Layanan', 'Pendekatan', 'Sektor', 'Tentang'],
+    nav: ['Layanan', 'Pendekatan', 'Di lapangan', 'Sektor', 'Tentang'],
     contact: 'Hubungi kami', skip: 'Lewati ke konten',
     hero: ['Konsultan manajemen properti', 'Properti yang dikelola dengan baik,', 'bekerja lebih baik.', 'PROMIND mendampingi pemilik dan pengelola aset dalam merencanakan, menjalankan, dan meningkatkan kinerja properti. Keputusan yang jelas untuk operasional yang lebih terarah.', 'Diskusikan kebutuhan Anda', 'Lihat layanan', 'Visual ilustratif, bukan portofolio proyek PROMIND'],
     intro: ['Perspektif kami', 'Nilai sebuah aset dibentuk oleh keputusan sehari-hari.', 'Mulai dari pengalaman penghuni hingga kondisi teknis bangunan, setiap detail memengaruhi performa properti. Kami melihat aset secara menyeluruh agar strategi di atas kertas dapat dijalankan di lapangan.'],
@@ -21,6 +21,12 @@ const copy = {
       ['Rancang langkah', 'Menetapkan prioritas, tanggung jawab, dan ukuran keberhasilan yang relevan.'],
       ['Pantau pelaksanaan', 'Meninjau hasil secara berkala dan menyesuaikan tindakan saat kondisi berubah.'],
     ],
+    fieldwork: ['Di lapangan', 'Melihat langsung sebelum mengambil keputusan.', 'Gambaran aktivitas yang relevan dalam pengelolaan properti: memeriksa kondisi aset, merawat sistem bangunan, dan menjaga cara kerja yang aman.', 'Foto editorial sebagai ilustrasi aktivitas, bukan dokumentasi tim atau proyek PROMIND.', 'Sumber foto'],
+    fieldworkItems: [
+      ['Asesmen gedung', 'Pemeriksaan kondisi fisik dan temuan lapangan menjadi dasar untuk menyusun prioritas pengelolaan.', 'Petugas berhelm memeriksa kondisi jendela sambil mencatat temuan.'],
+      ['Preventive maintenance', 'Inspeksi terjadwal pada sistem teknis membantu mendeteksi masalah sebelum mengganggu operasional.', 'Teknisi memeriksa komponen pada panel listrik.'],
+      ['HSE & keselamatan kerja', 'Koordinasi, pemeriksaan risiko, dan prosedur kerja aman perlu hadir dalam setiap kegiatan lapangan.', 'Dua pekerja beralat pelindung diri berkoordinasi di area kerja.'],
+    ],
     sectors: ['Properti yang kami layani', 'Setiap jenis properti punya ritme operasionalnya sendiri.', 'Kami menyesuaikan pendekatan dengan fungsi aset, kebutuhan pemilik, dan pengalaman orang yang menggunakannya.'],
     sectorItems: [
       ['Office building', 'Operasional gedung, fasilitas bersama, dan layanan tenant.'],
@@ -33,7 +39,7 @@ const copy = {
     footer: { address: 'Alamat kantor', contact: 'Hubungi kami', standards: 'Sertifikasi ISO', back: 'Kembali ke atas', rights: 'Hak cipta dilindungi.' }
   },
   en: {
-    nav: ['Services', 'Approach', 'Sectors', 'About'],
+    nav: ['Services', 'Approach', 'In the field', 'Sectors', 'About'],
     contact: 'Contact us', skip: 'Skip to content',
     hero: ['Property management consultancy', 'Well-managed property', 'works better.', 'PROMIND supports asset owners and managers in planning, operating, and improving property performance. Clear decisions for more focused operations.', 'Discuss your requirements', 'View services', 'Illustrative image, not a PROMIND project'],
     intro: ['Our perspective', 'Asset value is shaped by everyday decisions.', 'From occupant experience to the condition of building systems, every detail affects property performance. We look at the asset as a whole so that strategy can work on the ground.'],
@@ -51,6 +57,12 @@ const copy = {
       ['Define the plan', 'Set priorities, responsibilities, and measures that matter.'],
       ['Review progress', 'Evaluate results regularly and adjust as conditions change.'],
     ],
+    fieldwork: ['In the field', 'See the conditions before making the call.', 'A view of activities relevant to property management: assessing asset condition, maintaining building systems, and working safely.', 'Editorial photographs illustrate the activities. They do not depict PROMIND staff or projects.', 'Photo sources'],
+    fieldworkItems: [
+      ['Building assessment', 'Physical inspections and site observations help establish clear management priorities.', 'A worker in a hard hat checks a window and records observations.'],
+      ['Preventive maintenance', 'Scheduled technical inspections help identify issues before they disrupt operations.', 'A technician checks components inside an electrical panel.'],
+      ['HSE & workplace safety', 'Coordination, risk checks, and safe work procedures belong in everyday field activity.', 'Two workers wearing protective equipment coordinate on site.'],
+    ],
     sectors: ['Properties we serve', 'Every property has its own operating rhythm.', 'Our approach reflects each asset’s purpose, the owner’s needs, and the experience of the people who use it.'],
     sectorItems: [
       ['Office buildings', 'Building operations, shared facilities, and tenant services.'],
@@ -64,8 +76,13 @@ const copy = {
   }
 };
 
-const ids = ['services', 'approach', 'sectors', 'about'];
+const ids = ['services', 'approach', 'fieldwork', 'sectors', 'about'];
 const logo = '/images/promind-header-brand.png';
+const fieldworkPhotos = [
+  { image: '/images/fieldwork-assessment.jpg', source: 'https://www.pexels.com/photo/a-man-wearing-a-hard-hat-while-looking-at-the-glass-window-8292802/', credit: 'RDNE Stock project' },
+  { image: '/images/fieldwork-maintenance.jpg', source: 'https://www.pexels.com/photo/close-up-photo-of-a-man-checking-a-power-voltage-10871929/', credit: 'Annas Zakaria' },
+  { image: '/images/fieldwork-hse.jpg', source: 'https://www.pexels.com/photo/construction-workers-wearing-hardhats-8961064/', credit: 'Mikael Blomkvist' },
+];
 
 export default function App() {
   const [lang, setLang] = useState('id');
@@ -113,6 +130,15 @@ export default function App() {
       <section id="approach" className="approach section-pad"><div className="wrap approach-grid">
         <div className="approach-lead"><p className="eyebrow">{t.approach[0]}</p><h2>{t.approach[1]}</h2><p>{t.approach[2]}</p></div>
         <div className="approach-steps">{t.steps.map(([title, body], i) => <div className="approach-step" key={title}><span>{String(i + 1).padStart(2, '0')}</span><div><h3>{title}</h3><p>{body}</p></div></div>)}</div>
+      </div></section>
+
+      <section id="fieldwork" className="fieldwork section-pad"><div className="wrap">
+        <div className="fieldwork-heading"><div><p className="eyebrow">{t.fieldwork[0]}</p><h2>{t.fieldwork[1]}</h2></div><p>{t.fieldwork[2]}</p></div>
+        <div className="fieldwork-grid">{t.fieldworkItems.map(([title, description, alt], i) => <figure className={'fieldwork-item fieldwork-item-' + (i + 1)} key={title}>
+          <div className="fieldwork-photo"><img src={fieldworkPhotos[i].image} alt={alt} loading="lazy" decoding="async" /></div>
+          <figcaption><span className="fieldwork-number">0{i + 1}</span><div><h3>{title}</h3><p>{description}</p></div></figcaption>
+        </figure>)}</div>
+        <p className="fieldwork-disclaimer">{t.fieldwork[3]} <span>{t.fieldwork[4]}: {fieldworkPhotos.map((photo, i) => <span key={photo.credit}>{i > 0 && ' · '}<a href={photo.source} target="_blank" rel="noopener noreferrer">{photo.credit}</a></span>)}</span></p>
       </div></section>
 
       <section id="sectors" className="sectors section-pad"><div className="wrap sectors-grid"><div><p className="eyebrow">{t.sectors[0]}</p><h2>{t.sectors[1]}</h2><p>{t.sectors[2]}</p></div><ul>{t.sectorItems.map(([title, description]) => <li key={title}><strong>{title}</strong><span>{description}</span></li>)}</ul></div></section>

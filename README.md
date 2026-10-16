@@ -17,6 +17,8 @@ The page introduces PROMIND through its service scope, working approach, asset t
 
 The original PROMIND logo is in `public/images/promind-header-brand.png`. The architectural hero image in `public/images/promind-architecture-editorial.png` was generated for this site as a conceptual editorial visual; it is explicitly labeled as an illustration, not a project or portfolio image.
 
+The “Di lapangan” section uses real editorial photographs to illustrate three activities. These are stock photos, not PROMIND staff or projects, and the page labels them accordingly. Sources: [building assessment by RDNE Stock project](https://www.pexels.com/photo/a-man-wearing-a-hard-hat-while-looking-at-the-glass-window-8292802/), [electrical maintenance by Annas Zakaria](https://www.pexels.com/photo/close-up-photo-of-a-man-checking-a-power-voltage-10871929/), and [site safety coordination by Mikael Blomkvist](https://www.pexels.com/photo/construction-workers-wearing-hardhats-8961064/). The local copies are in `public/images/fieldwork-*.jpg`, sourced under the [Pexels License](https://www.pexels.com/license/). Replace them with approved PROMIND field documentation when available.
+
 The favicon uses a simplified vector version of the building mark inside the logo’s “O” at `public/favicon.svg`, with 32 px PNG and Apple touch fallbacks.
 
 Design direction: a restrained consulting profile with Promind blue, warm neutral backgrounds, architectural photography, editorial typography, and generous spacing. Energy 2 / rhythm 2 / motion 1. The image gives the page a real-estate context; service rows emphasize scope over decorative cards; the dark blue working-method section creates a clear pause in the narrative.
