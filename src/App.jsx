@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { Analytics } from '@vercel/analytics/react';
 
 const copy = {
   id: {
@@ -187,5 +188,6 @@ export default function App() {
         <a href="#top">{t.footer.back}</a>
       </div>
     </footer>
+    <Analytics />
   </div>;
 }
