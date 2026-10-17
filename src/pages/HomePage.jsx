@@ -9,7 +9,7 @@ import {
 
 const HERO_SLIDES = [
   {
-    url: "assets/jakarta1.jpg",
+    url: "/assets/jakarta1.jpg",
     alt: "Deretan gedung pencakar langit kawasan Sudirman dan SCBD Jakarta",
   },
   {
@@ -21,7 +21,7 @@ const HERO_SLIDES = [
     alt: "Panorama malam kawasan bisnis Semanggi dan gedung pencakar langit Jakarta",
   },
   {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/SCBD%2C_Jakarta.jpg/1280px-SCBD%2C_Jakarta.jpg",
+    url: "/assets/jakarta2.jpg",
     alt: "Kawasan terpadu gedung pencakar langit di Jakarta",
   },
 ];
