@@ -13,7 +13,7 @@ Build for production with `npm run build`. Run the inquiry-form unit tests with 
 
 ## Content and design
 
-The page introduces PROMIND through the value it brings to asset owners, service scope, engagement models, working approach, ProApps workflow, asset types, past experience, concrete deliverables, and a structured consultation form. The Indonesian and English copy is maintained in `src/App.jsx`.
+The page introduces PROMIND through the value it brings to asset owners, service scope, engagement models, working approach, PROAPPS workflow, asset types, past experience, concrete deliverables, and a structured consultation form. The Indonesian and English copy is maintained in `src/App.jsx`.
 
 The original PROMIND logo is in `public/images/promind-header-brand.png`. The architectural hero image in `public/images/promind-architecture-editorial.png` was generated for this site as a conceptual editorial visual; it is explicitly labeled as an illustration, not a project or portfolio image.
 
