@@ -9,7 +9,7 @@ import {
 
 const HERO_SLIDES = [
   {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Jakarta_Scyscrappers_from_Hutan_Kota_GBK.jpg/1920px-Jakarta_Scyscrappers_from_Hutan_Kota_GBK.jpg",
+    url: "assets/jakarta1.jpg",
     alt: "Deretan gedung pencakar langit kawasan Sudirman dan SCBD Jakarta",
   },
   {
