@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DefinitionRows from '../DefinitionRows.astro';
+import PageHero from '../PageHero.astro';
+import Section from '../Section.astro';
+import { loadClients, loadPages, loadPortfolio } from '../../content/load';
+import type { Locale } from '../../i18n/locales';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const { portfolio: page } = loadPages();
+const projects = loadPortfolio();
+const sectors = [...new Set(projects.map((p) => p.sector[lang]))];
+---
+
+<BaseLayout lang={lang} routeKey="portfolio" title={page.seo.title[lang]} description={page.seo.description[lang]}>
+  <PageHero eyebrow={page.eyebrow[lang]} title={page.title[lang]} subtitle={page.subtitle[lang]} />
+
+  {sectors.map((sector) => (
+    <Section title={sector}>
+      <DefinitionRows
+        items={projects
+          .filter((p) => p.sector[lang] === sector)
+          .map((p) => ({ title: p.name, meta: p.location[lang], text: p.scope[lang] }))}
+      />
+    </Section>
+  ))}
+
+  <Section title={page.clientsTitle[lang]}>
+    <ul data-clients class="m-0 grid list-none gap-x-8 p-0 sm:grid-cols-2">
+      {loadClients().map((c) => (
+        <li class="flex items-baseline justify-between gap-4 border-t border-hairline py-3">
+          <span class="font-display font-bold text-heading">{c.name}</span>
+          <span class="text-sm">{c.category[lang]}</span>
+        </li>
+      ))}
+    </ul>
+  </Section>
+</BaseLayout>

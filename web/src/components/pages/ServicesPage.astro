@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BulletList from '../BulletList.astro';
+import DefinitionRows from '../DefinitionRows.astro';
+import PageHero from '../PageHero.astro';
+import Section from '../Section.astro';
+import { loadEngagement, loadPages, loadServices } from '../../content/load';
+import type { Locale } from '../../i18n/locales';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const { services: page } = loadPages();
+---
+
+<BaseLayout lang={lang} routeKey="services" title={page.seo.title[lang]} description={page.seo.description[lang]}>
+  <PageHero eyebrow={page.eyebrow[lang]} title={page.title[lang]} subtitle={page.subtitle[lang]} />
+
+  {loadServices().map((s) => (
+    <article id={s.slug} class="grid gap-6 border-t border-hairline py-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+      <header>
+        <h2 class="m-0 text-2xl font-extrabold">{s.title[lang]}</h2>
+        <p class="mt-3">{s.summary[lang]}</p>
+      </header>
+      <BulletList items={s.deliverables[lang]} />
+    </article>
+  ))}
+
+  <Section title={page.engagementTitle[lang]}>
+    <DefinitionRows items={loadEngagement().map((e) => ({ title: e.title[lang], text: e.summary[lang] }))} />
+  </Section>
+</BaseLayout>
