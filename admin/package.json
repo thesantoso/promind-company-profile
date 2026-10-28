@@ -9,16 +9,33 @@
   "scripts": {
     "dev": "wrangler dev",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "ui:build": "vite build --config ui/vite.config.ts",
+    "ui:dev": "vite --config ui/vite.config.ts",
+    "ui:test": "vitest run --config ui/vitest.config.ts && tsc --noEmit -p ui",
+    "ui:e2e": "npm run ui:build && playwright test -c ui/playwright.config.ts"
   },
   "dependencies": {
     "hono": "^4.13.14",
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@cloudflare/workers-types": "^5.20261028.1",
+    "@fontsource-variable/dm-sans": "^5.3.0",
+    "@fontsource-variable/manrope": "^5.3.0",
+    "@hono/node-server": "^2.1.5",
+    "@playwright/test": "^1.64.1",
     "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "qrcode-generator": "^2.0.4",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tsx": "^4.23.15",
     "typescript": "^7.0.2",
+    "vite": "^8.3.5",
     "vitest": "^5.0.5",
     "wrangler": "^4.154.0"
   }

@@ -2,3 +2,6 @@ node_modules/
 .wrangler/
 ui/dist/
 .dev.vars
+ui/test-results/
+ui/playwright-report/
+ui/e2e/.auth/
