@@ -44,6 +44,7 @@ for (const p of pages) {
       await page.goto(p.path);
       const { violations } = await new AxeBuilder({ page })
         .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
+        .options({ rules: { 'label-content-name-mismatch': { enabled: true } } })
         .analyze();
       const bad = violations.filter((v) => v.impact === 'serious' || v.impact === 'critical');
       expect(bad.map((v) => `${v.id}: ${v.help}`)).toEqual([]);
@@ -60,9 +61,10 @@ test('unknown language prefix or slug returns 404', async ({ page }) => {
 
 test('language switch goes to the translated slug, not the same slug', async ({ page }) => {
   await page.goto('/id/layanan/');
-  await page.getByRole('link', { name: 'Ganti ke English' }).click();
+  // Label in Name (WCAG 2.5.3): the accessible name starts with the visible text, so voice control "click EN" works.
+  await page.getByRole('link', { name: /^en\b.*Switch to English/i }).click();
   await expect(page).toHaveURL(/\/en\/services\/$/);
-  await page.getByRole('link', { name: 'Beralih ke Bahasa Indonesia' }).click();
+  await page.getByRole('link', { name: /^id\b.*Beralih ke Bahasa Indonesia/i }).click();
   await expect(page).toHaveURL(/\/id\/layanan\/$/);
 });
 

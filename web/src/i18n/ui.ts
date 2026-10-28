@@ -28,7 +28,7 @@ export const UI: Record<Locale, Record<UiKey, string>> = {
     'nav.contact': 'Kontak',
     'nav.menu': 'Buka menu',
     'nav.skip': 'Lewati ke konten utama',
-    'lang.switch': 'Ganti ke English',
+    'lang.switch': 'Switch to English',
     'lang.choose': 'Pilih bahasa',
     'footer.rights': 'Hak cipta dilindungi.',
     'placeholder.soon': 'Konten halaman ini sedang disiapkan.',

@@ -11,6 +11,5 @@ const other: Locale = lang === 'id' ? 'en' : 'id';
 <a
   href={pathFor(routeKey, other)}
   hreflang={htmlLang(other)}
-  lang={htmlLang(other)}
   class="inline-flex min-h-11 min-w-11 items-center justify-center border border-hairline-strong px-3 font-display text-sm font-bold uppercase tracking-wide text-heading no-underline hover:border-accent hover:text-accent-hover"
-><span aria-hidden="true">{other}</span><span class="sr-only">{t(lang, 'lang.switch')}</span></a>
+><span lang={htmlLang(other)}>{other}</span><span class="sr-only" lang={htmlLang(other)}>&nbsp;– {t(lang, 'lang.switch')}</span></a>
