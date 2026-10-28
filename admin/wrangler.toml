@@ -2,6 +2,7 @@ name = "promind-admin"
 main = "src/worker.ts"
 compatibility_date = "2026-10-01"
 workers_dev = false
+routes = [{ pattern = "admin.promind.co.id", custom_domain = true }]
 
 [assets]
 directory = "./ui/dist"
@@ -17,6 +18,9 @@ migrations_dir = "migrations"
 
 [vars]
 GITHUB_REPO = "thesantoso/promind-company-profile"
-GITHUB_BRANCH = "main"
+# Staging membaca/menulis branch revamp; saat cutover (setelah merge ke main) ubah ke "main"
+GITHUB_BRANCH = "revamp"
 ADMIN_ORIGIN = "https://admin.promind.co.id"
-SITE_ORIGIN = "https://promind.co.id"
+# Staging dulu; saat cutover ubah ke https://promind.co.id
+SITE_ORIGIN = "https://staging.promind.co.id"
+CONTACT_MAILER_URL = "https://forms.promind.co.id/contact-mailer.php"

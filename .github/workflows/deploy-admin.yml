@@ -4,7 +4,7 @@ name: Deploy admin
 
 on:
   push:
-    branches: [main]
+    branches: [main, revamp]
     paths:
       - 'admin/**'
       - 'web/src/content/**'
