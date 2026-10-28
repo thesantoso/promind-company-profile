@@ -22,14 +22,29 @@ export default function App() {
   const [cmsResolved, setCmsResolved] = useState(true);
 
   useEffect(() => {
-    fetch('/api/site-content.json')
-      .then((res) => res.json())
+    // Try live CMS API first so updates in EmDash admin appear immediately
+    const liveCmsEndpoint = 'https://promind.thesantoso.workers.dev/api/site-content.json';
+    fetch(liveCmsEndpoint)
+      .then((res) => {
+        if (!res.ok) throw new Error('Live CMS fetch failed');
+        return res.json();
+      })
       .then((data) => {
         if (data && !data.error) {
           setCmsContent(data);
         }
       })
-      .catch(() => {})
+      .catch(() => {
+        // Fallback to local static API if offline or blocked
+        fetch('/api/site-content.json')
+          .then((res) => res.json())
+          .then((data) => {
+            if (data && !data.error) {
+              setCmsContent(data);
+            }
+          })
+          .catch(() => {});
+      })
       .finally(() => setCmsResolved(true));
   }, []);
 
