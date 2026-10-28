@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { formatDate, formatIDR, formatNumber } from './format';
+import { formatDate, formatIDR, formatNumber, formatShortDate } from './format';
 
 const plain = (s: string) => s.replace(/\s/g, ' ');
 
@@ -11,6 +11,11 @@ describe('formatters', () => {
 
   test('formatDate is timezone-stable near midnight UTC', () => {
     expect(formatDate(new Date('2026-12-31T23:30:00Z'), 'en')).toBe('December 31, 2026');
+  });
+
+  test('formatShortDate matches the live careers pages', () => {
+    expect(formatShortDate('2026-10-17', 'id')).toBe('17 Okt 2026');
+    expect(formatShortDate('2026-10-17', 'en')).toBe('Oct 17, 2026');
   });
 
   test('formatNumber uses locale separators', () => {

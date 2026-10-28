@@ -24,3 +24,9 @@ export function formatIDR(n: number, lang: Locale): string {
     maximumFractionDigits: 0,
   }).format(n);
 }
+
+/** Short date as the live careers pages show it: "17 Okt 2026" / "Oct 17, 2026". */
+export function formatShortDate(d: Date | string, lang: Locale): string {
+  const date = typeof d === 'string' ? new Date(d) : d;
+  return new Intl.DateTimeFormat(INTL_LOCALE[lang], { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(date);
+}

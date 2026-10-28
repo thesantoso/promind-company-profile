@@ -5,6 +5,7 @@
   if (!form) return;
 
   var button = form.querySelector('button[type=submit]');
+  var buttonLabel = button.querySelector('[data-label]') || button;
   var statuses = {};
   form.querySelectorAll('[data-status]').forEach(function (el) {
     statuses[el.getAttribute('data-status')] = el;
@@ -22,20 +23,17 @@
 
   function invalidFields() {
     var bad = [];
-    var name = field('name').value.trim();
     var email = field('email').value.trim();
-    var topic = field('topic').value;
-    var message = field('message').value.trim();
-    if (!name) bad.push('name');
+    if (!field('name').value.trim()) bad.push('name');
+    if (!field('company').value.trim()) bad.push('company');
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) bad.push('email');
-    if (!topic) bad.push('topic');
-    if (message.length < 10) bad.push('message');
+    if (!/^[0-9+()\-\s.]{6,30}$/.test(field('phone').value.trim())) bad.push('phone');
     return bad;
   }
 
   form.addEventListener('submit', function (event) {
     event.preventDefault();
-    ['name', 'email', 'topic', 'message'].forEach(function (n) {
+    ['name', 'company', 'email', 'phone'].forEach(function (n) {
       field(n).removeAttribute('aria-invalid');
     });
     show(null);
@@ -61,16 +59,21 @@
       name: field('name').value.trim(),
       email: field('email').value.trim(),
       topic: field('topic').value,
-      message: field('message').value.trim(),
+      // The worker takes one message: company and property type go first, then the notes.
+      message: [
+        form.getAttribute('data-label-company') + ': ' + field('company').value.trim(),
+        form.getAttribute('data-label-property') + ': ' + field('propertyType').value,
+        '',
+        field('message').value.trim(),
+      ].join('\n').trim(),
       lang: document.documentElement.lang.indexOf('en') === 0 ? 'en' : 'id',
       turnstileToken: token,
       website: field('website').value,
     };
-    var phone = field('phone').value.trim();
-    if (phone) payload.phone = phone;
+    payload.phone = field('phone').value.trim();
 
     button.disabled = true;
-    button.textContent = form.getAttribute('data-sending');
+    buttonLabel.textContent = form.getAttribute('data-sending');
 
     fetch(form.getAttribute('data-endpoint') || '/api/contact', {
       method: 'POST',
@@ -94,7 +97,7 @@
       })
       .then(function () {
         button.disabled = false;
-        button.textContent = form.getAttribute('data-submit');
+        buttonLabel.textContent = form.getAttribute('data-submit');
         if (window.turnstile && typeof window.turnstile.reset === 'function') window.turnstile.reset();
       });
   });

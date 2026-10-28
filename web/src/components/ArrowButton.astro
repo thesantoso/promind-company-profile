@@ -1,0 +1,12 @@
+---
+import Icon from './Icon.astro';
+
+// The live `.button` call to action: label plus an up-right arrow (lucide size 18).
+interface Props { href: string; label: string; variant?: 'primary' | 'light'; class?: string }
+const { href, label, variant = 'primary', class: className = '' } = Astro.props;
+---
+
+<a href={href} class={`button button-${variant} cursor-pointer ${className}`}>
+  <span>{label}</span>
+  <Icon name="arrow-up-right" size={18} />
+</a>

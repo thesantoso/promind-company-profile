@@ -90,8 +90,10 @@ export function SessionGate({
 
   if (state.status === 'loading') {
     return (
-      <main className="center-screen" aria-busy="true">
-        <p role="status">Memuat portal…</p>
+      <main className="grid min-h-dvh place-items-center p-6" aria-busy="true">
+        <p role="status" className="text-sm text-muted-foreground">
+          Memuat portal…
+        </p>
       </main>
     );
   }

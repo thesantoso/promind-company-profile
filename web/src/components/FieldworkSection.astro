@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+import { loadFieldwork, loadPages } from '../content/load';
+import type { Locale } from '../i18n/locales';
+import { ordinal } from '../lib/ordinal';
+
+// The live "Eksekusi di Lapangan" section (HomePage.jsx and PortfolioPage.jsx share it).
+interface Props { lang: Locale; class: string }
+const { lang, class: className } = Astro.props;
+const { fieldwork: heading } = loadPages().home;
+const photos = import.meta.glob<{ default: ImageMetadata }>('../assets/photos/*.jpg', { eager: true });
+---
+
+<section class={className}>
+  <div class="wrap">
+    <div class="fieldwork-heading">
+      <div>
+        <p class="eyebrow">{heading.eyebrow[lang]}</p>
+        <h2>{heading.title[lang]}</h2>
+      </div>
+      <p>{heading.subtitle[lang]}</p>
+    </div>
+
+    <div class="fieldwork-grid">
+      {loadFieldwork().map((item, i) => (
+        <figure class={`fieldwork-item fieldwork-item-${i + 1}`}>
+          <div class="fieldwork-photo">
+            <Image
+              src={photos[`../assets/photos/${item.image.src}`]!.default}
+              alt={item.image.alt[lang]}
+              widths={[480, 640, 960, 1280]}
+              sizes="(max-width: 600px) calc(100vw - 40px), (max-width: 1360px) calc(50vw - 54px), 626px"
+              format="webp"
+              quality={70}
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <figcaption>
+            <span class="fieldwork-number">{ordinal(i)}</span>
+            <div>
+              <h3>{item.title[lang]}</h3>
+              <p>{item.summary[lang]}</p>
+            </div>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+    <slot />
+  </div>
+</section>

@@ -1,42 +1,120 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import DefinitionRows from '../DefinitionRows.astro';
+import Icon from '../Icon.astro';
 import PageHero from '../PageHero.astro';
-import Section from '../Section.astro';
 import { filterActiveJobs, loadJobs, loadPages } from '../../content/load';
+import { formatShortDate } from '../../i18n/format';
 import type { Locale } from '../../i18n/locales';
 import { careerPath } from '../../i18n/routes';
+import { ordinal } from '../../lib/ordinal';
 import { todayUtc } from '../../lib/today';
 
+// Markup and classes follow the live CareersPage.jsx. The department tabs are radio buttons
+// (CSS hides the other groups); with five roles the live pagination never appears.
 interface Props { lang: Locale }
 const { lang } = Astro.props;
 const { careers: page } = loadPages();
 const jobs = filterActiveJobs(loadJobs(), todayUtc());
+const departments = [...new Set(jobs.map((j) => j.department.en.trim()))];
+const group = (deptEn: string) => departments.indexOf(deptEn.trim()) + 1;
+const deptLabel = (deptEn: string) => jobs.find((j) => j.department.en.trim() === deptEn)!.department[lang];
 ---
 
 <BaseLayout lang={lang} routeKey="careers" title={page.seo.title[lang]} description={page.seo.description[lang]}>
-  <PageHero eyebrow={page.eyebrow[lang]} title={page.title[lang]} subtitle={page.subtitle[lang]} />
+  <div class="bg-[#f6f5f1]">
+    <PageHero eyebrow={page.eyebrow[lang]} title={page.title[lang]} subtitle={page.subtitle[lang]} />
 
-  <div class="border-t border-hairline py-12">
-    <DefinitionRows items={page.culture.map((c) => ({ title: c.title[lang], text: c.summary[lang] }))} />
+    <section class="value-section">
+      <div class="wrap">
+        <div class="value-heading">
+          <div>
+            <p class="eyebrow">{page.cultureEyebrow[lang]}</p>
+            <h2>{page.cultureTitle[lang]}</h2>
+          </div>
+          <p>{page.cultureBody[lang]}</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 border-t border-[#bdc9d2] pt-6">
+          {page.culture.map((c, i) => (
+            <article>
+              <span class="text-xs font-extrabold text-[#2b5caf] block mb-3">{ordinal(i)}</span>
+              <h3 class="text-xl font-bold text-[#172b42] font-manrope mb-2">{c.title[lang]}</h3>
+              <p class="text-sm text-[#5b6874] leading-relaxed m-0">{c.summary[lang]}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad bg-white filterable">
+      <div class="wrap">
+        <div class="section-heading">
+          <p class="eyebrow">{page.openRolesEyebrow[lang]}</p>
+          <h2>{page.openRolesTitle[lang]}</h2>
+          <p>{page.openRolesBody[lang]}</p>
+        </div>
+
+        {jobs.length > 0 && (
+          <fieldset class="career-filter-bar filter-set">
+            <legend class="sr-only">{page.filterLabel[lang]}</legend>
+            <input type="radio" name="department" id="department-0" data-f="0" class="filter-input" checked />
+            <label for="department-0" class="career-filter-btn">
+              <span>{page.allLabel[lang]}</span>
+              <span class="career-filter-count">{jobs.length}</span>
+            </label>
+            {departments.map((d) => (
+              <>
+                <input type="radio" name="department" id={`department-${group(d)}`} data-f={group(d)} class="filter-input" />
+                <label for={`department-${group(d)}`} class="career-filter-btn">
+                  <span>{deptLabel(d)}</span>
+                  <span class="career-filter-count">{jobs.filter((j) => j.department.en.trim() === d).length}</span>
+                </label>
+              </>
+            ))}
+          </fieldset>
+        )}
+
+        <div class="border-t border-[#cbd2d9]">
+          {jobs.length === 0 ? (
+            <div class="py-20 text-center max-w-xl mx-auto">
+              <p class="text-lg font-bold text-[#172b42] font-manrope mb-2">{page.emptyText[lang]}</p>
+            </div>
+          ) : (
+            <ul data-roles>
+              {jobs.map((j, i) => (
+                <li data-g={group(j.department.en)} class="py-8 border-b border-[#cbd2d9] grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                  <div class="lg:col-span-1">
+                    <span class="text-xs font-extrabold text-[#2b5caf]">{ordinal(i)}</span>
+                  </div>
+                  <div class="lg:col-span-4">
+                    <h3 class="text-xl font-bold text-[#172b42] hover:text-[#2b5caf] font-manrope mb-1 transition cursor-pointer">
+                      <a href={careerPath(j.slug, lang)}>{j.title[lang]}</a>
+                    </h3>
+                    <div class="career-meta-row">
+                      <span>{j.department[lang]}</span>
+                      <span class="career-meta-dot" aria-hidden="true">•</span>
+                      <span>{j.experience[lang]}</span>
+                      <span class="career-meta-dot" aria-hidden="true">•</span>
+                      <span class="career-meta-date">
+                        <Icon name="calendar" size={12} />
+                        <time datetime={j.postedAt}>{formatShortDate(j.postedAt, lang)}</time>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="lg:col-span-5">
+                    <p class="text-sm text-[#526374] leading-relaxed m-0">{j.summary[lang]}</p>
+                  </div>
+                  <div class="lg:col-span-2 lg:text-right">
+                    <a href={careerPath(j.slug, lang)} class="inline-flex items-center space-x-2 px-5 py-3 bg-[#2959ab] hover:bg-[#194586] text-white text-xs font-bold uppercase tracking-wider transition cursor-pointer" aria-label={`${page.detailLabel[lang]}: ${j.title[lang]}`}>
+                      <span>{page.detailLabel[lang]}</span>
+                      <Icon name="arrow-up-right" class="w-4 h-4" />
+                    </a>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+    </section>
   </div>
-
-  <Section title={page.openRolesTitle[lang]}>
-    {jobs.length === 0 ? (
-      <p class="m-0">{page.emptyText[lang]}</p>
-    ) : (
-      <ul data-roles class="m-0 list-none p-0">
-        {jobs.map((j) => (
-          <li class="border-t border-hairline py-5 first:border-t-0 first:pt-0">
-            <a
-              href={careerPath(j.slug, lang)}
-              class="inline-flex min-h-11 items-center font-display text-lg font-bold no-underline"
-            >{j.title[lang]}</a>
-            <p class="m-0 text-sm">{j.department[lang]} · {j.type[lang]} · {j.location[lang]}</p>
-            <p class="mt-2">{j.summary[lang]}</p>
-          </li>
-        ))}
-      </ul>
-    )}
-  </Section>
 </BaseLayout>

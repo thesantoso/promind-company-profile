@@ -16,6 +16,8 @@ export type BilingualImage = z.infer<typeof bilingualImage>;
 export const siteSettingsSchema = z.object({
   legalName: text,
   brand: z.literal('PROMIND'),
+  /** Brand slogan, shown as written in the logo (not translated). */
+  tagline: text,
   address: bilingualText,
   email: z.email(),
   phone: text,
@@ -95,33 +97,101 @@ const routeKey = z.enum(Object.keys(ROUTES) as [RouteKey, ...RouteKey[]]);
 const heading = z.object({ eyebrow: bilingualText, title: bilingualText });
 const seo = z.object({ title: bilingualText, description: bilingualText });
 
+const link = z.object({ label: bilingualText, route: routeKey });
+
 export const pagesSchema = z.object({
   home: z.object({
     seo,
     hero: z.object({
       eyebrow: bilingualText,
       title: bilingualText,
+      /** The end of `title` that is set in the accent color. */
+      titleHighlight: bilingualText,
       description: bilingualText,
-      cta: z.object({ label: bilingualText, route: routeKey }),
+      cta: link,
+      secondaryLink: link,
+      imageAlt: bilingualText,
     }),
     focus: heading.extend({ body: bilingualText }),
     sectors: heading.extend({ subtitle: bilingualText }),
+    services: z.object({ linkLabel: bilingualText }),
     fieldwork: heading.extend({ subtitle: bilingualText }),
     technology: heading.extend({
       description: bilingualText,
       steps: z.array(z.object({ title: bilingualText, summary: bilingualText })).length(3),
+      wordmarkCaption: bilingualText,
+    }),
+    clients: heading.extend({ body: bilingualText, logosAlt: bilingualText }),
+    contact: heading.extend({
+      body: bilingualText,
+      cardEyebrow: bilingualText,
+      cardTitle: bilingualText,
+      cardBody: bilingualText,
+      cardLink: link,
     }),
   }),
-  services: z.object({ seo, ...heading.shape, subtitle: bilingualText, engagementTitle: bilingualText }),
-  portfolio: z.object({ seo, ...heading.shape, subtitle: bilingualText, clientsTitle: bilingualText }),
-  insights: z.object({ seo, ...heading.shape, subtitle: bilingualText }),
-  about: z.object({ seo, ...heading.shape, story: blList, pillarsTitle: bilingualText, standardsTitle: bilingualText }),
+  services: z.object({
+    seo, ...heading.shape, subtitle: bilingualText,
+    scopeLabel: bilingualText,
+    engagementEyebrow: bilingualText,
+    engagementTitle: bilingualText,
+    engagementBody: bilingualText,
+    ctaLabel: bilingualText,
+  }),
+  portfolio: z.object({
+    seo, ...heading.shape, subtitle: bilingualText,
+    registerEyebrow: bilingualText,
+    clientsTitle: bilingualText,
+    registerBody: bilingualText,
+    filterLabel: bilingualText,
+    allLabel: bilingualText,
+    ctaLabel: bilingualText,
+  }),
+  insights: z.object({ seo, ...heading.shape, subtitle: bilingualText, highlightsLabel: bilingualText, ctaLabel: bilingualText }),
+  about: z.object({
+    seo, ...heading.shape,
+    profileEyebrow: bilingualText,
+    profileTitle: bilingualText,
+    story: blList,
+    pillarsEyebrow: bilingualText,
+    pillarsTitle: bilingualText,
+    pillarsBody: bilingualText,
+    standardsEyebrow: bilingualText,
+    standardsTitle: bilingualText,
+    standardsBody: bilingualText,
+    ctaLabel: bilingualText,
+  }),
   careers: z.object({
     seo, ...heading.shape, subtitle: bilingualText,
+    cultureEyebrow: bilingualText,
+    cultureTitle: bilingualText,
+    cultureBody: bilingualText,
     culture: z.array(z.object({ title: bilingualText, summary: bilingualText })).min(1),
+    openRolesEyebrow: bilingualText,
     openRolesTitle: bilingualText,
+    openRolesBody: bilingualText,
+    filterLabel: bilingualText,
+    allLabel: bilingualText,
+    detailLabel: bilingualText,
     emptyText: bilingualText,
   }),
-  contact: z.object({ seo, ...heading.shape, subtitle: bilingualText, serviceAreas: blList, ctaLabel: bilingualText }),
+  contact: z.object({
+    seo, ...heading.shape, subtitle: bilingualText,
+    formEyebrow: bilingualText,
+    formTitle: bilingualText,
+    formBody: bilingualText,
+    serviceAreas: blList,
+    propertyTypes: blList,
+    form: z.object({
+      name: bilingualText,
+      company: bilingualText,
+      email: bilingualText,
+      phone: bilingualText,
+      propertyType: bilingualText,
+      topic: bilingualText,
+      message: bilingualText,
+      submit: bilingualText,
+    }),
+  }),
 });
 export type Pages = z.infer<typeof pagesSchema>;

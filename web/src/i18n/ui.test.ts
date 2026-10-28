@@ -22,7 +22,7 @@ describe('UI strings', () => {
   });
 
   test('t looks up by locale', () => {
-    expect(t('en', 'nav.about')).toBe('About');
+    expect(t('en', 'nav.about')).toBe('About Us');
     expect(t('id', 'nav.about')).toBe('Tentang Kami');
   });
 });

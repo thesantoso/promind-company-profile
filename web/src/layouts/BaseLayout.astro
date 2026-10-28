@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import '../styles/live.css';
+import '../styles/site.css';
 import dmSansFont from '@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2?url';
 import manropeFont from '@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2?url';
 import Footer from '../components/Footer.astro';
@@ -59,11 +61,16 @@ const ogImage = await getOgImage(Astro.site!);
     <SeoHead lang={lang} routeKey={routeKey} title={title} description={description} ogImage={ogImage} paths={paths} />
   </head>
   <body>
-    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:bg-surface focus:p-3">{t(lang, 'nav.skip')}</a>
-    <Header lang={lang} routeKey={routeKey} paths={paths} />
-    <main id="main" class="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
-      <slot />
-    </main>
-    <Footer lang={lang} />
+    <a href="#main" class="skip-link">{t(lang, 'nav.skip')}</a>
+    <div class="site-shell min-h-screen flex flex-col justify-between bg-[#f6f5f1] text-[#1d2936] font-sans antialiased">
+      <div>
+        <Header lang={lang} routeKey={routeKey} paths={paths} />
+        <main id="main">
+          <slot />
+        </main>
+      </div>
+      <Footer lang={lang} />
+    </div>
+    <slot name="scripts" />
   </body>
 </html>

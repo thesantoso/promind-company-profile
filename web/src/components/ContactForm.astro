@@ -1,59 +1,76 @@
 ---
 import type { Locale } from '../i18n/locales';
 import { t } from '../i18n/ui';
+import Icon from './Icon.astro';
 
-interface Props { lang: Locale; topics: string[]; email: string; siteKey: string; endpoint?: string }
-const { lang, topics, email, siteKey, endpoint = '/api/contact' } = Astro.props;
-const field = 'mt-1 block w-full min-h-11 border border-hairline-strong bg-surface px-3 py-2 text-heading aria-[invalid=true]:border-red-700';
-const label = 'block font-display text-sm font-bold text-heading';
+// Same fields and markup as the live ContactPage.jsx `.inquiry-form`. The worker's contract is
+// unchanged: company and property type are sent at the top of `message`.
+interface Labels { name: string; company: string; email: string; phone: string; propertyType: string; topic: string; message: string; submit: string }
+interface Props { lang: Locale; topics: string[]; propertyTypes: string[]; labels: Labels; email: string; siteKey: string; endpoint?: string }
+const { lang, topics, propertyTypes, labels, email, siteKey, endpoint = '/api/contact' } = Astro.props;
 ---
 
-<form id="contact-form" novalidate data-endpoint={endpoint} data-sending={t(lang, 'form.sending')} data-submit={t(lang, 'form.submit')} class="max-w-2xl space-y-5">
-  <div class="grid gap-5 sm:grid-cols-2">
-    <div>
-      <label class={label} for="cf-name">{t(lang, 'form.name')}</label>
-      <input class={field} id="cf-name" name="name" type="text" autocomplete="name" required maxlength="80" />
-    </div>
-    <div>
-      <label class={label} for="cf-email">{t(lang, 'form.email')}</label>
-      <input class={field} id="cf-email" name="email" type="email" autocomplete="email" required maxlength="254" />
-    </div>
-  </div>
-
-  <div class="grid gap-5 sm:grid-cols-2">
-    <div>
-      <label class={label} for="cf-phone">{t(lang, 'form.phone')}</label>
-      <input class={field} id="cf-phone" name="phone" type="tel" autocomplete="tel" maxlength="30" />
-    </div>
-    <div>
-      <label class={label} for="cf-topic">{t(lang, 'form.topic')}</label>
-      <select class={field} id="cf-topic" name="topic" required>
-        <option value="">{t(lang, 'form.topic.choose')}</option>
-        {topics.map((topic) => <option value={topic}>{topic}</option>)}
-      </select>
-    </div>
-  </div>
-
-  <div>
-    <label class={label} for="cf-message">{t(lang, 'form.message')}</label>
-    <textarea class={field} id="cf-message" name="message" rows="6" required minlength="10" maxlength="4000"></textarea>
-  </div>
+<form
+  id="contact-form"
+  class="inquiry-form"
+  novalidate
+  data-endpoint={endpoint}
+  data-sending={t(lang, 'form.sending')}
+  data-submit={labels.submit}
+  data-label-company={labels.company}
+  data-label-property={labels.propertyType}
+>
+  <label>
+    <span>{labels.name}</span>
+    <input name="name" type="text" autocomplete="name" required maxlength="80" />
+  </label>
+  <label>
+    <span>{labels.company}</span>
+    <input name="company" type="text" autocomplete="organization" required maxlength="120" />
+  </label>
+  <label>
+    <span>{labels.email}</span>
+    <input name="email" type="email" autocomplete="email" required maxlength="254" />
+  </label>
+  <label>
+    <span>{labels.phone}</span>
+    <input name="phone" type="tel" autocomplete="tel" required maxlength="30" />
+  </label>
+  <label>
+    <span>{labels.propertyType}</span>
+    <select name="propertyType">
+      {propertyTypes.map((p) => <option value={p}>{p}</option>)}
+    </select>
+  </label>
+  <label>
+    <span>{labels.topic}</span>
+    <select name="topic">
+      {topics.map((topic) => <option value={topic}>{topic}</option>)}
+    </select>
+  </label>
+  <label class="form-wide">
+    <span>{labels.message}</span>
+    <textarea name="message" rows="4" maxlength="3500"></textarea>
+  </label>
 
   <div class="hp" aria-hidden="true">
     <label for="cf-website">Website</label>
     <input id="cf-website" name="website" type="text" tabindex="-1" autocomplete="off" />
   </div>
 
-  <div class="cf-turnstile" data-sitekey={siteKey} data-language={lang} data-theme="light"></div>
+  <div class="cf-turnstile form-wide" data-sitekey={siteKey} data-language={lang} data-theme="light" data-appearance="interaction-only"></div>
 
-  <div role="alert" data-alert>
-    <p hidden data-status="error-required" class="m-0 text-red-800">{t(lang, 'form.error.required')}</p>
-    <p hidden data-status="error-verify" class="m-0 text-red-800">{t(lang, 'form.error.verify')}</p>
-    <p hidden data-status="error-rate" class="m-0 text-red-800">{t(lang, 'form.error.rate')} <a href={`mailto:${email}`}>{email}</a></p>
-    <p hidden data-status="error-unavailable" class="m-0 text-red-800">{t(lang, 'form.error.unavailable')} <a href={`mailto:${email}`}>{email}</a></p>
-    <p hidden data-status="error-failed" class="m-0 text-red-800">{t(lang, 'form.error.failed')} <a href={`mailto:${email}`}>{email}</a></p>
+  <div class="form-wide form-status" role="alert" data-alert>
+    <p hidden data-status="error-required">{t(lang, 'form.error.required')}</p>
+    <p hidden data-status="error-verify">{t(lang, 'form.error.verify')}</p>
+    <p hidden data-status="error-rate">{t(lang, 'form.error.rate')} <a href={`mailto:${email}`}>{email}</a></p>
+    <p hidden data-status="error-unavailable">{t(lang, 'form.error.unavailable')} <a href={`mailto:${email}`}>{email}</a></p>
+    <p hidden data-status="error-failed">{t(lang, 'form.error.failed')} <a href={`mailto:${email}`}>{email}</a></p>
   </div>
-  <div role="status"><p hidden data-status="success" class="m-0 font-bold text-heading">{t(lang, 'form.success')}</p></div>
+  <div class="form-wide form-status" role="status"><p hidden data-status="success" class="form-success">{t(lang, 'form.success')}</p></div>
 
-  <button type="submit" class="inline-flex min-h-12 items-center bg-accent px-6 font-display font-bold text-white hover:bg-accent-hover">{t(lang, 'form.submit')}</button>
+  <button type="submit" class="button button-light form-submit">
+    <span data-label>{labels.submit}</span>
+    <Icon name="arrow-up-right" size={18} />
+  </button>
 </form>

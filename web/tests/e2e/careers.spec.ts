@@ -16,10 +16,24 @@ for (const lang of LOCALES) {
       const roles = page.locator('[data-roles] > li');
       await expect(roles).toHaveCount(jobs.length);
       for (const j of jobs) {
-        const link = page.locator(`[data-roles] a[href="${careerPath(j.slug, lang)}"]`);
+        const link = page.locator(`[data-roles] h3 a[href="${careerPath(j.slug, lang)}"]`);
         await expect(link).toHaveText(j.title[lang]);
       }
       for (const c of pages.careers.culture) await expect(page.getByText(c.title[lang], { exact: true })).toBeVisible();
+    });
+
+    test('department filter shows one department at a time, without JavaScript', async ({ browser }) => {
+      const ctx = await browser.newContext({ javaScriptEnabled: false });
+      const page = await ctx.newPage();
+      await page.goto(`http://127.0.0.1:4321${pathFor('careers', lang)}`);
+      const departments = [...new Set(jobs.map((j) => j.department.en))];
+      const radios = page.getByRole('radio');
+      await expect(radios).toHaveCount(departments.length + 1);
+      await page.locator('label[for=department-1]').click();
+      await expect(page.locator('[data-roles] > li:visible')).toHaveCount(jobs.filter((j) => j.department.en === departments[0]).length);
+      await page.locator('label[for=department-0]').click();
+      await expect(page.locator('[data-roles] > li:visible')).toHaveCount(jobs.length);
+      await ctx.close();
     });
 
     for (const j of jobs) {
@@ -29,8 +43,9 @@ for (const lang of LOCALES) {
         for (const key of ['responsibilities', 'qualifications', 'benefits']) {
           await expect(page.locator(`[data-list=${key}] li`)).toHaveCount(j[key][lang].length);
         }
-        const apply = page.locator('[data-apply] a');
+        const apply = page.locator('[data-apply-cta]');
         await expect(apply).toHaveCount(1);
+        await expect(page.locator('[data-apply-email]')).toHaveText(j.applicationEmail);
         await expect(apply).toHaveAttribute('href', new RegExp(`^mailto:${j.applicationEmail}\\?subject=`));
         await expect(page.locator('html')).toHaveAttribute('lang', lang === 'id' ? 'id-ID' : 'en-US');
       });

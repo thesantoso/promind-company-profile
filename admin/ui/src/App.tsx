@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect } from 'react';
-import { Announcer, Loading } from './components/ui';
+import { Loading, Toaster, TooltipProvider } from './components/ui';
 import { Layout } from './Layout';
 import { Account } from './pages/Account';
 import { ContentList } from './pages/ContentList';
@@ -49,7 +49,7 @@ export function App({ inviteToken }: { inviteToken: string | null }) {
   let body;
   if (path === '/accept' || path === '/aktifkan-2fa') {
     body = (
-      <Suspense fallback={<main className="center-screen"><Loading what="halaman" /></main>}>
+      <Suspense fallback={<main className="mx-auto max-w-md p-8"><Loading what="halaman" /></main>}>
         {path === '/accept' ? <AcceptInvite token={inviteToken} /> : <ActivateTwoFactor />}
       </Suspense>
     );
@@ -64,9 +64,9 @@ export function App({ inviteToken }: { inviteToken: string | null }) {
     );
   }
   return (
-    <>
+    <TooltipProvider>
       {body}
-      <Announcer />
-    </>
+      <Toaster />
+    </TooltipProvider>
   );
 }

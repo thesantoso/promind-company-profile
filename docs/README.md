@@ -21,6 +21,7 @@ Situs lama (Vite SPA + portal PHP di Rumahweb) **masih yang live** dan tidak ter
 | [content-guide.md](content-guide.md) | Cara mengubah konten (sebelum admin ada), aturan terjemahan dan brand |
 | [quality-and-testing.md](quality-and-testing.md) | Anggaran performa, pengujian, CI, hasil terukur |
 | [decisions.md](decisions.md) | Log keputusan beserta alasan dan biaya bila keliru |
+| [resume-here.md](resume-here.md) | Titik simpan terbaru: apa yang sedang berjalan dan langkah lanjut |
 | [roadmap.md](roadmap.md) | Tahap 3 dan 4, prasyarat, tindakan pemilik, utang teknis |
 | [superpowers/specs/2026-10-28-promind-revamp-design.md](superpowers/specs/2026-10-28-promind-revamp-design.md) | Spec desain yang disetujui pemilik |
 | [superpowers/plans/](superpowers/plans/) | Rencana implementasi per tahap (tahap 1 dan 2) |

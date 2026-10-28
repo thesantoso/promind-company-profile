@@ -1,27 +1,42 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import BulletList from '../BulletList.astro';
-import PageHero from '../PageHero.astro';
-import Section from '../Section.astro';
+import Icon from '../Icon.astro';
 import { loadPages } from '../../content/load';
 import { loadSettings } from '../../content/schema';
 import { jobPostingLd } from '../../lib/jsonld';
 import type { Job } from '../../content/schema';
+import { formatShortDate } from '../../i18n/format';
 import type { Locale } from '../../i18n/locales';
 import { careerPath, pathFor } from '../../i18n/routes';
-import { t } from '../../i18n/ui';
+import { t, type UiKey } from '../../i18n/ui';
 
+// Markup and classes follow the live CareerDetailPage.jsx. Share links are plain links; copy and
+// "more" sharing need the small /scripts/share.js (the live page does the same in React).
 interface Props { lang: Locale; job: Job }
 const { lang, job } = Astro.props;
 const { careers: page } = loadPages();
 const paths = { id: careerPath(job.slug, 'id'), en: careerPath(job.slug, 'en') };
 const title = `${job.title[lang]} | ${page.seo.title[lang]}`;
-const subject = encodeURIComponent(`${t(lang, 'job.subject')}: ${job.title[lang]}`);
-const sections = [
-  ['responsibilities', 'job.responsibilities'],
-  ['qualifications', 'job.qualifications'],
-  ['benefits', 'job.benefits'],
-] as const;
+const shareUrl = new URL(paths[lang], Astro.site).href;
+const shareTitle = t(lang, 'job.shareTitle').replace('{title}', job.title[lang]);
+const subjectText = `${t(lang, 'job.subject')} - ${job.title[lang]} - [${t(lang, 'job.fullName')}]`;
+const body = t(lang, 'job.mailBody').replace('{title}', job.title[lang]);
+const mailto = `mailto:${job.applicationEmail}?subject=${encodeURIComponent(subjectText)}&body=${encodeURIComponent(body)}`;
+const enc = encodeURIComponent;
+const shareLinks = [
+  { key: 'Facebook', href: `https://www.facebook.com/sharer/sharer.php?u=${enc(shareUrl)}`, size: 18, path: '<path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>' },
+  { key: 'X', href: `https://twitter.com/intent/tweet?text=${enc(shareTitle)}&url=${enc(shareUrl)}`, size: 16, path: '<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>' },
+  { key: 'WhatsApp', href: `https://api.whatsapp.com/send?text=${enc(`${shareTitle} ${shareUrl}`)}`, size: 18, path: '<path d="M17.472 14.382c-.301-.15-1.78-.879-2.056-.98-.276-.1-.477-.15-.678.15-.2.301-.778.98-.954 1.181-.176.2-.351.226-.652.075-.301-.15-1.272-.469-2.423-1.496-.896-.799-1.5-1.786-1.676-2.087-.176-.301-.019-.464.132-.614.136-.135.301-.351.452-.527.15-.176.2-.301.3-.502.1-.2.05-.376-.025-.526-.075-.15-.678-1.634-.929-2.238-.244-.589-.493-.509-.678-.519l-.578-.01c-.2 0-.527.075-.803.376-.276.301-1.054 1.03-1.054 2.511 0 1.482 1.079 2.912 1.23 3.113.15.201 2.123 3.242 5.143 4.547.718.31 1.279.496 1.716.635.721.23 1.377.197 1.896.12.578-.087 1.78-.727 2.031-1.43.251-.703.251-1.305.176-1.43-.076-.126-.276-.201-.577-.352z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.548 4.101 1.512 5.827L0 24l6.347-1.477A11.942 11.942 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.84c-1.848 0-3.569-.509-5.044-1.393l-.362-.217-3.766.877.896-3.667-.238-.378C2.551 15.539 2.04 13.834 2.04 12c0-5.503 4.457-9.96 9.96-9.96 5.503 0 9.96 4.457 9.96 9.96 0 5.503-4.457 9.96-9.96 9.96z"/>' },
+  { key: 'LinkedIn', href: `https://www.linkedin.com/sharing/share-offsite/?url=${enc(shareUrl)}`, size: 17, path: '<path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>' },
+];
+const sections = (['responsibilities', 'qualifications', 'benefits'] as const).map((key) => ({
+  key,
+  id: `career-${key}`,
+  kicker: t(lang, `job.kicker.${key}` as UiKey),
+  nav: key === 'benefits' ? t(lang, 'job.kicker.benefits') : t(lang, `job.${key}` as UiKey),
+  heading: t(lang, `job.heading.${key}` as UiKey),
+  items: job[key][lang],
+}));
 ---
 
 <BaseLayout
@@ -33,21 +48,103 @@ const sections = [
   jsonLd={[jobPostingLd(job, lang, Astro.site!.href, loadSettings())]}
   crumbs={[{ name: job.title[lang], path: paths[lang] }]}
 >
-  <p class="m-0 pt-8"><a class="inline-flex min-h-11 items-center" href={pathFor('careers', lang)}>← {t(lang, 'job.all')}</a></p>
-  <PageHero eyebrow={job.department[lang]} title={job.title[lang]} subtitle={job.summary[lang]}>
-    <p class="mt-6 text-sm">{job.type[lang]} · {job.experience[lang]} · {job.location[lang]}</p>
-  </PageHero>
+  <div class="career-detail-page">
+    <section id="career-overview" class="career-intro" aria-labelledby="career-title">
+      <div class="wrap">
+        <div class="career-back-row">
+          <a href={pathFor('careers', lang)} class="career-back-link">
+            <Icon name="arrow-left" size={16} />
+            {t(lang, 'job.all')}
+          </a>
+        </div>
 
-  {sections.map(([key, label]) => (
-    <Section title={t(lang, label)}>
-      <div data-list={key}><BulletList items={job[key][lang]} /></div>
-    </Section>
-  ))}
+        <div class="career-intro-copy">
+          <p class="eyebrow">{job.department[lang]}</p>
+          <h1 id="career-title">{job.title[lang]}</h1>
+          <p class="career-intro-description">{job.summary[lang]}</p>
+        </div>
 
-  <div data-apply class="border-t border-hairline py-12">
-    <a
-      href={`mailto:${job.applicationEmail}?subject=${subject}`}
-      class="inline-flex min-h-12 items-center bg-accent px-6 font-display font-bold text-white no-underline hover:bg-accent-hover hover:text-white"
-    >{t(lang, 'job.apply')}</a>
+        <dl class="career-spec-grid">
+          <div class="career-spec-col"><dt>{t(lang, 'job.department')}</dt><dd>{job.department[lang]}</dd></div>
+          <div class="career-spec-col"><dt>{t(lang, 'job.type')}</dt><dd>{job.type[lang]}</dd></div>
+          <div class="career-spec-col"><dt>{t(lang, 'job.location')}</dt><dd>{job.location[lang]}</dd></div>
+          <div class="career-spec-col"><dt>{t(lang, 'job.experience')}</dt><dd>{job.experience[lang]}</dd></div>
+          <div class="career-spec-col"><dt>{t(lang, 'job.posted')}</dt><dd><time datetime={job.postedAt}>{formatShortDate(job.postedAt, lang)}</time></dd></div>
+        </dl>
+
+        <div class="career-share-bar" data-share-root data-share-url={shareUrl} data-share-title={shareTitle} data-share-text={job.summary[lang]}>
+          <span class="career-share-label">{t(lang, 'job.share')}</span>
+          <div class="career-share-actions">
+            {shareLinks.map((l) => (
+              <a href={l.href} target="_blank" rel="noopener noreferrer" class="career-share-btn" aria-label={`${t(lang, 'job.shareTo')} ${l.key}`} title={`${t(lang, 'job.shareTo')} ${l.key}`}>
+                <svg width={l.size} height={l.size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" set:html={l.path} />
+              </a>
+            ))}
+            <button type="button" class="career-share-btn" data-copy={shareUrl} data-copied={t(lang, 'job.linkCopied')} data-failed={t(lang, 'job.linkCopyFailed')} aria-label={t(lang, 'job.copyLink')} title={t(lang, 'job.copyLink')}>
+              <Icon name="link2" size={18} />
+            </button>
+            <button type="button" class="career-share-btn" data-share-more data-failed={t(lang, 'job.shareFailed')} aria-label={t(lang, 'job.shareMore')} title={t(lang, 'job.shareMore')}>
+              <Icon name="share2" size={17} />
+            </button>
+          </div>
+          <span class="career-share-feedback" role="status" aria-live="polite" data-feedback></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="career-content-section" aria-label={t(lang, 'job.details')}>
+      <div class="wrap career-content-layout">
+        <nav class="career-section-nav" aria-label={t(lang, 'job.onThisPage')}>
+          <p>{t(lang, 'job.inThisRole')}</p>
+          {sections.map((s) => <a href={`#${s.id}`}>{s.nav}</a>)}
+          <a href="#career-apply">{t(lang, 'job.howToApply')}</a>
+        </nav>
+
+        <div class="career-content-flow">
+          {sections.map((s) => (
+            <article id={s.id} class="career-content-group" aria-labelledby={`${s.id}-title`}>
+              <p class="career-content-kicker">{s.kicker}</p>
+              <h2 id={`${s.id}-title`}>{s.heading}</h2>
+              <ul class="career-detail-list" data-list={s.key}>
+                {s.items.map((item) => <li>{item}</li>)}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="career-apply" class="career-apply-section" aria-labelledby="career-apply-title">
+      <div class="wrap career-apply-grid">
+        <div class="career-apply-lead">
+          <p class="eyebrow">{t(lang, 'job.applyEyebrow')}</p>
+          <h2 id="career-apply-title">{t(lang, 'job.applyTitle')}</h2>
+          <p>{t(lang, 'job.applyBody')}</p>
+        </div>
+
+        <div class="career-apply-content" data-apply>
+          <dl class="career-apply-details">
+            <div>
+              <dt>{t(lang, 'job.applyEmail')}</dt>
+              <dd>
+                <a href={mailto} data-apply-email>{job.applicationEmail}</a>
+                <button type="button" class="career-copy-inline" data-copy={job.applicationEmail} data-copied={t(lang, 'job.emailCopied')} data-failed={t(lang, 'job.emailCopyFailed')}>
+                  <Icon name="copy" size={16} />
+                  <span data-label>{t(lang, 'job.copyEmail')}</span>
+                </button>
+              </dd>
+            </div>
+            <div><dt>{t(lang, 'job.applySubject')}</dt><dd>{subjectText}</dd></div>
+            <div><dt>{t(lang, 'job.applyAttachments')}</dt><dd>{t(lang, 'job.applyAttachmentsValue')}</dd></div>
+          </dl>
+          <a href={mailto} class="career-apply-cta" data-apply-cta>
+            {t(lang, 'job.apply')}
+            <Icon name="arrow-up-right" size={19} />
+          </a>
+          <span class="career-apply-feedback" role="status" aria-live="polite" data-feedback></span>
+        </div>
+      </div>
+    </section>
   </div>
+  <script is:inline slot="scripts" src="/scripts/share.js" defer></script>
 </BaseLayout>

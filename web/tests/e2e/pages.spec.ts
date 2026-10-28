@@ -2,12 +2,12 @@ import { expect, test } from '@playwright/test';
 import { LOCALES } from '../../src/i18n/locales';
 import { pathFor } from '../../src/i18n/routes';
 import { readContent } from './content';
+import { expectNoNumberBadges } from './helpers';
 
 const pages = readContent('pages');
 const services = readContent<any[]>('services');
 const engagement = readContent<any[]>('engagement');
 const portfolio = readContent<any[]>('portfolio');
-const clients = readContent<any[]>('clients');
 const insights = readContent<any[]>('insights');
 const pillars = readContent<any[]>('pillars');
 const standards = readContent<any[]>('standards');
@@ -19,20 +19,23 @@ for (const lang of LOCALES) {
       await page.goto(pathFor('services', lang));
     });
 
-    test('lists every service with its deliverables as bullets', async ({ page }) => {
+    test('lists every service with its numbered scope of work', async ({ page }) => {
       await expect(page.locator('main h1')).toHaveText(pages.services.title[lang]);
       for (const s of services) {
         const article = page.locator(`article#${s.slug}`);
         await expect(article.locator('h2')).toHaveText(s.title[lang]);
-        await expect(article.locator('li')).toHaveCount(s.deliverables[lang].length);
+        await expect(article.locator('[data-list=deliverables] li')).toHaveCount(s.deliverables[lang].length);
+        for (const d of s.deliverables[lang]) await expect(article.getByText(d, { exact: true })).toBeVisible();
       }
-      const bullets = services.reduce((n, s) => n + s.deliverables[lang].length, 0);
-      await expect(page.locator('article [aria-hidden=true]', { hasText: '•' })).toHaveCount(bullets);
+      await expectNoNumberBadges(page);
     });
 
-    test('shows the four engagement models', async ({ page }) => {
+    test('shows the four engagement models and one call to action', async ({ page }) => {
       await expect(page.getByRole('heading', { level: 2, name: pages.services.engagementTitle[lang] })).toBeVisible();
       for (const e of engagement) await expect(page.getByText(e.title[lang], { exact: true })).toBeVisible();
+      const cta = page.locator('section.engagement a.button');
+      await expect(cta).toHaveCount(1);
+      await expect(cta).toHaveAttribute('href', pathFor('contact', lang));
     });
   });
 
@@ -41,22 +44,32 @@ for (const lang of LOCALES) {
       await page.goto(pathFor('portfolio', lang));
     });
 
-    test('groups all 12 projects under their sector', async ({ page }) => {
+    test('lists all 12 projects with their sector', async ({ page }) => {
       await expect(page.locator('main h1')).toHaveText(pages.portfolio.title[lang]);
-      const sectors = [...new Set(portfolio.map((p) => p.sector[lang]))];
-      for (const sector of sectors) {
-        const group = page.locator('section', { has: page.getByRole('heading', { level: 2, name: sector, exact: true }) });
-        const expected = portfolio.filter((p) => p.sector[lang] === sector);
-        await expect(group.locator('dt')).toHaveCount(expected.length);
-        for (const p of expected) await expect(group.locator('dt').filter({ hasText: p.name }).first()).toBeVisible();
+      await expect(page.getByRole('heading', { level: 2, name: pages.portfolio.clientsTitle[lang] })).toBeVisible();
+      const items = page.locator('[data-projects] > li');
+      await expect(items).toHaveCount(portfolio.length);
+      for (const p of portfolio) {
+        const item = items.filter({ has: page.getByRole('heading', { level: 3, name: p.name, exact: true }) });
+        await expect(item).toBeVisible();
+        await expect(item).toContainText(p.sector[lang]);
       }
     });
 
-    test('lists all 14 clients', async ({ page }) => {
-      await expect(page.getByRole('heading', { level: 2, name: pages.portfolio.clientsTitle[lang] })).toBeVisible();
-      const items = page.locator('[data-clients] li');
-      await expect(items).toHaveCount(clients.length);
-      for (const c of clients) await expect(items.filter({ hasText: c.name }).first()).toBeVisible();
+    test('category filter works from the keyboard without JavaScript', async ({ browser }) => {
+      const ctx = await browser.newContext({ javaScriptEnabled: false });
+      const page = await ctx.newPage();
+      await page.goto(`http://127.0.0.1:4321${pathFor('portfolio', lang)}`);
+      const sectors = [...new Set(portfolio.map((p) => p.sector[lang]))];
+      const radios = page.getByRole('radio');
+      await expect(radios).toHaveCount(sectors.length + 1);
+      await expect(radios.first()).toBeChecked();
+      await radios.first().focus();
+      await page.keyboard.press('ArrowRight');
+      await expect(radios.nth(1)).toBeChecked();
+      const visible = page.locator('[data-projects] > li:visible');
+      await expect(visible).toHaveCount(portfolio.filter((p) => p.sector[lang] === sectors[0]).length);
+      await ctx.close();
     });
   });
 
@@ -94,9 +107,10 @@ for (const lang of LOCALES) {
 
     test('lists the five pillars and the standards exactly as migrated', async ({ page }) => {
       for (const p of pillars) await expect(page.getByText(p.title[lang], { exact: true })).toBeVisible();
-      const std = page.locator('section', { has: page.getByRole('heading', { level: 2, name: pages.about.standardsTitle[lang] }) });
-      await expect(std.locator('dt')).toHaveCount(standards.length);
-      for (const s of standards) await expect(std.locator('dt', { hasText: s.code })).toBeVisible();
+      const std = page.locator('[data-standards]');
+      await expect(std.getByRole('heading', { level: 2 })).toHaveText(pages.about.standardsTitle[lang]);
+      await expect(std.locator('h3')).toHaveCount(standards.length);
+      for (const s of standards) await expect(std.locator('h3', { hasText: s.code })).toBeVisible();
     });
   });
 
@@ -105,22 +119,22 @@ for (const lang of LOCALES) {
       await page.goto(pathFor('contact', lang));
     });
 
-    test('shows the company contact details from settings', async ({ page }) => {
+    test('shows the company email in the page and the office address in the footer', async ({ page }) => {
       await expect(page.locator('main h1')).toHaveText(pages.contact.title[lang]);
-      await expect(page.locator('main address')).toHaveText(settings.address[lang]);
-      await expect(page.locator(`main a[href="mailto:${settings.email}"]`).first()).toBeVisible();
-      await expect(page.locator(`main a[href="tel:${settings.phone.replace(/\s/g, '')}"]`)).toBeVisible();
+      await expect(page.locator('footer address')).toHaveText(settings.address[lang]);
+      await expect(page.locator(`footer a[href="mailto:${settings.email}"]`)).toBeVisible();
     });
 
-    test('lists the six service areas as bullets', async ({ page }) => {
-      await expect(page.locator('[data-list=service-areas] li')).toHaveCount(pages.contact.serviceAreas[lang].length);
+    test('offers the six service areas and the property types in the form', async ({ page }) => {
+      await expect(page.locator('select[name=topic] option')).toHaveCount(pages.contact.serviceAreas[lang].length);
+      await expect(page.locator('select[name=propertyType] option')).toHaveCount(pages.contact.propertyTypes[lang].length);
     });
 
-    test('has exactly one primary call to action (the form has its own submit button)', async ({ page }) => {
-      const cta = page.locator('[data-cta] a');
+    test('has one email link beside the form, which has its own submit button', async ({ page }) => {
+      const cta = page.locator('[data-cta]');
       await expect(cta).toHaveCount(1);
       await expect(cta).toHaveAttribute('href', `mailto:${settings.email}`);
-      await expect(cta).toHaveText(pages.contact.ctaLabel[lang]);
+      await expect(cta).toHaveText(settings.email);
       await expect(page.locator('main form')).toHaveCount(1);
     });
   });

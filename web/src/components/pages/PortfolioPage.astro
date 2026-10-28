@@ -1,39 +1,69 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import DefinitionRows from '../DefinitionRows.astro';
+import ArrowButton from '../ArrowButton.astro';
+import FieldworkSection from '../FieldworkSection.astro';
 import PageHero from '../PageHero.astro';
-import Section from '../Section.astro';
-import { loadClients, loadPages, loadPortfolio } from '../../content/load';
+import { loadPages, loadPortfolio } from '../../content/load';
 import type { Locale } from '../../i18n/locales';
+import { pathFor } from '../../i18n/routes';
+import { ordinal } from '../../lib/ordinal';
 
+// Markup and classes follow the live PortfolioPage.jsx. The live category tabs (React state) are
+// radio buttons here: CSS hides the other groups, no JavaScript needed.
 interface Props { lang: Locale }
 const { lang } = Astro.props;
 const { portfolio: page } = loadPages();
 const projects = loadPortfolio();
-const sectors = [...new Set(projects.map((p) => p.sector[lang]))];
+const sectors = [...new Set(projects.map((p) => p.sector.en))];
+const group = (sectorEn: string) => sectors.indexOf(sectorEn) + 1;
+const labelOf = (sectorEn: string) => projects.find((p) => p.sector.en === sectorEn)!.sector[lang];
 ---
 
 <BaseLayout lang={lang} routeKey="portfolio" title={page.seo.title[lang]} description={page.seo.description[lang]}>
-  <PageHero eyebrow={page.eyebrow[lang]} title={page.title[lang]} subtitle={page.subtitle[lang]} />
+  <div class="bg-[#f6f5f1]">
+    <PageHero eyebrow={page.eyebrow[lang]} title={page.title[lang]} subtitle={page.subtitle[lang]} />
 
-  {sectors.map((sector) => (
-    <Section title={sector}>
-      <DefinitionRows
-        items={projects
-          .filter((p) => p.sector[lang] === sector)
-          .map((p) => ({ title: p.name, meta: p.location[lang], text: p.scope[lang] }))}
-      />
-    </Section>
-  ))}
+    <section class="section-pad filterable">
+      <div class="wrap">
+        <div class="section-heading">
+          <p class="eyebrow">{page.registerEyebrow[lang]}</p>
+          <h2>{page.clientsTitle[lang]}</h2>
+          <p>{page.registerBody[lang]}</p>
+        </div>
 
-  <Section title={page.clientsTitle[lang]}>
-    <ul data-clients class="m-0 grid list-none gap-x-8 p-0 sm:grid-cols-2">
-      {loadClients().map((c) => (
-        <li class="flex items-baseline justify-between gap-4 border-t border-hairline py-3">
-          <span class="font-display font-bold text-heading">{c.name}</span>
-          <span class="text-sm">{c.category[lang]}</span>
-        </li>
-      ))}
-    </ul>
-  </Section>
+        <fieldset class="flex flex-wrap gap-2 mb-10 pb-4 border-b border-[#cbd2d9] filter-set">
+          <legend class="sr-only">{page.filterLabel[lang]}</legend>
+          <input type="radio" name="sector" id="sector-0" data-f="0" class="filter-input" checked />
+          <label for="sector-0" class="px-4 py-2.5 text-xs font-bold transition cursor-pointer bg-white text-[#334b63] border border-[#cbd5e1] hover:border-[#2959ab] pf-chip">{page.allLabel[lang]}</label>
+          {sectors.map((s) => (
+            <>
+              <input type="radio" name="sector" id={`sector-${group(s)}`} data-f={group(s)} class="filter-input" />
+              <label for={`sector-${group(s)}`} class="px-4 py-2.5 text-xs font-bold transition cursor-pointer bg-white text-[#334b63] border border-[#cbd5e1] hover:border-[#2959ab] pf-chip">{labelOf(s)}</label>
+            </>
+          ))}
+        </fieldset>
+
+        <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-10 border-t border-[#cbd2d9]" data-projects>
+          {projects.map((p, i) => (
+            <li data-g={group(p.sector.en)} class="py-7 border-b border-[#cbd2d9] grid grid-cols-[38px_1fr] gap-4 items-baseline">
+              <span class="text-xs font-extrabold text-[#2b5caf]">{ordinal(i)}</span>
+              <div>
+                <div class="flex flex-wrap items-baseline justify-between gap-2 mb-2">
+                  <h3 class="text-xl font-bold text-[#172b42] font-manrope m-0">{p.name}</h3>
+                  <span class="text-[11px] font-bold uppercase tracking-wider text-[#5b6874]">{p.sector[lang]}</span>
+                </div>
+                <p class="text-sm text-[#5b6874] leading-relaxed m-0">{p.scope[lang]}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <FieldworkSection lang={lang} class="fieldwork section-pad bg-white border-t border-[#d8dfe5]">
+      <div class="mt-14">
+        <ArrowButton href={pathFor('contact', lang)} label={page.ctaLabel[lang]} />
+      </div>
+    </FieldworkSection>
+  </div>
 </BaseLayout>

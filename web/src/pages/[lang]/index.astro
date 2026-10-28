@@ -1,74 +1,213 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import DefinitionRows from '../../components/DefinitionRows.astro';
-import Photo from '../../components/Photo.astro';
-import Section from '../../components/Section.astro';
-import { loadFieldwork, loadPages, loadPillars, loadPropertyTypes } from '../../content/load';
+import FieldworkSection from '../../components/FieldworkSection.astro';
+import Icon from '../../components/Icon.astro';
+import heroPhoto from '../../assets/hero/main-hero.jpg';
+import clientLogos from '../../assets/clients/promind-client-logos.png';
+import { loadClients, loadPages, loadPillars, loadPropertyTypes, loadServices } from '../../content/load';
+import { loadSettings } from '../../content/schema';
 import { LOCALES } from '../../i18n/locales';
 import { pathFor } from '../../i18n/routes';
+import { t } from '../../i18n/ui';
+import { ordinal } from '../../lib/ordinal';
 
+// Markup and classes follow the live HomePage.jsx so the live stylesheet renders it identically.
 export function getStaticPaths() {
   return LOCALES.map((lang) => ({ params: { lang }, props: { lang } }));
 }
 const { lang } = Astro.props;
-const { home } = loadPages();
-const fieldwork = loadFieldwork();
-const hero = fieldwork[0];
+const pages = loadPages();
+const { home } = pages;
+const settings = loadSettings();
+const hero = home.hero;
+const title = hero.title[lang];
+const highlight = hero.titleHighlight[lang];
+const titleMain = title.endsWith(highlight) ? title.slice(0, -highlight.length).trimEnd() : title;
+const showHighlight = title.endsWith(highlight);
 ---
 
 <BaseLayout lang={lang} routeKey="home" title={home.seo.title[lang]} description={home.seo.description[lang]}>
-  <div data-hero class="grid items-center gap-12 py-16 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16 lg:py-24">
-    <div>
-      <p class="m-0 font-display text-xs font-bold uppercase tracking-[0.14em] text-accent">{home.hero.eyebrow[lang]}</p>
-      <h1 class="mt-4 text-4xl font-extrabold lg:text-6xl">{home.hero.title[lang]}</h1>
-      <p class="mt-6 max-w-2xl text-lg">{home.hero.description[lang]}</p>
-      <a
-        href={pathFor(home.hero.cta.route, lang)}
-        class="mt-8 inline-flex min-h-12 items-center bg-accent px-6 font-display font-bold text-white no-underline hover:bg-accent-hover hover:text-white"
-      >{home.hero.cta.label[lang]}</a>
-    </div>
-    <Photo
-      name={hero.image.src}
-      alt={hero.image.alt[lang]}
-      sizes="(min-width: 1024px) 40vw, calc(100vw - 2rem)"
-      widths={[480, 640, 720, 800]}
-      ratio={0.75}
-      format="webp"
-      priority
-      class="aspect-[4/3] w-full object-cover"
-    />
-  </div>
+  <div>
+    <section class="hero" data-hero>
+      <div class="wrap hero-content">
+        <div class="hero-copy">
+          <p class="eyebrow">{hero.eyebrow[lang]}</p>
+          <h1>{titleMain}{showHighlight && <> <em>{highlight}</em></>}</h1>
+          <p class="hero-description">{hero.description[lang]}</p>
+          <div class="hero-actions">
+            <a href={pathFor(hero.cta.route, lang)} class="button button-primary cursor-pointer" data-cta>
+              <span>{hero.cta.label[lang]}</span>
+              <Icon name="arrow-up-right" size={18} />
+            </a>
+            <a href={pathFor(hero.secondaryLink.route, lang)} class="text-link text-[#1d3c67] hover:text-[#2b5caf] cursor-pointer">{hero.secondaryLink.label[lang]}</a>
+          </div>
+        </div>
+      </div>
 
-  <Section eyebrow={home.focus.eyebrow[lang]} title={home.focus.title[lang]} subtitle={home.focus.body[lang]}>
-    <DefinitionRows items={loadPillars().map((p) => ({ title: p.title[lang], text: p.summary[lang] }))} />
-  </Section>
-
-  <Section eyebrow={home.sectors.eyebrow[lang]} title={home.sectors.title[lang]} subtitle={home.sectors.subtitle[lang]}>
-    <DefinitionRows items={loadPropertyTypes().map((p) => ({ title: p.title[lang], text: p.detail[lang] }))} />
-  </Section>
-
-  <Section eyebrow={home.fieldwork.eyebrow[lang]} title={home.fieldwork.title[lang]} subtitle={home.fieldwork.subtitle[lang]}>
-    <div class="grid gap-8 sm:grid-cols-2">
-      {fieldwork.map((f) => (
-        <figure class="m-0">
-          <Photo
-            name={f.image.src}
-            alt={f.image.alt[lang]}
-            sizes="(min-width: 1024px) 28vw, (min-width: 640px) 45vw, 100vw"
-            widths={[360, 480, 640, 800]}
-            ratio={0.75}
-            class="aspect-[4/3] w-full object-cover"
+      <div class="hero-image">
+        <div class="hero-slide is-active">
+          <Image
+            src={heroPhoto}
+            alt={hero.imageAlt[lang]}
+            widths={[480, 720, 960, 1402]}
+            sizes="(max-width: 850px) 100vw, 54vw"
+            format="webp"
+            quality={60}
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
           />
-          <figcaption class="mt-4">
-            <h3 class="m-0 text-lg font-bold">{f.title[lang]}</h3>
-            <p class="mt-2">{f.summary[lang]}</p>
-          </figcaption>
-        </figure>
-      ))}
-    </div>
-  </Section>
+        </div>
+        <div class="hero-gradient"></div>
+      </div>
+    </section>
 
-  <Section eyebrow={home.technology.eyebrow[lang]} title={home.technology.title[lang]} subtitle={home.technology.description[lang]}>
-    <DefinitionRows items={home.technology.steps.map((s) => ({ title: s.title[lang], text: s.summary[lang] }))} />
-  </Section>
+    <section class="intro section-pad border-b border-[#e2e6ea]">
+      <div class="wrap">
+        <div class="value-heading">
+          <div>
+            <p class="eyebrow">{home.focus.eyebrow[lang]}</p>
+            <h2>{home.focus.title[lang]}</h2>
+          </div>
+          <p>{home.focus.body[lang]}</p>
+        </div>
+        <div class="value-list">
+          {loadPillars().map((p, i) => (
+            <article>
+              <span>{ordinal(i)}</span>
+              <h3>{p.title[lang]}</h3>
+              <p>{p.summary[lang]}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="value-section">
+      <div class="wrap">
+        <div class="value-heading">
+          <div>
+            <p class="eyebrow">{home.sectors.eyebrow[lang]}</p>
+            <h2>{home.sectors.title[lang]}</h2>
+          </div>
+          <p>{home.sectors.subtitle[lang]}</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pt-8 border-t border-[#cbd2d9]">
+          {loadPropertyTypes().map((s, i) => (
+            <article class="pt-2 border-t-2 border-transparent hover:border-[#2b5caf] transition-colors">
+              <span class="text-[11px] font-extrabold text-[#2b5caf] block mb-2">{ordinal(i)}</span>
+              <h3 class="text-xl font-bold text-[#172b42] font-manrope mb-2 tracking-tight">{s.title[lang]}</h3>
+              <p class="text-sm text-[#5b6874] leading-relaxed m-0">{s.detail[lang]}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="services section-pad">
+      <div class="wrap">
+        <div class="section-heading">
+          <p class="eyebrow">{pages.services.eyebrow[lang]}</p>
+          <h2>{pages.services.title[lang]}</h2>
+          <p>{pages.services.subtitle[lang]}</p>
+        </div>
+        <div class="service-list">
+          {loadServices().map((s, i) => (
+            <div class="service-row">
+              <span class="service-index">{ordinal(i)}</span>
+              <h3>{s.title[lang]}</h3>
+              <p>{s.summary[lang]}</p>
+            </div>
+          ))}
+        </div>
+        <div class="mt-12">
+          <a href={pathFor('services', lang)} class="button button-primary cursor-pointer">
+            <span>{home.services.linkLabel[lang]}</span>
+            <Icon name="arrow-up-right" size={18} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <FieldworkSection lang={lang} class="fieldwork section-pad border-t border-[#e2e6ea]" />
+
+    <section class="technology section-pad">
+      <div class="wrap technology-grid">
+        <div class="technology-copy">
+          <p class="eyebrow">{home.technology.eyebrow[lang]}</p>
+          <h2>{home.technology.title[lang]}</h2>
+          <p>{home.technology.description[lang]}</p>
+          <div class="technology-wordmark">
+            PROMIND <span>{home.technology.wordmarkCaption[lang]}</span>
+          </div>
+        </div>
+        <div class="technology-flow">
+          {home.technology.steps.map((step, i) => (
+            <article>
+              <span>{ordinal(i)}</span>
+              <div>
+                <h3>{step.title[lang]}</h3>
+                <p>{step.summary[lang]}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="clients section-pad">
+      <div class="wrap">
+        <div class="clients-heading">
+          <div>
+            <p class="eyebrow">{home.clients.eyebrow[lang]}</p>
+            <h2>{home.clients.title[lang]}</h2>
+          </div>
+          <div class="clients-intro">
+            <p>{home.clients.body[lang]}</p>
+            <label class="marquee-control cursor-pointer">
+              <input type="checkbox" class="marquee-toggle" />
+              <span class="marquee-when-running"><Icon name="pause" size={14} /></span>
+              <span class="marquee-when-paused"><Icon name="play" size={14} /></span>
+              <span class="marquee-when-running">{t(lang, 'clients.pause')}</span>
+              <span class="marquee-when-paused">{t(lang, 'clients.play')}</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="client-marquee">
+          <div class="client-marquee-track">
+            <Image src={clientLogos} alt={home.clients.logosAlt[lang]} widths={[940, 1440, 2144]} sizes="(max-width: 600px) 940px, max(1120px, 100vw)" format="webp" quality={80} loading="lazy" decoding="async" />
+            <Image src={clientLogos} alt="" aria-hidden="true" widths={[940, 1440, 2144]} sizes="(max-width: 600px) 940px, max(1120px, 100vw)" format="webp" quality={80} loading="lazy" decoding="async" />
+          </div>
+        </div>
+
+        <ul class="sr-only" data-clients aria-label={t(lang, 'clients.list')}>
+          {loadClients().map((c) => <li>{c.name}, {c.category[lang]}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class="contact section-pad">
+      <div class="wrap contact-grid">
+        <div class="contact-lead">
+          <p class="eyebrow">{home.contact.eyebrow[lang]}</p>
+          <h2>{home.contact.title[lang]}</h2>
+          <p>{home.contact.body[lang]}</p>
+          <a href={`mailto:${settings.email}`}>{settings.email}</a>
+        </div>
+        <div class="bg-[#214f8e] p-8 sm:p-10 border border-[#7e9bc4]/40 flex flex-col justify-between">
+          <div>
+            <span class="text-[11px] font-extrabold uppercase tracking-widest text-[#a9c8f4] block mb-3">{home.contact.cardEyebrow[lang]}</span>
+            <h3 class="text-2xl font-bold text-white font-manrope mb-4">{home.contact.cardTitle[lang]}</h3>
+            <p class="text-sm text-[#dbe6f7] leading-relaxed mb-8">{home.contact.cardBody[lang]}</p>
+          </div>
+          <a href={pathFor(home.contact.cardLink.route, lang)} class="button button-light cursor-pointer w-fit">
+            <span>{home.contact.cardLink.label[lang]}</span>
+            <Icon name="arrow-up-right" size={18} />
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
 </BaseLayout>

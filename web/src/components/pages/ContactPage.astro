@@ -1,53 +1,49 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import BulletList from '../BulletList.astro';
 import ContactForm from '../ContactForm.astro';
 import PageHero from '../PageHero.astro';
-import Section from '../Section.astro';
 import { loadPages } from '../../content/load';
 import { loadSettings } from '../../content/schema';
 import type { Locale } from '../../i18n/locales';
-import { t } from '../../i18n/ui';
 
+// Markup and classes follow the live ContactPage.jsx. The form renders only when the Turnstile
+// site key is set at build time (PUBLIC_TURNSTILE_SITEKEY).
 interface Props { lang: Locale }
 const { lang } = Astro.props;
 const { contact: page } = loadPages();
 const s = loadSettings();
-const whatsapp = s.whatsapp.replace(/\D/g, '');
-const link = 'inline-flex min-h-11 items-center';
-// Form tampil hanya bila kunci situs Turnstile diatur saat build (PUBLIC_TURNSTILE_SITEKEY).
 const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY as string | undefined;
+const labels = Object.fromEntries(Object.entries(page.form).map(([k, v]) => [k, v[lang]])) as Record<keyof typeof page.form, string>;
 ---
 
 <BaseLayout lang={lang} routeKey="contact" title={page.seo.title[lang]} description={page.seo.description[lang]}>
-  <PageHero eyebrow={page.eyebrow[lang]} title={page.title[lang]} subtitle={page.subtitle[lang]}>
-    <div data-cta class="mt-8">
-      <a
-        href={`mailto:${s.email}`}
-        class="inline-flex min-h-12 items-center bg-accent px-6 font-display font-bold text-white no-underline hover:bg-accent-hover hover:text-white"
-      >{page.ctaLabel[lang]}</a>
-    </div>
-  </PageHero>
+  <div class="bg-[#f6f5f1]">
+    <PageHero eyebrow={page.eyebrow[lang]} title={page.title[lang]} subtitle={page.subtitle[lang]} />
 
-  <Section title="PROMIND">
-    <p class="m-0 font-display font-bold text-heading">{s.legalName}</p>
-    <address class="mt-2 max-w-prose not-italic">{s.address[lang]}</address>
-    <ul class="mt-4 list-none p-0">
-      <li><a class={link} href={`mailto:${s.email}`}>{s.email}</a></li>
-      <li><a class={link} href={`tel:${s.phone.replace(/\s/g, '')}`}>{s.phone}</a></li>
-      <li><a class={link} href={`https://wa.me/${whatsapp}`} rel="noopener">WhatsApp {s.whatsapp}</a></li>
-    </ul>
-  </Section>
-
-  <Section title={lang === 'id' ? 'Area Layanan' : 'Service Areas'}>
-    <div data-list="service-areas"><BulletList items={page.serviceAreas[lang]} /></div>
-  </Section>
-
-  {siteKey && (
-    <Section title={t(lang, 'form.title')}>
-      <ContactForm lang={lang} topics={page.serviceAreas[lang]} email={s.email} siteKey={siteKey} endpoint={import.meta.env.PUBLIC_CONTACT_ENDPOINT} />
-      <script is:inline src="/scripts/contact-form.js" defer></script>
-    </Section>
-  )}
+    <section class="contact section-pad">
+      <div class="wrap contact-grid">
+        <div class="contact-lead">
+          <p class="eyebrow">{page.formEyebrow[lang]}</p>
+          <h2>{page.formTitle[lang]}</h2>
+          <p>{page.formBody[lang]}</p>
+          <a href={`mailto:${s.email}`} data-cta>{s.email}</a>
+        </div>
+        <div>
+          {siteKey && (
+            <ContactForm
+              lang={lang}
+              topics={page.serviceAreas[lang]}
+              propertyTypes={page.propertyTypes[lang]}
+              labels={labels}
+              email={s.email}
+              siteKey={siteKey}
+              endpoint={import.meta.env.PUBLIC_CONTACT_ENDPOINT}
+            />
+          )}
+        </div>
+      </div>
+    </section>
+  </div>
+  {siteKey && <script is:inline slot="scripts" src="/scripts/contact-form.js" defer></script>}
   {siteKey && <script is:inline slot="head" src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
 </BaseLayout>

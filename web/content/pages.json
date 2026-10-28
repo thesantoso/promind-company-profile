@@ -19,6 +19,10 @@
         "id": "Pengelolaan Properti yang Terukur, Rapi, dan Berkelanjutan.",
         "en": "Structured, Reliable, and Sustainable Property Management."
       },
+      "titleHighlight": {
+        "id": "Rapi, dan Berkelanjutan.",
+        "en": "Sustainable Property Management."
+      },
       "description": {
         "id": "PROMIND mendampingi pemilik aset dalam mengelola operasional Office Building, Apartment, Mall, dan kawasan Real Estate secara menyeluruh—didukung oleh tim lapangan berpengalaman serta sistem operasional digital terintegrasi.",
         "en": "PROMIND partners with asset owners to manage the daily operations of Office Buildings, Apartments, Malls, and Real Estate developments—combining experienced on-site teams with an integrated digital operational support system."
@@ -29,6 +33,17 @@
           "en": "Contact Our Team"
         },
         "route": "contact"
+      },
+      "secondaryLink": {
+        "label": {
+          "id": "Pelajari Layanan",
+          "en": "Explore Our Services"
+        },
+        "route": "services"
+      },
+      "imageAlt": {
+        "id": "Deretan gedung perkantoran tinggi di kawasan bisnis Jakarta",
+        "en": "High-rise office towers in a Jakarta business district"
       }
     },
     "focus": {
@@ -57,6 +72,12 @@
       "subtitle": {
         "id": "Setiap jenis properti memiliki tuntutan operasional yang berbeda. Kami menyusun struktur tim, prosedur kerja, dan standar layanan sesuai kebutuhan spesifik aset Anda.",
         "en": "Different property types demand distinct operational priorities. We structure our on-site teams, standard operating procedures, and service standards around your asset's specific profile."
+      }
+    },
+    "services": {
+      "linkLabel": {
+        "id": "Lihat Rincian Layanan",
+        "en": "View Service Details"
       }
     },
     "fieldwork": {
@@ -117,7 +138,62 @@
             "en": "Supports organized utility invoicing, service charge administration, and transparent periodic reporting for property owners."
           }
         }
-      ]
+      ],
+      "wordmarkCaption": {
+        "id": "Sistem Pendukung Digital Building Management",
+        "en": "Digital Support System for Building Management"
+      }
+    },
+    "clients": {
+      "eyebrow": {
+        "id": "Portofolio & Pengalaman",
+        "en": "Portfolio & Experience"
+      },
+      "title": {
+        "id": "Properti & Organisasi yang Telah Kami Layani.",
+        "en": "Properties & Organizations We Have Served."
+      },
+      "body": {
+        "id": "Rekam jejak pengelolaan dan pendampingan operasional tim PROMIND di berbagai gedung perkantoran, apartemen, pusat komersial, dan fasilitas institusi.",
+        "en": "The PROMIND team's track record in managing and supporting operations across office buildings, apartments, commercial centers, and institutional facilities."
+      },
+      "logosAlt": {
+        "id": "Logo properti dan organisasi klien PROMIND",
+        "en": "Logos of PROMIND client properties and organizations"
+      }
+    },
+    "contact": {
+      "eyebrow": {
+        "id": "Diskusi & Konsultasi",
+        "en": "Inquiries & Consultation"
+      },
+      "title": {
+        "id": "Mari Bahas Kebutuhan Pengelolaan Properti Anda.",
+        "en": "Let’s Discuss Your Property Management Needs."
+      },
+      "body": {
+        "id": "Sedang menyiapkan operasional gedung baru atau ingin meningkatkan kualitas pengelolaan properti yang sudah berjalan? Tim kami siap berdiskusi.",
+        "en": "Getting a new building ready to open, or looking to raise the standard of one already in operation? Our team is ready to talk."
+      },
+      "cardEyebrow": {
+        "id": "Pengajuan Proposal",
+        "en": "Proposal Request"
+      },
+      "cardTitle": {
+        "id": "Jadwalkan Peninjauan atau Minta Proposal Pengelolaan",
+        "en": "Schedule a Walk-Through or Request a Management Proposal"
+      },
+      "cardBody": {
+        "id": "Sampaikan profil singkat properti Anda (Office Building, Apartment, Mall, atau Real Estate) beserta ruang lingkup pengelolaan yang dibutuhkan.",
+        "en": "Send us a short profile of your property (office building, apartment, mall, or real estate development) and the management scope you need."
+      },
+      "cardLink": {
+        "label": {
+          "id": "Hubungi Tim PROMIND",
+          "en": "Contact the PROMIND Team"
+        },
+        "route": "contact"
+      }
     }
   },
   "services": {
@@ -143,9 +219,25 @@
       "id": "PROMIND menyediakan solusi konsultansi dan pengelolaan properti secara menyeluruh—mulai dari tahap persiapan pra-operasional, pengelolaan operasional aset, penyediaan SDM, pusat pelatihan, aplikasi sistem terintegrasi, hingga kontrak pengelolaan terpadu (Kontrak Lumsum).",
       "en": "PROMIND delivers integrated property management and consultancy: from preliminary planning and daily asset operation to staff outsourcing, a training center, integrated system applications, and lump-sum management partnerships."
     },
-    "engagementTitle": {
-      "id": "Model Kerja Sama",
+    "scopeLabel": {
+      "id": "Ruang Lingkup Pekerjaan",
+      "en": "Scope of Work"
+    },
+    "engagementEyebrow": {
+      "id": "Skema Kerja Sama",
       "en": "Engagement Models"
+    },
+    "engagementTitle": {
+      "id": "Pola Pendampingan yang Fleksibel Sesuai Kebutuhan Aset.",
+      "en": "Flexible Engagement Models Aligned with Your Property."
+    },
+    "engagementBody": {
+      "id": "Kami menyesuaikan ruang lingkup penugasan—baik pengelolaan operasional penuh di lokasi maupun pendampingan teknis berjangka waktu.",
+      "en": "We shape each mandate around how your property runs, from full on-site management to focused, time-bound technical advisory."
+    },
+    "ctaLabel": {
+      "id": "Diskusikan Layanan untuk Properti Anda",
+      "en": "Discuss Services for Your Property"
     }
   },
   "portfolio": {
@@ -160,20 +252,40 @@
       }
     },
     "eyebrow": {
-      "id": "Portofolio",
-      "en": "Portfolio"
+      "id": "Portofolio & Rekam Jejak",
+      "en": "Portfolio & Track Record"
     },
     "title": {
-      "id": "Properti dalam Pengalaman Pengelolaan Kami",
-      "en": "Properties in Our Management Experience"
+      "id": "Pengalaman Mengelola Beragam Sektor Properti.",
+      "en": "Experience Managing Diverse Property Sectors."
     },
     "subtitle": {
-      "id": "Gedung perkantoran, apartemen, pusat komersial, dan kawasan terpadu yang menjadi bagian dari pengalaman PROMIND.",
-      "en": "Office buildings, apartments, commercial centers, and integrated estates that make up PROMIND’s experience."
+      "id": "PROMIND dipercaya menangani operasional Office Building, Apartment, Mall, serta kawasan Real Estate dan fasilitas korporat dengan dukungan sistem operasional terintegrasi.",
+      "en": "PROMIND is trusted to run office buildings, apartments, malls, real estate developments, and corporate facilities, backed by an integrated operational system."
+    },
+    "registerEyebrow": {
+      "id": "Daftar Properti & Klien",
+      "en": "Property & Client Register"
     },
     "clientsTitle": {
-      "id": "Klien dan Properti",
-      "en": "Clients and Properties"
+      "id": "Aset & Organisasi yang Telah Kami Layani",
+      "en": "Properties & Organizations We Have Served"
+    },
+    "registerBody": {
+      "id": "Pilih kategori di bawah ini untuk meninjau daftar properti berdasarkan sektor pengelolaan.",
+      "en": "Choose a category below to see the properties we manage in each sector."
+    },
+    "filterLabel": {
+      "id": "Tampilkan properti menurut kategori",
+      "en": "Show properties by category"
+    },
+    "allLabel": {
+      "id": "Semua Kategori",
+      "en": "All Categories"
+    },
+    "ctaLabel": {
+      "id": "Diskusikan Pengelolaan Properti Anda",
+      "en": "Discuss Your Property Management"
     }
   },
   "insights": {
@@ -188,8 +300,8 @@
       }
     },
     "eyebrow": {
-      "id": "Wawasan dan Artikel",
-      "en": "Insights and Articles"
+      "id": "Wawasan & Artikel",
+      "en": "Insights & Articles"
     },
     "title": {
       "id": "Perspektif Praktis Seputar Pengelolaan Gedung & Properti",
@@ -198,6 +310,14 @@
     "subtitle": {
       "id": "Kajian operasional, panduan pemeliharaan fasilitas, dan tata kelola properti yang relevan dengan tantangan industri saat ini.",
       "en": "Operational studies, facility maintenance guides, and governance insights relevant to today's property management challenges."
+    },
+    "highlightsLabel": {
+      "id": "Poin Utama Pembahasan",
+      "en": "Key Takeaways"
+    },
+    "ctaLabel": {
+      "id": "Diskusikan Kebutuhan Operasional Gedung Anda",
+      "en": "Discuss Your Building’s Operational Needs"
     }
   },
   "about": {
@@ -219,6 +339,14 @@
       "id": "Konsultan & Layanan Pengelolaan Properti Terintegrasi di Indonesia.",
       "en": "Integrated Property and Estate Management in Indonesia."
     },
+    "profileEyebrow": {
+      "id": "Profil Perusahaan",
+      "en": "Company Profile"
+    },
+    "profileTitle": {
+      "id": "Menjaga Kualitas Gedung Melalui Pengelolaan yang Konsisten.",
+      "en": "Maintaining Building Quality Through Consistent Management."
+    },
     "story": {
       "id": [
         "PT PROPERTI MANAJEMEN INOVASI INDONESIA (PROMIND) adalah perusahaan konsultan dan layanan manajemen properti di Indonesia yang didirikan pada tahun 2013, menghadirkan layanan terintegrasi dan profesional untuk memaksimalkan nilai aset serta menciptakan lingkungan hunian dan kerja yang lebih baik bagi klien kami.",
@@ -231,13 +359,33 @@
         "Guided by management system standards (ISO 9001, ISO 14001, ISO 45001), SMK3 under Government Regulation No. 50 of 2012, and integrated Building Management Systems (BMS), PROMIND runs property operations that are reliable, efficient, safe, and sustainable."
       ]
     },
+    "pillarsEyebrow": {
+      "id": "Prinsip Kerja",
+      "en": "Working Principles"
+    },
     "pillarsTitle": {
-      "id": "Nilai yang Kami Pegang",
-      "en": "What We Stand For"
+      "id": "Lima Fondasi Pengelolaan PROMIND",
+      "en": "Five Foundations of PROMIND Management"
+    },
+    "pillarsBody": {
+      "id": "Komitmen operasional yang kami terapkan pada pengelolaan Office Building, Apartment, Mall, dan Real Estate.",
+      "en": "The operational commitments we bring to every office building, apartment, mall, and real estate development we manage."
+    },
+    "standardsEyebrow": {
+      "id": "Acuan Standar Mutu",
+      "en": "Quality Standards"
     },
     "standardsTitle": {
-      "id": "Standar dan Sistem",
-      "en": "Standards and Systems"
+      "id": "Prosedur Kerja Berstandar Internasional",
+      "en": "Internationally Aligned Operating Procedures"
+    },
+    "standardsBody": {
+      "id": "Seluruh prosedur operasional lapangan dan tata kelola fasilitas disusun mengacu pada standar manajemen internasional.",
+      "en": "Our field procedures and facility governance are built on international management standards."
+    },
+    "ctaLabel": {
+      "id": "Hubungi Tim Kami",
+      "en": "Contact Our Team"
     }
   },
   "careers": {
@@ -262,6 +410,18 @@
     "subtitle": {
       "id": "Kami membuka kesempatan bagi para praktisi operasional gedung, teknisi engineering, dan profesional layanan properti untuk bergabung dan berkembang bersama PROMIND.",
       "en": "We welcome experienced building operations practitioners, M&E engineers, and property service professionals to build their careers with PROMIND."
+    },
+    "cultureEyebrow": {
+      "id": "Lingkungan Kerja",
+      "en": "Work Environment"
+    },
+    "cultureTitle": {
+      "id": "Budaya Kerja Terukur dan Profesional",
+      "en": "A Structured, Professional Work Culture"
+    },
+    "cultureBody": {
+      "id": "Kami membangun tim operasional yang disiplin di lapangan dan didukung oleh sistem kerja yang rapi.",
+      "en": "We build disciplined field teams backed by well-organized ways of working."
     },
     "culture": [
       {
@@ -295,9 +455,29 @@
         }
       }
     ],
-    "openRolesTitle": {
-      "id": "Lowongan Terbuka",
+    "openRolesEyebrow": {
+      "id": "Posisi Terbuka",
       "en": "Open Roles"
+    },
+    "openRolesTitle": {
+      "id": "Peluang Karir Operasional & Manajemen Gedung",
+      "en": "Building Operations & Management Careers"
+    },
+    "openRolesBody": {
+      "id": "Pilih posisi yang sesuai dengan kualifikasi Anda untuk mengirimkan lamaran kepada tim HR PROMIND.",
+      "en": "Choose a role that matches your qualifications and send your application to the PROMIND HR team."
+    },
+    "filterLabel": {
+      "id": "Tampilkan lowongan menurut departemen",
+      "en": "Show roles by department"
+    },
+    "allLabel": {
+      "id": "Semua Departemen",
+      "en": "All Departments"
+    },
+    "detailLabel": {
+      "id": "Detail & Lamar",
+      "en": "View & Apply"
     },
     "emptyText": {
       "id": "Saat ini belum ada lowongan terbuka.",
@@ -327,6 +507,18 @@
       "id": "Silakan hubungi tim kami untuk menjadwalkan diskusi awal, peninjauan lokasi gedung, atau permintaan proposal pengelolaan properti.",
       "en": "Contact our team to schedule an initial discussion, a property walk-through, or a management proposal."
     },
+    "formEyebrow": {
+      "id": "Diskusi Kebutuhan Properti",
+      "en": "Property Inquiry"
+    },
+    "formTitle": {
+      "id": "Sampaikan Profil Aset dan Kebutuhan Pengelolaan Anda.",
+      "en": "Share Your Property Profile and Management Needs."
+    },
+    "formBody": {
+      "id": "Tim PROMIND siap mendiskusikan kebutuhan operasional untuk Office Building, Apartment, Mall, maupun kawasan Real Estate Anda.",
+      "en": "The PROMIND team is ready to discuss the operational needs of your office building, apartment, mall, or real estate development."
+    },
     "serviceAreas": {
       "id": [
         "Pengelolaan Gedung Perkantoran (Office Building)",
@@ -345,9 +537,53 @@
         "Integrated Digital Operational Support Implementation"
       ]
     },
-    "ctaLabel": {
-      "id": "Kirim Email ke Tim Kami",
-      "en": "Email Our Team"
+    "form": {
+      "name": {
+        "id": "Nama Lengkap",
+        "en": "Full Name"
+      },
+      "company": {
+        "id": "Perusahaan / Organisasi",
+        "en": "Company / Organization"
+      },
+      "email": {
+        "id": "Email",
+        "en": "Email"
+      },
+      "phone": {
+        "id": "Nomor Telepon",
+        "en": "Phone Number"
+      },
+      "propertyType": {
+        "id": "Jenis Properti",
+        "en": "Property Type"
+      },
+      "topic": {
+        "id": "Kebutuhan Layanan",
+        "en": "Service Needed"
+      },
+      "message": {
+        "id": "Catatan Tambahan",
+        "en": "Additional Notes"
+      },
+      "submit": {
+        "id": "Kirim Pesan",
+        "en": "Submit Inquiry"
+      }
+    },
+    "propertyTypes": {
+      "id": [
+        "Office Building",
+        "Apartment",
+        "Mall & Commercial",
+        "Real Estate"
+      ],
+      "en": [
+        "Office Building",
+        "Apartment",
+        "Mall & Commercial",
+        "Real Estate"
+      ]
     }
   }
 }

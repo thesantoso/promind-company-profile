@@ -1,12 +1,14 @@
+import { CheckCircle2, Upload } from 'lucide-react';
 import { useId, useState, type ChangeEvent } from 'react';
 import { ApiError } from '../api';
+import { cn } from '../lib/cn';
 import { errorMessage } from '../lib/errors';
 import { formatBytes } from '../lib/format';
 import { prepareImage, uploadImage, type Uploaded } from '../photoUpload';
-import { ConfirmDialog, ErrorText, announce } from './ui';
+import { Alert, ConfirmDialog, buttonVariants, toast } from './ui';
 
 /** Tombol unggah foto: kompres di browser, unggah, tangani setiap kode galat, tawarkan timpa bila nama sudah ada. */
-export function PhotoUploader({ onUploaded, label = 'Unggah foto' }: { onUploaded: (u: Uploaded) => void; label?: string }) {
+export function PhotoUploader({ onUploaded, label = 'Unggah foto', compact = false }: { onUploaded: (u: Uploaded) => void; label?: string; compact?: boolean }) {
   const id = useId();
   const [busy, setBusy] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -19,7 +21,7 @@ export function PhotoUploader({ onUploaded, label = 'Unggah foto' }: { onUploade
       const r = await uploadImage(file, overwrite);
       const msg = `Foto ${r.name} terunggah (${r.width}×${r.height} px, ${formatBytes(r.size)}). Foto ini ikut terbit saat konten diterbitkan.`;
       setDone(msg);
-      announce(msg);
+      toast(`Foto ${r.name} terunggah.`);
       onUploaded(r);
     } catch (e) {
       const code = e instanceof ApiError ? e.code : 'network';
@@ -46,8 +48,8 @@ export function PhotoUploader({ onUploaded, label = 'Unggah foto' }: { onUploade
   };
 
   return (
-    <div className="uploader">
-      <div className="file-pick">
+    <div className="space-y-2">
+      <div className="relative inline-flex">
         <input
           id={id}
           type="file"
@@ -55,25 +57,31 @@ export function PhotoUploader({ onUploaded, label = 'Unggah foto' }: { onUploade
           onChange={(e) => void onPick(e)}
           disabled={busy !== null}
           aria-describedby={`${id}-hint`}
+          className="peer absolute inset-0 z-10 w-full cursor-pointer opacity-0 disabled:cursor-wait"
         />
-        <label htmlFor={id} className="btn btn-secondary">
+        <label
+          htmlFor={id}
+          className={cn(buttonVariants({ variant: compact ? 'outline' : 'default' }), 'peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-ring', busy && 'opacity-60')}
+        >
+          <Upload aria-hidden="true" />
           {busy ?? label}
         </label>
       </div>
-      <span className="hint" id={`${id}-hint`}>
+      <p className="text-xs text-muted-foreground" id={`${id}-hint`}>
         JPEG, lebar minimal 800 px. Foto besar otomatis dikecilkan (maks. 2000 px, 1,5 MB). Nama berkas: huruf kecil, angka, tanda hubung.
-      </span>
+      </p>
       {busy && (
-        <p className="small" role="status">
+        <p className="sr-only" role="status">
           {busy}
         </p>
       )}
       {done && (
-        <p className="small msg-inline-success" role="status">
+        <p className="flex items-start gap-2 text-sm text-success" role="status">
+          <CheckCircle2 aria-hidden="true" className="mt-0.5 size-4 shrink-0" />
           {done}
         </p>
       )}
-      <ErrorText>{error}</ErrorText>
+      {error && <Alert tone="error">{error}</Alert>}
       <ConfirmDialog
         open={pending !== null}
         title="Timpa foto lama?"
@@ -87,8 +95,8 @@ export function PhotoUploader({ onUploaded, label = 'Unggah foto' }: { onUploade
         }}
       >
         <p>
-          Sudah ada foto bernama <code>{pending?.name.toLowerCase()}</code> di situs. Bila ditimpa, semua konten yang memakai
-          foto ini akan menampilkan foto baru setelah diterbitkan.
+          Sudah ada foto bernama <code>{pending?.name.toLowerCase()}</code> di situs. Bila ditimpa, semua konten yang memakai foto ini akan
+          menampilkan foto baru setelah diterbitkan.
         </p>
       </ConfirmDialog>
     </div>

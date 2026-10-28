@@ -151,10 +151,23 @@ describe('page copy', () => {
     expect(['services', 'portfolio', 'research', 'about', 'careers', 'contact']).toContain(cta.route);
   });
 
+  test('the hero highlight is the end of the hero title in both languages', () => {
+    const { title, titleHighlight } = pages().home.hero;
+    for (const lang of ['id', 'en'] as const) expect(title[lang].endsWith(titleHighlight[lang]), lang).toBe(true);
+  });
+
+  test('every page-level call to action points at a real route', () => {
+    const { hero, contact } = pages().home;
+    for (const link of [hero.cta, hero.secondaryLink, contact.cardLink]) {
+      expect(['services', 'portfolio', 'research', 'about', 'careers', 'contact']).toContain(link.route);
+    }
+  });
+
   test('technology section has three steps and the about story has three paragraphs', () => {
     expect(pages().home.technology.steps).toHaveLength(3);
     expect(pages().about.story.id).toHaveLength(3);
     expect(pages().contact.serviceAreas.id).toHaveLength(6);
+    expect(pages().contact.propertyTypes.id).toHaveLength(4);
   });
 });
 

@@ -14,24 +14,24 @@
     }
   },
   {
-    "code": "ISO 45001:2018",
+    "code": "ISO 45001 : 2018",
     "name": {
       "id": "Occupational Health and Safety Management System (OH&S)",
       "en": "Occupational Health and Safety Management System (OH&S)"
     }
   },
   {
-    "code": "SMK3",
+    "code": "SMK3 (Sistem Manajemen Keselamatan dan Kesehatan Kerja)",
     "name": {
-      "id": "Sistem Manajemen Keselamatan dan Kesehatan Kerja (PP No. 50 Tahun 2012)",
-      "en": "Occupational Health and Safety Management System (Government Regulation No. 50 of 2012)"
+      "id": "Penerapan PP No. 50 Tahun 2012",
+      "en": "Under Government Regulation No. 50 of 2012"
     }
   },
   {
-    "code": "BMS",
+    "code": "Building Management System (BMS)",
     "name": {
-      "id": "Building Management System untuk operasional yang terintegrasi",
-      "en": "Building Management System for integrated operations"
+      "id": "Untuk Operasional yang Terintegrasi",
+      "en": "For Integrated Building Operations"
     }
   }
 ]

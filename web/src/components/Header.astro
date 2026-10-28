@@ -1,49 +1,73 @@
 ---
 import { Image } from 'astro:assets';
 import logo from '../assets/promind-header-brand.png';
-import type { Locale } from '../i18n/locales';
+import { htmlLang, type Locale } from '../i18n/locales';
 import { ROUTES, pathFor, type RouteKey } from '../i18n/routes';
 import { t, type UiKey } from '../i18n/ui';
-import LangSwitch from './LangSwitch.astro';
+import { loadSettings } from '../content/schema';
+import Icon from './Icon.astro';
 
+// Markup and classes follow the live Navbar.jsx so the live stylesheet renders it identically.
+// Live inline styles (forbidden by our CSP) are classes in site.css: header-solid, brand-box, brand-img.
 interface Props { lang: Locale; routeKey: RouteKey; paths?: Record<Locale, string> }
 const { lang, routeKey, paths } = Astro.props;
-const keys = Object.keys(ROUTES).filter((k) => k !== 'home') as RouteKey[];
-const items = keys.map((key) => ({
+const other: Locale = lang === 'id' ? 'en' : 'id';
+const otherHref = paths ? paths[other] : pathFor(routeKey, other);
+const items = (Object.keys(ROUTES) as RouteKey[]).map((key) => ({
   key,
   href: pathFor(key, lang),
   label: t(lang, `nav.${key}` as UiKey),
   current: key === routeKey,
 }));
-const link = 'block px-3 py-3 font-display text-sm font-semibold text-heading no-underline hover:text-accent-hover aria-[current=page]:text-accent aria-[current=page]:underline underline-offset-8';
+const s = loadSettings();
+const navLink = (current: boolean) =>
+  `text-[13px] font-bold tracking-tight whitespace-nowrap transition cursor-pointer py-1 relative border-0 bg-transparent ${
+    current
+      ? 'text-[#2b5caf] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-[#2b5caf]'
+      : 'text-[#27384a] hover:text-[#2b5caf]'
+  }`;
 ---
 
-<header class="site-header sticky top-0 z-40 border-b border-hairline bg-surface">
-  <div class="mx-auto flex w-full max-w-[1200px] items-center justify-between gap-4 px-4 py-2 sm:px-6">
-    <a href={pathFor('home', lang)} aria-label="PROMIND" class="shrink-0">
-      <Image src={logo} alt="PROMIND" width={176} height={42} densities={[1, 2]} format="webp" loading="eager" />
+<header class="site-header sticky top-0 z-40 border-b border-[#e0e1de] shadow-sm transition-all duration-200 header-solid">
+  <div class="wrap flex items-center justify-between h-[84px] gap-6">
+    <a href={pathFor('home', lang)} class="flex items-center shrink-0 cursor-pointer text-left border-0 bg-transparent p-0 brand-box" aria-label="PROMIND">
+      <Image src={logo} alt="" width={1024} format="webp" quality={90} loading="eager" class="block mix-blend-multiply shrink-0 brand-img" />
     </a>
 
-    <nav aria-label="Primary" class="hidden lg:block">
-      <ul class="m-0 flex list-none items-center gap-1 p-0">
-        {items.map((i) => (
-          <li><a class={link} href={i.href} aria-current={i.current ? 'page' : undefined}>{i.label}</a></li>
-        ))}
-      </ul>
+    <nav aria-label="Primary" class="hidden lg:flex items-center space-x-7">
+      {items.map((i) => (
+        <a class={navLink(i.current)} href={i.href} aria-current={i.current ? 'page' : undefined}>{i.label}</a>
+      ))}
     </nav>
 
-    <div class="flex items-center gap-2">
-      <LangSwitch lang={lang} routeKey={routeKey} paths={paths} />
-      <details class="mobile-menu relative lg:hidden">
-        <summary class="inline-flex min-h-11 cursor-pointer list-none items-center border border-hairline-strong px-3 font-display text-sm font-bold text-heading">
-          {t(lang, 'nav.menu')}
+    <div class="hidden sm:flex items-center space-x-4 shrink-0">
+      <span class="text-xs font-bold text-[#3c4d60] px-2 py-1 lang-toggle"><span lang={htmlLang(lang)}>{lang.toUpperCase()}</span> / <a href={otherHref} hreflang={htmlLang(other)}><span lang={htmlLang(other)}>{other.toUpperCase()}</span><span class="sr-only" lang={htmlLang(other)}>&nbsp;– {t(lang, 'lang.switch')}</span></a></span>
+      <a href={pathFor('contact', lang)} class="header-contact cursor-pointer border-0">
+        <span>{t(lang, 'nav.cta')}</span>
+        <Icon name="arrow-up-right" class="w-4 h-4" />
+      </a>
+    </div>
+
+    <div class="flex items-center space-x-2 lg:hidden">
+      <a href={otherHref} hreflang={htmlLang(other)} class="text-xs font-bold text-[#3c4d60] px-2 py-1 lang-toggle-mobile"><span lang={htmlLang(other)}>{other.toUpperCase()}</span><span class="sr-only" lang={htmlLang(other)}>&nbsp;– {t(lang, 'lang.switch')}</span></a>
+      <details class="mobile-menu">
+        <summary class="p-2 text-[#18365f]">
+          <Icon name="menu" class="w-6 h-6 icon-open" />
+          <Icon name="x" class="w-6 h-6 icon-close" />
+          <span class="sr-only">{t(lang, 'nav.menu')}</span>
         </summary>
-        <nav aria-label="Mobile" class="absolute right-0 top-full mt-2 w-64 border border-hairline bg-surface p-2">
-          <ul class="m-0 list-none p-0">
-            {items.map((i) => (
-              <li><a class={link} href={i.href} aria-current={i.current ? 'page' : undefined}>{i.label}</a></li>
-            ))}
-          </ul>
+        <nav aria-label="Mobile" class="lg:hidden border-t border-[#e0e1de] px-6 py-5 space-y-3 shadow-xl mobile-drawer">
+          <div class="text-[10px] uppercase font-bold text-[#2b5caf] tracking-wider mb-2">{s.legalName}</div>
+          {items.map((i) => (
+            <a
+              href={i.href}
+              aria-current={i.current ? 'page' : undefined}
+              class={`block w-full text-left py-2.5 border-b border-[#e5e5e0] text-sm font-bold ${i.current ? 'text-[#2b5caf]' : 'text-[#233547]'}`}
+            >{i.label}</a>
+          ))}
+          <div class="pt-2">
+            <a href={pathFor('contact', lang)} class="block w-full text-center py-3 bg-[#2959ab] text-white font-bold text-xs uppercase tracking-wider">{t(lang, 'nav.cta')}</a>
+          </div>
         </nav>
       </details>
     </div>

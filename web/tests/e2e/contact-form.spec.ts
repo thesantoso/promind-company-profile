@@ -21,7 +21,8 @@ async function prepare(page: Page, respond: { status: number; body: unknown } = 
 }
 
 for (const lang of ['id', 'en'] as const) {
-  const label = lang === 'id' ? { name: 'Nama', email: 'Alamat email', message: 'Pesan', submit: 'Kirim pesan' } : { name: 'Name', email: 'Email address', message: 'Message', submit: 'Send message' };
+  const f = pages.contact.form;
+  const label = { name: f.name[lang], company: f.company[lang], email: f.email[lang], message: f.message[lang], submit: f.submit[lang] };
 
   test.describe(`contact form (${lang})`, () => {
     test('shows labelled fields, the topic list from the content, and a hidden honeypot', async ({ page }) => {
@@ -29,7 +30,7 @@ for (const lang of ['id', 'en'] as const) {
       await page.goto(pathFor('contact', lang));
       const form = page.locator('form#contact-form');
       await expect(form).toHaveCount(1);
-      for (const l of [label.name, label.email, label.message]) await expect(form.getByLabel(l, { exact: false }).first()).toBeVisible();
+      for (const l of [label.name, label.company, label.email, label.message]) await expect(form.getByLabel(l, { exact: true })).toBeVisible();
       const options = await form.locator('select[name=topic] option').allTextContents();
       for (const a of pages.contact.serviceAreas[lang]) expect(options).toContain(a);
       const hp = form.locator('input[name=website]');
@@ -53,9 +54,10 @@ for (const lang of ['id', 'en'] as const) {
       await page.goto(pathFor('contact', lang));
       const form = page.locator('form#contact-form');
       await form.locator('input[name=name]').fill('Budi Santoso');
+      await form.locator('input[name=company]').fill('PT Contoh Properti');
       await form.locator('input[name=email]').fill('budi@example.com');
       await form.locator('input[name=phone]').fill('+62 811-1234-5678');
-      await form.locator('select[name=topic]').selectOption({ index: 1 });
+      await form.locator('select[name=propertyType]').selectOption(pages.contact.propertyTypes[lang][1]);
       await form.locator('textarea[name=message]').fill('Kami ingin mendiskusikan pengelolaan gedung kami.');
       await form.getByRole('button', { name: label.submit }).click();
       await expect(page.locator('#contact-form [data-status=success]')).toBeVisible();
@@ -63,6 +65,9 @@ for (const lang of ['id', 'en'] as const) {
       expect(sent[0]!.url).toMatch(/\/api\/contact$/);
       expect(sent[0]!.body).toMatchObject({ name: 'Budi Santoso', email: 'budi@example.com', phone: '+62 811-1234-5678', lang, turnstileToken: 'TEST-TOKEN', website: '' });
       expect(sent[0]!.body.topic).toBe(pages.contact.serviceAreas[lang][0]);
+      expect(sent[0]!.body.message).toBe(
+        `${label.company}: PT Contoh Properti\n${f.propertyType[lang]}: ${pages.contact.propertyTypes[lang][1]}\n\nKami ingin mendiskusikan pengelolaan gedung kami.`,
+      );
       await expect(form.locator('input[name=name]')).toHaveValue('');
     });
 
@@ -76,15 +81,16 @@ test.describe('error responses', () => {
       await page.goto(pathFor('contact', 'en'));
       const form = page.locator('form#contact-form');
       await form.locator('input[name=name]').fill('Budi');
+      await form.locator('input[name=company]').fill('Example Properties');
       await form.locator('input[name=email]').fill('budi@example.com');
-      await form.locator('select[name=topic]').selectOption({ index: 1 });
+      await form.locator('input[name=phone]').fill('+62 811 1234 5678');
       await form.locator('textarea[name=message]').fill('Please contact us about management.');
-      await form.getByRole('button', { name: 'Send message' }).click();
+      await form.getByRole('button', { name: pages.contact.form.submit.en }).click();
       const err = form.locator(`[data-status=error-${key}]`);
       await expect(err).toBeVisible();
       await expect(err.locator(`a[href="mailto:${settings.email}"]`)).toHaveCount(1);
       await expect(form.locator('input[name=name]')).toHaveValue('Budi');
-      await expect(form.getByRole('button', { name: 'Send message' })).toBeEnabled();
+      await expect(form.getByRole('button', { name: pages.contact.form.submit.en })).toBeEnabled();
     });
   }
 });

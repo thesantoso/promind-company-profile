@@ -1,28 +1,52 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import BulletList from '../BulletList.astro';
+import ArrowButton from '../ArrowButton.astro';
 import PageHero from '../PageHero.astro';
 import { loadInsights, loadPages } from '../../content/load';
 import type { Locale } from '../../i18n/locales';
+import { pathFor } from '../../i18n/routes';
+import { ordinal } from '../../lib/ordinal';
 
+// Markup and classes follow the live ResearchPage.jsx.
 interface Props { lang: Locale }
 const { lang } = Astro.props;
 const { insights: page } = loadPages();
 ---
 
 <BaseLayout lang={lang} routeKey="research" title={page.seo.title[lang]} description={page.seo.description[lang]}>
-  <PageHero eyebrow={page.eyebrow[lang]} title={page.title[lang]} subtitle={page.subtitle[lang]} />
+  <div class="bg-[#f6f5f1]">
+    <PageHero eyebrow={page.eyebrow[lang]} title={page.title[lang]} subtitle={page.subtitle[lang]} />
 
-  {loadInsights().map((i) => (
-    <article id={i.slug} class="grid gap-6 border-t border-hairline py-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
-      <header>
-        <p class="m-0 font-display text-xs font-bold uppercase tracking-[0.14em] text-accent">{i.category[lang]}</p>
-        <h2 class="mt-3 text-2xl font-extrabold">{i.title[lang]}</h2>
-      </header>
-      <div>
-        <p class="m-0">{i.summary[lang]}</p>
-        <BulletList class="mt-6" items={i.highlights[lang]} />
+    <section class="section-pad">
+      <div class="wrap">
+        <div class="border-t border-[#cbd2d9]">
+          {loadInsights().map((r, i) => (
+            <article id={r.slug} class="grid grid-cols-1 lg:grid-cols-12 gap-8 py-12 border-b border-[#cbd2d9] items-start">
+              <div class="lg:col-span-2">
+                <span class="text-xs font-extrabold uppercase tracking-wider text-[#2b5caf] block">{ordinal(i)} / {r.category[lang]}</span>
+              </div>
+              <div class="lg:col-span-5 pr-4">
+                <h2 class="text-2xl font-bold text-[#172b42] font-manrope mb-3 leading-snug">{r.title[lang]}</h2>
+                <p class="text-sm sm:text-base text-[#5b6874] leading-relaxed m-0">{r.summary[lang]}</p>
+              </div>
+              <div class="lg:col-span-5 bg-white border border-[#d8dfe5] p-6 sm:p-8">
+                <span class="text-[11px] font-extrabold uppercase tracking-widest text-[#2b5caf] block mb-4">{page.highlightsLabel[lang]}</span>
+                <ol class="list-none m-0 p-0 space-y-3">
+                  {r.highlights[lang].map((h, j) => (
+                    <li class="grid grid-cols-[28px_1fr] items-baseline text-xs sm:text-sm text-[#2c4157] pb-3 border-b border-[#eef2f5] last:border-b-0 last:pb-0">
+                      <span class="text-[11px] font-extrabold text-[#3d6cad]">{ordinal(j)}</span>
+                      <span class="leading-relaxed">{h}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div class="mt-14">
+          <ArrowButton href={pathFor('contact', lang)} label={page.ctaLabel[lang]} />
+        </div>
       </div>
-    </article>
-  ))}
+    </section>
+  </div>
 </BaseLayout>

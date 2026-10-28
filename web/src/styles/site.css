@@ -1,0 +1,65 @@
+/*
+  Overrides on top of live.css (loaded after it, unlayered).
+  1. Live inline styles, which our CSP (style-src 'self') forbids, written as classes.
+  2. No-JavaScript replacements for live React state (mobile menu, filters, marquee pause).
+  3. Accessibility fixes, each marked "a11y" with the live value it replaces.
+*/
+
+/* ---- 1. Live inline styles ---- */
+.header-solid { background: #ffffff; opacity: 1; backdrop-filter: none; -webkit-backdrop-filter: none; }
+.brand-box { display: flex; align-items: center; width: 185px; height: 58px; overflow: hidden; }
+.brand-img { display: block; width: 320px; max-width: none; height: auto; }
+
+/* Footer navigation is buttons on live: keep the live `.footer-column > a` rule off these links. */
+.footer-column > a.footer-nav-link { display: block; width: auto; gap: 0; margin-bottom: 0.75rem; font-size: 0.875rem; line-height: 1.25rem; color: #31475f; }
+.footer-column > a.footer-nav-link:hover { color: #285bb0; text-decoration: none; }
+
+/* Language toggle: live is one button reading "ID / EN"; here the other language is a link. */
+.lang-toggle a { color: inherit; }
+.lang-toggle a:hover, .lang-toggle-mobile:hover { color: #2b5caf; }
+
+/* ---- 2. No-JS state ---- */
+.mobile-menu > summary { display: block; list-style: none; cursor: pointer; }
+.mobile-menu > summary::-webkit-details-marker { display: none; }
+.mobile-menu .icon-close, .mobile-menu[open] .icon-open { display: none; }
+.mobile-menu[open] .icon-close { display: block; }
+.mobile-drawer { position: absolute; top: 100%; left: 0; right: 0; display: block; background: #ffffff; }
+
+/* Filters (portfolio categories, career departments): radio inputs instead of React state. */
+.filter-set { min-width: 0; margin-inline: 0; }
+.filter-input { position: absolute; width: 1px; height: 1px; margin: 0; opacity: 0; pointer-events: none; }
+.filter-input:focus-visible + label { outline: 3px solid #3973bd; outline-offset: 4px; }
+.filter-input:checked + .pf-chip { background: #172b42; color: #ffffff; border-width: 0; }
+.filter-input:checked + .career-filter-btn { background: #2b5caf; border-color: #2b5caf; color: #ffffff; box-shadow: 0 2px 6px rgba(43, 92, 175, 0.25); }
+.filter-input:checked + .career-filter-btn .career-filter-count { background: rgba(255, 255, 255, 0.22); color: #ffffff; }
+.filterable:has(.filter-input[data-f='1']:checked) [data-g]:not([data-g='1']),
+.filterable:has(.filter-input[data-f='2']:checked) [data-g]:not([data-g='2']),
+.filterable:has(.filter-input[data-f='3']:checked) [data-g]:not([data-g='3']),
+.filterable:has(.filter-input[data-f='4']:checked) [data-g]:not([data-g='4']),
+.filterable:has(.filter-input[data-f='5']:checked) [data-g]:not([data-g='5']),
+.filterable:has(.filter-input[data-f='6']:checked) [data-g]:not([data-g='6']),
+.filterable:has(.filter-input[data-f='7']:checked) [data-g]:not([data-g='7']),
+.filterable:has(.filter-input[data-f='8']:checked) [data-g]:not([data-g='8']),
+.filterable:has(.filter-input[data-f='9']:checked) [data-g]:not([data-g='9']) { display: none; }
+
+/* Client marquee pause: a checkbox instead of React state. */
+.marquee-control { position: relative; }
+.marquee-toggle { position: absolute; width: 1px; height: 1px; margin: 0; opacity: 0; }
+.marquee-control:has(.marquee-toggle:focus-visible) { outline: 3px solid #3973bd; outline-offset: 4px; }
+.marquee-control > span { display: inline-flex; }
+.marquee-when-paused, .marquee-control:has(.marquee-toggle:checked) .marquee-when-running { display: none !important; }
+.marquee-control:has(.marquee-toggle:checked) .marquee-when-paused { display: inline-flex !important; }
+.clients:has(.marquee-toggle:checked) .client-marquee-track { animation-play-state: paused; }
+
+/* Job page share feedback, filled by /scripts/share.js. */
+.career-copy-inline.is-copied { background: #315680; }
+
+/* Contact form states (live opens the mail app instead and has no inline messages). */
+.inquiry-form .form-status:not(:has(p:not([hidden]))) { display: none; }
+.inquiry-form .form-status p { margin: 0; font-size: 14px; line-height: 1.6; color: #ffe0d7; }
+.inquiry-form .form-status a { color: #ffffff; text-decoration: underline; }
+.inquiry-form .form-success { color: #ffffff !important; font-weight: 700; }
+.inquiry-form [aria-invalid='true'] { border-color: #ffd0c2; box-shadow: 0 0 0 1px #ffd0c2; }
+.inquiry-form .cf-turnstile:empty { display: none; }
+
+/* ---- 3. Accessibility fixes ---- */
