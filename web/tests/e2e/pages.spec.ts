@@ -11,6 +11,7 @@ const clients = readContent<any[]>('clients');
 const insights = readContent<any[]>('insights');
 const pillars = readContent<any[]>('pillars');
 const standards = readContent<any[]>('standards');
+const settings = readContent('settings');
 
 for (const lang of LOCALES) {
   test.describe(`services (${lang})`, () => {
@@ -96,6 +97,31 @@ for (const lang of LOCALES) {
       const std = page.locator('section', { has: page.getByRole('heading', { level: 2, name: pages.about.standardsTitle[lang] }) });
       await expect(std.locator('dt')).toHaveCount(standards.length);
       for (const s of standards) await expect(std.locator('dt', { hasText: s.code })).toBeVisible();
+    });
+  });
+
+  test.describe(`contact (${lang})`, () => {
+    test.beforeEach(async ({ page }) => {
+      await page.goto(pathFor('contact', lang));
+    });
+
+    test('shows the company contact details from settings', async ({ page }) => {
+      await expect(page.locator('main h1')).toHaveText(pages.contact.title[lang]);
+      await expect(page.locator('main address')).toHaveText(settings.address[lang]);
+      await expect(page.locator(`main a[href="mailto:${settings.email}"]`).first()).toBeVisible();
+      await expect(page.locator(`main a[href="tel:${settings.phone.replace(/\s/g, '')}"]`)).toBeVisible();
+    });
+
+    test('lists the six service areas as bullets', async ({ page }) => {
+      await expect(page.locator('[data-list=service-areas] li')).toHaveCount(pages.contact.serviceAreas[lang].length);
+    });
+
+    test('has exactly one primary call to action and no form yet', async ({ page }) => {
+      const cta = page.locator('[data-cta] a');
+      await expect(cta).toHaveCount(1);
+      await expect(cta).toHaveAttribute('href', `mailto:${settings.email}`);
+      await expect(cta).toHaveText(pages.contact.ctaLabel[lang]);
+      await expect(page.locator('main form')).toHaveCount(0);
     });
   });
 }

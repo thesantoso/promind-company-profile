@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BulletList from '../BulletList.astro';
+import PageHero from '../PageHero.astro';
+import Section from '../Section.astro';
+import { loadPages } from '../../content/load';
+import { loadSettings } from '../../content/schema';
+import type { Locale } from '../../i18n/locales';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const { contact: page } = loadPages();
+const s = loadSettings();
+const whatsapp = s.whatsapp.replace(/\D/g, '');
+const link = 'inline-flex min-h-11 items-center';
+---
+
+<BaseLayout lang={lang} routeKey="contact" title={page.seo.title[lang]} description={page.seo.description[lang]}>
+  <PageHero eyebrow={page.eyebrow[lang]} title={page.title[lang]} subtitle={page.subtitle[lang]}>
+    <div data-cta class="mt-8">
+      <a
+        href={`mailto:${s.email}`}
+        class="inline-flex min-h-12 items-center bg-accent px-6 font-display font-bold text-white no-underline hover:bg-accent-hover hover:text-white"
+      >{page.ctaLabel[lang]}</a>
+    </div>
+  </PageHero>
+
+  <Section title="PROMIND">
+    <p class="m-0 font-display font-bold text-heading">{s.legalName}</p>
+    <address class="mt-2 max-w-prose not-italic">{s.address[lang]}</address>
+    <ul class="mt-4 list-none p-0">
+      <li><a class={link} href={`mailto:${s.email}`}>{s.email}</a></li>
+      <li><a class={link} href={`tel:${s.phone.replace(/\s/g, '')}`}>{s.phone}</a></li>
+      <li><a class={link} href={`https://wa.me/${whatsapp}`} rel="noopener">WhatsApp {s.whatsapp}</a></li>
+    </ul>
+  </Section>
+
+  <Section title={lang === 'id' ? 'Area Layanan' : 'Service Areas'}>
+    <div data-list="service-areas"><BulletList items={page.serviceAreas[lang]} /></div>
+  </Section>
+</BaseLayout>

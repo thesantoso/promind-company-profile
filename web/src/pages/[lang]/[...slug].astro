@@ -1,5 +1,6 @@
 ---
 import AboutPage from '../../components/pages/AboutPage.astro';
+import ContactPage from '../../components/pages/ContactPage.astro';
 import CareersPage from '../../components/pages/CareersPage.astro';
 import InsightsPage from '../../components/pages/InsightsPage.astro';
 import JobPage from '../../components/pages/JobPage.astro';
@@ -35,4 +36,5 @@ const { lang, routeKey, job } = Astro.props;
   : routeKey === 'research' ? <InsightsPage lang={lang} />
   : routeKey === 'about' ? <AboutPage lang={lang} />
   : routeKey === 'careers' ? <CareersPage lang={lang} />
+  : routeKey === 'contact' ? <ContactPage lang={lang} />
   : <PlaceholderPage lang={lang} routeKey={routeKey} />}
