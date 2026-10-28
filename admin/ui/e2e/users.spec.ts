@@ -1,4 +1,4 @@
-import { AUTH, BASE_URL, codeFromSecret, expect, PASSWORD, test } from './helpers';
+import { AUTH, BASE_URL, codeFromSecret, expect, PASSWORD, rowAction, test } from './helpers';
 import type { Browser, Page } from '@playwright/test';
 
 test.use({ storageState: AUTH.admin });
@@ -16,7 +16,7 @@ async function acceptInvite(browser: Browser, link: string, email: string) {
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Selamat datang');
   const pw = page.getByLabel('Kata sandi baru');
   await pw.fill('pendek');
-  await expect(page.locator('#pw-hints li').first()).toHaveClass('todo');
+  await expect(page.locator('#pw-hints li').first()).toHaveClass(/\btodo\b/);
   await page.getByLabel('Ulangi kata sandi').fill('pendek');
   await page.getByRole('button', { name: 'Simpan dan lanjut' }).click();
   await expect(page.getByRole('alert')).toContainText('belum memenuhi syarat');
@@ -96,8 +96,8 @@ test('invite → accept → 2FA → recovery codes → sign in; reset 2FA; deact
   await expect(row).toContainText('Editor');
 
   // Reset 2FA → sesi Nadia berakhir → ia mengaktifkan ulang lewat /aktifkan-2fa.
-  await row.getByRole('button', { name: 'Reset 2FA Nadia Putri' }).click();
-  dialog = page.getByRole('dialog', { name: 'Reset verifikasi 2 langkah Nadia Putri?' });
+  await rowAction(row, 'Nadia Putri', 'Reset 2FA');
+  dialog = page.getByRole('alertdialog', { name: 'Reset verifikasi 2 langkah Nadia Putri?' });
   await expect(dialog).toContainText('/aktifkan-2fa');
   await dialog.getByRole('button', { name: 'Ya, reset 2FA' }).click();
   await expect(page.getByRole('status').filter({ hasText: 'direset' })).toBeVisible();
@@ -117,23 +117,25 @@ test('invite → accept → 2FA → recovery codes → sign in; reset 2FA; deact
 
   // Nonaktifkan.
   await page.reload();
-  await row.getByRole('button', { name: 'Nonaktifkan Nadia Putri' }).click();
-  dialog = page.getByRole('dialog', { name: 'Nonaktifkan Nadia Putri?' });
+  await rowAction(row, 'Nadia Putri', 'Nonaktifkan');
+  dialog = page.getByRole('alertdialog', { name: 'Nonaktifkan Nadia Putri?' });
   await expect(dialog).toContainText('tidak bisa masuk lagi');
   await dialog.getByRole('button', { name: 'Ya, nonaktifkan' }).click();
   await expect(row).toContainText('Nonaktif');
-  await expect(row.getByRole('button', { name: 'Aktifkan Nadia Putri' })).toBeVisible();
+  await row.getByRole('button', { name: 'Tindakan untuk Nadia Putri' }).click();
+  await expect(page.getByRole('menuitem', { name: 'Aktifkan', exact: true })).toBeVisible();
+  await page.keyboard.press('Escape');
 
   // Administrator terakhir tidak bisa diturunkan atau dinonaktifkan.
   const me = page.locator('tbody tr', { hasText: 'admin@promind.co.id' });
-  await me.getByRole('button', { name: 'Ubah Admin Utama' }).click();
+  await rowAction(me, 'Admin Utama', 'Ubah nama atau peran');
   dialog = page.getByRole('dialog', { name: 'Ubah Admin Utama' });
   await dialog.getByLabel('Peran').selectOption('editor');
   await dialog.getByRole('button', { name: 'Simpan' }).click();
   await expect(dialog.getByRole('alert')).toContainText('Harus selalu ada minimal satu administrator aktif');
   await dialog.getByRole('button', { name: 'Batal' }).click();
-  await me.getByRole('button', { name: 'Nonaktifkan Admin Utama' }).click();
-  dialog = page.getByRole('dialog', { name: 'Nonaktifkan Admin Utama?' });
+  await rowAction(me, 'Admin Utama', 'Nonaktifkan');
+  dialog = page.getByRole('alertdialog', { name: 'Nonaktifkan Admin Utama?' });
   await expect(dialog).toContainText('Ini akun Anda sendiri');
   await dialog.getByRole('button', { name: 'Ya, nonaktifkan' }).click();
   await expect(dialog.getByRole('alert')).toContainText('Harus selalu ada minimal satu administrator aktif');

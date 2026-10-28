@@ -142,7 +142,7 @@
     -webkit-font-smoothing: antialiased;
   }
   h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.01em; }
-  a { color: var(--link); text-underline-offset: 3px; }
+  a { color: var(--link); text-decoration-line: underline; text-underline-offset: 3px; }
   a:hover { color: var(--link-hover); }
   code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.9em; }
   :focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
@@ -158,8 +158,8 @@
   dialog.dlg::backdrop { background: var(--overlay); }
   dialog.dlg[open] { animation: dlg-in 140ms ease-out; }
   dialog.sheet[open] { animation: sheet-in 160ms ease-out; }
-  @keyframes dlg-in { from { opacity: 0; transform: translateY(6px) scale(0.99); } }
-  @keyframes sheet-in { from { transform: translateX(-12px); opacity: 0; } }
+  @keyframes dlg-in { from { transform: translateY(6px) scale(0.99); } }
+  @keyframes sheet-in { from { transform: translateX(-12px); } }
 
   /* Tabel menjadi kartu bertumpuk di layar sempit. */
   @media (max-width: 767px) {

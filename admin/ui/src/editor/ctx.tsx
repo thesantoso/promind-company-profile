@@ -21,9 +21,9 @@ export function FieldIssues({ path }: { path: string }) {
   const msgs = useForm().issues.get(path);
   if (!msgs?.length) return null;
   return (
-    <div className="field-error" id={errId(path)}>
+    <div className="field-error mt-1.5 text-xs font-medium text-destructive" id={errId(path)}>
       {msgs.length === 1 ? msgs[0] : (
-        <ul>
+        <ul className="list-disc space-y-0.5 pl-4">
           {msgs.map((m) => (
             <li key={m}>{m}</li>
           ))}

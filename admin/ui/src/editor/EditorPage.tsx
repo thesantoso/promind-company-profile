@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ApiError, api, del, type Issue } from '../api';
 import { PublishDialog } from '../components/PublishDialog';
-import { Badge, ConfirmDialog, ErrorText, Loading, Notice, PageHeader, announce } from '../components/ui';
+import { AlertCircle, History as HistoryIcon, Loader2, Check, Pencil, Rocket, Trash2 } from 'lucide-react';
+import { Alert, Badge, Button, ConfirmDialog, ErrorText, Loading, Notice, PageHeader, announce } from '../components/ui';
+import { cn } from '../lib/cn';
 import { listImages, loadDoc, type ContentDoc, type ImageInfo } from '../content';
 import { errorMessage } from '../lib/errors';
 import { formatTime } from '../lib/format';
@@ -38,18 +40,23 @@ function SaveStatus({ state, onRetry }: { state: SaveState; onRetry: () => void 
   if (state.kind === 'pending') text = 'Ada perubahan, menyimpan sebentar lagi…';
   if (state.kind === 'saving') text = 'Menyimpan…';
   if (state.kind === 'saved') text = `Draf tersimpan ${formatTime(state.at)}`;
+  const failed = state.kind === 'failed';
   return (
-    <div className={state.kind === 'failed' ? 'save-state failed' : 'save-state'}>
+    <div className={cn('save-state flex min-w-0 items-center gap-2 text-sm', failed ? 'text-destructive' : 'text-muted-foreground')}>
+      {failed ? (
+        <AlertCircle aria-hidden="true" className="size-4 shrink-0" />
+      ) : state.kind === 'saved' ? (
+        <Check aria-hidden="true" className="size-4 shrink-0 text-success" />
+      ) : state.kind === 'saving' || state.kind === 'pending' ? (
+        <Loader2 aria-hidden="true" className="size-4 shrink-0 animate-spin motion-reduce:animate-none" />
+      ) : null}
       <span role="status" aria-live="polite" data-testid="save-state">
-        {state.kind === 'failed' ? `Gagal menyimpan — coba lagi. ${state.message}` : text}
+        {failed ? `Gagal menyimpan — coba lagi. ${state.message}` : text}
       </span>
-      {state.kind === 'failed' && (
-        <>
-          {' '}
-          <button type="button" className="btn btn-secondary btn-small" onClick={onRetry}>
-            Coba simpan lagi
-          </button>
-        </>
+      {failed && (
+        <Button variant="outline" size="sm" onClick={onRetry}>
+          Coba simpan lagi
+        </Button>
       )}
     </div>
   );
@@ -225,38 +232,47 @@ export default function EditorPage({ fileKey, tab }: { fileKey: string; tab: 'fo
             </>
           }
         />
-        <nav className="tabs" aria-label="Bagian editor">
-          <Link href={`/konten/${fileKey}`} aria-current={tab === 'form' ? 'page' : undefined}>
-            Isi
-          </Link>
-          <Link href={`/konten/${fileKey}/riwayat`} aria-current={tab === 'history' ? 'page' : undefined}>
-            Riwayat
-          </Link>
+        <nav className="tabs mb-5 flex gap-1 border-b" aria-label="Bagian editor">
+          {(
+            [
+              { id: 'form', href: `/konten/${fileKey}`, label: 'Isi', Icon: Pencil },
+              { id: 'history', href: `/konten/${fileKey}/riwayat`, label: 'Riwayat', Icon: HistoryIcon },
+            ] as const
+          ).map(({ id, href, label, Icon }) => (
+            <Link
+              key={id}
+              href={href}
+              aria-current={tab === id ? 'page' : undefined}
+              className={cn(
+                '-mb-px inline-flex h-10 items-center gap-2 border-b-2 px-3 text-sm font-medium no-underline transition-colors duration-150 max-md:min-h-11',
+                tab === id ? 'border-primary text-foreground hover:text-foreground' : 'border-transparent text-muted-foreground hover:text-foreground',
+              )}
+            >
+              <Icon aria-hidden="true" className="size-4" />
+              {label}
+            </Link>
+          ))}
         </nav>
 
         {tab === 'history' ? (
           <History fileKey={fileKey} label={doc.label} hasDraft={hasDraft} onRestored={() => void load()} />
         ) : (
           <>
-            <div className="editor-bar">
+            <div className="editor-bar sticky top-14 z-10 -mx-4 mb-5 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b bg-card px-4 py-3 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
               <SaveStatus state={save} onRetry={() => void saveNow()} />
-              <div className="row">
+              <div className="flex items-center gap-2">
                 {hasDraft && (
-                  <button type="button" className="btn btn-link-danger" onClick={() => setDiscarding(true)}>
+                  <Button variant="ghost-destructive" onClick={() => setDiscarding(true)}>
+                    <Trash2 aria-hidden="true" />
                     Buang draf
-                  </button>
+                  </Button>
                 )}
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  disabled={blocked !== null}
-                  aria-describedby="publish-reason"
-                  onClick={() => setPublishing(true)}
-                >
+                <Button disabled={blocked !== null} aria-describedby="publish-reason" onClick={() => setPublishing(true)}>
+                  <Rocket aria-hidden="true" />
                   Terbitkan
-                </button>
+                </Button>
               </div>
-              <p id="publish-reason" className="small muted full-row">
+              <p id="publish-reason" className="w-full text-xs text-muted-foreground">
                 {blocked ?? 'Draf siap diterbitkan.'}
               </p>
             </div>
@@ -270,24 +286,28 @@ export default function EditorPage({ fileKey, tab }: { fileKey: string; tab: 'fo
             )}
 
             {issues.length > 0 && (
-              <section className="issue-summary" aria-labelledby="issues-title">
-                <h2 id="issues-title">Ada {issues.length} isian yang perlu diperbaiki</h2>
-                <ul>
-                  {issues.map((i, n) => (
-                    <li key={`${i.path}-${n}`}>
-                      <a
-                        href={`#${fieldId(i.path)}`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          focusPath(i.path);
-                        }}
-                      >
-                        {humanPath(i.path, fileKey, work)}
-                      </a>
-                      : {i.message}
-                    </li>
-                  ))}
-                </ul>
+              <section className="issue-summary mb-5" aria-labelledby="issues-title">
+                <Alert tone="error" role="group" aria-labelledby="issues-title">
+                  <h2 id="issues-title" className="font-semibold">
+                    Ada {issues.length} isian yang perlu diperbaiki
+                  </h2>
+                  <ul className="mt-1.5 list-disc space-y-0.5 pl-4">
+                    {issues.map((i, n) => (
+                      <li key={`${i.path}-${n}`}>
+                        <a
+                          href={`#${fieldId(i.path)}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            focusPath(i.path);
+                          }}
+                        >
+                          {humanPath(i.path, fileKey, work)}
+                        </a>
+                        : {i.message}
+                      </li>
+                    ))}
+                  </ul>
+                </Alert>
               </section>
             )}
 

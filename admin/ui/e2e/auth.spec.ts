@@ -17,7 +17,8 @@ test.describe('masuk', () => {
     await expect(page.getByRole('heading', { level: 1, name: 'Ringkasan' })).toBeVisible();
     await expect(page.getByRole('banner')).toContainText('Uji Masuk');
 
-    await page.getByRole('button', { name: 'Keluar' }).click();
+    await page.getByRole('banner').getByRole('button', { name: /menu pengguna/ }).click();
+    await page.getByRole('menuitem', { name: 'Keluar' }).click();
     await expect(page.getByText('Anda sudah keluar.')).toBeVisible();
     // Sesi benar-benar berakhir di server.
     await page.reload();

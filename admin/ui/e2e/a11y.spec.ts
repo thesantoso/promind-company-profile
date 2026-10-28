@@ -1,13 +1,18 @@
 import type { Page } from '@playwright/test';
-import { AUTH, BASE_URL, codeFromSecret, expect, expectAccessible, expectNoOverflow, screenshot, test } from './helpers';
+import { AUTH, BASE_URL, codeFromSecret, expect, expectAccessible, expectNoOverflow, rowAction, screenshot, test } from './helpers';
 
 /** axe (semua dampak), tanpa gulir horizontal, dan tangkapan layar untuk pemeriksaan visual. */
 async function check(page: Page, name: string) {
   await page.evaluate(() => document.fonts.ready);
   const width = page.viewportSize()!.width;
-  await expectAccessible(page, `${name}@${width}`);
-  await expectNoOverflow(page, `${name}@${width}`);
-  if (width !== 768) await screenshot(page, `${name}-${width}`);
+  const { scheme, wanted } = await page.evaluate(() => ({
+    scheme: document.documentElement.classList.contains('dark') ? 'dark' : 'light',
+    wanted: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light',
+  }));
+  expect(scheme, 'theme follows prefers-color-scheme').toBe(wanted);
+  await expectAccessible(page, `${name}@${width}-${scheme}`);
+  await expectNoOverflow(page, `${name}@${width}-${scheme}`);
+  await screenshot(page, `${name}-${width}-${scheme}`);
 }
 
 async function invite(page: Page, email: string, name: string): Promise<string> {
@@ -20,14 +25,15 @@ async function invite(page: Page, email: string, name: string): Promise<string> 
 }
 
 const VIEWPORTS = [
-  { width: 1280, height: 900 },
+  { width: 1440, height: 900 },
   { width: 768, height: 1000 },
-  { width: 375, height: 812 },
+  { width: 390, height: 844 },
 ];
 
+for (const scheme of ['light', 'dark'] as const)
 for (const viewport of VIEWPORTS) {
-  test.describe(`${viewport.width}px`, () => {
-    test.use({ viewport });
+  test.describe(`${viewport.width}px ${scheme}`, () => {
+    test.use({ viewport, colorScheme: scheme });
 
     test.describe('signed out', () => {
       test.use({ storageState: { cookies: [], origins: [] } });
@@ -36,7 +42,7 @@ for (const viewport of VIEWPORTS) {
         await page.goto('/');
         await expect(page.getByRole('heading', { level: 1, name: 'Masuk' })).toBeVisible();
         await check(page, 'login');
-        await page.getByLabel('Email').fill('login@promind.co.id');
+        await page.getByLabel('Email').fill(`a11y-login-${viewport.width}-${scheme}@promind.co.id`);
         await page.getByLabel('Kata sandi').fill('salah');
         await page.getByLabel('Kode verifikasi (6 angka)').fill('111111');
         await page.getByRole('button', { name: 'Masuk', exact: true }).click();
@@ -56,8 +62,8 @@ for (const viewport of VIEWPORTS) {
       test.use({ storageState: AUTH.admin });
 
       test('invitation steps (password, QR, recovery codes)', async ({ page, browser }) => {
-        const link = await invite(page, `a11y-${viewport.width}@promind.co.id`, `Uji Aksesibilitas ${viewport.width}`);
-        const ctx = await browser.newContext({ viewport, storageState: { cookies: [], origins: [] } });
+        const link = await invite(page, `a11y-${viewport.width}-${scheme}@promind.co.id`, `Uji Aksesibilitas ${viewport.width} ${scheme}`);
+        const ctx = await browser.newContext({ viewport, colorScheme: scheme, storageState: { cookies: [], origins: [] } });
         const p = await ctx.newPage();
         await p.goto(link);
         await p.getByLabel('Kata sandi baru').fill('Kalimat');
@@ -83,7 +89,7 @@ for (const viewport of VIEWPORTS) {
         await check(page, 'users-invite-dialog');
         const dialog = page.getByRole('dialog', { name: 'Undang pengguna' });
         await dialog.getByLabel('Nama').fill('Calon Editor');
-        await dialog.getByLabel('Email').fill(`calon-${viewport.width}@promind.co.id`);
+        await dialog.getByLabel('Email').fill(`calon-${viewport.width}-${scheme}@promind.co.id`);
         await dialog.getByRole('button', { name: 'Buat undangan' }).click();
         await expect(page.getByRole('dialog', { name: 'Tautan undangan' })).toBeVisible();
         await check(page, 'users-invite-link');
@@ -91,7 +97,7 @@ for (const viewport of VIEWPORTS) {
         await expect(page.getByRole('dialog')).toHaveCount(0);
         // Fokus kembali ke tombol yang membuka dialog.
         await expect(page.getByRole('button', { name: 'Undang pengguna' })).toBeFocused();
-        await page.locator('tbody tr', { hasText: 'admin@promind.co.id' }).getByRole('button', { name: /^Ubah/ }).click();
+        await rowAction(page.locator('tbody tr', { hasText: 'admin@promind.co.id' }), 'Admin Utama', 'Ubah nama atau peran');
         await check(page, 'users-edit-dialog');
         await page.keyboard.press('Escape');
         await page.goto('/log-audit');
@@ -109,7 +115,7 @@ for (const viewport of VIEWPORTS) {
         await expect(page.getByRole('heading', { level: 1, name: 'Ringkasan' })).toBeVisible();
         await check(page, 'overview');
         if (viewport.width < 960) {
-          const menu = page.getByRole('button', { name: 'Menu' });
+          const menu = page.getByRole('button', { name: 'Menu', exact: true });
           await expect(page.getByRole('navigation', { name: 'Navigasi utama' })).toBeHidden();
           await menu.click();
           await expect(menu).toHaveAttribute('aria-expanded', 'true');
@@ -161,7 +167,7 @@ for (const viewport of VIEWPORTS) {
         await page.keyboard.press('Escape');
         await page.getByRole('button', { name: 'Buang draf' }).click();
         await check(page, 'discard-dialog');
-        await page.getByRole('dialog', { name: 'Buang draf?' }).getByRole('button', { name: 'Ya, buang draf' }).click();
+        await page.getByRole('alertdialog', { name: 'Buang draf?' }).getByRole('button', { name: 'Ya, buang draf' }).click();
         await expect(page.locator('.page-head')).toContainText('Sama dengan situs');
 
         await page.goto('/konten/careers/riwayat');

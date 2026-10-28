@@ -152,14 +152,15 @@ export function Layout({ children }: { children: ReactNode }) {
             <DropdownMenu
               label="Menu pengguna"
               trigger={
-                <Button variant="ghost" className="h-10 gap-2 px-2" aria-label={`Menu pengguna: ${user.name}, ${ROLE_LABEL[user.role]}`}>
+                <Button variant="ghost" className="h-10 gap-2 px-2 max-lg:h-11">
                   <span aria-hidden="true" className="grid size-7 place-items-center rounded-full bg-primary-soft text-xs font-semibold text-link">
                     {initials(user.name)}
                   </span>
-                  <span aria-hidden="true" className="hidden text-left leading-tight sm:block">
+                  <span className="text-left leading-tight max-sm:sr-only">
                     <span className="block text-sm font-medium">{user.name}</span>
                     <span className="block text-xs font-normal text-muted-foreground">{ROLE_LABEL[user.role]}</span>
                   </span>
+                  <span className="sr-only">, menu pengguna</span>
                   <ChevronDown aria-hidden="true" className="text-muted-foreground" />
                 </Button>
               }

@@ -58,10 +58,10 @@ test('blanking an English value shows the inline issue, the summary, and blocks 
   await expect(page.locator('#publish-reason')).toContainText('Belum ada perubahan');
 
   await page.getByRole('button', { name: 'Buang draf' }).click();
-  const dialog = page.getByRole('dialog', { name: 'Buang draf?' });
+  const dialog = page.getByRole('alertdialog', { name: 'Buang draf?' });
   await dialog.getByRole('button', { name: 'Ya, buang draf' }).click();
   await expect(dialog).toBeHidden();
-  await expect(page.getByText('Draf dibuang.')).toBeVisible();
+  await expect(page.getByRole('main').getByText('Draf dibuang.')).toBeVisible();
   await expect(page.locator('.page-head')).toContainText('Sama dengan situs');
 });
 
@@ -72,7 +72,7 @@ test('careers: add a job, add a list row, reorder, then publish with a diff revi
   // Baris baru di daftar tanggung jawab lowongan pertama.
   const job1 = items(page).first();
   await job1.locator('summary').click();
-  await job1.getByRole('button', { name: '+ Tambah baris tanggung jawab' }).click();
+  await job1.getByRole('button', { name: 'Tambah baris tanggung jawab' }).click();
   const newRowId = job1.getByLabel('Tanggung jawab baris 7, Indonesia');
   await expect(newRowId).toBeFocused();
   await newRowId.fill('Menyusun laporan bulanan untuk pemilik gedung');
@@ -80,7 +80,7 @@ test('careers: add a job, add a list row, reorder, then publish with a diff revi
   await expect(saveState(page)).toHaveText(/Ada perubahan|Menyimpan…|Draf tersimpan/);
 
   // Lowongan baru.
-  await page.getByRole('button', { name: '+ Tambah lowongan' }).click();
+  await page.getByRole('button', { name: 'Tambah lowongan' }).click();
   await expect(items(page)).toHaveCount(6);
   const job = items(page).nth(5);
   await expect(job.getByLabel('Slug (alamat halaman)')).toBeFocused();
@@ -167,7 +167,7 @@ test('history lists versions; restore is refused while a draft exists and works 
   await page.getByRole('link', { name: 'Riwayat' }).click();
   await expect(page.getByText('masih punya draf yang belum diterbitkan')).toBeVisible();
   await rows.nth(1).getByRole('button', { name: /Pulihkan versi ini/ }).click();
-  let dialog = page.getByRole('dialog', { name: 'Pulihkan versi ini?' });
+  let dialog = page.getByRole('alertdialog', { name: 'Pulihkan versi ini?' });
   await dialog.getByRole('button', { name: 'Ya, pulihkan dan terbitkan' }).click();
   await expect(dialog.getByRole('alert')).toContainText('Masih ada draf untuk berkas ini');
   await dialog.getByRole('button', { name: 'Batal' }).click();
@@ -175,14 +175,14 @@ test('history lists versions; restore is refused while a draft exists and works 
   // Buang draf, lalu pulihkan.
   await page.getByRole('link', { name: 'Isi' }).click();
   await page.getByRole('button', { name: 'Buang draf' }).click();
-  await page.getByRole('dialog', { name: 'Buang draf?' }).getByRole('button', { name: 'Ya, buang draf' }).click();
+  await page.getByRole('alertdialog', { name: 'Buang draf?' }).getByRole('button', { name: 'Ya, buang draf' }).click();
   await expect(page.locator('.page-head')).toContainText('Sama dengan situs');
   await page.getByRole('link', { name: 'Riwayat' }).click();
   await rows.nth(1).getByRole('button', { name: /Pulihkan versi ini/ }).click();
-  dialog = page.getByRole('dialog', { name: 'Pulihkan versi ini?' });
+  dialog = page.getByRole('alertdialog', { name: 'Pulihkan versi ini?' });
   await dialog.getByRole('button', { name: 'Ya, pulihkan dan terbitkan' }).click();
   await expect(dialog).toBeHidden();
-  await expect(page.getByText(/dipulihkan dan diterbitkan/)).toBeVisible();
+  await expect(page.getByRole('main').getByText(/dipulihkan dan diterbitkan/)).toBeVisible();
   await expect(rows).toHaveCount(3);
   await expect(rows.first()).toContainText('content: restore standards');
   await page.getByRole('link', { name: 'Isi' }).click();
@@ -207,6 +207,6 @@ test('nested pages file: grouped sections, route select, and nested issue paths'
   await title.fill(before);
   await waitSaved(page);
   await page.getByRole('button', { name: 'Buang draf' }).click();
-  await page.getByRole('dialog', { name: 'Buang draf?' }).getByRole('button', { name: 'Ya, buang draf' }).click();
+  await page.getByRole('alertdialog', { name: 'Buang draf?' }).getByRole('button', { name: 'Ya, buang draf' }).click();
   await expect(page.locator('.page-head')).toContainText('Sama dengan situs');
 });

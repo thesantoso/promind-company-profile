@@ -1,10 +1,14 @@
+import { KeyRound, LogOut, MoreHorizontal, Pencil, Power, UserPlus } from 'lucide-react';
 import { useCallback, useEffect, useState, type FormEvent } from 'react';
 import { ApiError, get, patch, post, type Role, type User } from '../api';
-import { Badge, ConfirmDialog, CopyButton, Dialog, ErrorText, Loading, Notice, PageHeader, announce } from '../components/ui';
+import {
+  Alert, Badge, Button, ConfirmDialog, CopyButton, Dialog, ErrorText, FieldHint, Input, Label, Loading, NativeSelect, PageHeader,
+  Table, TableBody, TableCell, TableHead, TableHeader, TableRow, toast,
+} from '../components/ui';
+import { DropdownMenu, DropdownMenuItem, DropdownMenuSeparator } from '../components/ui/dropdown-menu';
 import { errorMessage } from '../lib/errors';
 import { formatDateTime } from '../lib/format';
 import { useSession } from '../session';
-import { useTitle } from '../useTitle';
 
 const ROLE_LABEL: Record<Role, string> = { administrator: 'Administrator', editor: 'Editor' };
 const errText = (e: unknown) => errorMessage(e instanceof ApiError ? e.code : 'network');
@@ -13,8 +17,8 @@ type Action = { kind: 'edit' | 'toggle' | 'reset' | 'revoke'; user: User };
 
 function StatusBadge({ u }: { u: User }) {
   if (!u.active) return <Badge tone="muted">Nonaktif</Badge>;
-  if (!u.totpConfirmed) return <Badge tone="draft">Menunggu aktivasi 2 langkah</Badge>;
-  return <Badge>Aktif</Badge>;
+  if (!u.totpConfirmed) return <Badge tone="warning">Menunggu aktivasi 2 langkah</Badge>;
+  return <Badge tone="success">Aktif</Badge>;
 }
 
 function InviteDialog({ open, onClose, onInvited }: { open: boolean; onClose: () => void; onInvited: () => void }) {
@@ -42,7 +46,7 @@ function InviteDialog({ open, onClose, onInvited }: { open: boolean; onClose: ()
     try {
       const r = await post<{ email: string; expiresAt: number; link: string }>('/api/users/invite', { email: email.trim(), name: name.trim(), role });
       setResult(r);
-      announce('Undangan dibuat. Salin tautannya sekarang.');
+      toast('Undangan dibuat. Salin tautannya sekarang.');
       onInvited();
     } catch (err) {
       const code = err instanceof ApiError ? err.code : 'network';
@@ -60,56 +64,56 @@ function InviteDialog({ open, onClose, onInvited }: { open: boolean; onClose: ()
       busy={busy}
       footer={
         result ? (
-          <button key="done" type="button" className="btn btn-primary" onClick={onClose}>
+          <Button key="done" onClick={onClose}>
             Selesai
-          </button>
+          </Button>
         ) : (
           <>
-            <button type="button" className="btn btn-secondary" onClick={onClose} disabled={busy}>
+            <Button variant="outline" onClick={onClose} disabled={busy}>
               Batal
-            </button>
-            <button type="submit" form="invite-form" className="btn btn-primary" disabled={busy}>
+            </Button>
+            <Button type="submit" form="invite-form" disabled={busy}>
               {busy ? 'Membuat…' : 'Buat undangan'}
-            </button>
+            </Button>
           </>
         )
       }
     >
       {result ? (
-        <>
-          <Notice tone="success">Undangan untuk {result.email} sudah dibuat.</Notice>
-          <p>
-            Kirim tautan ini ke <strong>{result.email}</strong> lewat jalur pribadi (mis. pesan langsung). Portal tidak
-            mengirim email. <strong>Tautan hanya ditampilkan sekali</strong> dan berlaku sampai{' '}
+        <div className="space-y-4">
+          <Alert tone="success">Undangan untuk {result.email} sudah dibuat.</Alert>
+          <p className="text-muted-foreground">
+            Kirim tautan ini ke <strong className="text-foreground">{result.email}</strong> lewat jalur pribadi (mis. pesan langsung). Portal
+            tidak mengirim email. <strong className="text-foreground">Tautan hanya ditampilkan sekali</strong> dan berlaku sampai{' '}
             {formatDateTime(result.expiresAt)}.
           </p>
-          <label htmlFor="invite-link">Tautan undangan</label>
-          <input id="invite-link" type="text" readOnly value={result.link} onFocus={(e) => e.target.select()} data-autofocus />
-          <p className="mt">
-            <CopyButton text={result.link} label="Salin tautan" what="Tautan undangan" />
-          </p>
-        </>
+          <div>
+            <Label htmlFor="invite-link">Tautan undangan</Label>
+            <div className="flex flex-col gap-2 sm:flex-row">
+              <Input id="invite-link" readOnly value={result.link} onFocus={(e) => e.target.select()} data-autofocus className="font-mono text-xs" />
+              <CopyButton text={result.link} label="Salin tautan" what="Tautan undangan" />
+            </div>
+          </div>
+        </div>
       ) : (
-        <form id="invite-form" onSubmit={(e) => void submit(e)} noValidate>
-          <div className="field">
-            <label htmlFor="inv-name">Nama</label>
-            <input id="inv-name" type="text" value={name} onChange={(e) => setName(e.target.value)} maxLength={80} required data-autofocus />
+        <form id="invite-form" onSubmit={(e) => void submit(e)} noValidate className="space-y-4">
+          <div>
+            <Label htmlFor="inv-name">Nama</Label>
+            <Input id="inv-name" value={name} onChange={(e) => setName(e.target.value)} maxLength={80} required data-autofocus />
           </div>
-          <div className="field">
-            <label htmlFor="inv-email">Email</label>
-            <input id="inv-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <div>
+            <Label htmlFor="inv-email">Email</Label>
+            <Input id="inv-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
-          <div className="field">
-            <label htmlFor="inv-role">Peran</label>
-            <select id="inv-role" value={role} onChange={(e) => setRole(e.target.value as Role)} aria-describedby="inv-role-hint">
+          <div>
+            <Label htmlFor="inv-role">Peran</Label>
+            <NativeSelect id="inv-role" value={role} onChange={(e) => setRole(e.target.value as Role)} aria-describedby="inv-role-hint">
               <option value="editor">Editor</option>
               <option value="administrator">Administrator</option>
-            </select>
-            <span className="hint" id="inv-role-hint">
-              Editor mengelola konten dan foto. Administrator juga mengelola pengguna dan melihat log audit.
-            </span>
+            </NativeSelect>
+            <FieldHint id="inv-role-hint">Editor mengelola konten dan foto. Administrator juga mengelola pengguna dan melihat log audit.</FieldHint>
           </div>
-          <ErrorText>{error}</ErrorText>
+          {error && <Alert tone="error">{error}</Alert>}
         </form>
       )}
     </Dialog>
@@ -153,40 +157,38 @@ function EditDialog({ user, onClose, onSaved }: { user: User | null; onClose: ()
       onClose={onClose}
       title={`Ubah ${user?.name ?? ''}`}
       busy={busy}
+      size="sm"
       footer={
         <>
-          <button type="button" className="btn btn-secondary" onClick={onClose} disabled={busy}>
+          <Button variant="outline" onClick={onClose} disabled={busy}>
             Batal
-          </button>
-          <button type="submit" form="edit-user-form" className="btn btn-primary" disabled={busy}>
+          </Button>
+          <Button type="submit" form="edit-user-form" disabled={busy}>
             {busy ? 'Menyimpan…' : 'Simpan'}
-          </button>
+          </Button>
         </>
       }
     >
-      <form id="edit-user-form" onSubmit={(e) => void submit(e)} noValidate>
-        <div className="field">
-          <label htmlFor="edit-name">Nama</label>
-          <input id="edit-name" type="text" value={name} maxLength={80} onChange={(e) => setName(e.target.value)} data-autofocus />
+      <form id="edit-user-form" onSubmit={(e) => void submit(e)} noValidate className="space-y-4">
+        <div>
+          <Label htmlFor="edit-name">Nama</Label>
+          <Input id="edit-name" value={name} maxLength={80} onChange={(e) => setName(e.target.value)} data-autofocus />
         </div>
-        <div className="field">
-          <label htmlFor="edit-role">Peran</label>
-          <select id="edit-role" value={role} onChange={(e) => setRole(e.target.value as Role)}>
+        <div>
+          <Label htmlFor="edit-role">Peran</Label>
+          <NativeSelect id="edit-role" value={role} onChange={(e) => setRole(e.target.value as Role)}>
             <option value="editor">Editor</option>
             <option value="administrator">Administrator</option>
-          </select>
-          {user?.role === 'administrator' && role === 'editor' && (
-            <span className="hint">Pengguna ini tidak bisa lagi mengelola pengguna atau melihat log audit.</span>
-          )}
+          </NativeSelect>
+          {user?.role === 'administrator' && role === 'editor' && <FieldHint>Pengguna ini tidak bisa lagi mengelola pengguna atau melihat log audit.</FieldHint>}
         </div>
-        <ErrorText>{error}</ErrorText>
+        {error && <Alert tone="error">{error}</Alert>}
       </form>
     </Dialog>
   );
 }
 
 export function Users() {
-  useTitle('Pengguna');
   const { user: me } = useSession();
   const [users, setUsers] = useState<User[] | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -209,7 +211,7 @@ export function Users() {
   const finish = (msg: string) => {
     setAction(null);
     setDone(msg);
-    announce(msg);
+    toast(msg);
     void load();
   };
 
@@ -231,63 +233,89 @@ export function Users() {
         title="Pengguna"
         lead="Orang yang bisa masuk ke portal ini. Pengguna baru bergabung lewat tautan undangan."
         actions={
-          <button type="button" className="btn btn-primary" onClick={() => setInviting(true)}>
+          <Button onClick={() => setInviting(true)}>
+            <UserPlus aria-hidden="true" />
             Undang pengguna
-          </button>
+          </Button>
         }
       />
-      {done && <Notice tone="success">{done}</Notice>}
+      {done && (
+        <Alert tone="success" className="mb-4">
+          {done}
+        </Alert>
+      )}
       <ErrorText>{error}</ErrorText>
       {!users && !error && <Loading what="pengguna" />}
       {users && (
-        <div className="table-wrap">
-          <table className="stack-table">
-            <caption className="visually-hidden">Daftar pengguna</caption>
-            <thead>
-              <tr>
-                <th scope="col">Nama</th>
-                <th scope="col">Email</th>
-                <th scope="col">Peran</th>
-                <th scope="col">Status</th>
-                <th scope="col">Terakhir masuk</th>
-                <th scope="col">Tindakan</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((u) => (
-                <tr key={u.id}>
-                  <td data-label="Nama">
-                    <strong>{u.name}</strong>
-                    {u.id === me.id && <span className="muted"> (Anda)</span>}
-                  </td>
-                  <td data-label="Email">{u.email}</td>
-                  <td data-label="Peran">{ROLE_LABEL[u.role]}</td>
-                  <td data-label="Status">
-                    <StatusBadge u={u} />
-                  </td>
-                  <td data-label="Terakhir masuk">{u.lastLoginAt ? formatDateTime(u.lastLoginAt) : 'Belum pernah'}</td>
-                  <td data-label="Tindakan">
-                    <div className="actions" role="group" aria-label={`Tindakan untuk ${u.name}`}>
-                      <button type="button" className="btn btn-secondary btn-small" onClick={() => setAction({ kind: 'edit', user: u })}>
-                        Ubah<span className="visually-hidden"> {u.name}</span>
-                      </button>
-                      <button type="button" className="btn btn-secondary btn-small" onClick={() => setAction({ kind: 'toggle', user: u })}>
-                        {u.active ? 'Nonaktifkan' : 'Aktifkan'}
-                        <span className="visually-hidden"> {u.name}</span>
-                      </button>
-                      <button type="button" className="btn btn-secondary btn-small" onClick={() => setAction({ kind: 'reset', user: u })}>
-                        Reset 2FA<span className="visually-hidden"> {u.name}</span>
-                      </button>
-                      <button type="button" className="btn btn-secondary btn-small" onClick={() => setAction({ kind: 'revoke', user: u })}>
-                        Cabut sesi<span className="visually-hidden"> {u.name}</span>
-                      </button>
+        <Table>
+          <caption className="sr-only">Daftar pengguna</caption>
+          <TableHeader>
+            <tr>
+              <TableHead scope="col">Nama</TableHead>
+              <TableHead scope="col">Peran</TableHead>
+              <TableHead scope="col">Status</TableHead>
+              <TableHead scope="col">Terakhir masuk</TableHead>
+              <TableHead scope="col">
+                <span className="sr-only">Tindakan</span>
+              </TableHead>
+            </tr>
+          </TableHeader>
+          <TableBody>
+            {users.map((u) => (
+              <TableRow key={u.id}>
+                <TableCell data-label="Nama">
+                  <div className="flex items-center gap-3">
+                    <span aria-hidden="true" className="grid size-8 shrink-0 place-items-center rounded-full bg-muted text-xs font-semibold text-muted-foreground max-md:hidden">
+                      {u.name.split(/\s+/).slice(0, 2).map((w) => w[0]?.toUpperCase()).join('')}
+                    </span>
+                    <div className="min-w-0">
+                      <p className="font-medium">
+                        {u.name}
+                        {u.id === me.id && <span className="font-normal text-muted-foreground"> (Anda)</span>}
+                      </p>
+                      <p className="truncate text-xs text-muted-foreground">{u.email}</p>
                     </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                  </div>
+                </TableCell>
+                <TableCell data-label="Peran">{ROLE_LABEL[u.role]}</TableCell>
+                <TableCell data-label="Status">
+                  <StatusBadge u={u} />
+                </TableCell>
+                <TableCell data-label="Terakhir masuk" className="text-muted-foreground">
+                  {u.lastLoginAt ? formatDateTime(u.lastLoginAt) : 'Belum pernah'}
+                </TableCell>
+                <TableCell className="text-right max-md:text-left">
+                  <DropdownMenu
+                    label={`Tindakan untuk ${u.name}`}
+                    trigger={
+                      <Button variant="ghost" size="icon-sm" aria-label={`Tindakan untuk ${u.name}`}>
+                        <MoreHorizontal aria-hidden="true" />
+                      </Button>
+                    }
+                  >
+                    <DropdownMenuItem onSelect={() => setAction({ kind: 'edit', user: u })}>
+                      <Pencil aria-hidden="true" />
+                      Ubah nama atau peran
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => setAction({ kind: 'revoke', user: u })}>
+                      <LogOut aria-hidden="true" />
+                      Cabut semua sesi
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => setAction({ kind: 'reset', user: u })}>
+                      <KeyRound aria-hidden="true" />
+                      Reset 2FA
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem destructive={u.active} onSelect={() => setAction({ kind: 'toggle', user: u })}>
+                      <Power aria-hidden="true" />
+                      {u.active ? 'Nonaktifkan' : 'Aktifkan'}
+                    </DropdownMenuItem>
+                  </DropdownMenu>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       )}
 
       <InviteDialog open={inviting} onClose={() => setInviting(false)} onInvited={() => void load()} />
@@ -332,7 +360,7 @@ export function Users() {
         <p>
           Pakai ini bila {a?.user.name} kehilangan ponsel atau kode pemulihan. Aplikasi autentikator dan kode pemulihan
           lamanya tidak berlaku lagi, dan semua sesinya berakhir. Setelah itu ia harus membuka{' '}
-          <code>{window.location.origin}/aktifkan-2fa</code>, masuk dengan email dan kata sandi, lalu memindai kode QR baru.
+          <code className="text-foreground">{window.location.origin}/aktifkan-2fa</code>, masuk dengan email dan kata sandi, lalu memindai kode QR baru.
           {self && <strong> Ini akun Anda sendiri: Anda akan langsung keluar.</strong>}
         </p>
       </ConfirmDialog>

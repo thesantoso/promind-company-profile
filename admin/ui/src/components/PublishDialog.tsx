@@ -6,7 +6,9 @@ import { errorMessage } from '../lib/errors';
 import { humanPath } from '../lib/labels';
 import { interpretVersion, POLL_INTERVAL_MS, POLL_TIMEOUT_MS, versionUrl } from '../lib/publishState';
 import { useSession } from '../session';
-import { Dialog, ErrorText, Notice, announce } from './ui';
+import { ArrowRight, Check, Loader2 } from 'lucide-react';
+import { Button, Dialog, ErrorText, Label, Notice, Textarea, FieldHint, announce } from './ui';
+import { cn } from '../lib/cn';
 
 type Stage = 'loading' | 'review' | 'sending' | 'waiting' | 'live' | 'unverified' | 'error';
 
@@ -21,35 +23,53 @@ interface Review {
 const NOTE_MAX = 200;
 
 function DiffList({ entries }: { entries: DiffEntry[] }) {
-  if (entries.length === 0) return <p className="muted">Tidak ada perubahan isi dibanding versi yang tayang.</p>;
+  if (entries.length === 0) return <p className="text-muted-foreground">Tidak ada perubahan isi dibanding versi yang tayang.</p>;
   return (
-    <ul className="diff">
+    <ul className="diff divide-y overflow-hidden rounded-lg border">
       {entries.map((e) => (
-        <li key={e.path}>
-          <div className="where">{e.label}</div>
-          <div className="change">
-            {e.kind !== 'added' && (
-              <>
-                <span className="tag">Sebelum</span>
-                <span className="old">{e.before ?? '(kosong)'}</span>
-              </>
+        <li key={e.path} className="bg-card px-3 py-2.5">
+          <div className="mb-1.5 text-xs font-medium text-muted-foreground">{e.label}</div>
+          <div className="grid gap-2 sm:grid-cols-[1fr_auto_1fr] sm:items-start">
+            {e.kind !== 'added' ? (
+              <div className="rounded-md border border-destructive-border bg-destructive-soft px-2.5 py-1.5">
+                <span className="mb-0.5 block text-[0.6875rem] font-semibold uppercase tracking-wide text-destructive">Sebelum</span>
+                <span className="old block whitespace-pre-wrap break-words text-foreground line-through decoration-destructive/50">{e.before ?? '(kosong)'}</span>
+              </div>
+            ) : (
+              <div className="hidden sm:block" />
             )}
-            {e.kind !== 'removed' && (
-              <>
-                <span className="tag">{e.kind === 'added' ? 'Ditambah' : 'Sesudah'}</span>
-                <span className="new">{e.after === '' ? '(kosong)' : e.after}</span>
-              </>
-            )}
-            {e.kind === 'removed' && (
-              <>
-                <span className="tag">Sesudah</span>
-                <span className="new">Dihapus</span>
-              </>
-            )}
+            <ArrowRight aria-hidden="true" className="hidden size-4 self-center text-muted-foreground sm:block" />
+            <div className="rounded-md border border-success-border bg-success-soft px-2.5 py-1.5">
+              <span className="mb-0.5 block text-[0.6875rem] font-semibold uppercase tracking-wide text-success">
+                {e.kind === 'added' ? 'Ditambah' : 'Sesudah'}
+              </span>
+              <span className="new block whitespace-pre-wrap break-words text-foreground">
+                {e.kind === 'removed' ? 'Dihapus' : e.after === '' ? '(kosong)' : e.after}
+              </span>
+            </div>
           </div>
         </li>
       ))}
     </ul>
+  );
+}
+
+function Step({ state, label, mark }: { state: 'todo' | 'active' | 'done' | 'skipped'; label: string; mark: string }) {
+  return (
+    <li className={cn('flex items-center gap-3 py-1.5', state === 'todo' && 'text-muted-foreground')}>
+      <span
+        aria-hidden="true"
+        className={cn(
+          'grid size-6 shrink-0 place-items-center rounded-full border',
+          state === 'done' && 'border-success bg-success-soft text-success',
+          state === 'active' && 'border-primary bg-primary-soft text-link',
+        )}
+      >
+        {state === 'done' ? <Check className="size-3.5" /> : state === 'active' ? <Loader2 className="size-3.5 animate-spin motion-reduce:animate-none" /> : null}
+      </span>
+      <span className="font-medium">{label}</span>
+      <span className="ml-auto text-xs text-muted-foreground">{mark}</span>
+    </li>
   );
 }
 
@@ -186,125 +206,118 @@ export function PublishDialog({
   const title = snapshot.length === 1 ? `Terbitkan: ${snapshot[0]!.label}` : `Terbitkan ${snapshot.length} berkas`;
 
   const footer = finished ? (
-    <button type="button" className="btn btn-primary" onClick={onClose} data-autofocus>
+    <Button onClick={onClose} data-autofocus>
       {stage === 'waiting' ? 'Tutup (pemantauan berhenti)' : 'Selesai'}
-    </button>
+    </Button>
   ) : (
     <>
-      <button type="button" className="btn btn-secondary" onClick={onClose} disabled={busy}>
+      <Button variant="outline" onClick={onClose} disabled={busy}>
         Batal
-      </button>
+      </Button>
       {stage !== 'error' && (
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={() => void publish()}
-          disabled={stage !== 'review' || withDraft.length === 0 || issueCount > 0}
-        >
+        <Button onClick={() => void publish()} disabled={stage !== 'review' || withDraft.length === 0 || issueCount > 0}>
           {busy ? 'Mengirim…' : 'Ya, terbitkan sekarang'}
-        </button>
+        </Button>
       )}
     </>
   );
 
   return (
-    <Dialog open={open} onClose={onClose} title={title} busy={busy} wide footer={footer}>
-      {stage === 'loading' && <p role="status">Memuat perubahan…</p>}
+    <Dialog
+      open={open}
+      onClose={onClose}
+      title={title}
+      description={stage === 'review' || stage === 'sending' ? 'Periksa perubahan berikut. Setelah diterbitkan, situs publik diperbarui dalam 1–2 menit.' : undefined}
+      busy={busy}
+      size="lg"
+      footer={footer}
+    >
+      <div className="space-y-4">
+        {stage === 'loading' && <p role="status" className="text-muted-foreground">Memuat perubahan…</p>}
 
-      {(stage === 'review' || stage === 'sending') && (
-        <>
-          <p>Periksa perubahan berikut. Setelah diterbitkan, situs publik diperbarui dalam 1–2 menit.</p>
-          {reviews.map((r) => (
-            <section key={r.key} aria-labelledby={`rev-${r.key}`}>
-              <h3 id={`rev-${r.key}`}>
-                {r.label} <span className="muted small">({r.diff.length} perubahan)</span>
-              </h3>
-              {r.issues.length > 0 && (
-                <ErrorText>
-                  Berkas ini masih punya {r.issues.length} isian bermasalah. Perbaiki dulu di editor.
-                </ErrorText>
-              )}
-              <DiffList entries={r.diff} />
-            </section>
-          ))}
-          <p className="small muted">Foto baru yang sudah diunggah ikut diterbitkan bersama perubahan ini.</p>
-          <div className="field">
-            <label htmlFor="publish-note">Catatan (opsional)</label>
-            <textarea
-              id="publish-note"
-              value={note}
-              maxLength={NOTE_MAX}
-              onChange={(e) => setNote(e.target.value)}
-              aria-describedby="publish-note-hint"
+        {(stage === 'review' || stage === 'sending') && (
+          <>
+            {reviews.map((r) => (
+              <section key={r.key} aria-labelledby={`rev-${r.key}`} className="space-y-2">
+                <h3 id={`rev-${r.key}`} className="text-sm font-semibold">
+                  {r.label} <span className="font-normal text-muted-foreground">({r.diff.length} perubahan)</span>
+                </h3>
+                {r.issues.length > 0 && <ErrorText className="">Berkas ini masih punya {r.issues.length} isian bermasalah. Perbaiki dulu di editor.</ErrorText>}
+                <DiffList entries={r.diff} />
+              </section>
+            ))}
+            <p className="text-xs text-muted-foreground">Foto baru yang sudah diunggah ikut diterbitkan bersama perubahan ini.</p>
+            <div>
+              <Label htmlFor="publish-note">Catatan (opsional)</Label>
+              <Textarea id="publish-note" className="min-h-16" value={note} maxLength={NOTE_MAX} onChange={(e) => setNote(e.target.value)} aria-describedby="publish-note-hint" />
+              <FieldHint id="publish-note-hint">
+                Mis. alasan perubahan. Tersimpan di riwayat. {note.length}/{NOTE_MAX} karakter.
+              </FieldHint>
+            </div>
+          </>
+        )}
+
+        {(stage === 'sending' || finished) && (
+          <ol className="progress divide-y rounded-lg border bg-subtle px-4 text-sm" aria-label="Kemajuan penerbitan">
+            <Step state={stage === 'sending' ? 'active' : 'done'} label="Mengirim ke Git" mark={stage === 'sending' ? 'Berjalan' : 'Selesai'} />
+            <Step
+              state={stage === 'waiting' ? 'active' : stage === 'live' ? 'done' : stage === 'unverified' ? 'skipped' : 'todo'}
+              label="Menunggu situs diperbarui"
+              mark={stage === 'waiting' ? 'Berjalan' : stage === 'live' ? 'Selesai' : stage === 'unverified' ? 'Dilewati' : 'Menunggu'}
             />
-            <span className="hint" id="publish-note-hint">
-              Mis. alasan perubahan. Tersimpan di riwayat. {note.length}/{NOTE_MAX} karakter.
-            </span>
-          </div>
-        </>
-      )}
+            <Step state={stage === 'live' ? 'done' : 'todo'} label="Tayang di situs" mark={stage === 'live' ? 'Selesai' : 'Menunggu'} />
+          </ol>
+        )}
 
-      {(stage === 'sending' || finished) && (
-        <ol className="progress" aria-label="Kemajuan penerbitan">
-          <li className={stage === 'sending' ? 'active' : 'done'}>
-            <span className="mark">{stage === 'sending' ? 'Berjalan' : 'Selesai'}</span>Mengirim ke Git
-          </li>
-          <li className={stage === 'waiting' ? 'active' : stage === 'live' ? 'done' : ''}>
-            <span className="mark">{stage === 'waiting' ? 'Berjalan' : stage === 'live' ? 'Selesai' : stage === 'unverified' ? 'Dilewati' : 'Menunggu'}</span>
-            Menunggu situs diperbarui
-          </li>
-          <li className={stage === 'live' ? 'done' : ''}>
-            <span className="mark">{stage === 'live' ? 'Selesai' : 'Menunggu'}</span>Tayang di situs
-          </li>
-        </ol>
-      )}
+        {stage === 'waiting' && <p role="status" className="text-muted-foreground">Situs sedang dibangun ulang. Biasanya butuh 1–2 menit; Anda boleh menutup dialog ini.</p>}
+        {stage === 'live' && (
+          <Notice tone="success">
+            Selesai. Perubahan sudah tayang di{' '}
+            <a href={siteOrigin} target="_blank" rel="noopener noreferrer">
+              situs PROMIND
+            </a>
+            .
+          </Notice>
+        )}
+        {stage === 'unverified' && (
+          <Notice tone="info">
+            Perubahan sudah dikirim; biasanya tampil di situs dalam 1–2 menit. Status situs tidak bisa diperiksa otomatis dari
+            sini, jadi silakan cek sendiri:{' '}
+            <a href={siteOrigin} target="_blank" rel="noopener noreferrer">
+              buka situs PROMIND
+            </a>
+            .
+          </Notice>
+        )}
+        {commit && (
+          <p className="text-xs text-muted-foreground">
+            Commit: <code>{commit.slice(0, 7)}</code>
+          </p>
+        )}
 
-      {stage === 'waiting' && <p role="status">Situs sedang dibangun ulang. Biasanya butuh 1–2 menit; Anda boleh menutup dialog ini.</p>}
-      {stage === 'live' && (
-        <Notice tone="success">
-          Selesai. Perubahan sudah tayang di{' '}
-          <a href={siteOrigin} target="_blank" rel="noopener noreferrer">
-            situs PROMIND
-          </a>
-          .
-        </Notice>
-      )}
-      {stage === 'unverified' && (
-        <Notice tone="info">
-          Perubahan sudah dikirim; biasanya tampil di situs dalam 1–2 menit. Status situs tidak bisa diperiksa otomatis dari
-          sini, jadi silakan cek sendiri:{' '}
-          <a href={siteOrigin} target="_blank" rel="noopener noreferrer">
-            buka situs PROMIND
-          </a>
-          .
-        </Notice>
-      )}
-      {commit && <p className="small muted">Commit: <code>{commit.slice(0, 7)}</code></p>}
-
-      {stage === 'error' && (
-        <>
-          <ErrorText>
-            {error}
-            {conflictKey && ` (berkas: ${labelOf(conflictKey)})`}
-          </ErrorText>
-          {badIssues.length > 0 && (
-            <ul className="bullets">
-              {badIssues.map((i) => (
-                <li key={`${i.key}${i.path}${i.message}`}>
-                  {labelOf(i.key)} › {humanPath(i.path, i.key, reviews.find((r) => r.key === i.key)?.data)}: {i.message}
-                </li>
-              ))}
-            </ul>
-          )}
-          {conflictKey && (
-            <p>
-              <button type="button" className="btn btn-danger" onClick={() => void discardConflict()}>
+        {stage === 'error' && (
+          <>
+            <ErrorText className="">
+              {error}
+              {conflictKey && ` (berkas: ${labelOf(conflictKey)})`}
+            </ErrorText>
+            {badIssues.length > 0 && (
+              <ul className="list-disc space-y-1 pl-5">
+                {badIssues.map((i) => (
+                  <li key={`${i.key}${i.path}${i.message}`}>
+                    {labelOf(i.key)} › {humanPath(i.path, i.key, reviews.find((r) => r.key === i.key)?.data)}: {i.message}
+                  </li>
+                ))}
+              </ul>
+            )}
+            {conflictKey && (
+              <Button variant="destructive" onClick={() => void discardConflict()}>
                 Buang draf {labelOf(conflictKey)} dan muat ulang
-              </button>
-            </p>
-          )}
-        </>
-      )}
+              </Button>
+            )}
+          </>
+        )}
+      </div>
     </Dialog>
   );
 }

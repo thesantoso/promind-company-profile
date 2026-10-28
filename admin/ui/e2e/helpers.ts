@@ -1,5 +1,5 @@
 import AxeBuilder from '@axe-core/playwright';
-import { expect, test as base, type APIRequestContext, type Page } from '@playwright/test';
+import { expect, test as base, type APIRequestContext, type Locator, type Page } from '@playwright/test';
 
 export const BASE_URL = 'http://127.0.0.1:8788';
 export const PASSWORD = 'Sangat-Rahasia-2026';
@@ -106,5 +106,12 @@ export async function makeJpeg(page: Page, width: number, height: number, opts: 
 }
 
 export async function screenshot(page: Page, name: string): Promise<void> {
-  await page.screenshot({ path: `${import.meta.dirname}/../test-results/screens/${name}.png`, fullPage: true });
+  const dir = process.env.SHOTS_DIR ?? `${import.meta.dirname}/../test-results/screens`;
+  await page.screenshot({ path: `${dir}/${name}.png`, fullPage: true });
+}
+
+/** Buka menu tindakan sebuah baris pengguna lalu pilih satu butir. */
+export async function rowAction(row: Locator, userName: string, item: string): Promise<void> {
+  await row.getByRole('button', { name: `Tindakan untuk ${userName}` }).click();
+  await row.page().getByRole('menuitem', { name: item }).click();
 }

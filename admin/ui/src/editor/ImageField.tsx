@@ -2,6 +2,7 @@ import { createContext, useContext, type ReactNode } from 'react';
 import { PhotoUploader } from '../components/PhotoUploader';
 import { imageUrl, type ImageInfo } from '../content';
 import { fieldId, joinPath } from '../lib/paths';
+import { FieldHint, Label, NativeSelect } from '../components/ui';
 import { FieldIssues, join, useInvalid } from './ctx';
 import type { Json } from '../lib/shape';
 
@@ -11,11 +12,11 @@ type Img = { src: string; alt: { id: string; en: string } };
 
 /** Pratinjau: foto draf dari API, foto yang sudah ada di repo sebagai ubin bernama (servernya tidak menyajikan byte-nya). */
 export function PhotoPreview({ name, draft }: { name: string; draft: boolean }) {
-  if (draft) return <img className="thumb" src={imageUrl(name)} alt="" />;
+  if (draft) return <img className="thumb aspect-[4/3] w-full bg-muted object-cover" src={imageUrl(name)} alt="" />;
   return (
-    <div className="thumb thumb-placeholder">
+    <div className="thumb thumb-placeholder grid aspect-[4/3] w-full place-content-center gap-1 bg-muted p-3 text-center text-xs text-muted-foreground">
       <span>{name ? 'Foto di situs' : 'Belum ada foto'}</span>
-      {name && <strong>{name}</strong>}
+      {name && <strong className="break-all font-medium text-foreground">{name}</strong>}
     </div>
   );
 }
@@ -39,14 +40,16 @@ export function ImageField({
   const current = known.find((i) => i.name === value.src);
   const options = current || !value.src ? known : [{ name: value.src, draft: false }, ...known];
   return (
-    <fieldset className="group" id={fieldId(path)} tabIndex={-1}>
-      <legend className="group-title">Foto</legend>
-      <div className="image-field">
-        <PhotoPreview name={value.src} draft={current?.draft ?? false} />
-        <div>
-          <div className="field">
-            <label htmlFor={id}>Pilih foto</label>
-            <select
+    <fieldset className="group min-w-0 space-y-4 rounded-lg border bg-subtle p-4 md:p-5" id={fieldId(path)} tabIndex={-1}>
+      <legend className="-ml-1 px-1 text-sm font-semibold">Foto</legend>
+      <div className="image-field grid gap-4 md:grid-cols-[14rem_1fr]">
+        <div className="overflow-hidden rounded-lg border">
+          <PhotoPreview name={value.src} draft={current?.draft ?? false} />
+        </div>
+        <div className="space-y-3">
+          <div>
+            <Label htmlFor={id}>Pilih foto</Label>
+            <NativeSelect
               id={id}
               value={value.src}
               onChange={(e) => onChange({ ...value, src: e.target.value })}
@@ -61,10 +64,8 @@ export function ImageField({
                   {!current && i.name === value.src && images ? ' (tidak ditemukan)' : ''}
                 </option>
               ))}
-            </select>
-            <span className="hint" id={`${id}-hint`}>
-              Atau unggah foto baru; foto itu langsung dipilih untuk butir ini.
-            </span>
+            </NativeSelect>
+            <FieldHint id={`${id}-hint`}>Atau unggah foto baru; foto itu langsung dipilih untuk butir ini.</FieldHint>
             <FieldIssues path={srcPath} />
           </div>
           <PhotoUploader
@@ -77,7 +78,7 @@ export function ImageField({
         </div>
       </div>
       {renderAlt(joinPath(path, 'alt'), value.alt, (alt) => onChange({ ...value, alt: alt as Img['alt'] }))}
-      <p className="hint">Teks alternatif wajib di kedua bahasa: jelaskan isi foto untuk pembaca yang tidak bisa melihatnya.</p>
+      <p className="text-xs text-muted-foreground">Teks alternatif wajib di kedua bahasa: jelaskan isi foto untuk pembaca yang tidak bisa melihatnya.</p>
     </fieldset>
   );
 }
