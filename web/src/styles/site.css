@@ -23,11 +23,11 @@
 .fieldwork-photo > picture > img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
 /* ---- 2. No-JS state ---- */
-.mobile-menu > summary { display: block; list-style: none; cursor: pointer; }
-.mobile-menu > summary::-webkit-details-marker { display: none; }
-.mobile-menu .icon-close, .mobile-menu[open] .icon-open { display: none; }
-.mobile-menu[open] .icon-close { display: block; }
-.mobile-drawer { position: absolute; top: 100%; left: 0; right: 0; display: block; background: #ffffff; }
+/* Mobile menu: a button toggles the drawer (public/scripts/menu.js). Without JavaScript the drawer stays
+   open, stacked in the header, and the button is hidden (public/nojs.css, loaded from <noscript>). */
+.mobile-drawer.is-closed { display: none; }
+.mobile-menu-btn .icon-close, .mobile-menu-btn[aria-expanded='true'] .icon-open { display: none; }
+.mobile-menu-btn[aria-expanded='true'] .icon-close { display: block; }
 
 /* Filters (portfolio categories, career departments): radio inputs instead of React state. */
 .filter-set { min-width: 0; margin-inline: 0; }

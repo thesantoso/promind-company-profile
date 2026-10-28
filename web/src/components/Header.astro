@@ -7,7 +7,7 @@ import { t, type UiKey } from '../i18n/ui';
 import { loadSettings } from '../content/schema';
 import Icon from './Icon.astro';
 
-// Markup and classes follow the live Navbar.jsx so the live stylesheet renders it identically.
+// Markup and classes follow the live Navbar.jsx (the mobile drawer is inside the header, so opening it pushes the page down) so the live stylesheet renders it identically.
 // Live inline styles (forbidden by our CSP) are classes in site.css: header-solid, brand-box, brand-img.
 interface Props { lang: Locale; routeKey: RouteKey; paths?: Record<Locale, string> }
 const { lang, routeKey, paths } = Astro.props;
@@ -50,26 +50,25 @@ const navLink = (current: boolean) =>
 
     <div class="flex items-center space-x-2 lg:hidden">
       <a href={otherHref} hreflang={htmlLang(other)} class="text-xs font-bold text-[#3c4d60] px-2 py-1 lang-toggle-mobile"><span lang={htmlLang(other)}>{other.toUpperCase()}</span><span class="sr-only" lang={htmlLang(other)}>&nbsp;– {t(lang, 'lang.switch')}</span></a>
-      <details class="mobile-menu">
-        <summary class="p-2 text-[#18365f]">
-          <Icon name="menu" class="w-6 h-6 icon-open" />
-          <Icon name="x" class="w-6 h-6 icon-close" />
-          <span class="sr-only">{t(lang, 'nav.menu')}</span>
-        </summary>
-        <nav aria-label="Mobile" class="lg:hidden border-t border-[#e0e1de] px-6 py-5 space-y-3 shadow-xl mobile-drawer">
-          <div class="text-[10px] uppercase font-bold text-[#2b5caf] tracking-wider mb-2">{s.legalName}</div>
-          {items.map((i) => (
-            <a
-              href={i.href}
-              aria-current={i.current ? 'page' : undefined}
-              class={`block w-full text-left py-2.5 text-sm font-bold ${i.current ? 'text-[#2b5caf]' : 'text-[#233547]'}`}
-            >{i.label}</a>
-          ))}
-          <div class="pt-2">
-            <a href={pathFor('contact', lang)} class="block w-full text-center py-3 bg-[#2959ab] text-white font-bold text-xs uppercase tracking-wider">{t(lang, 'nav.cta')}</a>
-          </div>
-        </nav>
-      </details>
+      <button type="button" class="p-2 text-[#18365f] mobile-menu-btn" aria-expanded="false" aria-controls="mobile-menu" data-label-open={t(lang, 'nav.menu')} data-label-close={t(lang, 'nav.close')}>
+        <Icon name="menu" class="w-6 h-6 icon-open" />
+        <Icon name="x" class="w-6 h-6 icon-close" />
+        <span class="sr-only">{t(lang, 'nav.menu')}</span>
+      </button>
     </div>
   </div>
+  <nav id="mobile-menu" aria-label="Mobile" class="lg:hidden border-t border-[#e0e1de] px-6 py-5 space-y-3 shadow-xl mobile-drawer is-closed">
+    <div class="text-[10px] uppercase font-bold text-[#2b5caf] tracking-wider mb-2">{s.legalName}</div>
+    {items.map((i) => (
+      <a
+        href={i.href}
+        aria-current={i.current ? 'page' : undefined}
+        class={`block w-full text-left py-2.5 text-sm font-bold ${i.current ? 'text-[#2b5caf]' : 'text-[#233547]'}`}
+      >{i.label}</a>
+    ))}
+    <div class="pt-2">
+      <a href={pathFor('contact', lang)} class="block w-full text-center py-3 bg-[#2959ab] text-white font-bold text-xs uppercase tracking-wider">{t(lang, 'nav.cta')}</a>
+    </div>
+  </nav>
+  <script is:inline src="/scripts/menu.js" defer></script>
 </header>

@@ -96,8 +96,8 @@
     },
     "technology": {
       "eyebrow": {
-        "id": "Dukungan Sistem Digital",
-        "en": "Digital Support System"
+        "id": "Digital Supporting System",
+        "en": "Digital Supporting System"
       },
       "title": {
         "id": "Operasional Gedung Lebih Terkontrol dengan Dukungan Sistem Terintegrasi.",
@@ -141,7 +141,7 @@
       ],
       "wordmarkCaption": {
         "id": "Sistem Pendukung Digital Building Management",
-        "en": "Digital Support System for Building Management"
+        "en": "Digital Supporting System for Building Management"
       }
     },
     "clients": {

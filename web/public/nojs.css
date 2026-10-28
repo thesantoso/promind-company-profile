@@ -1,0 +1,5 @@
+/* Loaded only when JavaScript is off (<noscript> in BaseLayout): the mobile menu cannot toggle, so keep its links visible. */
+@media (max-width: 1023.98px) {
+  header nav.mobile-drawer.is-closed { display: block; }
+}
+header button.mobile-menu-btn { display: none; }

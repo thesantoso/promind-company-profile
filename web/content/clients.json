@@ -16,7 +16,7 @@
   {
     "name": "Mandiri University",
     "category": {
-      "id": "Fasilitas Korporat",
+      "id": "Corporate Facility",
       "en": "Corporate Facility"
     }
   },
@@ -51,7 +51,7 @@
   {
     "name": "Plaza Pasifik",
     "category": {
-      "id": "Komersial",
+      "id": "Commercial",
       "en": "Commercial"
     }
   },
@@ -79,21 +79,21 @@
   {
     "name": "The Park",
     "category": {
-      "id": "Hunian",
+      "id": "Residence",
       "en": "Residence"
     }
   },
   {
     "name": "Patra Jasa",
     "category": {
-      "id": "Properti",
+      "id": "Property",
       "en": "Property"
     }
   },
   {
     "name": "WIKA",
     "category": {
-      "id": "Properti",
+      "id": "Property",
       "en": "Property"
     }
   }

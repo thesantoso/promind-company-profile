@@ -108,11 +108,12 @@ test('header stays solid white, never translucent or blurred, also after scrolli
 test('mobile menu opens with the keyboard and shows a focus outline', async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 800 });
   await page.goto('/en/');
-  const summary = page.locator('summary', { hasText: 'Open menu' });
+  const button = page.getByRole('button', { name: 'Open menu' });
   const nav = page.getByRole('navigation', { name: 'Mobile' });
   await expect(nav).toBeHidden();
-  await summary.focus();
-  const outline = await summary.evaluate((el) => {
+  await expect(button).toHaveAttribute('aria-expanded', 'false');
+  await button.focus();
+  const outline = await button.evaluate((el) => {
     const s = getComputedStyle(el);
     return { style: s.outlineStyle, width: parseFloat(s.outlineWidth) };
   });
@@ -120,6 +121,57 @@ test('mobile menu opens with the keyboard and shows a focus outline', async ({ p
   expect(outline.width).toBeGreaterThanOrEqual(2);
   await page.keyboard.press('Enter');
   await expect(nav).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Close menu' })).toHaveAttribute('aria-expanded', 'true');
+});
+
+test('mobile menu pushes the page down, closes with Escape and returns focus to the button', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 800 });
+  await page.goto('/en/services/');
+  const header = page.locator('header');
+  const main = page.locator('main');
+  const closed = { header: (await header.boundingBox())!.height, main: (await main.boundingBox())!.y };
+  const button = page.getByRole('button', { name: 'Open menu' });
+  await button.click();
+  const drawer = page.getByRole('navigation', { name: 'Mobile' });
+  await expect(drawer).toBeVisible();
+  const drawerHeight = (await drawer.boundingBox())!.height;
+  // Not an overlay: the header grows by the drawer's height and the content moves down with it.
+  expect((await header.boundingBox())!.height).toBeCloseTo(closed.header + drawerHeight, 0);
+  expect((await main.boundingBox())!.y).toBeCloseTo(closed.main + drawerHeight, 0);
+  expect(await header.evaluate((el) => getComputedStyle(el).backgroundColor)).toBe('rgb(255, 255, 255)');
+  await expect(drawer.getByRole('link', { name: 'Services' })).toHaveAttribute('aria-current', 'page');
+  // The language switch shows the target language.
+  await expect(page.locator('.lang-toggle-mobile')).toContainText('ID');
+  await page.keyboard.press('Space');
+  await expect(drawer).toBeHidden();
+  await expect(page.getByRole('button', { name: 'Open menu' })).toBeFocused();
+  expect((await main.boundingBox())!.y).toBeCloseTo(closed.main, 0);
+  await page.getByRole('button', { name: 'Open menu' }).click();
+  await page.keyboard.press('Escape');
+  await expect(drawer).toBeHidden();
+  await expect(page.getByRole('button', { name: 'Open menu' })).toBeFocused();
+});
+
+test('mobile menu without JavaScript keeps the links visible and the button hidden', async ({ browser }) => {
+  const ctx = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 800 } });
+  const page = await ctx.newPage();
+  await page.goto('http://127.0.0.1:4321/id/');
+  await expect(page.getByRole('navigation', { name: 'Mobile' }).getByRole('link', { name: 'Karir' })).toBeVisible();
+  await expect(page.locator('.mobile-menu-btn')).toBeHidden();
+  await ctx.close();
+});
+
+test('the open mobile menu has no accessibility violations', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 800 });
+  for (const path of ['/id/', '/en/careers/']) {
+    await page.goto(path);
+    await page.locator('.mobile-menu-btn').click();
+    const { violations } = await new AxeBuilder({ page })
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
+      .options({ rules: { 'label-content-name-mismatch': { enabled: true } } })
+      .analyze();
+    expect(violations.map((v) => `${v.impact} ${v.id}: ${v.help}`), path).toEqual([]);
+  }
 });
 
 test('reduced motion turns smooth scrolling off', async ({ page }) => {
