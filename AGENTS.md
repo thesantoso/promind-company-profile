@@ -4,55 +4,65 @@ Dokumen ini adalah **single source of truth** untuk semua Autonomous Agent dan d
 
 ---
 
-## 1. Project Overview & Tujuan
+## 1. Project Overview & Identitas Brand
 
-- **Nama Project**: PROMIND Company Profile & Headless CMS
-- **Entitas**: PT Properti Manajemen Inovasi Indonesia
-- **Domain Layanan**: Manajemen Properti Komersial, Perkantoran, Apartemen, dan Kawasan Industri Terintegrasi (Building Management, Engineering, Tenancy, Tenant Relations, HSE, Operational Assessment).
-- **Tujuan Utama**: Menghadirkan portal company profile berkelas enterprise/editorial yang cepat, modern, tanpa *AI slop*, serta didukung Headless CMS (*EmDash*) dan Edge Database (*Cloudflare D1*) agar seluruh konten dinamis dapat dikelola oleh tim non-teknis tanpa perlu mengubah kode sumber.
-- **Production URL**: [https://promind.thesantoso.workers.dev](https://promind.thesantoso.workers.dev)
-- **CMS Admin URL**: [https://promind.thesantoso.workers.dev/_emdash/admin](https://promind.thesantoso.workers.dev/_emdash/admin)
+- **Nama Entitas**: PT Properti Manajemen Inovasi Indonesia
+- **Brand Utama**: **PROMIND** (Wajib huruf kapital penuh `PROMIND`, dilarang menggunakan nama brand lama/pihak ketiga seperti "Indoland" atau "PROAPPS" pada konten publik).
+- **Domain Layanan**: Manajemen Properti Komersial, Perkantoran (Office Tower), Apartemen Mewah, Pusat Perbelanjaan (Mall), dan Kawasan Industri Terintegrasi.
+- **Tujuan Utama**: Portal company profile berkelas enterprise/editorial yang cepat (<100ms TTFB), elegan, tanpa *AI slop*, dilengkapi Admin Operations Portal mandiri untuk update karir dan data perusahaan secara instan.
 
----
-
-## 2. Arsitektur Teknologi
-
-```
-+-----------------------------------------------------------------+
-|                        Cloudflare Worker                        |
-|                                                                 |
-|   +--------------------+              +---------------------+   |
-|   |  Astro SSR Adapter | <----------> |  EmDash Headless    |   |
-|   |  (@astrojs/cloudf.)|              |  CMS Core Engine    |   |
-|   +---------+----------+              +----------+----------+   |
-|             |                                    |              |
-|   +---------v----------+              +----------v----------+   |
-|   |  React SPA Island  |              |  Cloudflare D1 DB   |   |
-|   |  (Hash Router)     |              |  (promind-db)       |   |
-|   +--------------------+              +---------------------+   |
-|             |                                    |              |
-|   +---------v----------+              +----------v----------+   |
-|   |  Public Exact CSS  |              |  Cloudflare KV      |   |
-|   |  (/styles-exact.css|              |  (Session Binding)  |   |
-|   +--------------------+              +---------------------+   |
-+-----------------------------------------------------------------+
-```
-
-- **Frontend Framework**: Astro SSR + React 18 (`@astrojs/react`)
-- **Runtime & Deployment**: Cloudflare Workers (SSR Mode)
-- **Headless CMS Engine**: EmDash CMS (`emdash/astro` + `@emdash-cms/cloudflare`)
-- **Database**: Cloudflare D1 (`promind-db`, ID: `69b62e8d-e914-47ad-af09-5474b7d00dc5`)
-- **Session Store**: Cloudflare KV Namespace (`a53a01e6c6fb46fb8e47cdd6f7d54c65`)
-- **Styling Pipeline**: Dual Layer:
-  1. Tailwind CSS (`src/styles/global.css`)
-  2. Native High-Precision Editorial Stylesheet (`public/styles-exact.css`) yang di-load langsung di `src/layouts/Layout.astro` dengan cache-busting.
+### 1.1. URL & Endpoint Resmi (Live Production)
+- **Website Utama**: [https://promind.co.id](https://promind.co.id) (atau `https://www.promind.co.id`)
+- **Admin Operations Portal**: [https://portal.promind.co.id](https://portal.promind.co.id) (atau `https://promind.co.id/portal`)
+- **Email Webmail cPanel**: [https://webmail.promind.co.id](https://webmail.promind.co.id)
+- **cPanel Hosting**: [https://cpanel.promind.co.id](https://cpanel.promind.co.id)
 
 ---
 
-## 3. Design System & Visual Rules (Strict Anti-"AI Slop")
+## 2. Arsitektur Infrastruktur & Ekosistem
+
+Aplikasi telah sepenuhnya dimigrasikan dari Cloudflare Workers lama (`thesantoso`) ke infrastruktur mandiri milik perusahaan:
+
+```
++-----------------------------------------------------------------------------------+
+|                        CLOUDFLARE DNS & SECURITY (AKUN BARU)                      |
+|   - NS: trey.ns.cloudflare.com / walk.ns.cloudflare.com                           |
+|   - SSL Mode: Full | Always Use HTTPS: ON | Security Level: Medium                |
++-----------------------------------------------------------------------------------+
+        | (Proxied: 80/443)                           | (DNS Only: Ports 2096/993/465)
+        v                                             v
++-----------------------------------------------------------------------------------+
+|               RUMAHWEB UNLIMITED HOSTING (cPanel + LiteSpeed Web Server)          |
+|               IP Server: 103.247.10.230 | User: prom9466                          |
+|                                                                                   |
+|   /public_html                                                                    |
+|   ├── index.html, assets/, styles-exact.css   --> Frontend SPA (Vite + React)     |
+|   ├── .htaccess                               --> LiteSpeed SPA Fallback & Cache  |
+|   ├── api/site-content.json                   --> Local Data Source (Real-time)   |
+|   │                                                                               |
+|   └── /portal                                 --> Admin Operations Portal         |
+|       ├── index.php                           --> Native PHP 8.3 Dashboard        |
+|       ├── config.php                          --> Protected Auth & Bcrypt Hash    |
+|       └── .htaccess                           --> Security & File Shield          |
++-----------------------------------------------------------------------------------+
+```
+
+### 2.1. Komponen Stack
+- **Frontend**: React 18 SPA + Vite (`@vitejs/plugin-react`)
+- **Styling**: Dual-layer (Tailwind CSS + `public/styles-exact.css` untuk akurasi editorial tinggi)
+- **Web Server**: LiteSpeed Web Server (Apache compatible) pada hosting Rumahweb
+- **Admin Portal**: Native PHP 8.3 (`/public_html/portal`)
+  - Login ber-password (Bcrypt hash) + proteksi anti-CSRF
+  - Menyimpan langsung perubahan ke `/public_html/api/site-content.json`
+- **DNS & CDN**: Cloudflare (Zone ID: `80f692f7edf0017f6d55ceaa4db3af42`)
+- **Email Server**: cPanel Unlimited Mailbox (`mail.promind.co.id` & `webmail.promind.co.id`)
+
+---
+
+## 3. Desain Sistem & Aturan Visual (Strict Anti-"AI Slop")
 
 > [!IMPORTANT]
-> **DILARANG MENGGUNAKAN GAYA AI SLOP** seperti: badge angka biru menyala di dalam kotak, gradien berlebihan, kartu mengambang tak beraturan, form panjang acak-acakan, atau tombol action bertumpuk.
+> **DILARANG MENGGUNAKAN GAYA AI SLOP** seperti: badge angka biru menyala di dalam kotak (`01`, `02`), gradien berlebihan, kartu mengambang tak beraturan, form panjang acak-acakan, atau tombol action bertumpuk.
 
 ### 3.1. Color Palette
 - **Header / Navigasi**: Solid Natural White `#ffffff` (Wajib solid 100%, **tidak boleh transparent/blur** baik saat posisi atas maupun di-scroll).
@@ -65,90 +75,63 @@ Dokumen ini adalah **single source of truth** untuk semua Autonomous Agent dan d
 - **Primary Blue Accent**: `#2b5caf` / Hover `#194586`
 - **Navy Accent**: `#183b68`
 
-### 3.2. Komitmen Brand & Terminologi
-- **PROAPPS**: Selalu gunakan huruf kapital penuh `PROAPPS`.
-- **PROMIND**: Huruf kapital penuh `PROMIND` (PT Properti Manajemen Inovasi Indonesia).
-
-### 3.3. Typography Rules
+### 3.2. Typography Rules
 - Font Keluarga: `Manrope` (Display/Headings) dan `DM Sans` (Subhead/Body).
 - List / Poin Kualifikasi & Tanggung Jawab: **Wajib menggunakan bullet dot (`•`)**, hindari penomoran kotak badge (`01`, `02`).
-- Call-to-Action (CTA): Cukup **1 arahan tegas** di setiap section/halaman, hindari duplikasi tombol lamar / kontak.
+- Call-to-Action (CTA): Cukup **1 arahan tegas** di setiap section/halaman.
 
 ---
 
-## 4. Struktur Routing & Halaman
+## 4. Struktur Repositori & Routing
 
-Aplikasi menggunakan React Hash Routing yang dipasang pada root Astro `index.astro`:
+Repositori utama yang aktif untuk deployment adalah:
+**`https://github.com/thesantoso/promind-company-profile.git`**
 
-| Hash Route | Komponen React | Deskripsi |
-|---|---|---|
-| `#/` atau `#/home` | `src/react-pages/HomePage.jsx` | Hero slider, value proposition, pillars, fieldwork, marquee klien |
-| `#/services` | `src/react-pages/ServicesPage.jsx` | 6 pilar layanan operasional terpadu |
-| `#/portfolio` | `src/react-pages/PortfolioPage.jsx` | Portofolio proyek gedung & properti kelolaan |
-| `#/research` | `src/react-pages/ResearchPage.jsx` | Riset pasar, operational audit, studi kelayakan |
-| `#/about` | `src/react-pages/AboutPage.jsx` | Profil perusahaan, filosofi operasional, jajaran |
-| `#/careers` | `src/react-pages/CareersPage.jsx` | Daftar lowongan karir aktif (dari D1 / EmDash) |
-| `#/careers/:slug` | `src/react-pages/CareerDetailPage.jsx` | Detail lowongan, spesifikasi pekerjaan, instruksi kirim CV |
-| `#/contact` | `src/react-pages/ContactPage.jsx` | Alamat kantor pusat, channel email, form kontak |
+### 4.1. Direktori Kunci
+- `src/App.jsx`: Root component dengan hybrid routing (mendukung clean path `/careers/slug`, `/services` dan hash `#` fallback).
+- `src/react-pages/`: Komponen halaman (HomePage, ServicesPage, PortfolioPage, ResearchPage, AboutPage, CareersPage, CareerDetailPage, ContactPage).
+- `public/portal/`: Source code Admin Portal (PHP 8.3) yang otomatis ter-copy ke `dist/portal/` saat build.
+- `public/api/site-content.json`: Snapshot data lokal untuk lowongan karir, info perusahaan, dan pilar layanan.
+- `public/.htaccess`: Routing rewrite rules untuk LiteSpeed/Apache.
 
 ---
 
-## 5. Integrasi Dinamis & Headless CMS (EmDash + D1)
+## 5. Alur CI / CD & Deployment Otomatis
 
-Semua konten dinamis disimpan di Cloudflare D1 dan disinkronkan ke API endpoint Astro:
+File CI/CD: [`.github/workflows/deploy.yml`](file:///.github/workflows/deploy.yml)
 
-### 5.1. Database Tables (D1 `promind-db`)
-1. **`jobs`**: Lowongan karir (`job_slug`, `title`, `department`, `location`, `employment_type`, `application_email`, `responsibilities`, `qualifications`, `benefits`, `is_active`).
-2. **`hero_slides`**: Slide banner foto hero beranda (`image_url`, `alt_text`, `sort_order`, `is_active`).
-3. **`services`**: Pilar cakupan layanan terpadu (`code`, `title`, `subtitle`, `description`, `sort_order`).
-4. **`property_scopes`**: Cakupan tipe properti gedung (`code`, `title`, `description`, `metrics`, `sort_order`).
-5. **`fieldwork_items`**: Galeri eksekusi di lapangan (`title`, `description`, `image_url`, `sort_order`).
-6. **`site_settings`**: Alamat kantor, email, telepon, jam operasional.
+### 5.1. Mekanisme Kerja:
+1. Developer / Agent melakukan `git push origin main`.
+2. GitHub Runner (Ubuntu) otomatis menjalankan:
+   - `npm install`
+   - `npm run build` (menghasilkan folder `dist/`)
+   - `SamKirkland/FTP-Deploy-Action@v4.3.5` melakukan sinkronisasi file ke `/public_html` di server Rumahweb.
 
-### 5.2. Internal API Endpoints
-- `GET /api/careers.json`: Mengembalikan daftar lowongan pekerjaan aktif.
-- `GET /api/site-content.json`: Mengembalikan gabungan data dinamis (hero slides, layanan, portofolio, kontak).
+### 5.2. GitHub Action Secrets yang Digunakan:
+- `FTP_SERVER`: `103.247.10.230`
+- `FTP_USERNAME`: `prom9466`
+- `FTP_PASSWORD`: *(Sesuai kredensial cPanel Rumahweb)*
 
 ---
 
-## 6. Prosedur Build & Deployment (CI / CD Manual & Worker)
+## 6. Kredensial & Akses Cepat
 
-### 6.1. Environment Variables Wajib
-Pastikan environment variable ini diset saat menjalankan command deployment:
-```bash
-CLOUDFLARE_ACCOUNT_ID=YOUR_CLOUDFLARE_ACCOUNT_ID
-CLOUDFLARE_API_TOKEN=YOUR_CLOUDFLARE_API_TOKEN
-```
-
-### 6.2. Aturan Khusus Build (Wajib Diikuti Agent)
-1. **Disable Astro Telemetry**:
-   Selalu prefix `ASTRO_TELEMETRY_DISABLED=1` sebelum build agar tidak terkena error permission file preferences.
-2. **Redirect XDG Config untuk Wrangler**:
-   Gunakan `XDG_CONFIG_HOME=/tmp XDG_DATA_HOME=/tmp` agar Wrangler tidak gagal menulis log/metrics ke `~/Library/Preferences`.
-3. **Bypass Sandbox Saat Deploy**:
-   Deployment ke Cloudflare API membutuhkan akses jaringan keluar (gunakan mode unsandboxed / bypass sandbox).
-
-### 6.3. One-Liner Deploy Command
-Untuk mengompilasi dan mendeploy langsung ke Cloudflare:
-```bash
-# 1. Compile bundle Astro + React
-ASTRO_TELEMETRY_DISABLED=1 npm run build
-
-# 2. Deploy ke Cloudflare Workers
-XDG_CONFIG_HOME=/tmp XDG_DATA_HOME=/tmp \
-CLOUDFLARE_ACCOUNT_ID=YOUR_CLOUDFLARE_ACCOUNT_ID \
-CLOUDFLARE_API_TOKEN=YOUR_CLOUDFLARE_API_TOKEN \
-npx wrangler deploy
-```
+- **FTP Server / Host**: `103.247.10.230`
+- **FTP User**: `prom9466`
+- **FTP Target Path**: `/public_html`
+- **Admin Portal URL**: `https://portal.promind.co.id`
+  - **Username Default**: `admin`
+  - **Password Default**: `Promind2026!`
+- **Cloudflare Account**:
+  - Akun Baru: `Pmii.promind@gmail.com`
+  - Account ID: `7652f9cb63208f7960df98b60dab1eab`
+  - Zone ID `promind.co.id`: `80f692f7edf0017f6d55ceaa4db3af42`
 
 ---
 
 ## 7. Checklist untuk Agent Berikutnya
 
-Sebelum menganggap pekerjaan selesai:
-- [ ] Pastikan Header tetap solid putih (`#ffffff`) di semua halaman dan tidak tembus pandang saat di-scroll.
-- [ ] Pastikan font, border hairline (`#d8dfe5`), dan spacing konsisten dengan halaman lain.
-- [ ] Tidak ada badge angka kotak atau elemen "AI slop".
-- [ ] Jalankan `npm run build` dan verifikasi tidak ada syntax / bundle error.
-- [ ] Jalankan `wrangler deploy` dan pastikan Version ID baru ter-generate dan live di `https://promind.thesantoso.workers.dev`.
-
+- [ ] Pastikan Header tetap solid putih (`#ffffff`) di semua halaman dan tidak transparan saat scroll.
+- [ ] JANGAN menggunakan brand lama / pihak ketiga ("Indoland" atau "PROAPPS") pada copywriting publik.
+- [ ] Ketika menambah fitur baru di frontend, jalankan `npm run build` dan verifikasi tidak ada error sintaks.
+- [ ] Jangan pernah melakukan commit token/password plaintext ke dalam Git repository.
