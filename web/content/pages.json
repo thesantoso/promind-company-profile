@@ -1,0 +1,353 @@
+{
+  "home": {
+    "seo": {
+      "title": {
+        "id": "PROMIND | Manajemen Properti Terintegrasi",
+        "en": "PROMIND | Integrated Property Management"
+      },
+      "description": {
+        "id": "PROMIND mengelola Office Building, Apartment, Mall, dan kawasan Real Estate: operasional gedung, engineering, HSE, dan layanan tenant dalam satu kemitraan.",
+        "en": "PROMIND manages office buildings, apartments, malls, and real estate: building operations, engineering, HSE, and tenant services under one partnership."
+      }
+    },
+    "hero": {
+      "eyebrow": {
+        "id": "Property & Estate Management",
+        "en": "Property & Estate Management"
+      },
+      "title": {
+        "id": "Pengelolaan Properti yang Terukur, Rapi, dan Berkelanjutan.",
+        "en": "Structured, Reliable, and Sustainable Property Management."
+      },
+      "description": {
+        "id": "PROMIND mendampingi pemilik aset dalam mengelola operasional Office Building, Apartment, Mall, dan kawasan Real Estate secara menyeluruh—didukung oleh tim lapangan berpengalaman serta sistem operasional digital terintegrasi.",
+        "en": "PROMIND partners with asset owners to manage the daily operations of Office Buildings, Apartments, Malls, and Real Estate developments—combining experienced on-site teams with an integrated digital operational support system."
+      },
+      "cta": {
+        "label": {
+          "id": "Hubungi Tim Kami",
+          "en": "Contact Our Team"
+        },
+        "route": "contact"
+      }
+    },
+    "focus": {
+      "eyebrow": {
+        "id": "Fokus Kami",
+        "en": "Our Focus"
+      },
+      "title": {
+        "id": "Menjaga Kualitas Fisik Bangunan Sekaligus Kenyamanan Setiap Penggunanya.",
+        "en": "Preserving Physical Building Quality While Ensuring Occupant Comfort."
+      },
+      "body": {
+        "id": "Pengelolaan gedung yang baik membutuhkan konsistensi setiap hari. Mulai dari kesiapan mesin mekanikal-elektrikal, kebersihan area publik, ketertiban keamanan, hingga administrasi keuangan yang rapi—kami memastikan seluruh aspek operasional berjalan selaras dengan target pemilik properti.",
+        "en": "Effective building management requires daily consistency. From mechanical and electrical readiness, clean public spaces, and disciplined security to transparent financial administration—we ensure every operational aspect aligns with the property owner's objectives."
+      }
+    },
+    "sectors": {
+      "eyebrow": {
+        "id": "Sektor Properti",
+        "en": "Property Sectors"
+      },
+      "title": {
+        "id": "Pengelolaan yang Disesuaikan dengan Karakter Setiap Aset.",
+        "en": "Management Tailored to the Character of Every Asset."
+      },
+      "subtitle": {
+        "id": "Setiap jenis properti memiliki tuntutan operasional yang berbeda. Kami menyusun struktur tim, prosedur kerja, dan standar layanan sesuai kebutuhan spesifik aset Anda.",
+        "en": "Different property types demand distinct operational priorities. We structure our on-site teams, standard operating procedures, and service standards around your asset's specific profile."
+      }
+    },
+    "fieldwork": {
+      "eyebrow": {
+        "id": "Eksekusi di Lapangan",
+        "en": "Field Execution"
+      },
+      "title": {
+        "id": "Standar Kerja yang Diterapkan Langsung oleh Tim Operasional.",
+        "en": "Working Standards Applied Directly by Our On-Site Teams."
+      },
+      "subtitle": {
+        "id": "Kualitas manajemen properti terlihat dari disiplin pelaksanaan di lapangan—mulai dari inspeksi rutin hingga pelayanan harian kepada pengguna gedung.",
+        "en": "The quality of property management is proven in daily field execution—from routine technical inspections to responsive occupant service."
+      }
+    },
+    "technology": {
+      "eyebrow": {
+        "id": "Dukungan Sistem Digital",
+        "en": "Digital Support System"
+      },
+      "title": {
+        "id": "Operasional Gedung Lebih Terkontrol dengan Dukungan Sistem Terintegrasi.",
+        "en": "Better Controlled Building Operations Supported by Integrated Systems."
+      },
+      "description": {
+        "id": "Sebagai pendukung digital operasional building management, sistem kami membantu tim di lapangan dan manajemen memantau aktivitas harian secara terstruktur—tanpa menggantikan sentuhan layanan manusia.",
+        "en": "As a digital operational support system for building management, our platform helps field teams and management monitor daily activities in a structured manner—complementing hands-on human service."
+      },
+      "steps": [
+        {
+          "title": {
+            "id": "Pencatatan Inspeksi & Aktivitas Harian",
+            "en": "Inspection & Daily Activity Logging"
+          },
+          "summary": {
+            "id": "Jadwal perawatan mesin M&E, patroli keamanan, dan pemeriksaan kebersihan tercatat secara digital sehingga pelaksanaan kerja di lapangan lebih terukur.",
+            "en": "M&E maintenance schedules, security patrols, and housekeeping checks are logged digitally so field execution remains measurable."
+          }
+        },
+        {
+          "title": {
+            "id": "Penanganan Permintaan & Keluhan Tenant",
+            "en": "Tenant Request & Complaint Handling"
+          },
+          "summary": {
+            "id": "Setiap laporan atau permintaan layanan dari pengguna gedung terdata dengan jelas, memudahkan koordinasi tindak lanjut oleh tim teknis di lokasi.",
+            "en": "Every service request from building occupants is clearly recorded, streamlining follow-up coordination by on-site technical teams."
+          }
+        },
+        {
+          "title": {
+            "id": "Administrasi Tagihan & Pelaporan Manajemen",
+            "en": "Billing Administration & Management Reporting"
+          },
+          "summary": {
+            "id": "Mendukung kerapian administrasi penagihan utilitas, iuran pengelolaan, serta penyajian laporan berkala yang transparan bagi pemilik gedung.",
+            "en": "Supports organized utility invoicing, service charge administration, and transparent periodic reporting for property owners."
+          }
+        }
+      ]
+    }
+  },
+  "services": {
+    "seo": {
+      "title": {
+        "id": "Layanan | PROMIND",
+        "en": "Services | PROMIND"
+      },
+      "description": {
+        "id": "Enam layanan terpadu PROMIND: pendampingan pra-operasional, pengelolaan properti, penyediaan SDM, pelatihan, sistem aplikasi, dan kontrak lumsum.",
+        "en": "PROMIND's six integrated services: pre-operational support, property management, staff outsourcing, training, system applications, and lump-sum contracts."
+      }
+    },
+    "eyebrow": {
+      "id": "Cakupan Layanan",
+      "en": "Our Services"
+    },
+    "title": {
+      "id": "Solusi Terintegrasi untuk Meningkatkan Nilai Properti",
+      "en": "Integrated Solutions for Enhancing Property Value"
+    },
+    "subtitle": {
+      "id": "PROMIND menyediakan solusi konsultansi dan pengelolaan properti secara menyeluruh—mulai dari tahap persiapan pra-operasional, pengelolaan operasional aset, penyediaan SDM, pusat pelatihan, aplikasi sistem terintegrasi, hingga kontrak pengelolaan terpadu (Kontrak Lumsum).",
+      "en": "PROMIND delivers integrated property management and consultancy: from preliminary planning and daily asset operation to staff outsourcing, a training centre, integrated system applications, and lump-sum management partnerships."
+    },
+    "engagementTitle": {
+      "id": "Model Kerja Sama",
+      "en": "Engagement Models"
+    }
+  },
+  "portfolio": {
+    "seo": {
+      "title": {
+        "id": "Portofolio | PROMIND",
+        "en": "Portfolio | PROMIND"
+      },
+      "description": {
+        "id": "Gedung perkantoran, apartemen, pusat komersial, dan kawasan terpadu di Jakarta dan sekitarnya yang menjadi bagian dari pengalaman pengelolaan PROMIND.",
+        "en": "Office buildings, apartments, commercial centers, and estates in Greater Jakarta that form part of PROMIND's property management experience."
+      }
+    },
+    "eyebrow": {
+      "id": "Portofolio",
+      "en": "Portfolio"
+    },
+    "title": {
+      "id": "Properti dalam Pengalaman Pengelolaan Kami",
+      "en": "Properties in Our Management Experience"
+    },
+    "subtitle": {
+      "id": "Gedung perkantoran, apartemen, pusat komersial, dan kawasan terpadu yang menjadi bagian dari pengalaman PROMIND.",
+      "en": "Office buildings, apartments, commercial centers, and integrated estates that make up PROMIND’s experience."
+    },
+    "clientsTitle": {
+      "id": "Klien dan Properti",
+      "en": "Clients and Properties"
+    }
+  },
+  "insights": {
+    "seo": {
+      "title": {
+        "id": "Wawasan | PROMIND",
+        "en": "Insights | PROMIND"
+      },
+      "description": {
+        "id": "Panduan praktis seputar efisiensi energi gedung, tata kelola apartemen, kelaikan bangunan (SLF), dan digitalisasi operasional properti.",
+        "en": "Practical guidance on building energy efficiency, apartment governance, building functionality certificates (SLF), and digital property operations."
+      }
+    },
+    "eyebrow": {
+      "id": "Wawasan dan Artikel",
+      "en": "Insights and Articles"
+    },
+    "title": {
+      "id": "Perspektif Praktis Seputar Pengelolaan Gedung & Properti",
+      "en": "Practical Perspectives on Building & Property Management"
+    },
+    "subtitle": {
+      "id": "Kajian operasional, panduan pemeliharaan fasilitas, dan tata kelola properti yang relevan dengan tantangan industri saat ini.",
+      "en": "Operational studies, facility maintenance guides, and governance insights relevant to today's property management challenges."
+    }
+  },
+  "about": {
+    "seo": {
+      "title": {
+        "id": "Tentang Kami | PROMIND",
+        "en": "About | PROMIND"
+      },
+      "description": {
+        "id": "PROMIND adalah konsultan dan pengelola properti terintegrasi di Indonesia, berdiri sejak 2013, melayani gedung perkantoran, apartemen, mal, dan kawasan.",
+        "en": "PROMIND is an integrated property management consultant and operator in Indonesia, established in 2013, serving offices, apartments, malls, and estates."
+      }
+    },
+    "eyebrow": {
+      "id": "Tentang PROMIND",
+      "en": "About PROMIND"
+    },
+    "title": {
+      "id": "Konsultan & Layanan Pengelolaan Properti Terintegrasi di Indonesia.",
+      "en": "Integrated Property and Estate Management in Indonesia."
+    },
+    "story": {
+      "id": [
+        "PT PROPERTI MANAJEMEN INOVASI INDONESIA (PROMIND) adalah perusahaan konsultan dan layanan manajemen properti di Indonesia yang didirikan pada tahun 2013, menghadirkan layanan terintegrasi dan profesional untuk memaksimalkan nilai aset serta menciptakan lingkungan hunian dan kerja yang lebih baik bagi klien kami.",
+        "Kami mendampingi pemilik aset di berbagai kelas properti—meliputi Office Building, Apartment, Mall, dan kawasan Real Estate—dengan memadukan sumber daya manusia berpengalaman serta standar kerja yang telah teruji.",
+        "Dengan penerapan sistem manajemen berstandar ISO (ISO 9001, ISO 14001, ISO 45001), SMK3 PP No. 50 Tahun 2012, serta dukungan Building Management System (BMS), PROMIND memastikan operasional gedung berjalan efektif, efisien, aman, dan berkelanjutan."
+      ],
+      "en": [
+        "PT PROPERTI MANAJEMEN INOVASI INDONESIA (PROMIND) is a property management consultant and service provider in Indonesia, established in 2013. We deliver integrated, professional services that maximize asset value and create better places to live and work.",
+        "We partner with asset owners across the main property sectors, including office buildings, apartments, malls, and real estate developments, combining experienced people with proven management standards.",
+        "Guided by management system standards (ISO 9001, ISO 14001, ISO 45001), SMK3 under Government Regulation No. 50 of 2012, and integrated Building Management Systems (BMS), PROMIND runs property operations that are reliable, efficient, safe, and sustainable."
+      ]
+    },
+    "pillarsTitle": {
+      "id": "Nilai yang Kami Pegang",
+      "en": "What We Stand For"
+    },
+    "standardsTitle": {
+      "id": "Standar dan Sistem",
+      "en": "Standards and Systems"
+    }
+  },
+  "careers": {
+    "seo": {
+      "title": {
+        "id": "Karir | PROMIND",
+        "en": "Careers | PROMIND"
+      },
+      "description": {
+        "id": "Bergabung dengan tim manajemen properti PROMIND: peluang karir di operasional gedung, engineering, layanan tenant, keuangan, dan HSE.",
+        "en": "Join PROMIND's property management team: careers in building operations, engineering, tenant services, finance, and HSE."
+      }
+    },
+    "eyebrow": {
+      "id": "Karir di PROMIND",
+      "en": "Careers at PROMIND"
+    },
+    "title": {
+      "id": "Bertumbuh Bersama Tim Manajemen Properti Profesional",
+      "en": "Grow with a Professional Property Management Team"
+    },
+    "subtitle": {
+      "id": "Kami membuka kesempatan bagi para praktisi operasional gedung, teknisi engineering, dan profesional layanan properti untuk bergabung dan berkembang bersama PROMIND.",
+      "en": "We welcome experienced building operations practitioners, M&E engineers, and property service professionals to build their careers with PROMIND."
+    },
+    "culture": [
+      {
+        "title": {
+          "id": "Standar Kerja yang Jelas & Terstruktur",
+          "en": "Clear & Structured Working Standards"
+        },
+        "summary": {
+          "id": "Bekerja dengan panduan SOP yang terukur serta dukungan sistem operasional digital yang memudahkan koordinasi harian.",
+          "en": "Work with well-defined SOPs and the support of a digital operational system for smooth daily coordination."
+        }
+      },
+      {
+        "title": {
+          "id": "Pengembangan Kompetensi & Sertifikasi",
+          "en": "Competency & Safety Development"
+        },
+        "summary": {
+          "id": "Dukungan pelatihan berkala di bidang teknik gedung, keselamatan kerja (K3), dan manajemen pelayanan properti.",
+          "en": "Ongoing training in building engineering, workplace safety (K3), and property service excellence."
+        }
+      },
+      {
+        "title": {
+          "id": "Pengalaman Lintas Sektor Properti",
+          "en": "Cross-Sector Property Exposure"
+        },
+        "summary": {
+          "id": "Kesempatan menangani beragam profil properti mulai dari gedung perkantoran, apartemen, pusat komersial, hingga kawasan real estate.",
+          "en": "Opportunities to manage diverse properties ranging from office towers and apartments to malls and real estate estates."
+        }
+      }
+    ],
+    "openRolesTitle": {
+      "id": "Lowongan Terbuka",
+      "en": "Open Roles"
+    },
+    "emptyText": {
+      "id": "Saat ini belum ada lowongan terbuka.",
+      "en": "There are no open roles right now."
+    }
+  },
+  "contact": {
+    "seo": {
+      "title": {
+        "id": "Kontak | PROMIND",
+        "en": "Contact | PROMIND"
+      },
+      "description": {
+        "id": "Hubungi PROMIND di Mangkuluhur City, Jakarta Selatan, untuk diskusi awal, peninjauan gedung, atau proposal pengelolaan properti.",
+        "en": "Contact PROMIND at Mangkuluhur City, South Jakarta, for an initial discussion, a building walk-through, or a property management proposal."
+      }
+    },
+    "eyebrow": {
+      "id": "Hubungi Kami",
+      "en": "Contact Us"
+    },
+    "title": {
+      "id": "Diskusikan Kebutuhan Pengelolaan Properti Anda",
+      "en": "Discuss Your Property Management Needs"
+    },
+    "subtitle": {
+      "id": "Silakan hubungi tim kami untuk menjadwalkan diskusi awal, peninjauan lokasi gedung, atau permintaan proposal pengelolaan properti.",
+      "en": "Contact our team to schedule an initial discussion, a property walk-through, or a management proposal."
+    },
+    "serviceAreas": {
+      "id": [
+        "Pengelolaan Gedung Perkantoran (Office Building)",
+        "Pengelolaan Apartemen & Hunian Vertikal (Apartment)",
+        "Pengelolaan Pusat Perbelanjaan & Komersial (Mall)",
+        "Pengelolaan Kawasan Terpadu (Real Estate)",
+        "Audit Teknis Gedung & Konsultansi Pra-Operasional",
+        "Implementasi Sistem Operasional Digital Terintegrasi"
+      ],
+      "en": [
+        "Office Building Management",
+        "Apartment & Vertical Residential Management",
+        "Mall & Commercial Center Management",
+        "Real Estate & Estate Management",
+        "Technical Building Audit & Pre-Operational Advisory",
+        "Integrated Digital Operational Support Implementation"
+      ]
+    },
+    "ctaLabel": {
+      "id": "Kirim Email ke Tim Kami",
+      "en": "Email Our Team"
+    }
+  }
+}

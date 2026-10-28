@@ -122,3 +122,31 @@ describe('migrated careers', () => {
     }
   });
 });
+
+describe('page copy', () => {
+  const pages = () => load.loadPages();
+  const seoOf = () => Object.entries(pages()).map(([key, p]) => [key, (p as { seo: { title: { id: string; en: string }; description: { id: string; en: string } } }).seo] as const);
+
+  test('every page has SEO text with a PROMIND title and a description of 70-170 characters', () => {
+    expect(seoOf().map(([k]) => k).sort()).toEqual(['about', 'careers', 'contact', 'home', 'insights', 'portfolio', 'services']);
+    for (const [key, seo] of seoOf()) {
+      for (const lang of ['id', 'en'] as const) {
+        expect(seo.title[lang], `${key}.${lang}`).toMatch(/PROMIND/);
+        expect(seo.description[lang].length, `${key}.${lang}`).toBeGreaterThanOrEqual(70);
+        expect(seo.description[lang].length, `${key}.${lang}`).toBeLessThanOrEqual(170);
+      }
+    }
+  });
+
+  test('the home page has exactly one call to action pointing at a real route', () => {
+    const cta = pages().home.hero.cta;
+    expect(Object.keys(pages().home.hero).filter((k) => k.startsWith('cta'))).toEqual(['cta']);
+    expect(['services', 'portfolio', 'research', 'about', 'careers', 'contact']).toContain(cta.route);
+  });
+
+  test('technology section has three steps and the about story has three paragraphs', () => {
+    expect(pages().home.technology.steps).toHaveLength(3);
+    expect(pages().about.story.id).toHaveLength(3);
+    expect(pages().contact.serviceAreas.id).toHaveLength(6);
+  });
+});

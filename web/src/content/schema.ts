@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { ROUTES, type RouteKey } from '../i18n/routes';
 import settings from '../../content/settings.json';
 
 const text = z.string().trim().min(1);
@@ -89,3 +90,38 @@ export type PortfolioItem = z.infer<typeof portfolioSchema>;
 export type Client = z.infer<typeof clientSchema>;
 export type Insight = z.infer<typeof insightSchema>;
 export type Job = z.infer<typeof jobSchema>;
+
+const routeKey = z.enum(Object.keys(ROUTES) as [RouteKey, ...RouteKey[]]);
+const heading = z.object({ eyebrow: bilingualText, title: bilingualText });
+const seo = z.object({ title: bilingualText, description: bilingualText });
+
+export const pagesSchema = z.object({
+  home: z.object({
+    seo,
+    hero: z.object({
+      eyebrow: bilingualText,
+      title: bilingualText,
+      description: bilingualText,
+      cta: z.object({ label: bilingualText, route: routeKey }),
+    }),
+    focus: heading.extend({ body: bilingualText }),
+    sectors: heading.extend({ subtitle: bilingualText }),
+    fieldwork: heading.extend({ subtitle: bilingualText }),
+    technology: heading.extend({
+      description: bilingualText,
+      steps: z.array(z.object({ title: bilingualText, summary: bilingualText })).length(3),
+    }),
+  }),
+  services: z.object({ seo, ...heading.shape, subtitle: bilingualText, engagementTitle: bilingualText }),
+  portfolio: z.object({ seo, ...heading.shape, subtitle: bilingualText, clientsTitle: bilingualText }),
+  insights: z.object({ seo, ...heading.shape, subtitle: bilingualText }),
+  about: z.object({ seo, ...heading.shape, story: blList, pillarsTitle: bilingualText, standardsTitle: bilingualText }),
+  careers: z.object({
+    seo, ...heading.shape, subtitle: bilingualText,
+    culture: z.array(z.object({ title: bilingualText, summary: bilingualText })).min(1),
+    openRolesTitle: bilingualText,
+    emptyText: bilingualText,
+  }),
+  contact: z.object({ seo, ...heading.shape, subtitle: bilingualText, serviceAreas: blList, ctaLabel: bilingualText }),
+});
+export type Pages = z.infer<typeof pagesSchema>;

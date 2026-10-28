@@ -9,8 +9,9 @@ import portfolio from '../../content/portfolio.json';
 import clients from '../../content/clients.json';
 import insights from '../../content/insights.json';
 import careers from '../../content/careers.json';
+import pages from '../../content/pages.json';
 import {
-  clientSchema, engagementSchema, fieldworkSchema, insightSchema, jobSchema, pillarSchema,
+  clientSchema, engagementSchema, pagesSchema, type Pages, fieldworkSchema, insightSchema, jobSchema, pillarSchema,
   portfolioSchema, propertyTypeSchema, serviceSchema, standardSchema,
   type Client, type Engagement, type Fieldwork, type Insight, type Job, type Pillar,
   type PortfolioItem, type PropertyType, type Service, type Standard,
@@ -45,3 +46,5 @@ export function filterActiveJobs(jobs: Job[], today: string): Job[] {
   return jobs.filter((j) => j.active && (!j.validThrough || j.validThrough >= today));
 }
 export const loadActiveJobs = (today: string): Job[] => filterActiveJobs(loadJobs(), today);
+
+export const loadPages = (): Pages => pagesSchema.parse(pages);
