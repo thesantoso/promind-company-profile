@@ -24,3 +24,6 @@ Thumbs.db
 
 # Astro cache
 .astro/
+
+# superpowers scratch
+.superpowers/
