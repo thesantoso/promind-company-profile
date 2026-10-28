@@ -1,1 +1,182 @@
-[]
+[
+  {
+    "name": "NT Tower",
+    "sector": {
+      "id": "Office Building",
+      "en": "Office Building"
+    },
+    "scope": {
+      "id": "Pengelolaan operasional gedung perkantoran, pemeliharaan preventif instalasi M&E, tata graha, dan keamanan.",
+      "en": "Daily office building operations, preventive maintenance of M&E installations, housekeeping, and security."
+    },
+    "location": {
+      "id": "Jakarta Selatan",
+      "en": "South Jakarta"
+    }
+  },
+  {
+    "name": "Ravindo Tower",
+    "sector": {
+      "id": "Office Building",
+      "en": "Office Building"
+    },
+    "scope": {
+      "id": "Manajemen operasional gedung perkantoran, pemeliharaan fasilitas teknis, dan layanan pengguna gedung.",
+      "en": "Office building operations, technical facility maintenance, and services for building users."
+    },
+    "location": {
+      "id": "Jakarta Pusat",
+      "en": "Central Jakarta"
+    }
+  },
+  {
+    "name": "Park Royale (Tower 1 & 2)",
+    "sector": {
+      "id": "Apartment",
+      "en": "Apartment"
+    },
+    "scope": {
+      "id": "Pengelolaan hunian vertikal, layanan penghuni, administrasi pengelolaan, serta perawatan fasilitas bersama.",
+      "en": "Vertical residential management, resident services, management administration, and upkeep of shared facilities."
+    },
+    "location": {
+      "id": "Jakarta Pusat",
+      "en": "Central Jakarta"
+    }
+  },
+  {
+    "name": "Permata Hijau Residences",
+    "sector": {
+      "id": "Apartment",
+      "en": "Apartment"
+    },
+    "scope": {
+      "id": "Manajemen operasional apartemen, pemeliharaan utilitas gedung, tata graha, lanskap, dan keamanan.",
+      "en": "Apartment operations, building utility maintenance, housekeeping, landscaping, and security."
+    },
+    "location": {
+      "id": "Jakarta Selatan",
+      "en": "South Jakarta"
+    }
+  },
+  {
+    "name": "Paladian Park",
+    "sector": {
+      "id": "Apartment",
+      "en": "Apartment"
+    },
+    "scope": {
+      "id": "Pengelolaan lingkungan hunian apartemen, perawatan instalasi teknis gedung, dan ketertiban fasilitas.",
+      "en": "Apartment community management, upkeep of technical building installations, and order in shared facilities."
+    },
+    "location": {
+      "id": "Jakarta Utara",
+      "en": "North Jakarta"
+    }
+  },
+  {
+    "name": "Icon Apartment",
+    "sector": {
+      "id": "Apartment",
+      "en": "Apartment"
+    },
+    "scope": {
+      "id": "Operasional gedung hunian vertikal, inspeksi keselamatan gedung (HSE), serta layanan penghuni.",
+      "en": "Vertical residential building operations, building safety (HSE) inspections, and resident services."
+    },
+    "location": {
+      "id": "Jakarta Barat",
+      "en": "West Jakarta"
+    }
+  },
+  {
+    "name": "Taman Sari",
+    "sector": {
+      "id": "Apartment",
+      "en": "Apartment"
+    },
+    "scope": {
+      "id": "Pendampingan operasional gedung hunian, perawatan rutin M&E, dan pengelolaan layanan harian.",
+      "en": "Residential building operations support, routine M&E maintenance, and day-to-day service management."
+    },
+    "location": {
+      "id": "Jakarta Selatan",
+      "en": "South Jakarta"
+    }
+  },
+  {
+    "name": "The Park Residence",
+    "sector": {
+      "id": "Apartment",
+      "en": "Apartment"
+    },
+    "scope": {
+      "id": "Tata kelola fasilitas apartemen, pemeliharaan lift dan utilitas, serta koordinasi kebersihan lingkungan.",
+      "en": "Apartment facility management, elevator and utility maintenance, and coordination of environmental cleanliness."
+    },
+    "location": {
+      "id": "Jakarta Barat",
+      "en": "West Jakarta"
+    }
+  },
+  {
+    "name": "Plaza Pasifik",
+    "sector": {
+      "id": "Mall & Commercial",
+      "en": "Mall & Commercial"
+    },
+    "scope": {
+      "id": "Manajemen fasilitas komersial, ketertiban area publik, pengelolaan parkir, serta utilitas pendukung tenant ritel.",
+      "en": "Commercial facility management, public area order, parking operations, and utilities supporting retail tenants."
+    },
+    "location": {
+      "id": "Jakarta Utara",
+      "en": "North Jakarta"
+    }
+  },
+  {
+    "name": "Mandiri University",
+    "sector": {
+      "id": "Real Estate & Facility",
+      "en": "Real Estate & Facility"
+    },
+    "scope": {
+      "id": "Facility management fasilitas korporat terpadu, pemeliharaan infrastruktur M&E, tata graha, dan keamanan area.",
+      "en": "Integrated corporate facility management, M&E infrastructure maintenance, housekeeping, and area security."
+    },
+    "location": {
+      "id": "Jakarta Barat",
+      "en": "West Jakarta"
+    }
+  },
+  {
+    "name": "Kingsland",
+    "sector": {
+      "id": "Real Estate & Facility",
+      "en": "Real Estate & Facility"
+    },
+    "scope": {
+      "id": "Pengelolaan kawasan terpadu, pemeliharaan lanskap lingkungan, fasilitas bersama, dan keamanan lingkungan.",
+      "en": "Integrated estate management, landscape upkeep, shared facilities, and neighborhood security."
+    },
+    "location": {
+      "id": "Tangerang Selatan",
+      "en": "South Tangerang"
+    }
+  },
+  {
+    "name": "Prasastha",
+    "sector": {
+      "id": "Real Estate & Facility",
+      "en": "Real Estate & Facility"
+    },
+    "scope": {
+      "id": "Estate management lingkungan residensial, pemeliharaan jalan, drainase kawasan, dan pengamanan terpadu.",
+      "en": "Residential estate management, road maintenance, estate drainage, and integrated security."
+    },
+    "location": {
+      "id": "Depok",
+      "en": "Depok"
+    }
+  }
+]

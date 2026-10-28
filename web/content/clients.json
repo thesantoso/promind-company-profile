@@ -1,1 +1,100 @@
-[]
+[
+  {
+    "name": "Icon Apartment",
+    "category": {
+      "id": "Apartment",
+      "en": "Apartment"
+    }
+  },
+  {
+    "name": "Kingsland",
+    "category": {
+      "id": "Real Estate",
+      "en": "Real Estate"
+    }
+  },
+  {
+    "name": "Mandiri University",
+    "category": {
+      "id": "Fasilitas Korporat",
+      "en": "Corporate Facility"
+    }
+  },
+  {
+    "name": "NT Tower",
+    "category": {
+      "id": "Office Building",
+      "en": "Office Building"
+    }
+  },
+  {
+    "name": "Paladian Park",
+    "category": {
+      "id": "Apartment",
+      "en": "Apartment"
+    }
+  },
+  {
+    "name": "Park Royale",
+    "category": {
+      "id": "Apartment",
+      "en": "Apartment"
+    }
+  },
+  {
+    "name": "Permata Hijau",
+    "category": {
+      "id": "Apartment",
+      "en": "Apartment"
+    }
+  },
+  {
+    "name": "Plaza Pasifik",
+    "category": {
+      "id": "Komersial",
+      "en": "Commercial"
+    }
+  },
+  {
+    "name": "Prasastha",
+    "category": {
+      "id": "Real Estate",
+      "en": "Real Estate"
+    }
+  },
+  {
+    "name": "Ravindo",
+    "category": {
+      "id": "Office Building",
+      "en": "Office Building"
+    }
+  },
+  {
+    "name": "Taman Sari",
+    "category": {
+      "id": "Apartment",
+      "en": "Apartment"
+    }
+  },
+  {
+    "name": "The Park",
+    "category": {
+      "id": "Hunian",
+      "en": "Residence"
+    }
+  },
+  {
+    "name": "Patra Jasa",
+    "category": {
+      "id": "Properti",
+      "en": "Property"
+    }
+  },
+  {
+    "name": "WIKA",
+    "category": {
+      "id": "Properti",
+      "en": "Property"
+    }
+  }
+]

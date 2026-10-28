@@ -64,3 +64,28 @@ describe('migrated company-wide content', () => {
     for (const p of load.loadPropertyTypes()) expect(p.detail.en).not.toBe(p.detail.id);
   });
 });
+
+describe('migrated portfolio, clients, insights', () => {
+  test('has every item from the old site', () => {
+    expect(load.loadPortfolio()).toHaveLength(12);
+    expect(load.loadClients()).toHaveLength(14);
+    expect(load.loadInsights()).toHaveLength(4);
+  });
+
+  test('portfolio sectors are the four known groups', () => {
+    const sectors = new Set(load.loadPortfolio().map((p) => p.sector.en));
+    expect([...sectors].sort()).toEqual(['Apartment', 'Mall & Commercial', 'Office Building', 'Real Estate & Facility']);
+  });
+
+  test('English locations and scopes are really English', () => {
+    for (const p of load.loadPortfolio()) {
+      expect(p.location.en, p.name).not.toMatch(/\b(Selatan|Pusat|Utara|Barat)\b/);
+      expect(p.scope.en, p.name).not.toMatch(/\b(Pengelolaan|Manajemen|serta|dan)\b/);
+      expect(p.scope.en).not.toBe(p.scope.id);
+    }
+  });
+
+  test('every insight has at least three highlights in each language', () => {
+    for (const i of load.loadInsights()) expect(i.highlights.en.length).toBeGreaterThanOrEqual(3);
+  });
+});

@@ -1,1 +1,110 @@
-[]
+[
+  {
+    "slug": "hvac-energy-control",
+    "category": {
+      "id": "Efisiensi Operasional",
+      "en": "Operational Efficiency"
+    },
+    "title": {
+      "id": "Langkah Praktis Mengendalikan Konsumsi Energi pada Sistem Pendingin Gedung",
+      "en": "Practical Steps to Control Energy Consumption in Building Cooling Systems"
+    },
+    "summary": {
+      "id": "Sistem tata udara (HVAC) merupakan komponen biaya energi terbesar pada gedung perkantoran dan pusat perbelanjaan. Penyetelan jadwal operasi dan perawatan rutin kondensor memberikan dampak penghematan nyata tanpa mengurangi kenyamanan ruangan.",
+      "en": "HVAC systems represent the largest energy cost component in office buildings and shopping malls. Optimizing operating schedules and routine condenser upkeep deliver tangible savings without compromising indoor comfort."
+    },
+    "highlights": {
+      "id": [
+        "Evaluasi kesesuaian beban pendinginan dengan jam operasional gedung",
+        "Peran kebersihan filter AHU dan cooling tower terhadap efisiensi listrik",
+        "Pencatatan tren pemakaian energi harian untuk deteksi dini pemborosan"
+      ],
+      "en": [
+        "Aligning cooling loads with actual building operating hours",
+        "Impact of AHU filter and cooling tower cleanliness on power efficiency",
+        "Tracking daily utility trends for early detection of energy waste"
+      ]
+    }
+  },
+  {
+    "slug": "apartment-governance-pppsrs",
+    "category": {
+      "id": "Hunian Vertikal",
+      "en": "Vertical Residential"
+    },
+    "title": {
+      "id": "Membangun Tata Kelola Apartemen yang Transparan dan Tertib Bersama PPPSRS",
+      "en": "Building Transparent and Orderly Apartment Governance with PPPSRS"
+    },
+    "summary": {
+      "id": "Kenyamanan hunian vertikal sangat bergantung pada keterbukaan komunikasi antara badan pengelola, pengurus PPPSRS, dan penghuni—terutama terkait pengelolaan dana pemeliharaan serta kecepatan respon layanan.",
+      "en": "High-rise residential comfort relies heavily on open communication between building management, PPPSRS boards, and residents—particularly regarding maintenance funds and service responsiveness."
+    },
+    "highlights": {
+      "id": [
+        "Penyusunan laporan anggaran operasional yang jelas dan mudah dipahami",
+        "Perencanaan dana cadangan (Sinking Fund) untuk peremajaan alat berat gedung",
+        "Standarisasi waktu penanganan keluhan teknis di area unit maupun fasilitas umum"
+      ],
+      "en": [
+        "Presenting clear, easy-to-understand operating budget reports",
+        "Planning Sinking Fund reserves for major equipment lifecycle replacements",
+        "Standardizing response times for unit and common-area technical requests"
+      ]
+    }
+  },
+  {
+    "slug": "slf-technical-documentation",
+    "category": {
+      "id": "Kelaikan Bangunan",
+      "en": "Building Compliance"
+    },
+    "title": {
+      "id": "Mempersiapkan Dokumentasi Teknis untuk Perpanjangan Sertifikat Laik Fungsi (SLF)",
+      "en": "Preparing Technical Documentation for Building Functionality Certificate (SLF) Renewal"
+    },
+    "summary": {
+      "id": "Perpanjangan SLF menuntut kesiapan fisik bangunan sekaligus kerapian rekam jejak pemeliharaan berkala. Persiapan yang terstruktur sejak dini menghindarkan pemilik gedung dari kendala administratif maupun teknis.",
+      "en": "SLF renewal requires both physical building readiness and complete maintenance records. Early structured preparation prevents administrative and technical bottlenecks."
+    },
+    "highlights": {
+      "id": [
+        "Kelengkapan uji berkala peralatan lift, genset, dan instalasi penyalur petir",
+        "Pengujian fungsi terpadu sistem proteksi kebakaran aktif dan jalur evakuasi",
+        "Pemeriksaan berkala kualitas pengolahan air limbah (STP) sesuai baku mutu"
+      ],
+      "en": [
+        "Complete periodic test records for elevators, generators, and lightning protection",
+        "Integrated functional testing of active fire protection and evacuation routes",
+        "Routine monitoring of sewage treatment plant (STP) effluent quality standards"
+      ]
+    }
+  },
+  {
+    "slug": "digital-building-operations",
+    "category": {
+      "id": "Digitalisasi Operasional",
+      "en": "Digital Operations"
+    },
+    "title": {
+      "id": "Peran Sistem Pendukung Digital dalam Merapikan Operasional Building Management",
+      "en": "How Digital Support Systems Streamline Daily Building Management"
+    },
+    "summary": {
+      "id": "Pencatatan manual di atas kertas sering menyulitkan pelacakan riwayat perawatan mesin dan keluhan penyewa. Penggunaan sistem pendukung digital membantu menciptakan alur kerja yang tertib dan terukur.",
+      "en": "Paper logs make it difficult to track recurring machine repairs and tenant requests. Utilizing a digital support system creates an orderly, measurable operational workflow."
+    },
+    "highlights": {
+      "id": [
+        "Rekam jejak digital riwayat pemeliharaan setiap aset mesin gedung",
+        "Pemantauan status penyelesaian komplain penghuni secara transparan",
+        "Kemudahan kompilasi laporan bulanan bagi manajemen dan pemilik properti"
+      ],
+      "en": [
+        "Digital maintenance histories for every piece of building equipment",
+        "Transparent tracking of occupant request resolution status",
+        "Streamlined monthly report compilation for management and property owners"
+      ]
+    }
+  }
+]
