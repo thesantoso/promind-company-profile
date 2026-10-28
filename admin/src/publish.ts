@@ -2,6 +2,7 @@ import type { Ctx, User } from './auth';
 import { CONTENT_FILES, CONTENT_KEYS, isContentKey, serializeContent, validateContent, type ContentKey, type Issue } from './content';
 import { writeAudit } from './db';
 import type { CommitInfo, FileToCommit, GitHub } from './github';
+import { PHOTOS_DIR } from './images';
 
 export type PublishErrorCode = 'invalid' | 'no_draft' | 'conflict' | 'draft_exists' | 'not_found' | 'too_large';
 
@@ -21,7 +22,6 @@ export interface Deps {
   gh: GitHub;
 }
 
-export const PHOTOS_DIR = 'web/src/assets/photos';
 const MAX_DRAFT_CHARS = 500_000;
 
 interface DraftRow {

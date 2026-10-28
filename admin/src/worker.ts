@@ -5,6 +5,7 @@ import { originCheck, securityHeaders, type AppEnv } from './middleware';
 import { PublishError } from './publish';
 import { authRoutes } from './routes/auth';
 import { contentRoutes, publishRoutes } from './routes/content';
+import { imageRoutes } from './routes/images';
 import { auditRoutes, usersRoutes } from './routes/users';
 
 const PUBLISH_STATUS = { invalid: 422, no_draft: 409, conflict: 409, draft_exists: 409, not_found: 404, too_large: 413 } as const;
@@ -23,6 +24,7 @@ export function createApp(options: { fetchImpl?: typeof fetch } = {}) {
   app.route('/api/audit', auditRoutes);
   app.route('/api/content', contentRoutes);
   app.route('/api/publish', publishRoutes);
+  app.route('/api/images', imageRoutes);
 
   app.notFound((c) => (c.req.path.startsWith('/api/') ? c.json({ error: 'not_found' }, 404) : c.env.ASSETS.fetch(c.req.raw)));
 
