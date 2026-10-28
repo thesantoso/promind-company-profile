@@ -214,7 +214,7 @@ export async function beginTotpEnrollment(
 export async function confirmTotpEnrollment(
   c: Ctx,
   input: { email: string; password: string; code: string },
-): Promise<{ recoveryCodes: string[] }> {
+): Promise<{ recoveryCodes: string[]; session: SessionInfo }> {
   const email = String(input.email).toLowerCase();
   await assertNotLimited(c, [[`totp:${email}`, MAX_ATTEMPTS]]);
   const row = await c.db.prepare('SELECT * FROM users WHERE email = ?').bind(email).first<UserRow>();
@@ -237,7 +237,8 @@ export async function confirmTotpEnrollment(
       .run();
   }
   await writeAudit(c.db, c.now(), row.id, 'totp.enrol');
-  return { recoveryCodes: codes };
+  // Password + kode pertama sudah membuktikan identitas: langsung masuk, tanpa langkah login kedua.
+  return { recoveryCodes: codes, session: await startSession(c, { ...row, totp_confirmed: 1, totp_last_step: step }, step, 'enroll') };
 }
 
 // ---- login / sessions ---------------------------------------------------------------------------
@@ -284,8 +285,13 @@ export async function login(
     return fail('no_second_factor');
   }
 
-  const nowS = Math.floor(c.now() / 1000);
   await c.db.prepare('DELETE FROM login_attempts WHERE key = ?').bind(keys[0]).run();
+  return startSession(c, row, step, step !== null ? 'totp' : 'recovery');
+}
+
+/** Membuat sesi untuk user yang sudah lolos semua faktor (login biasa atau akhir pendaftaran authenticator). */
+async function startSession(c: Ctx, row: UserRow, step: number | null, method: string): Promise<SessionInfo> {
+  const nowS = Math.floor(c.now() / 1000);
   if (step !== null) await c.db.prepare('UPDATE users SET last_login_at = ?, totp_last_step = ? WHERE id = ?').bind(nowS, step, row.id).run();
   else await c.db.prepare('UPDATE users SET last_login_at = ? WHERE id = ?').bind(nowS, row.id).run();
 
@@ -295,8 +301,37 @@ export async function login(
     .prepare('INSERT INTO sessions (token_hash, user_id, csrf_token, created_at, last_seen_at, expires_at) VALUES (?, ?, ?, ?, ?, ?)')
     .bind(await sha256Hex(token), row.id, csrf, nowS, nowS, Math.floor((c.now() + SESSION_ABSOLUTE_MS) / 1000))
     .run();
-  await writeAudit(c.db, c.now(), row.id, 'login.ok', { method: step !== null ? 'totp' : 'recovery' });
+  await writeAudit(c.db, c.now(), row.id, 'login.ok', { method });
   return { token, csrf, sessionId: r.meta.last_row_id, user: toUser({ ...row, last_login_at: nowS }) };
+}
+
+/**
+ * Langkah 1 login (email + password), tanpa membuat sesi. Hanya setelah password benar, hasilnya
+ * memberi tahu langkah berikutnya: masukkan kode authenticator, atau (belum pernah/baru direset)
+ * siapkan authenticator sekarang. Kegagalan memakai batas percobaan dan pesan yang sama dengan login.
+ */
+export async function precheckLogin(
+  c: Ctx,
+  input: { email: string; password: string },
+  req: { ip: string },
+): Promise<{ next: 'code' } | { next: 'enroll'; totpSecret: string; otpauth: string }> {
+  const email = String(input.email ?? '').toLowerCase();
+  const keys = loginKeys(email, req.ip);
+  await assertNotLimited(c, [[keys[0], MAX_ATTEMPTS], [keys[1], MAX_ATTEMPTS_PER_IP]]);
+  const row = await c.db.prepare('SELECT * FROM users WHERE email = ?').bind(email).first<UserRow>();
+  const passwordOk = await verifyPassword(String(input.password ?? ''), row?.password_hash ?? (await (dummyHash ??= hashPassword('dummy-password-for-timing'))));
+  if (!row || !passwordOk || row.active !== 1) {
+    await recordFailure(c, keys);
+    await writeAudit(c.db, c.now(), row?.id ?? null, 'login.fail', { reason: 'precheck' });
+    throw INVALID();
+  }
+  if (row.totp_confirmed === 1) return { next: 'code' };
+  if (!row.totp_secret_enc) {
+    await recordFailure(c, keys);
+    throw INVALID();
+  }
+  const totpSecret = await decryptSecret(row.totp_secret_enc, c.key);
+  return { next: 'enroll', totpSecret, otpauth: otpauthUri(row.email, totpSecret) };
 }
 
 export async function getSession(

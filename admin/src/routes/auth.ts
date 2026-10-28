@@ -2,7 +2,7 @@ import { Hono } from 'hono';
 import { deleteCookie, setCookie } from 'hono/cookie';
 import { z } from 'zod';
 import {
-  acceptInvite, beginTotpEnrollment, changePassword, confirmTotpEnrollment, login, logout,
+  acceptInvite, beginTotpEnrollment, changePassword, confirmTotpEnrollment, login, logout, precheckLogin,
 } from '../auth';
 import { csrfCheck, ctxOf, requireSession, SESSION_COOKIE, type AppEnv } from '../middleware';
 
@@ -31,10 +31,19 @@ authRoutes.post('/totp/begin', async (c) => {
   return c.json(await beginTotpEnrollment(ctxOf(c.env), b));
 });
 
+authRoutes.post('/login/precheck', async (c) => {
+  const b = await body(c.req.raw, z.object({ email: z.string().max(254), password: z.string().max(200) }));
+  if (!b) return bad(c);
+  const ip = c.req.header('CF-Connecting-IP') ?? 'unknown';
+  return c.json(await precheckLogin(ctxOf(c.env), b, { ip }));
+});
+
 authRoutes.post('/totp/confirm', async (c) => {
   const b = await body(c.req.raw, z.object({ email: z.string().max(254), password: z.string().max(200), code: z.string().max(10) }));
   if (!b) return bad(c);
-  return c.json(await confirmTotpEnrollment(ctxOf(c.env), b));
+  const r = await confirmTotpEnrollment(ctxOf(c.env), b);
+  setCookie(c, SESSION_COOKIE, r.session.token, { prefix: 'host', httpOnly: true, sameSite: 'Strict', maxAge: 12 * 3600 });
+  return c.json({ recoveryCodes: r.recoveryCodes, user: r.session.user, csrf: r.session.csrf });
 });
 
 authRoutes.post('/login', async (c) => {
