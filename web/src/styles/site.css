@@ -6,6 +6,9 @@
 */
 
 /* ---- 1. Live inline styles ---- */
+/* Parity note: live.css carries `.site-shell{overflow-x:clip}` and a later `.site-shell{overflow:hidden}`; the hidden one wins on
+   https://promind.co.id/ too, so there the header scrolls away with the page although it is `sticky`. We match that on purpose.
+   To make it stick, add `.site-shell { overflow-x: clip; overflow-y: visible; }` here (owner decision). */
 .header-solid { background: #ffffff; opacity: 1; backdrop-filter: none; -webkit-backdrop-filter: none; }
 .brand-box { display: flex; align-items: center; width: 185px; height: 58px; overflow: hidden; }
 .brand-img { display: block; width: 320px; max-width: none; height: auto; }

@@ -13,6 +13,9 @@
     --pages  home,services                only these page keys (default: all)
     --widths 1440,390                     only these viewport widths (default: 1440,1024,768,390)
     --langs  id                           only these languages (default: id and en where listed)
+  Cloudflare Turnstile (challenges.cloudflare.com) is stubbed on both sites, so its widget iframe adds no height and
+  pages are never held up waiting for it: the load wait is domcontentloaded + fonts + a capped network-idle wait.
+  At widths below 1024 it also compares the viewport with the mobile menu open ("menu" column).
   The build must have PUBLIC_TURNSTILE_SITEKEY set (as the e2e tests do) so the contact form renders.
 
   For every page x language x width it captures, with identical settings (reduced motion, animations
@@ -54,7 +57,9 @@ const FREEZE = `*,*::before,*::after{animation:none!important;transition:none!im
 .client-marquee-track{transform:none!important}`;
 
 async function prepare(page, url, { live, lang }) {
-  await page.goto(url, { waitUntil: 'networkidle' });
+  await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+  await page.evaluate(() => document.fonts.ready);
+  await page.waitForLoadState('networkidle', { timeout: 8000 }).catch(() => {});
   if (live && lang === 'en') {
     // The live site keeps the language in React state: switch it with its own toggle.
     const toggle = page.locator('header button', { hasText: /^(ID \/ EN|ID)$/ }).filter({ visible: true }).first();
@@ -177,6 +182,7 @@ function textDiff(live, mine) {
 
 async function shoot(browser, url, opts, width) {
   const ctx = await browser.newContext({ viewport: { width, height: 900 }, deviceScaleFactor: 1, reducedMotion: 'reduce' });
+  await ctx.route(/challenges\.cloudflare\.com/, (r) => r.fulfill({ status: 200, contentType: 'application/javascript', body: '' }));
   const page = await ctx.newPage();
   await prepare(page, url, opts);
   const full = await page.screenshot({ fullPage: true });
@@ -186,9 +192,20 @@ async function shoot(browser, url, opts, width) {
   await page.evaluate(() => window.scrollTo(0, 600));
   await page.waitForTimeout(300);
   const headerBox = await page.locator('header').first().boundingBox();
-  const scrolledHeader = await page.screenshot({ clip: { x: 0, y: 0, width, height: Math.max(1, Math.round((headerBox?.y ?? 0) + (headerBox?.height ?? 90))) } });
+  // The top strip of the viewport as tall as the header: a header that is not sticky shows page content there.
+  const scrolledHeader = await page.screenshot({ clip: { x: 0, y: 0, width, height: Math.max(1, Math.round(headerBox?.height ?? 90)) } });
+  // Mobile menu open (live: a button with aria-label "Open menu"; new: .mobile-menu-btn), at the top of the page.
+  let menuFold = null, menuHeader = null;
+  const menuBtn = page.locator('header button[aria-label="Open menu"], header .mobile-menu-btn').filter({ visible: true }).first();
+  if (width < 1024 && (await menuBtn.count())) {
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await menuBtn.click();
+    await page.waitForTimeout(300);
+    menuFold = await page.screenshot();
+    menuHeader = (await page.locator('header').first().boundingBox())?.height ?? 0;
+  }
   await ctx.close();
-  return { full, fold, parts, fullHeight, scrolledHeader };
+  return { full, fold, parts, fullHeight, scrolledHeader, menuFold, menuHeader };
 }
 
 const pct = (x) => `${x.toFixed(2)}%`;
@@ -211,6 +228,12 @@ async function main() {
         await sharp(full.out, { raw: { width: full.width, height: full.height, channels: 4 } }).png().toFile(join(OUT, `${tag}-diff.png`));
         const fold = comparePair(await raw(live.fold), await raw(mine.fold));
         const header600 = comparePair(await raw(live.scrolledHeader), await raw(mine.scrolledHeader));
+        const menu = live.menuFold && mine.menuFold ? comparePair(await raw(live.menuFold), await raw(mine.menuFold), true) : null;
+        if (menu) {
+          writeFileSync(join(OUT, `${tag}-menu-live.png`), live.menuFold);
+          writeFileSync(join(OUT, `${tag}-menu-new.png`), mine.menuFold);
+          await sharp(menu.out, { raw: { width: menu.width, height: menu.height, channels: 4 } }).png().toFile(join(OUT, `${tag}-menu-diff.png`));
+        }
         const sections = [];
         const count = Math.max(live.parts.length, mine.parts.length);
         for (let i = 0; i < count; i++) {
@@ -222,16 +245,16 @@ async function main() {
           const d = comparePair(await crop(live.full, l.box, live.fullHeight), await crop(mine.full, n.box, mine.fullHeight));
           sections.push({ name: l.name, newName: n.name, percent: d.percent, heights: [l.box.height, n.box.height], text: textDiff(l.text, n.text) });
         }
-        const row = { tag, full: full.percent, heights: [lf.height, nf.height], fold: fold.percent, header600: header600.percent, sections };
+        const row = { tag, full: full.percent, heights: [lf.height, nf.height], fold: fold.percent, header600: header600.percent, menu: menu ? menu.percent : null, menuHeights: menu ? [live.menuHeader, mine.menuHeader] : null, sections };
         report.push(row);
-        console.log(`${tag.padEnd(28)} full ${pct(row.full).padStart(7)}  fold ${pct(row.fold).padStart(7)}  header@600 ${pct(row.header600).padStart(7)}  height ${lf.height}/${nf.height}`);
+        console.log(`${tag.padEnd(28)} full ${pct(row.full).padStart(7)}  fold ${pct(row.fold).padStart(7)}  header@600 ${pct(row.header600).padStart(7)}  menu ${row.menu === null ? '   n/a' : pct(row.menu).padStart(7)}  height ${lf.height}/${nf.height}`);
       }
     }
   }
   await browser.close();
   writeFileSync(join(OUT, 'report.json'), JSON.stringify(report, null, 2));
-  const md = ['# Live vs new', '', '| page | full | above fold | header @600 | height live/new |', '|---|---|---|---|---|'];
-  for (const r of report) md.push(`| ${r.tag} | ${pct(r.full)} | ${pct(r.fold)} | ${pct(r.header600)} | ${r.heights.join(' / ')} |`);
+  const md = ['# Live vs new', '', '| page | full | above fold | header @600 | menu open (viewport) | header height with menu live/new | height live/new |', '|---|---|---|---|---|---|---|'];
+  for (const r of report) md.push(`| ${r.tag} | ${pct(r.full)} | ${pct(r.fold)} | ${pct(r.header600)} | ${r.menu === null ? 'n/a' : pct(r.menu)} | ${r.menuHeights ? r.menuHeights.join(' / ') : 'n/a'} | ${r.heights.join(' / ')} |`);
   for (const r of report) {
     md.push('', `## ${r.tag}`, '', '| section | diff | height live/new | text only on live | text only on new |', '|---|---|---|---|---|');
     for (const s of r.sections) {

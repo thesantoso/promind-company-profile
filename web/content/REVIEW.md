@@ -40,3 +40,11 @@ Dimigrasi dari situs lama tanpa mengubah faktanya. Item di bawah ini meragukan d
 ## Nama PROAPPS
 
 - Keputusan pemilik: "PROAPPS" **tidak tampil** di situs publik. Kata itu dihapus dari teks Wawasan dan lowongan (diganti "sistem manajemen gedung" atau dihilangkan). Aturan ini ditegakkan oleh tes konten dan oleh validasi portal admin.
+
+## Label yang mengikuti situs live kata demi kata
+
+- Keputusan pemilik: label yang di situs live tetap berbahasa Inggris pada halaman Indonesia ditulis persis sama. Eyebrow bagian teknologi beranda: "Digital Supporting System" (id dan en). Kategori klien: Corporate Facility, Commercial, Residence, Property (id dan en sama). Tes konten tidak melarang teks id sama dengan en pada koleksi ini.
+
+## Perilaku live yang disamakan walau tampak cacat
+
+- Header situs live **tidak menempel** saat halaman di-scroll (`.site-shell{overflow:hidden}` mematikan `position: sticky`). Situs baru meniru itu supaya sama. Bila pemilik ingin header menempel, tambahkan `.site-shell { overflow-x: clip; overflow-y: visible; }` di `src/styles/site.css`.
