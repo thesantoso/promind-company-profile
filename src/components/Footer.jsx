@@ -24,20 +24,14 @@ export default function Footer({ onNavigate, t, lang }) {
           {/* Office Address Column */}
           <div className="footer-column">
             <h2>{lang === 'id' ? 'Kantor' : 'Office'}</h2>
-            <address>
-              Mangkuluhur City Office Tower One
-              <br />
-              Jl. Gatot Subroto Kav. 1-3
-              <br />
-              Karet Semanggi, Kecamatan Setiabudi
-              <br />
-              Kota Jakarta Selatan, DKI Jakarta 12930
+            <address className="whitespace-pre-line not-italic text-sm leading-relaxed text-[#526171]">
+              {meta.hq}
             </address>
             <a
-              href="mailto:corporate@promind.id"
+              href={`mailto:${meta.email}`}
               className="footer-email mt-3"
             >
-              corporate@promind.id
+              {meta.email}
             </a>
           </div>
 
@@ -55,9 +49,9 @@ export default function Footer({ onNavigate, t, lang }) {
             ))}
           </div>
 
-          {/* Standards & PROAPPS Column */}
+          {/* Standards Column */}
           <div className="footer-column footer-standards">
-            <h2>{lang === 'id' ? 'Standar & Sistem' : 'Standards & System'}</h2>
+            <h2>{lang === 'id' ? 'Standar & Sistem' : 'Standards & Systems'}</h2>
             <ul>
               {meta.standards.map((std) => (
                 <li key={std.code}>
@@ -65,14 +59,6 @@ export default function Footer({ onNavigate, t, lang }) {
                   <span>{std.name}</span>
                 </li>
               ))}
-              <li>
-                <strong>PROAPPS</strong>
-                <span>
-                  {lang === 'id'
-                    ? 'Digital Supporting Operasional Building Management'
-                    : 'Digital Operational Support for Building Management'}
-                </span>
-              </li>
             </ul>
           </div>
         </div>

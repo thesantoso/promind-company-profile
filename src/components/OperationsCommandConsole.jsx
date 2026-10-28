@@ -39,7 +39,7 @@ export default function OperationsCommandConsole({ lang, onNavigate }) {
           kpis: [
             { label: "SLA Uptime Chiller & Genset", val: "99.85%", sub: "Target zero-downtime bisnis" },
             { label: "Rata-rata Respon Darurat ME", val: "12 Menit", sub: "Tim teknisi siaga di lokasi 24/7" },
-            { label: "Kepatuhan Jadwal PPM", val: "98.4%", sub: "Terdokumentasi via ProApps" },
+            { label: "Kepatuhan Jadwal PPM", val: "98.4%", sub: "Terdokumentasi tersistem" },
             { label: "Penurunan Gangguan Listrik", val: "-34%", sub: "Inspeksi termografi rutin" },
           ],
           checklist: [
@@ -69,7 +69,7 @@ export default function OperationsCommandConsole({ lang, onNavigate }) {
             { label: "Pelaporan Keuangan", val: "Tepat Waktu", sub: "Buku tutup tanggal 5 tiap bulan" },
           ],
           checklist: [
-            "Penagihan otomatis Service Charge & Sinking Fund berbasis sistem ProApps",
+            "Penagihan otomatis Service Charge & Sinking Fund berbasis sistem digital",
             "Rekonsiliasi pencatatan sub-metering KWh listrik dan meteran air per unit penyewa",
             "Penyusunan Rencana Anggaran Biaya Tahunan (RAB) dan audit per kuartal",
             "Kepatuhan pelaporan pajak PPh Final sewa, PPN, dan standar audit IFRS/PSAK"
@@ -121,7 +121,7 @@ export default function OperationsCommandConsole({ lang, onNavigate }) {
             { label: "Standar Grooming & Etika", val: "Bintang 5", sub: "Pelatihan berkala staf frontliner" },
           ],
           checklist: [
-            "Layanan Helpdesk & Pengaduan terintegrasi via aplikasi ProApps",
+            "Layanan Helpdesk & Pengaduan terintegrasi via sistem digital",
             "Manajemen perizinan renovasi dan peraturan tata tertib gedung (fit-out guidelines)",
             "Standar pengamanan akses pengunjung dengan sistem identifikasi digital",
             "Program komunikasi dan temu rutin manajemen dengan tenant korporasi"
@@ -156,7 +156,7 @@ export default function OperationsCommandConsole({ lang, onNavigate }) {
           kpis: [
             { label: "Chiller & Genset Uptime SLA", val: "99.85%", sub: "Targeting zero operational downtime" },
             { label: "Emergency Response Time", val: "12 Min", sub: "On-site 24/7 technical presence" },
-            { label: "PPM Schedule Compliance", val: "98.4%", sub: "Logged via ProApps system" },
+            { label: "PPM Schedule Compliance", val: "98.4%", sub: "System-logged records" },
             { label: "Power Disruption Rate", val: "-34%", sub: "Routine thermographic audits" },
           ],
           checklist: [
@@ -186,7 +186,7 @@ export default function OperationsCommandConsole({ lang, onNavigate }) {
             { label: "Financial Reporting", val: "On-Time", sub: "Monthly books closed by the 5th" },
           ],
           checklist: [
-            "Automated invoicing for Service Charge & Sinking Fund via ProApps",
+            "Automated invoicing for Service Charge & Sinking Fund via digital system",
             "Sub-metering reconciliation for individual tenant electricity and water consumption",
             "Annual operating budget formulation (OPEX/CAPEX) with quarterly variance audits",
             "Strict compliance with tax withholding, VAT, and IFRS/PSAK property accounting"
@@ -238,7 +238,7 @@ export default function OperationsCommandConsole({ lang, onNavigate }) {
             { label: "Staff Grooming & Etiquette", val: "5-Star", sub: "Routine front-line hospitality training" },
           ],
           checklist: [
-            "Integrated tenant service desk & complaint tracking via ProApps portal",
+            "Integrated tenant service desk & complaint tracking portal",
             "Fit-out guidelines, architectural approvals, and contractor supervision",
             "Visitor access management with digital identification and speed gates",
             "Periodic executive tenant coordination meetings and community building"
@@ -392,7 +392,7 @@ export default function OperationsCommandConsole({ lang, onNavigate }) {
             </div>
 
             <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-slate-400">
-              <span>Sistem Pencatatan: ProApps Enterprise</span>
+              <span>Sistem Pencatatan: Centralized Operations Portal</span>
               <span className="text-sky-400 font-bold">Terverifikasi</span>
             </div>
           </div>

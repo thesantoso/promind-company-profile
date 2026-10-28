@@ -1,0 +1,123 @@
+---
+import Layout from '../layouts/Layout.astro';
+import App from '../App.jsx';
+import MaintenancePage from '../components/MaintenancePage.jsx';
+import { env } from 'cloudflare:workers';
+import { promindContent } from '../data/promindContent';
+
+// 1. Check Maintenance Mode from D1 ec_maintenance (with fallback to ec_company_info)
+let isMaintenance = false;
+let maintenanceTitle = '';
+let maintenanceMessage = '';
+let maintenanceEstimate = '';
+let contactEmail = '';
+let contactPhone = '';
+let emergencyContact = '';
+let dbAvailable = false;
+
+try {
+  const db = (env as any).DB;
+  if (db) {
+    dbAvailable = true;
+    // Check dedicated maintenance collection first
+    const maintConfig = await db
+      .prepare("SELECT * FROM ec_maintenance ORDER BY updated_at DESC LIMIT 1")
+      .first();
+
+    if (maintConfig && (maintConfig.is_maintenance === 1 || maintConfig.is_maintenance === '1' || maintConfig.is_maintenance === true || maintConfig.is_maintenance === 'true')) {
+      isMaintenance = true;
+      maintenanceTitle = maintConfig.title || '';
+      maintenanceMessage = maintConfig.maintenance_message || '';
+      maintenanceEstimate = maintConfig.estimated_duration || '';
+      emergencyContact = maintConfig.emergency_contact || '';
+    } else if (!maintConfig) {
+      // Fallback check company_info if maintenance table doesn't have rows
+      const company = await db
+        .prepare("SELECT * FROM ec_company_info WHERE status = 'published' LIMIT 1")
+        .first();
+      if (company && (company.is_maintenance === 1 || company.is_maintenance === '1' || company.is_maintenance === true || company.is_maintenance === 'true')) {
+        isMaintenance = true;
+        maintenanceMessage = company.maintenance_message || '';
+        maintenanceEstimate = company.maintenance_estimate || '';
+        contactEmail = company.email || '';
+        contactPhone = company.phone || '';
+      }
+    }
+
+    if (isMaintenance && (!contactEmail || !contactPhone)) {
+      const company = await db
+        .prepare("SELECT email, phone FROM ec_company_info LIMIT 1")
+        .first();
+      if (company) {
+        if (!contactEmail) contactEmail = company.email || '';
+        if (!contactPhone) contactPhone = company.phone || '';
+      }
+    }
+  }
+} catch {
+  // If db fails, continue
+}
+
+// 2. Resolve Career Slug for SEO & OG Tagging
+const pathname = Astro.url.pathname;
+let sharedSlug = Astro.url.searchParams.get('career')?.trim().slice(0, 128);
+
+if (!sharedSlug && pathname.startsWith('/careers/')) {
+  sharedSlug = pathname.replace('/careers/', '').replace(/\/$/, '').trim().slice(0, 128);
+}
+
+let sharedJob: { title: string; description?: string } | null = null;
+
+if (sharedSlug) {
+  try {
+    const db = (env as any).DB;
+    if (db) {
+      sharedJob = await db
+        .prepare("SELECT title, description FROM ec_careers WHERE job_slug = ? AND status = 'published' LIMIT 1")
+        .bind(sharedSlug)
+        .first();
+    }
+  } catch {
+    // Graceful fallback
+  }
+
+  if (!sharedJob) {
+    const fallback = promindContent.id.careersPage.jobs.find((job) => (job.slug || job.id) === sharedSlug);
+    if (fallback) sharedJob = { title: fallback.title, description: fallback.desc };
+  }
+}
+
+const pageTitle = isMaintenance
+  ? 'Pemeliharaan Sistem | PROMIND'
+  : (sharedJob ? `${sharedJob.title} | Karir PROMIND` : undefined);
+
+const pageDescription = isMaintenance
+  ? 'Situs PROMIND sedang diperbaiki. Informasi estimasi dan kontak tersedia di halaman ini.'
+  : (sharedJob
+      ? (sharedJob.description || `Informasi lowongan ${sharedJob.title} di PROMIND.`).replace(/\s+/g, ' ').slice(0, 180)
+      : undefined);
+
+const sharePageUrl = sharedJob && sharedSlug
+  ? new URL(`/careers/${encodeURIComponent(sharedSlug)}`, Astro.url.origin).href
+  : Astro.url.href;
+
+// Set 503 Service Unavailable header during maintenance
+if (isMaintenance) {
+  Astro.response.status = 503;
+}
+---
+
+<Layout title={pageTitle} description={pageDescription} ogUrl={sharePageUrl}>
+  {isMaintenance ? (
+    <MaintenancePage
+      title={maintenanceTitle}
+      customMessage={maintenanceMessage}
+      estimate={maintenanceEstimate}
+      contactEmail={contactEmail}
+      contactPhone={contactPhone}
+      emergencyContact={emergencyContact}
+    />
+  ) : (
+    <App client:load />
+  )}
+</Layout>

@@ -10,9 +10,11 @@ export const promindContent = {
       email: "corporate@promind.id",
       phone: "+62 21 5289 8800",
       standards: [
-        { code: "ISO 41001:2018", name: "Sistem Manajemen Fasilitas" },
-        { code: "ISO 55001:2014", name: "Sistem Manajemen Aset" },
-        { code: "ISO 9001:2015", name: "Sistem Manajemen Mutu" },
+        { code: "ISO 9001 : 2026", name: "Quality Management System (QMS)" },
+        { code: "ISO 14001 : 2026", name: "Environmental Management System (EMS)" },
+        { code: "ISO 45001 : 2018", name: "Occupational Health and Safety Management System (OH&S)" },
+        { code: "SMK3 (Sistem Manajemen Keselamatan dan Kesehatan Kerja)", name: "Penerapan PP No. 50 Tahun 2012" },
+        { code: "Building Management System (BMS)", name: "Untuk Operasional yang Terintegrasi" },
       ],
     },
     nav: [
@@ -26,67 +28,112 @@ export const promindContent = {
     ],
     home: {
       hero: {
-        eyebrow: "PROPERTY & BUILDING MANAGEMENT",
+        eyebrow: "PROPERTY & ESTATE MANAGEMENT",
         titleMain: "Pengelolaan Properti yang Terukur,",
         titleHighlight: "Rapi, dan Berkelanjutan.",
         description:
-          "PROMIND mendampingi pemilik aset dalam mengelola operasional Office Building, Apartment, Mall, dan kawasan Real Estate secara menyeluruh—didukung oleh tim lapangan berpengalaman serta sistem PROAPPS sebagai digital supporting operasional.",
+          "PROMIND mendampingi pemilik aset dalam mengelola operasional Office Building, Apartment, Mall, dan kawasan Real Estate secara menyeluruh—didukung oleh tim lapangan berpengalaman serta sistem operasional digital terintegrasi.",
         ctaPrimary: "Hubungi Tim Kami",
         ctaSecondary: "Pelajari Layanan",
         scopeTitle: "Cakupan Pengelolaan Properti",
         scopes: [
           {
-            title: "Office Building",
-            desc: "Operasional gedung perkantoran, keandalan M&E, dan efisiensi biaya pengelolaan.",
-          },
-          {
             title: "Apartment",
-            desc: "Pengelolaan hunian vertikal, kemitraan PPPSRS, dan kenyamanan penghuni.",
+            desc: "Pengelolaan hunian vertikal terpadu, kemitraan PPPSRS, kenyamanan penghuni, dan keandalan fasilitas bersama.",
           },
           {
-            title: "Mall & Commercial",
-            desc: "Manajemen pusat perbelanjaan, koordinasi tenant ritel, dan ketertiban area publik.",
+            title: "Office Building",
+            desc: "Operasional gedung perkantoran korporat, keandalan sistem M&E, keamanan terpadu, dan efisiensi biaya (OPEX).",
           },
           {
-            title: "Real Estate",
-            desc: "Pengelolaan kawasan terpadu, pemeliharaan infrastruktur, lanskap, dan keamanan.",
+            title: "Retail & Commercial Building",
+            desc: "Manajemen pusat perbelanjaan dan gedung komersial, koordinasi tenant ritel, kebersihan, dan ketertiban area publik.",
+          },
+          {
+            title: "Estate Cluster",
+            desc: "Pengelolaan klaster hunian dan residensial, tata lingkungan rapi, perawatan lanskap, sistem drainase, dan keamanan 24 jam.",
+          },
+          {
+            title: "District Area",
+            desc: "Manajemen kawasan distrik multi-fungsi, integrasi fasilitas bersama, koordinasi utilitas, dan kelancaran mobilitas kawasan.",
+          },
+          {
+            title: "Township",
+            desc: "Pengelolaan skala kota mandiri secara komprehensif, infrastruktur makro, WTP/STP kawasan, dan tata kelola lingkungan terpadu.",
           },
         ],
         supportingLabel: "DIGITAL SUPPORTING OPERASIONAL",
         supportingText:
-          "Didukung oleh sistem PROAPPS untuk pencatatan kerja lapangan, layanan tenant, dan pelaporan manajemen yang transparan.",
+          "Didukung oleh sistem digital untuk pencatatan kerja lapangan, layanan tenant, dan pelaporan manajemen yang transparan.",
       },
       intro: {
         eyebrow: "FOKUS KAMI",
         title:
-          "Menjaga Kualitas Fisik Bangunan Sekaligus Kenyamanan Setiap penggunanya.",
+          "Menjaga Kualitas Fisik Bangunan Sekaligus Kenyamanan Setiap Penggunanya.",
         body: "Pengelolaan gedung yang baik membutuhkan konsistensi setiap hari. Mulai dari kesiapan mesin mekanikal-elektrikal, kebersihan area publik, ketertiban keamanan, hingga administrasi keuangan yang rapi—kami memastikan seluruh aspek operasional berjalan selaras dengan target pemilik properti.",
+        pillars: [
+          {
+            num: "01",
+            title: "Professional Management",
+            desc: "Sumber daya manusia berpengalaman dan standar kerja teruji untuk pengelolaan properti yang andal.",
+          },
+          {
+            num: "02",
+            title: "Value Enhancement",
+            desc: "Meningkatkan nilai aset, kualitas layanan, serta performa properti secara berkelanjutan.",
+          },
+          {
+            num: "03",
+            title: "Operational Excellence",
+            desc: "Pengoperasian gedung dan fasilitas yang efektif, terukur, serta efisien setiap hari.",
+          },
+          {
+            num: "04",
+            title: "Sustainable Environment",
+            desc: "Menciptakan lingkungan properti yang aman, nyaman, dan bertanggung jawab terhadap kelestarian lingkungan.",
+          },
+          {
+            num: "05",
+            title: "Technology Driven Management",
+            desc: "Menghadirkan pengelolaan properti yang lebih cerdas, terintegrasi, dan optimal melalui dukungan teknologi.",
+          },
+        ],
       },
       sectors: {
         eyebrow: "SEKTOR PROPERTI",
         title: "Pengelolaan yang Disesuaikan dengan Karakter Setiap Aset.",
         subtitle:
-          "Setiap jenis properti memiliki tuntutan operasional yang berbeda. Kami menyusun struktur tim, prosedur kerja, dan standar layanan sesuai kebutuhan spesifik bangunan Anda.",
+          "Setiap jenis properti memiliki tuntutan operasional yang berbeda. Kami menyusun struktur tim, prosedur kerja, dan standar layanan sesuai kebutuhan spesifik aset Anda.",
         items: [
           {
             num: "01",
+            title: "Apartment",
+            desc: "Mendampingi pemilik dan pengurus PPPSRS dalam menciptakan lingkungan hunian yang tertib, pengelolaan IPL & Sinking Fund yang transparan, penanganan komplain unit yang responsif, serta perawatan fasilitas bersama.",
+          },
+          {
+            num: "02",
             title: "Office Building",
             desc: "Menjaga kontinuitas bisnis penyewa korporat melalui pemeliharaan preventif sistem pendingin (HVAC), lift, kelistrikan, tata graha ruang kerja, serta pengendalian biaya operasional (OPEX) gedung perkantoran.",
           },
           {
-            num: "02",
-            title: "Apartment & Hunian Vertikal",
-            desc: "Mendampingi pemilik dan pengurus PPPSRS dalam menciptakan lingkungan hunian yang tertib, pengelolaan IPL & Sinking Fund yang transparan, penanganan komplain unit yang responsif, serta perawatan fasilitas bersama.",
-          },
-          {
             num: "03",
-            title: "Mall & Pusat Komersial",
-            desc: "Mengelola alur pengunjung, pengawasan fit-out penyewa ritel, kebersihan area komersial bertrafik tinggi, manajemen parkir, serta kesiapan utilitas pendukung operasional mal setiap hari.",
+            title: "Retail & Commercial Building",
+            desc: "Mengelola alur pengunjung, pengawasan fit-out penyewa ritel, kebersihan area komersial bertrafik tinggi, manajemen parkir, serta kesiapan utilitas pendukung operasional setiap hari.",
           },
           {
             num: "04",
-            title: "Real Estate & Kawasan Terpadu",
-            desc: "Pengelolaan lingkungan kawasan (estate management) yang mencakup pemeliharaan jalan dan drainase, penerangan kawasan, pengolahan air bersih dan limbah, keamanan terpadu, serta penghijauan.",
+            title: "Estate Cluster",
+            desc: "Pengelolaan lingkungan klaster perumahan yang mencakup perawatan taman, jalan, saluran air, pengelolaan sampah, serta sistem keamanan lingkungan 24 jam.",
+          },
+          {
+            num: "05",
+            title: "District Area",
+            desc: "Manajemen operasional kawasan distrik terpadu, sinkronisasi utilitas publik, pengelolaan area komunal multi-properti, dan ketertiban tata ruang kawasan.",
+          },
+          {
+            num: "06",
+            title: "Township",
+            desc: "Pengelolaan kota mandiri berskala makro mencakup pemeliharaan infrastruktur umum, instalasi air bersih (WTP) & limbah (STP), PJU, dan manajemen kelestarian lingkungan kawasan.",
           },
         ],
       },
@@ -124,9 +171,9 @@ export const promindContent = {
       },
       technology: {
         eyebrow: "DIGITAL SUPPORTING SYSTEM",
-        title: "Operasional Gedung Lebih Terkontrol dengan Dukungan PROAPPS.",
+        title: "Operasional Gedung Lebih Terkontrol dengan Dukungan Sistem Terintegrasi.",
         description:
-          "Sebagai pendukung digital operasional building management, PROAPPS membantu tim di lapangan dan manajemen memantau aktivitas harian secara terstruktur—tanpa menggantikan sentuhan layanan manusia.",
+          "Sebagai pendukung digital operasional building management, sistem kami membantu tim di lapangan dan manajemen memantau aktivitas harian secara terstruktur—tanpa menggantikan sentuhan layanan manusia.",
         steps: [
           {
             num: "01",
@@ -148,74 +195,73 @@ export const promindContent = {
     },
     servicesPage: {
       eyebrow: "CAKUPAN LAYANAN",
-      title: "Layanan Manajemen Properti & Pengelolaan Gedung",
+      title: "Solusi Terintegrasi untuk Meningkatkan Nilai Properti",
       subtitle:
-        "Pendampingan terstruktur mulai dari tahap persiapan pra-operasional, pengelolaan harian di lokasi, hingga audit teknis dan efisiensi biaya gedung.",
+        "PROMIND menyediakan solusi konsultansi dan pengelolaan properti secara menyeluruh—mulai dari tahap persiapan pra-operasional, pengelolaan operasional aset, penyediaan SDM, pusat pelatihan, aplikasi sistem terintegrasi, hingga kontrak pengelolaan terpadu (Kontrak Lumsum).",
       pillars: [
         {
           num: "01",
-          title: "Property & Building Management",
-          desc: "Pengelolaan operasional harian secara menyeluruh untuk Office Building, Apartment, Mall, dan Real Estate dengan penempatan tim profesional di lokasi.",
+          title: "Property Preliminary Management",
+          desc: "Pendampingan menyeluruh sejak tahap perencanaan hingga kesiapan operasional gedung (From Planning to Operation).",
           deliverables: [
-            "Penempatan Building Manager dan struktur tim operasional gedung",
-            "Penyusunan serta penerapan Standard Operating Procedure (SOP)",
-            "Pengelolaan tata graha (housekeeping), keamanan, parkir, dan lanskap",
-            "Pelaporan bulanan kinerja operasional kepada pemilik atau PPPSRS",
+            "Technical Assistance",
+            "Design Review",
+            "Legal Review",
+            "Testing & Commissioning",
+            "Hand Over Unit to Customer",
           ],
         },
         {
           num: "02",
-          title: "Engineering & Preventive Maintenance (M&E)",
-          desc: "Perawatan terencana pada seluruh instalasi mekanikal, elektrikal, dan plumbing untuk menjaga keandalan fasilitas dan menekan risiko kerusakan besar.",
+          title: "Property Management",
+          desc: "Pengelolaan profesional untuk mengoptimalkan kinerja fisik dan finansial aset properti (Optimizing Asset Performance).",
           deliverables: [
-            "Pemeliharaan berkala sistem HVAC/Chiller, Lift, Eskalator, dan Genset",
-            "Pengoperasian instalasi pengolahan air bersih (WTP) dan air limbah (STP)",
-            "Audit efisiensi penggunaan energi listrik dan air gedung",
-            "Penanganan gangguan teknis dengan target waktu respon terukur",
+            "Property Assessment / Audit",
+            "Property Operational",
+            "Property Monitoring & Evaluation",
           ],
         },
         {
           num: "03",
-          title: "Konsultansi Pra-Operasional & Serah Terima Gedung",
-          desc: "Pendampingan teknis sejak tahap akhir pembangunan hingga gedung siap beroperasi penuh, memastikan kesiapan seluruh sistem bangunan.",
+          title: "Property Management Staff Outsourcing",
+          desc: "Penyediaan sumber daya manusia yang andal dan terlatih untuk mendukung keunggulan operasional properti setiap hari (Reliable People for Excellent Operations).",
           deliverables: [
-            "Pendampingan proses Testing & Commissioning peralatan gedung",
-            "Inspeksi daftar temuan fisik bangunan (Defect & Snag List)",
-            "Penyusunan rencana anggaran operasional awal dan struktur tarif layanan",
-            "Penyusunan panduan Fit-Out dan tata tertib gedung (House Rules)",
+            "Penempatan personel manajemen dan teknis gedung berpengalaman",
+            "Seleksi dan supervisi tim operasional sesuai standar kompetensi",
+            "Evaluasi kinerja berkala untuk menjaga kualitas layanan di lokasi",
           ],
         },
         {
           num: "04",
-          title: "Administrasi Keuangan Gedung & Penagihan",
-          desc: "Tata kelola keuangan operasional properti yang tertib, transparan, dan akuntabel untuk menjaga arus kas pengelolaan tetap sehat.",
+          title: "Property Management Training Centre",
+          desc: "Program pelatihan terstruktur untuk membangun kompetensi sumber daya manusia di bidang pengelolaan properti (Building Competent People).",
           deliverables: [
-            "Pengelolaan penagihan Service Charge, IPL, Sinking Fund, dan utilitas",
-            "Pencatatan pemakaian listrik dan air tenant secara berkala",
-            "Pengendalian realisasi biaya operasional (OPEX) terhadap anggaran",
-            "Penyusunan laporan keuangan bulanan yang siap diaudit",
+            "Building Management, Engineering, HSE, Tenant Relation, Finance, Accounting & Tax, House Keeping, Security, Parking",
+            "Property Legal & Law, Property Insurance",
+            "Property Procurement Management",
+            "Property Asset Management",
           ],
         },
         {
           num: "05",
-          title: "Keselamatan Gedung (HSE) & Kepatuhan Regulasi",
-          desc: "Memastikan bangunan memenuhi persyaratan keselamatan kerja, proteksi kebakaran, dan kelengkapan sertifikasi laik fungsi.",
+          title: "Property Management Integrated System Application",
+          desc: "Solusi sistem aplikasi terintegrasi untuk mendukung pengelolaan gedung yang lebih cerdas, terukur, dan transparan (Digital Solution for Smarter Management).",
           deliverables: [
-            "Pemeriksaan rutin jaringan hydrant, sprinkler, alarm, dan APAR",
-            "Pendampingan teknis kelengkapan Sertifikat Laik Fungsi (SLF)",
-            "Pengelolaan perizinan riksa uji berkala peralatan teknis gedung",
-            "Pembentukan tim tanggap darurat dan pelaksanaan simulasi evakuasi",
+            "Pencatatan digital operasional harian, inspeksi teknis, dan pemeliharaan",
+            "Manajemen layanan dan penanganan keluhan penghuni / penyewa",
+            "Integrasi administrasi penagihan dan pelaporan manajemen real-time",
           ],
         },
         {
           num: "06",
-          title: "Digital Supporting Operasional dengan PROAPPS",
-          desc: "Integrasi sistem digital PROAPPS untuk mendampingi operasional harian gedung agar alur kerja teknisi, layanan penghuni, dan administrasi tercatat rapi.",
+          title: "Integrated Property Management (Kontrak Lumsum)",
+          desc: "Solusi pengelolaan properti lengkap di bawah satu kemitraan terpadu (A Complete Solution Under One Partnership).",
           deliverables: [
-            "Sistem pencatatan tiket layanan dan tindak lanjut keluhan penghuni",
-            "Checklist digital untuk inspeksi rutin peralatan M&E dan kebersihan",
-            "Dukungan penagihan digital (e-billing) dan rekapitulasi pembayaran",
-            "Ringkasan laporan operasional terpusat bagi manajemen dan pemilik",
+            "Building Management",
+            "BM Outsourcing",
+            "Engineering Service",
+            "House Keeping Service",
+            "Security Service",
           ],
         },
       ],
@@ -237,8 +283,8 @@ export const promindContent = {
         },
         {
           code: "04",
-          title: "Pendampingan SOP & Implementasi PROAPPS",
-          desc: "Penerapan standar operasional baru yang didukung oleh sistem digital PROAPPS untuk meningkatkan kerapian kerja tim internal gedung.",
+          title: "Pendampingan SOP & Sistem Operasional",
+          desc: "Penerapan standar operasional baru yang didukung oleh sistem digital untuk meningkatkan kerapian kerja tim internal gedung.",
         },
       ],
     },
@@ -289,7 +335,7 @@ export const promindContent = {
           category: "Digitalisasi Operasional",
           title: "Peran Sistem Pendukung Digital dalam Merapikan Operasional Building Management",
           summary:
-            "Pencatatan manual di atas kertas sering menyulitkan pelacakan riwayat perawatan mesin dan keluhan penyewa. Penggunaan sistem pendukung digital seperti PROAPPS membantu menciptakan alur kerja yang tertib dan terukur.",
+            "Pencatatan manual di atas kertas sering menyulitkan pelacakan riwayat perawatan mesin dan keluhan penyewa. Penggunaan sistem pendukung digital membantu menciptakan alur kerja yang tertib dan terukur.",
           highlights: [
             "Rekam jejak digital riwayat pemeliharaan setiap aset mesin gedung",
             "Pemantauan status penyelesaian komplain penghuni secara transparan",
@@ -301,28 +347,32 @@ export const promindContent = {
     aboutPage: {
       eyebrow: "TENTANG PROMIND",
       title:
-        "Mitra Profesional dalam Pengelolaan Gedung dan Manajemen Properti.",
+        "Konsultan & Layanan Pengelolaan Properti Terintegrasi di Indonesia.",
       story: [
-        "PT PROPERTI MANAJEMEN INOVASI INDONESIA (PROMIND) bergerak di bidang pengelolaan properti dan manajemen fasilitas terpadu untuk berbagai kelas aset—meliputi Office Building, Apartment, Mall, dan kawasan Real Estate.",
-        "Kami memahami bahwa setiap gedung merupakan investasi jangka panjang yang memerlukan perawatan fisik berkesinambungan, pengendalian biaya yang cermat, serta pelayanan yang sigap bagi setiap penghuni maupun penyewanya.",
-        "Untuk mendukung kualitas kerja tim di lapangan, PROMIND mengintegrasikan prosedur operasional berstandar ISO dengan PROAPPS sebagai digital supporting operasional—memastikan setiap aktivitas perawatan, layanan tenant, dan pelaporan terdokumentasi secara rapi dan transparan.",
+        "PT PROPERTI MANAJEMEN INOVASI INDONESIA (PROMIND) adalah perusahaan konsultan dan layanan manajemen properti di Indonesia yang didirikan pada tahun 2013, menghadirkan layanan terintegrasi dan profesional untuk memaksimalkan nilai aset serta menciptakan lingkungan hunian dan kerja yang lebih baik bagi klien kami.",
+        "Kami mendampingi pemilik aset di berbagai kelas properti—meliputi Office Building, Apartment, Mall, dan kawasan Real Estate—dengan memadukan sumber daya manusia berpengalaman serta standar kerja yang telah teruji.",
+        "Dengan penerapan sistem manajemen berstandar ISO (ISO 9001, ISO 14001, ISO 45001), SMK3 PP No. 50 Tahun 2012, serta dukungan Building Management System (BMS), PROMIND memastikan operasional gedung berjalan efektif, efisien, aman, dan berkelanjutan.",
       ],
       pillars: [
         {
-          title: "Disiplin Operasional di Lapangan",
-          desc: "Pelaksanaan prosedur kerja yang konsisten oleh tim engineering, tata graha, keamanan, dan layanan penghuni di setiap properti.",
+          title: "Professional Management",
+          desc: "Sumber daya manusia berpengalaman dan standar kerja teruji untuk pengelolaan properti yang andal.",
         },
         {
-          title: "Transparansi Tata Kelola Keuangan",
-          desc: "Pengelolaan anggaran biaya operasional, pengadaan vendor, serta administrasi iuran pengelolaan yang akuntabel dan terbuka.",
+          title: "Value Enhancement",
+          desc: "Meningkatkan nilai aset, kualitas layanan, serta performa properti secara berkelanjutan.",
         },
         {
-          title: "Dukungan Sistem Digital PROAPPS",
-          desc: "Pemanfaatan teknologi pendukung operasional untuk mempermudah pemantauan kerja harian, penanganan keluhan, dan pelaporan.",
+          title: "Operational Excellence",
+          desc: "Pengoperasian gedung dan fasilitas yang efektif, terukur, serta efisien setiap hari.",
         },
         {
-          title: "Pemeliharaan Nilai Jangka Panjang",
-          desc: "Fokus pada perawatan preventif fasilitas vital gedung agar bangunan tetap terawat, aman, dan bernilai tinggi.",
+          title: "Sustainable Environment",
+          desc: "Menciptakan lingkungan properti yang aman, nyaman, dan bertanggung jawab terhadap kelestarian lingkungan.",
+        },
+        {
+          title: "Technology Driven Management",
+          desc: "Menghadirkan pengelolaan properti yang lebih cerdas, terintegrasi, dan optimal melalui dukungan teknologi.",
         },
       ],
     },
@@ -334,7 +384,7 @@ export const promindContent = {
       culturePoints: [
         {
           title: "Standar Kerja yang Jelas & Terstruktur",
-          desc: "Bekerja dengan panduan SOP yang terukur serta dukungan sistem operasional PROAPPS yang memudahkan koordinasi harian.",
+          desc: "Bekerja dengan panduan SOP yang terukur serta dukungan sistem operasional digital yang memudahkan koordinasi harian.",
         },
         {
           title: "Pengembangan Kompetensi & Sertifikasi",
@@ -368,7 +418,7 @@ export const promindContent = {
           dept: "Hospitality & Tenant Service",
           type: "Full-Time",
           exp: "Pengalaman min. 2 tahun",
-          desc: "Menangani komunikasi harian dengan penyewa dan penghuni, mengoordinasikan tindak lanjut permintaan layanan melalui PROAPPS, serta mengawasi administrasi fit-out.",
+          desc: "Menangani komunikasi harian dengan penyewa dan penghuni, mengoordinasikan tindak lanjut permintaan layanan melalui sistem manajemen gedung, serta mengawasi administrasi fit-out.",
         },
         {
           id: "job-4",
@@ -399,7 +449,7 @@ export const promindContent = {
         "Pengelolaan Pusat Perbelanjaan & Komersial (Mall)",
         "Pengelolaan Kawasan Terpadu (Real Estate)",
         "Audit Teknis Gedung & Konsultansi Pra-Operasional",
-        "Implementasi Sistem Pendukung Operasional PROAPPS",
+        "Implementasi Sistem Operasional Digital Terintegrasi",
       ],
       formSuccess:
         "Terima kasih. Pesan Anda telah kami terima dan tim PROMIND akan segera menghubungi Anda untuk tindak lanjut.",
@@ -416,9 +466,11 @@ export const promindContent = {
       email: "corporate@promind.id",
       phone: "+62 21 5289 8800",
       standards: [
-        { code: "ISO 41001:2018", name: "Facility Management Systems" },
-        { code: "ISO 55001:2014", name: "Asset Management Systems" },
-        { code: "ISO 9001:2015", name: "Quality Management Systems" },
+        { code: "ISO 9001 : 2026", name: "Quality Management System (QMS)" },
+        { code: "ISO 14001 : 2026", name: "Environmental Management System (EMS)" },
+        { code: "ISO 45001 : 2018", name: "Occupational Health and Safety Management System (OH&S)" },
+        { code: "SMK3 (Sistem Manajemen Keselamatan dan Kesehatan Kerja)", name: "Penerapan PP No. 50 Tahun 2012" },
+        { code: "Building Management System (BMS)", name: "For Integrated Building Operations" },
       ],
     },
     nav: [
@@ -432,67 +484,112 @@ export const promindContent = {
     ],
     home: {
       hero: {
-        eyebrow: "PROPERTY & BUILDING MANAGEMENT",
+        eyebrow: "PROPERTY & ESTATE MANAGEMENT",
         titleMain: "Structured, Reliable, and Sustainable",
         titleHighlight: "Property Management.",
         description:
-          "PROMIND partners with asset owners to manage the daily operations of Office Buildings, Apartments, Malls, and Real Estate developments—combining experienced on-site teams with PROAPPS as our digital operational support system.",
+          "PROMIND partners with asset owners to manage the daily operations of Office Buildings, Apartments, Malls, and Real Estate developments—combining experienced on-site teams with an integrated digital operational support system.",
         ctaPrimary: "Contact Our Team",
         ctaSecondary: "Explore Services",
         scopeTitle: "Managed Property Sectors",
         scopes: [
           {
-            title: "Office Building",
-            desc: "Commercial tower operations, M&E reliability, and operating cost efficiency.",
-          },
-          {
             title: "Apartment",
-            desc: "High-rise residential management, PPPSRS partnership, and resident comfort.",
+            desc: "Integrated vertical living management, PPPSRS partnership, resident comfort, and shared facility reliability.",
           },
           {
-            title: "Mall & Commercial",
-            desc: "Retail center operations, tenant fit-out coordination, and public area order.",
+            title: "Office Building",
+            desc: "Commercial tower operations, M&E systems reliability, integrated security, and operating cost (OPEX) efficiency.",
           },
           {
-            title: "Real Estate",
-            desc: "Integrated estate management, infrastructure upkeep, landscaping, and security.",
+            title: "Retail & Commercial Building",
+            desc: "Shopping center and commercial property management, retail tenant coordination, cleanliness, and public area order.",
+          },
+          {
+            title: "Estate Cluster",
+            desc: "Residential cluster management, organized environment, landscape upkeep, drainage systems, and 24/7 security.",
+          },
+          {
+            title: "District Area",
+            desc: "Multi-functional district area management, shared amenities integration, utility coordination, and traffic flow.",
+          },
+          {
+            title: "Township",
+            desc: "Comprehensive township-scale management, macro infrastructure, regional WTP/STP, and sustainable environmental care.",
           },
         ],
         supportingLabel: "DIGITAL OPERATIONAL SUPPORT",
         supportingText:
-          "Supported by the PROAPPS system for field work logging, tenant services, and transparent management reporting.",
+          "Supported by an integrated digital operational system for field work logging, tenant services, and transparent management reporting.",
       },
       intro: {
         eyebrow: "OUR FOCUS",
         title:
           "Preserving Physical Building Quality While Ensuring Occupant Comfort.",
         body: "Effective building management requires daily consistency. From mechanical and electrical readiness, clean public spaces, and disciplined security to transparent financial administration—we ensure every operational aspect aligns with the property owner's objectives.",
+        pillars: [
+          {
+            num: "01",
+            title: "Professional Management",
+            desc: "Experienced people and proven standards for reliable property management.",
+          },
+          {
+            num: "02",
+            title: "Value Enhancement",
+            desc: "Enhancing asset value, service quality and property performance.",
+          },
+          {
+            num: "03",
+            title: "Operational Excellence",
+            desc: "Effective and efficient building operation.",
+          },
+          {
+            num: "04",
+            title: "Sustainable Environment",
+            desc: "Creating safe, comfortable and environmentally responsible properties.",
+          },
+          {
+            num: "05",
+            title: "Technology Driven Management",
+            desc: "Deliver smarter, integrated and optimal management.",
+          },
+        ],
       },
       sectors: {
         eyebrow: "PROPERTY SECTORS",
         title: "Management Tailored to the Character of Every Asset.",
         subtitle:
-          "Different property types demand distinct operational priorities. We structure our on-site teams, standard operating procedures, and service standards around your building's specific profile.",
+          "Different property types demand distinct operational priorities. We structure our on-site teams, standard operating procedures, and service standards around your asset's specific profile.",
         items: [
           {
             num: "01",
+            title: "Apartment",
+            desc: "Partnering with owners and PPPSRS boards to maintain orderly living environments, transparent IPL and Sinking Fund accounting, responsive unit servicing, and well-kept shared amenities.",
+          },
+          {
+            num: "02",
             title: "Office Building",
             desc: "Supporting business continuity for corporate tenants through preventive maintenance of HVAC, elevators, electrical systems, executive housekeeping, and disciplined OPEX control.",
           },
           {
-            num: "02",
-            title: "Apartment & Vertical Residences",
-            desc: "Partnering with owners and PPPSRS boards to maintain orderly living environments, transparent IPL and Sinking Fund accounting, responsive unit servicing, and well-kept shared amenities.",
-          },
-          {
             num: "03",
-            title: "Mall & Commercial Centers",
+            title: "Retail & Commercial Building",
             desc: "Managing visitor flow, retail tenant fit-out supervision, high-traffic commercial housekeeping, parking operations, and daily utility readiness.",
           },
           {
             num: "04",
-            title: "Real Estate & Integrated Estates",
-            desc: "Comprehensive estate management covering road and drainage upkeep, street lighting, water and wastewater treatment plants, integrated security, and landscape care.",
+            title: "Estate Cluster",
+            desc: "Residential cluster management covering parks, roadways, stormwater drainage, waste management, and dedicated 24-hour estate security.",
+          },
+          {
+            num: "05",
+            title: "District Area",
+            desc: "Operational governance for mixed-use districts, common utility synchronization, multi-property communal space management, and district zoning compliance.",
+          },
+          {
+            num: "06",
+            title: "Township",
+            desc: "Macro-scale township management covering regional utilities, municipal water & wastewater systems (WTP/STP), public lighting, and sustainable environmental preservation.",
           },
         ],
       },
@@ -530,9 +627,9 @@ export const promindContent = {
       },
       technology: {
         eyebrow: "DIGITAL SUPPORTING SYSTEM",
-        title: "Better Controlled Building Operations Supported by PROAPPS.",
+        title: "Better Controlled Building Operations Supported by Integrated Systems.",
         description:
-          "As a digital operational support system for building management, PROAPPS helps field teams and management monitor daily activities in a structured manner—complementing hands-on human service.",
+          "As a digital operational support system for building management, our platform helps field teams and management monitor daily activities in a structured manner—complementing hands-on human service.",
         steps: [
           {
             num: "01",
@@ -553,75 +650,74 @@ export const promindContent = {
       },
     },
     servicesPage: {
-      eyebrow: "SERVICE SCOPE",
-      title: "Property & Building Management Services",
+      eyebrow: "COMPANY SERVICE",
+      title: "Integrated Solutions for Enhancing Property Value",
       subtitle:
-        "Structured support spanning pre-operational preparation, daily on-site management, technical building audits, and cost efficiency.",
+        "PROMIND delivers integrated property management and consultancy solutions—from preliminary planning to daily asset operation, staff outsourcing, training centre, integrated system applications, and lump-sum management partnerships.",
       pillars: [
         {
           num: "01",
-          title: "Property & Building Management",
-          desc: "Comprehensive day-to-day operational management for Office Buildings, Apartments, Malls, and Real Estate developments with dedicated on-site professionals.",
+          title: "Property Preliminary Management",
+          desc: "From Planning to Operation — comprehensive pre-operational assistance from design stage through customer handover.",
           deliverables: [
-            "Placement of Building Managers and structured on-site operational teams",
-            "Formulation and implementation of Standard Operating Procedures (SOPs)",
-            "Management of housekeeping, security, parking, and landscaping",
-            "Monthly operational performance reporting for owners or PPPSRS boards",
+            "Technical Assistance",
+            "Design Review",
+            "Legal Review",
+            "Testing & Commissioning",
+            "Hand Over Unit to Customer",
           ],
         },
         {
           num: "02",
-          title: "Engineering & Preventive Maintenance (M&E)",
-          desc: "Planned maintenance across all mechanical, electrical, and plumbing installations to ensure facility reliability and prevent major breakdowns.",
+          title: "Property Management",
+          desc: "Optimizing Asset Performance — professional management, operational audit, and ongoing performance evaluation.",
           deliverables: [
-            "Periodic maintenance for HVAC/Chillers, Elevators, Escalators, and Generators",
-            "Operation of clean water (WTP) and sewage treatment plants (STP)",
-            "Building electricity and water efficiency audits",
-            "Technical troubleshooting with measurable response time targets",
+            "Property Assessment / Audit",
+            "Property Operational",
+            "Property Monitoring & Evaluation",
           ],
         },
         {
           num: "03",
-          title: "Pre-Operational Advisory & Building Handover",
-          desc: "Technical assistance from late-stage construction through full operational readiness, ensuring smooth building transitions.",
+          title: "Property Management Staff Outsourcing",
+          desc: "Reliable People for Excellent Operations — placement and supervision of experienced on-site property personnel.",
           deliverables: [
-            "Assistance during equipment Testing & Commissioning",
-            "Physical building defect and snag list inspections",
-            "Initial operating budget formulation and service charge structuring",
-            "Preparation of tenant Fit-Out Guidelines and building House Rules",
+            "Placement of experienced building management and technical personnel",
+            "Competency-based selection and operational supervision",
+            "Periodic performance evaluation to maintain on-site service excellence",
           ],
         },
         {
           num: "04",
-          title: "Building Financial Administration & Billing",
-          desc: "Orderly, transparent, and accountable property financial administration to maintain healthy operational cash flow.",
+          title: "Property Management Training Centre",
+          desc: "Building Competent People — structured competency development programs across all property management disciplines.",
           deliverables: [
-            "Invoicing and collection for Service Charges, IPL, Sinking Funds, and utilities",
-            "Routine sub-meter recording for tenant electricity and water consumption",
-            "Operating expense (OPEX) budget control and variance monitoring",
-            "Audit-ready monthly financial statements",
+            "Building Management, Engineering, HSE, Tenant Relation, Finance, Accounting & Tax, House Keeping, Security, Parking",
+            "Property Legal & Law, Property Insurance",
+            "Property Procurement Management",
+            "Property Asset Management",
           ],
         },
         {
           num: "05",
-          title: "Building Safety (HSE) & Regulatory Compliance",
-          desc: "Ensuring buildings meet workplace safety requirements, fire protection readiness, and statutory worthiness certifications.",
+          title: "Property Management Integrated System Application",
+          desc: "Digital Solution for Smarter Management — integrated system application supporting transparent and measurable operations.",
           deliverables: [
-            "Routine checks of hydrant networks, sprinklers, alarms, and extinguishers",
-            "Technical preparation for Building Worthiness Certificate (SLF) renewals",
-            "Management of statutory periodic equipment permits",
-            "Emergency Response Team (ERT) setup and annual evacuation drills",
+            "Digital logging for daily operations, technical inspections, and maintenance",
+            "Structured tenant and resident service request management",
+            "Integrated billing administration and real-time management reporting",
           ],
         },
         {
           num: "06",
-          title: "Digital Operational Support with PROAPPS",
-          desc: "Integration of the PROAPPS digital system to support daily building operations, keeping technician workflows, occupant services, and administration organized.",
+          title: "Integrated Property Management (Kontrak Lumsum)",
+          desc: "A Complete Solution Under One Partnership — end-to-end property management under a single integrated lump-sum contract.",
           deliverables: [
-            "Service ticket logging and occupant complaint follow-up tracking",
-            "Digital checklists for routine M&E equipment and housekeeping inspections",
-            "Digital billing support (e-billing) and payment tracking",
-            "Centralized operational summary reports for management and owners",
+            "Building Management",
+            "BM Outsourcing",
+            "Engineering Service",
+            "House Keeping Service",
+            "Security Service",
           ],
         },
       ],
@@ -643,8 +739,8 @@ export const promindContent = {
         },
         {
           code: "04",
-          title: "SOP Standardization & PROAPPS Deployment",
-          desc: "Implementation of structured operating procedures supported by the PROAPPS digital system for internal building teams.",
+          title: "SOP Standardization & Digital Operational Support",
+          desc: "Implementation of structured operating procedures supported by a digital operational system for internal building teams.",
         },
       ],
     },
@@ -695,7 +791,7 @@ export const promindContent = {
           category: "Digital Operations",
           title: "How Digital Support Systems Streamline Daily Building Management",
           summary:
-            "Paper logs make it difficult to track recurring machine repairs and tenant requests. Utilizing a digital support system like PROAPPS creates an orderly, measurable operational workflow.",
+            "Paper logs make it difficult to track recurring machine repairs and tenant requests. Utilizing a digital support system creates an orderly, measurable operational workflow.",
           highlights: [
             "Digital maintenance histories for every piece of building equipment",
             "Transparent tracking of occupant request resolution status",
@@ -707,28 +803,32 @@ export const promindContent = {
     aboutPage: {
       eyebrow: "ABOUT PROMIND",
       title:
-        "A Professional Partner in Building Operations and Property Management.",
+        "Property & Estate Management Consultant and Service in Indonesia.",
       story: [
-        "PT PROPERTI MANAJEMEN INOVASI INDONESIA (PROMIND) specializes in integrated property and facility management across key asset classes—including Office Buildings, Apartments, Malls, and Real Estate developments.",
-        "We recognize that every property is a long-term asset requiring continuous physical care, prudent cost control, and responsive service for every tenant and resident.",
-        "To support our teams on the ground, PROMIND combines ISO-aligned operating procedures with PROAPPS as our digital operational support system—ensuring maintenance activities, tenant services, and management reports are documented clearly and transparently.",
+        "PT PROPERTI MANAJEMEN INOVASI INDONESIA (PROMIND) is a property management consultant & service in Indonesia, established in 2013, providing integrated and professional services to maximize asset value and create better living and working environments for our clients.",
+        "We partner with asset owners across key property sectors—including Office Buildings, Apartments, Malls, and Real Estate developments—combining experienced people with proven management standards.",
+        "Guided by international management standards (ISO 9001, ISO 14001, ISO 45001), SMK3 PP No. 50 Tahun 2012, and integrated Building Management Systems (BMS), PROMIND delivers reliable, efficient, safe, and sustainable property operations.",
       ],
       pillars: [
         {
-          title: "Disciplined On-Site Operations",
-          desc: "Consistent execution of working procedures by engineering, housekeeping, security, and tenant relations teams at every property.",
+          title: "Professional Management",
+          desc: "Experienced people and proven standards for reliable property management.",
         },
         {
-          title: "Transparent Financial Administration",
-          desc: "Accountable, open management of operating budgets, vendor procurement, and service charge administration.",
+          title: "Value Enhancement",
+          desc: "Enhancing asset value, service quality and property performance.",
         },
         {
-          title: "PROAPPS Digital Operational Support",
-          desc: "Practical technology support that simplifies daily work monitoring, complaint handling, and management reporting.",
+          title: "Operational Excellence",
+          desc: "Effective and efficient building operation.",
         },
         {
-          title: "Long-Term Asset Preservation",
-          desc: "Focused on preventive upkeep of vital building installations so properties remain safe, reliable, and well-maintained.",
+          title: "Sustainable Environment",
+          desc: "Creating safe, comfortable and environmentally responsible properties.",
+        },
+        {
+          title: "Technology Driven Management",
+          desc: "Deliver smarter, integrated and optimal management.",
         },
       ],
     },
@@ -740,7 +840,7 @@ export const promindContent = {
       culturePoints: [
         {
           title: "Clear & Structured Working Standards",
-          desc: "Work with well-defined SOPs and the support of the PROAPPS operational system for smooth daily coordination.",
+          desc: "Work with well-defined SOPs and the support of a digital operational system for smooth daily coordination.",
         },
         {
           title: "Competency & Safety Development",
@@ -774,7 +874,7 @@ export const promindContent = {
           dept: "Hospitality & Tenant Service",
           type: "Full-Time",
           exp: "Min. 2 years experience",
-          desc: "Handle daily communication with tenants and residents, coordinate service request follow-ups via PROAPPS, and supervise fit-out administration.",
+          desc: "Handle daily communication with tenants and residents, coordinate service request follow-ups via the building service portal, and supervise fit-out administration.",
         },
         {
           id: "job-4",
@@ -805,7 +905,7 @@ export const promindContent = {
         "Mall & Commercial Center Management",
         "Real Estate & Estate Management",
         "Technical Building Audit & Pre-Operational Advisory",
-        "PROAPPS Digital Operational Support Implementation",
+        "Integrated Digital Operational Support Implementation",
       ],
       formSuccess:
         "Thank you. We have received your message and the PROMIND team will contact you shortly.",

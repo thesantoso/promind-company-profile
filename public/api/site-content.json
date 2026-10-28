@@ -1,0 +1,531 @@
+{
+  "maintenance": {
+    "isMaintenance": false,
+    "title": "Sistem Sedang Dalam Pemeliharaan",
+    "message": "Kami sedang melakukan peningkatan sistem dan infrastruktur operasional secara berkala untuk menjaga stabilitas dan performa layanan properti PROMIND. Akses publik akan segera kembali normal.",
+    "estimatedDuration": "Estimasi selesai dalam 1-2 jam",
+    "emergencyContact": "operational@promind.co.id | +62 811-1923-888"
+  },
+  "companyInfo": {
+    "companyName": "PT PROPERTI MANAJEMEN INOVASI INDONESIA",
+    "shortName": "PROMIND",
+    "tagline": "Elevating Indonesia's Real Estate",
+    "subTagline": "Konsultan & Pengelola Manajemen Properti Terpadu untuk Office Building, Apartment, Mall, dan Real Estate",
+    "hq": "Mangkuluhur City Office Tower One, Jl. Gatot Subroto Kav. 1-3, Karet Semanggi, Kecamatan Setiabudi, Kota Jakarta Selatan, DKI Jakarta 12930",
+    "email": "corporate@promind.co.id",
+    "phone": "+62 21 5289 8800",
+    "whatsapp": "+62 811 1234 5678",
+    "isMaintenance": false,
+    "maintenanceMessage": "Kami sedang melakukan peningkatan sistem dan infrastruktur operasional secara berkala untuk menjaga stabilitas dan performa layanan properti PROMIND. Akses publik akan segera kembali normal.",
+    "maintenanceEstimate": "Estimasi selesai dalam 1-2 jam"
+  },
+  "fieldwork": [
+    {
+      "num": "01",
+      "title": "Operasional & Pengawasan Harian Gedung",
+      "desc": "Pemeriksaan rutin berkala oleh pimpinan gedung dan tim lapangan untuk memastikan seluruh area fasilitas berfungsi optimal sesuai prosedur operasi standar.",
+      "photo": "/images/promind-building-operations-v2.jpg"
+    },
+    {
+      "num": "02",
+      "title": "Engineering & Pemeliharaan M&E",
+      "desc": "Pemeriksaan terjadwal pada sistem mekanikal, elektrikal, dan perpipaan guna mencegah gangguan operasional serta menjaga usia pakai peralatan gedung.",
+      "photo": "/images/promind-engineering-v2.jpg"
+    },
+    {
+      "num": "03",
+      "title": "Keselamatan Gedung & HSE",
+      "desc": "Penerapan standar Keselamatan dan Kesehatan Kerja (K3), kesiapan proteksi kebakaran, serta kepatuhan terhadap regulasi kelaikan bangunan.",
+      "photo": "/images/promind-hse-v2.jpg"
+    },
+    {
+      "num": "04",
+      "title": "Layanan Tenant & Penghuni",
+      "desc": "Komunikasi yang sigap dan ramah dalam menangani kebutuhan penyewa maupun penghuni untuk menjaga kepuasan serta kenyamanan jangka panjang.",
+      "photo": "/images/promind-tenant-relations-v2.jpg"
+    }
+  ],
+  "portfolio": [
+    {
+      "name": "NT Tower",
+      "sector": "Office Building",
+      "scope": "Pengelolaan operasional gedung perkantoran, pemeliharaan preventif instalasi M&E, tata graha, dan keamanan.",
+      "location": "Jakarta Selatan"
+    },
+    {
+      "name": "Ravindo Tower",
+      "sector": "Office Building",
+      "scope": "Manajemen operasional gedung perkantoran, pemeliharaan fasilitas teknis, dan layanan pengguna gedung.",
+      "location": "Jakarta Pusat"
+    },
+    {
+      "name": "Park Royale (Tower 1 & 2)",
+      "sector": "Apartment",
+      "scope": "Pengelolaan hunian vertikal, layanan penghuni, administrasi pengelolaan, serta perawatan fasilitas bersama.",
+      "location": "Jakarta Pusat"
+    },
+    {
+      "name": "Permata Hijau Residences",
+      "sector": "Apartment",
+      "scope": "Manajemen operasional apartemen, pemeliharaan utilitas gedung, tata graha, lanskap, dan keamanan.",
+      "location": "Jakarta Selatan"
+    },
+    {
+      "name": "Paladian Park",
+      "sector": "Apartment",
+      "scope": "Pengelolaan lingkungan hunian apartemen, perawatan instalasi teknis gedung, dan ketertiban fasilitas.",
+      "location": "Jakarta Utara"
+    },
+    {
+      "name": "Icon Apartment",
+      "sector": "Apartment",
+      "scope": "Operasional gedung hunian vertikal, inspeksi keselamatan gedung (HSE), serta layanan penghuni.",
+      "location": "Jakarta Barat"
+    },
+    {
+      "name": "Taman Sari",
+      "sector": "Apartment",
+      "scope": "Pendampingan operasional gedung hunian, perawatan rutin M&E, dan pengelolaan layanan harian.",
+      "location": "Jakarta Selatan"
+    },
+    {
+      "name": "The Park Residence",
+      "sector": "Apartment",
+      "scope": "Tata kelola fasilitas apartemen, pemeliharaan lift dan utilitas, serta koordinasi kebersihan lingkungan.",
+      "location": "Jakarta Barat"
+    },
+    {
+      "name": "Plaza Pasifik",
+      "sector": "Mall & Commercial",
+      "scope": "Manajemen fasilitas komersial, ketertiban area publik, pengelolaan parkir, serta utilitas pendukung tenant ritel.",
+      "location": "Jakarta Utara"
+    },
+    {
+      "name": "Mandiri University",
+      "sector": "Real Estate & Facility",
+      "scope": "Facility management fasilitas korporat terpadu, pemeliharaan infrastruktur M&E, tata graha, dan keamanan area.",
+      "location": "Jakarta Barat"
+    },
+    {
+      "name": "Kingsland",
+      "sector": "Real Estate & Facility",
+      "scope": "Pengelolaan kawasan terpadu, pemeliharaan lanskap lingkungan, fasilitas bersama, dan keamanan lingkungan.",
+      "location": "Tangerang Selatan"
+    },
+    {
+      "name": "Prasastha",
+      "sector": "Real Estate & Facility",
+      "scope": "Estate management lingkungan residensial, pemeliharaan jalan, drainase kawasan, dan pengamanan terpadu.",
+      "location": "Depok"
+    }
+  ],
+  "research": [
+    {
+      "id": "rep-1",
+      "category": "Efisiensi Operasional",
+      "title": "Langkah Praktis Mengendalikan Konsumsi Energi pada Sistem Pendingin Gedung",
+      "summary": "Sistem tata udara (HVAC) merupakan komponen biaya energi terbesar pada gedung perkantoran dan pusat perbelanjaan. Penyetelan jadwal operasi dan perawatan rutin kondensor memberikan dampak penghematan nyata tanpa mengurangi kenyamanan ruangan.",
+      "highlights": [
+        "Evaluasi kesesuaian beban pendinginan dengan jam operasional gedung",
+        "Peran kebersihan filter AHU dan cooling tower terhadap efisiensi listrik",
+        "Pencatatan tren pemakaian energi harian untuk deteksi dini pemborosan"
+      ]
+    },
+    {
+      "id": "rep-2",
+      "category": "Hunian Vertikal",
+      "title": "Membangun Tata Kelola Apartemen yang Transparan dan Tertib Bersama PPPSRS",
+      "summary": "Kenyamanan hunian vertikal sangat bergantung pada keterbukaan komunikasi antara badan pengelola, pengurus PPPSRS, dan penghuni\u2014terutama terkait pengelolaan dana pemeliharaan serta kecepatan respon layanan.",
+      "highlights": [
+        "Penyusunan laporan anggaran operasional yang jelas dan mudah dipahami",
+        "Perencanaan dana cadangan (Sinking Fund) untuk peremajaan alat berat gedung",
+        "Standarisasi waktu penanganan keluhan teknis di area unit maupun fasilitas umum"
+      ]
+    },
+    {
+      "id": "rep-3",
+      "category": "Kelaikan Bangunan",
+      "title": "Mempersiapkan Dokumentasi Teknis untuk Perpanjangan Sertifikat Laik Fungsi (SLF)",
+      "summary": "Perpanjangan SLF menuntut kesiapan fisik bangunan sekaligus kerapian rekam jejak pemeliharaan berkala. Persiapan yang terstruktur sejak dini menghindarkan pemilik gedung dari kendala administratif maupun teknis.",
+      "highlights": [
+        "Kelengkapan uji berkala peralatan lift, genset, dan instalasi penyalur petir",
+        "Pengujian fungsi terpadu sistem proteksi kebakaran aktif dan jalur evakuasi",
+        "Pemeriksaan berkala kualitas pengolahan air limbah (STP) sesuai baku mutu"
+      ]
+    },
+    {
+      "id": "rep-4",
+      "category": "Digitalisasi Operasional",
+      "title": "Peran Sistem Pendukung Digital dalam Merapikan Operasional Building Management",
+      "summary": "Pencatatan manual di atas kertas sering menyulitkan pelacakan riwayat perawatan mesin dan keluhan penyewa. Penggunaan sistem pendukung digital seperti PROAPPS membantu menciptakan alur kerja yang tertib dan terukur.",
+      "highlights": [
+        "Rekam jejak digital riwayat pemeliharaan setiap aset mesin gedung",
+        "Pemantauan status penyelesaian komplain penghuni secara transparan",
+        "Kemudahan kompilasi laporan bulanan bagi manajemen dan pemilik properti"
+      ]
+    }
+  ],
+  "clients": [
+    [
+      "Icon Apartment",
+      "Apartment"
+    ],
+    [
+      "Kingsland",
+      "Real Estate"
+    ],
+    [
+      "Mandiri University",
+      "Corporate Facility"
+    ],
+    [
+      "NT Tower",
+      "Office Building"
+    ],
+    [
+      "Paladian Park",
+      "Apartment"
+    ],
+    [
+      "Park Royale",
+      "Apartment"
+    ],
+    [
+      "Permata Hijau",
+      "Apartment"
+    ],
+    [
+      "Plaza Pasifik",
+      "Commercial"
+    ],
+    [
+      "Prasastha",
+      "Real Estate"
+    ],
+    [
+      "Ravindo",
+      "Office Building"
+    ],
+    [
+      "Taman Sari",
+      "Apartment"
+    ],
+    [
+      "The Park",
+      "Residence"
+    ],
+    [
+      "Patra Jasa",
+      "Property"
+    ],
+    [
+      "WIKA",
+      "Property"
+    ]
+  ],
+  "careers": [
+    {
+      "id": "01M54ZJEFVD996MQNFDSZ50WHN",
+      "slug": "building-manager",
+      "title": "Building Manager",
+      "dept": "Building Operations",
+      "type": "Full-Time",
+      "exp": "Pengalaman min. 5 tahun",
+      "location": "Jakarta Selatan (On-site Tower)",
+      "email": "recruitment@promind.id",
+      "desc": "Memimpin seluruh kegiatan operasional harian gedung, menjaga komunikasi dengan pemilik atau pengurus PPPSRS, mengelola anggaran OPEX, serta memastikan pencapaian standar layanan.",
+      "responsibilities": [
+        "Memimpin koordinasi seluruh departemen operasional gedung (Engineering, Housekeeping, Security, Tenant Relations)",
+        "Menyusun dan mengawasi implementasi Standard Operating Procedure (SOP) dan House Rules gedung",
+        "Mengendalikan realisasi anggaran biaya operasional (OPEX) agar efisien dan sesuai target anggaran tahunan",
+        "Menjalin kemitraan strategis dan komunikasi berkala dengan pemilik gedung atau perwakilan PPPSRS",
+        "Menangani eskalasi keluhan tenant atau insiden operasional secara cepat dan solutif",
+        "Memastikan kepatuhan gedung terhadap seluruh regulasi pemerintah (SLF, K3, Amdal, Asuransi Gedung)"
+      ],
+      "qualifications": [
+        "Pendidikan minimal S1 Teknik Sipil / Arsitektur / Manajemen / Perhotelan",
+        "Pengalaman minimal 5 tahun sebagai Building Manager di high-rise building (Office Tower / Luxury Apartment)",
+        "Memiliki sertifikasi Certified Building Manager atau sertifikasi profesi manajemen properti (nilai tambah)",
+        "Memahami sistem mekanikal-elektrikal gedung (HVAC, Lift, Fire Protection, STP/WTP) dan regulasi SLF",
+        "Memiliki kemampuan leadership, negosiasi, dan interpersonal yang sangat kuat",
+        "Terbiasa menggunakan sistem manajemen digital operasional properti (seperti PROAPPS)"
+      ],
+      "benefits": [
+        "Gaji kompetitif dan tunjangan jabatan",
+        "BPJS Ketenagakerjaan & BPJS Kesehatan",
+        "Asuransi kesehatan swasta",
+        "Program pelatihan dan sertifikasi profesi berkelanjutan"
+      ],
+      "published_at": "2026-10-17T13:08:50.178Z",
+      "created_at": "2026-10-17T13:07:12.507Z"
+    },
+    {
+      "id": "01M54ZJWEYM4KCPBV62GBBV398",
+      "slug": "chief-engineer",
+      "title": "Chief Engineer / Koordinator M&E",
+      "dept": "Engineering & Maintenance",
+      "type": "Full-Time",
+      "exp": "Pengalaman min. 4 tahun",
+      "location": "Jakarta (High-Rise Building)",
+      "email": "recruitment@promind.id",
+      "desc": "Mengelola perencanaan dan pelaksanaan perawatan preventif sistem mekanikal, elektrikal, HVAC, lift, genset, serta instalasi pengolahan air gedung.",
+      "responsibilities": [
+        "Menyusun jadwal dan checklist Preventive Maintenance (PM) untuk seluruh sistem M&E gedung",
+        "Memimpin tim teknisi shift dalam pemeliharaan harian, pengoperasian Chiller/HVAC, Trafo, dan Genset",
+        "Melakukan monitoring dan audit konsumsi daya listrik serta air gedung untuk program konservasi energi",
+        "Mengawasi kelayakan dan pengujian berkala sistem proteksi kebakaran (Hydrant, Sprinkler, Fire Alarm)",
+        "Mengkoordinasikan penanganan trouble ticketing dan perbaikan gangguan teknis tenant dengan SLA cepat",
+        "Mendampingi proses riksa uji berkala Disnaker dan perpanjangan sertifikasi laik fungsi instalasi teknik"
+      ],
+      "qualifications": [
+        "Pendidikan minimal D3 / S1 Teknik Elektro / Mesin",
+        "Pengalaman minimal 4 tahun di bidang engineering gedung bertingkat (Office / Mall / Apartemen)",
+        "Memahami prinsip kerja sistem Chiller Water Cooled, AHU/FCU, Panel MV/LV, Transformer, dan STP/WTP",
+        "Memiliki Surat Ijin Kelaikan (SIO) atau sertifikasi K3 Listrik / Mekanikal (nilai plus)",
+        "Mampu membaca gambar teknis / As-Built Drawing dan skematik instalasi listrik",
+        "Disiplin, teliti, dan siap siaga dalam penanganan kondisi darurat operasional"
+      ],
+      "benefits": [
+        "Paket kompensasi menarik & tunjangan teknis",
+        "BPJS Ketenagakerjaan & Kesehatan",
+        "Pelatihan teknis dan sertifikasi K3 berkala"
+      ],
+      "published_at": "2026-10-17T13:08:58.577Z",
+      "created_at": "2026-10-17T13:07:26.814Z"
+    },
+    {
+      "id": "01M54ZK489FN56H7CQV2FH2EKW",
+      "slug": "tenant-relations-officer",
+      "title": "Tenant Relations Officer",
+      "dept": "Hospitality & Tenant Service",
+      "type": "Full-Time",
+      "exp": "Pengalaman min. 2 tahun",
+      "location": "Jakarta Pusat / Selatan",
+      "email": "recruitment@promind.id",
+      "desc": "Menangani komunikasi harian dengan penyewa dan penghuni, mengoordinasikan tindak lanjut permintaan layanan melalui PROAPPS, serta mengawasi administrasi fit-out.",
+      "responsibilities": [
+        "Menjadi titik kontak utama (single point of contact) bagi tenant perkantoran maupun penghuni gedung",
+        "Menerima, mencatat, dan mengoordinasikan penanganan tiket keluhan / permintaan layanan melalui sistem operasional gedung",
+        "Mengawasi permohonan izin kerja (Work Permit), pengangkutan barang (Move-in / Move-out), dan renovasi fit-out",
+        "Menjalankan survei kepuasan tenant secara berkala dan menganalisis masukan untuk perbaikan layanan",
+        "Mengelola informasi dan pengumuman gedung kepada seluruh penyewa secara profesional"
+      ],
+      "qualifications": [
+        "Pendidikan minimal D3 / S1 Komunikasi / Hubungan Masyarakat / Perhotelan / Manajemen",
+        "Pengalaman minimal 2 tahun di bidang Tenant Relations, Customer Service, atau Hospitality di properti",
+        "Kemampuan komunikasi verbal dan tertulis yang prima dalam Bahasa Indonesia dan Bahasa Inggris",
+        "Sikap ramah, berorientasi pada solusi, dan memiliki ketahanan stres yang baik",
+        "Terbiasa mengoperasikan software ticketing operasional dan Microsoft Office"
+      ],
+      "benefits": [
+        "Gaji pokok & tunjangan representasi",
+        "BPJS Kesehatan & Ketenagakerjaan",
+        "Jenjang karir ke Property Management Services"
+      ],
+      "published_at": "2026-10-17T13:09:06.976Z",
+      "created_at": "2026-10-17T13:07:34.793Z"
+    },
+    {
+      "id": "01M54ZKBHMHMBX4XTHQZHFRC9E",
+      "slug": "finance-supervisor",
+      "title": "Building Finance & Accounting Supervisor",
+      "dept": "Finance & Administration",
+      "type": "Full-Time",
+      "exp": "Pengalaman min. 3 tahun",
+      "location": "Jakarta (Head Office & On-site)",
+      "email": "recruitment@promind.id",
+      "desc": "Mengelola administrasi penagihan Service Charge/IPL, rekonsiliasi utilitas, pengendalian anggaran operasional, serta penyusunan laporan keuangan berkala.",
+      "responsibilities": [
+        "Mengelola siklus penagihan rutin Service Charge, IPL, Sinking Fund, serta tagihan listrik & air tenant",
+        "Melakukan rekonsiliasi bank dan pencatatan kas masuk / kas keluar operasional harian gedung",
+        "Memonitor realisasi pengeluaran kas terhadap anggaran OPEX bulanan yang disetujui",
+        "Menyusun laporan keuangan bulanan (Neraca, Laba Rugi, Arus Kas) untuk manajemen dan pemilik aset/PPPSRS",
+        "Mengawasi penagihan piutang tertunggak (Aging AR) dan melakukan koordinasi penagihan persuasif"
+      ],
+      "qualifications": [
+        "Pendidikan minimal S1 Akuntansi / Keuangan",
+        "Pengalaman minimal 3 tahun di bidang akuntansi properti, building management, atau perhotelan",
+        "Memahami perpajakan properti (PPN, PPh 4 ayat 2, PPh 23, PPh 21)",
+        "Mahir menggunakan spreadsheet (Excel) lanjutan dan software akuntansi / ERP properti",
+        "Jujur, teliti dengan angka, dan memiliki integritas tinggi"
+      ],
+      "benefits": [
+        "Paket gaji kompetitif",
+        "BPJS Ketenagakerjaan & Kesehatan",
+        "Program bonus kinerja tahunan"
+      ],
+      "published_at": "2026-10-17T13:09:15.641Z",
+      "created_at": "2026-10-17T13:07:42.260Z"
+    },
+    {
+      "id": "01M54ZKN5XTK9KWV306WK041QG",
+      "slug": "hse-officer",
+      "title": "HSE & Fire Safety Officer",
+      "dept": "Health, Safety & Environment",
+      "type": "Full-Time",
+      "exp": "Sertifikasi Ahli K3 Umum",
+      "location": "Jakarta Selatan",
+      "email": "recruitment@promind.id",
+      "desc": "Mengawasi penerapan prosedur keselamatan kerja gedung, pemeriksaan berkala alat proteksi kebakaran, serta pelaksanaan pelatihan tanggap darurat.",
+      "responsibilities": [
+        "Mengawasi kepatuhan standar K3 (Keselamatan dan Kesehatan Kerja) bagi seluruh pekerja gedung dan kontraktor",
+        "Melakukan inspeksi berkala terhadap sistem proteksi kebakaran (APAR, Hydrant, Sprinkler, Smoke Detector, Fire Door)",
+        "Menyusun Hazard Identification Risk Assessment and Determining Control (HIRADC) untuk operasional gedung",
+        "Menyelenggarakan pelatihan K3 dan simulasi evakuasi kebakaran / gempa secara berkala bagi penghuni gedung",
+        "Mengelola investigasi kecelakaan kerja dan penyusunan laporan kepatuhan K3 ke instansi terkait"
+      ],
+      "qualifications": [
+        "Pendidikan minimal D3 / S1 K3 / Kesehatan Masyarakat / Teknik Lingkungan",
+        "Memiliki sertifikat kompetensi Ahli K3 Umum aktif dari Kemnaker RI",
+        "Pengalaman minimal 2 tahun sebagai HSE Officer di high-rise building atau konstruksi",
+        "Memahami manajemen tanggap darurat dan regulasi proteksi kebakaran (NFPA / Permenaker)",
+        "Memiliki ketegasan dalam penegakan kepatuhan keselamatan kerja"
+      ],
+      "benefits": [
+        "Gaji kompetitif & tunjangan profesi K3",
+        "BPJS Ketenagakerjaan & Kesehatan",
+        "Pelatihan sertifikasi lanjutan keselamatan gedung"
+      ],
+      "published_at": "2026-10-17T13:09:24.380Z",
+      "created_at": "2026-10-17T13:07:52.125Z"
+    },
+    {
+      "id": "01M56FBQ6KDB4TA0F29MZPX1PZ",
+      "slug": "hse-officer",
+      "title": "HSE & Fire Safety Officer (Copy)",
+      "dept": "Health, Safety & Environment",
+      "type": "Full-Time",
+      "exp": "Sertifikasi Ahli K3 Umum",
+      "location": "Jakarta Selatan",
+      "email": "recruitment@promind.id",
+      "desc": "Mengawasi penerapan prosedur keselamatan kerja gedung, inspeksi berkala alat proteksi kebakaran dan jalur evakuasi, serta pelaksanaan simulasi tanggap darurat bencana.",
+      "responsibilities": [
+        "Mengawasi kepatuhan standar K3 (Keselamatan dan Kesehatan Kerja) bagi seluruh pekerja gedung dan kontraktor",
+        "Melakukan inspeksi berkala terhadap sistem proteksi kebakaran (APAR, Hydrant, Sprinkler, Smoke Detector, Fire Door)",
+        "Menyusun Hazard Identification Risk Assessment and Determining Control (HIRADC) untuk operasional gedung",
+        "Menyelenggarakan pelatihan K3 dan simulasi evakuasi kebakaran / gempa secara berkala bagi penghuni gedung",
+        "Mengelola investigasi kecelakaan kerja dan penyusunan laporan kepatuhan K3 ke instansi terkait"
+      ],
+      "qualifications": [
+        "Pendidikan minimal D3 / S1 K3 / Kesehatan Masyarakat / Teknik Lingkungan",
+        "Memiliki sertifikat kompetensi Ahli K3 Umum aktif dari Kemnaker RI",
+        "Pengalaman minimal 2 tahun sebagai HSE Officer di high-rise building atau konstruksi",
+        "Memahami manajemen tanggap darurat dan regulasi proteksi kebakaran (NFPA / Permenaker)",
+        "Memiliki ketegasan dalam penegakan kepatuhan keselamatan kerja"
+      ],
+      "benefits": [
+        "Gaji kompetitif & tunjangan profesi K3",
+        "BPJS Ketenagakerjaan & Kesehatan",
+        "Pelatihan sertifikasi lanjutan keselamatan gedung"
+      ],
+      "published_at": "2026-10-18T03:02:32.343Z",
+      "created_at": "2026-10-18T03:02:23.699Z"
+    }
+  ],
+  "heroSlides": [
+    {
+      "url": "/assets/main-hero.jpeg",
+      "alt": "Main",
+      "title": "Main"
+    }
+  ],
+  "services": [
+    {
+      "num": "01",
+      "title": "Property Preliminary Management",
+      "desc": "Pendampingan menyeluruh sejak tahap perencanaan hingga kesiapan operasional gedung (From Planning to Operation).",
+      "deliverables": [
+        "Technical Assistance",
+        "Design Review",
+        "Legal Review",
+        "Testing & Commissioning",
+        "Hand Over Unit to Customer"
+      ]
+    },
+    {
+      "num": "02",
+      "title": "Property Management",
+      "desc": "Pengelolaan profesional untuk mengoptimalkan kinerja fisik dan finansial aset properti (Optimizing Asset Performance).",
+      "deliverables": [
+        "Property Assessment / Audit",
+        "Property Operational",
+        "Property Monitoring & Evaluation"
+      ]
+    },
+    {
+      "num": "03",
+      "title": "Property Management Staff Outsourcing",
+      "desc": "Penyediaan sumber daya manusia yang andal dan terlatih untuk mendukung keunggulan operasional properti setiap hari (Reliable People for Excellent Operations).",
+      "deliverables": [
+        "Penempatan personel manajemen dan teknis gedung berpengalaman",
+        "Seleksi dan supervisi tim operasional sesuai standar kompetensi",
+        "Evaluasi kinerja berkala untuk menjaga kualitas layanan di lokasi"
+      ]
+    },
+    {
+      "num": "04",
+      "title": "Property Management Training Centre",
+      "desc": "Program pelatihan terstruktur untuk membangun kompetensi sumber daya manusia di bidang pengelolaan properti (Building Competent People).",
+      "deliverables": [
+        "Building Management, Engineering, HSE, Tenant Relation, Finance, Accounting & Tax, House Keeping, Security, Parking",
+        "Property Legal & Law, Property Insurance",
+        "Property Procurement Management",
+        "Property Asset Management"
+      ]
+    },
+    {
+      "num": "05",
+      "title": "Property Management Integrated System Application",
+      "desc": "Solusi sistem aplikasi terintegrasi untuk mendukung pengelolaan gedung yang lebih cerdas, terukur, dan transparan (Digital Solution for Smarter Management).",
+      "deliverables": [
+        "Pencatatan digital operasional harian, inspeksi teknis, dan pemeliharaan",
+        "Manajemen layanan dan penanganan keluhan penghuni / penyewa",
+        "Integrasi administrasi penagihan dan pelaporan manajemen real-time"
+      ]
+    },
+    {
+      "num": "06",
+      "title": "Integrated Property Management (Kontrak Lumsum)",
+      "desc": "Solusi pengelolaan properti lengkap di bawah satu kemitraan terpadu (A Complete Solution Under One Partnership).",
+      "deliverables": [
+        "Building Management",
+        "BM Outsourcing",
+        "Engineering Service",
+        "House Keeping Service",
+        "Security Service"
+      ]
+    }
+  ],
+  "propertyScopes": [
+    {
+      "num": "01",
+      "title": "Apartment",
+      "desc": "Pengelolaan hunian vertikal terpadu, kemitraan PPPSRS, kenyamanan penghuni, dan keandalan fasilitas bersama."
+    },
+    {
+      "num": "02",
+      "title": "Office Building",
+      "desc": "Operasional gedung perkantoran korporat, keandalan sistem M&E, keamanan terpadu, dan efisiensi biaya (OPEX)."
+    },
+    {
+      "num": "03",
+      "title": "Retail & Commercial Building",
+      "desc": "Manajemen pusat perbelanjaan dan gedung komersial, koordinasi tenant ritel, kebersihan, dan ketertiban area publik bertrafik tinggi."
+    },
+    {
+      "num": "04",
+      "title": "Estate Cluster",
+      "desc": "Pengelolaan klaster hunian dan residensial, tata lingkungan rapi, perawatan lanskap, sistem drainase, dan keamanan 24 jam."
+    },
+    {
+      "num": "05",
+      "title": "District Area",
+      "desc": "Manajemen kawasan distrik multi-fungsi, integrasi fasilitas bersama, koordinasi utilitas, dan pergerakan transportasi kawasan."
+    },
+    {
+      "num": "06",
+      "title": "Township",
+      "desc": "Pengelolaan skala kota mandiri secara komprehensif, infrastruktur makro, WTP/STP kawasan, penerangan jalan umum, dan tata kelola lingkungan terpadu."
+    }
+  ]
+}

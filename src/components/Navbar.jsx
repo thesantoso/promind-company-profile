@@ -13,7 +13,10 @@ export default function Navbar({ currentPage, onNavigate, lang, setLang, t }) {
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-[#faf9f6]/95 backdrop-blur-md border-b border-[#e0e1de] shadow-sm transition-all duration-200">
+    <header
+      className="site-header sticky top-0 z-40 border-b border-[#e0e1de] shadow-sm transition-all duration-200"
+      style={{ backgroundColor: '#ffffff', background: '#ffffff', opacity: 1, backdropFilter: 'none', WebkitBackdropFilter: 'none' }}
+    >
       <div className="wrap flex items-center justify-between h-[84px] gap-6">
         {/* Brand Logo */}
         <button
@@ -90,7 +93,10 @@ export default function Navbar({ currentPage, onNavigate, lang, setLang, t }) {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#faf9f6] border-t border-[#e0e1de] px-6 py-5 space-y-3 shadow-xl">
+        <div
+          className="lg:hidden border-t border-[#e0e1de] px-6 py-5 space-y-3 shadow-xl"
+          style={{ backgroundColor: '#ffffff', background: '#ffffff' }}
+        >
           <div className="text-[10px] uppercase font-bold text-[#2b5caf] tracking-wider mb-2">
             PT Properti Manajemen Inovasi Indonesia
           </div>

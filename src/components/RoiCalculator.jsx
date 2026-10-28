@@ -35,8 +35,8 @@ export default function RoiCalculator({ lang, onNavigate }) {
           <div className="bg-[#f8fafc] border border-[#e2e8f0] p-4 mb-2">
             <p className="text-xs sm:text-sm text-[#475569] leading-relaxed m-0">
               {lang === 'id'
-                ? 'Geser parameter di bawah ini sesuai profil gedung Anda untuk melihat simulasi penghematan biaya operasional tahunan melalui penyetelan M&E, perawatan preventif, dan digitalisasi kerja ProApps.'
-                : 'Adjust the sliders below to match your building profile and estimate annual operating cost savings through M&E tuning, preventive maintenance, and ProApps workflows.'}
+                ? 'Geser parameter di bawah ini sesuai profil gedung Anda untuk melihat simulasi penghematan biaya operasional tahunan melalui penyetelan M&E, perawatan preventif, dan digitalisasi kerja operasional.'
+                : 'Adjust the sliders below to match your building profile and estimate annual operating cost savings through M&E tuning, preventive maintenance, and digital workflows.'}
             </p>
           </div>
 
