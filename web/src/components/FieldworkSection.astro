@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Picture } from 'astro:assets';
 import { loadFieldwork, loadPages } from '../content/load';
 import type { Locale } from '../i18n/locales';
 import { ordinal } from '../lib/ordinal';
@@ -25,13 +25,14 @@ const photos = import.meta.glob<{ default: ImageMetadata }>('../assets/photos/*.
       {loadFieldwork().map((item, i) => (
         <figure class={`fieldwork-item fieldwork-item-${i + 1}`}>
           <div class="fieldwork-photo">
-            <Image
+            <Picture
               src={photos[`../assets/photos/${item.image.src}`]!.default}
               alt={item.image.alt[lang]}
-              widths={[480, 640, 960, 1280]}
+              widths={[480, 660, 960, 1280]}
               sizes="(max-width: 600px) calc(100vw - 40px), (max-width: 1360px) calc(50vw - 54px), 626px"
-              format="webp"
-              quality={70}
+              formats={['avif', 'webp']}
+              fallbackFormat="webp"
+              quality={45}
               loading="lazy"
               decoding="async"
             />

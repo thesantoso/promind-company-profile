@@ -57,8 +57,9 @@ for (const p of pages) {
       expect(size[0]).toBeGreaterThanOrEqual(1000);
       expect(size[0] / size[1]).toBeCloseTo(1.91, 1);
       await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image');
-      // Both fonts are preloaded: they are otherwise discovered only after the CSS is parsed (measured: FCP 1.06s -> 0.76s).
-      await expect(page.locator('link[rel=preload][as=font][type="font/woff2"][crossorigin]')).toHaveCount(2);
+      // Only the heading font (Manrope, the LCP text) is preloaded. Preloading DM Sans as well made the Lighthouse
+      // slow-4G LCP about 130 ms worse on every page (measured), so body text swaps in from the CSS instead.
+      await expect(page.locator('link[rel=preload][as=font][type="font/woff2"][crossorigin]')).toHaveCount(1);
       expect(violations).toEqual([]);
     });
 

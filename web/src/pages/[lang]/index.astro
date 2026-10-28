@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, Picture } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import FieldworkSection from '../../components/FieldworkSection.astro';
 import Icon from '../../components/Icon.astro';
@@ -47,13 +47,14 @@ const showHighlight = title.endsWith(highlight);
 
       <div class="hero-image">
         <div class="hero-slide is-active">
-          <Image
+          <Picture
             src={heroPhoto}
             alt={hero.imageAlt[lang]}
-            widths={[480, 720, 960, 1402]}
+            widths={[480, 740, 960, 1402]}
             sizes="(max-width: 850px) 100vw, 54vw"
-            format="webp"
-            quality={60}
+            formats={['avif', 'webp']}
+            fallbackFormat="webp"
+            quality={40}
             loading="eager"
             fetchpriority="high"
             decoding="async"

@@ -11,22 +11,22 @@
 /*
   Self-hosted fonts under the family names the live stylesheet uses ("Manrope", "DM Sans"),
   so live.css renders exactly as on promind.co.id without a request to Google Fonts.
-  Latin subset only: Indonesian and US English need nothing else.
+  Latin subset only (Basic Latin, Latin-1, common punctuation), weight axis trimmed to what the site uses, made with fonttools from the Fontsource files (OFL): Indonesian and US English need nothing else.
 */
 @font-face {
   font-family: "Manrope";
   font-style: normal;
   font-display: swap;
-  font-weight: 200 800;
-  src: url("@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2") format("woff2-variations");
+  font-weight: 400 800;
+  src: url("../assets/fonts/manrope-wght-400-800.woff2") format("woff2-variations");
 }
 
 @font-face {
   font-family: "DM Sans";
   font-style: normal;
   font-display: swap;
-  font-weight: 100 1000;
-  src: url("@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2") format("woff2-variations");
+  font-weight: 400 800;
+  src: url("../assets/fonts/dm-sans-wght-400-800.woff2") format("woff2-variations");
 }
 
 @theme {

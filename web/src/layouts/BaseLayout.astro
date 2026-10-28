@@ -2,8 +2,7 @@
 import '../styles/global.css';
 import '../styles/live.css';
 import '../styles/site.css';
-import dmSansFont from '@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2?url';
-import manropeFont from '@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2?url';
+import manropeFont from '../assets/fonts/manrope-wght-400-800.woff2?url';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import SeoHead from '../components/SeoHead.astro';
@@ -55,7 +54,6 @@ const ogImage = await getOgImage(Astro.site!);
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preload" href={manropeFont} as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href={dmSansFont} as="font" type="font/woff2" crossorigin />
     <script is:inline type="application/ld+json" set:html={serializeLd(graph)} />
     <slot name="head" />
     <SeoHead lang={lang} routeKey={routeKey} title={title} description={description} ogImage={ogImage} paths={paths} />

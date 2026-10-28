@@ -3,8 +3,9 @@
   compare-live.mjs: pixel and text comparison of the new site against the live promind.co.id.
 
   How to run (from web/):
-    npm run build && npx astro preview --ignore-lock --host 127.0.0.1 --port 4330 &
+    PUBLIC_TURNSTILE_SITEKEY=1x00000000000000000000AA npm run build && npx astro preview --ignore-lock --host 127.0.0.1 --port 4330 &
     node scripts/compare-live.mjs --out /tmp/promind-compare
+  Diffing uses sharp (already installed; per-pixel channel delta > 30 counts as different) instead of pixelmatch/pngjs.
   Options (all optional):
     --live   https://promind.co.id        live origin
     --new    http://127.0.0.1:4330        new site origin (a running `astro preview`)

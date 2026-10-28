@@ -23,8 +23,8 @@ describe('design tokens', () => {
 
   test('fonts are self-hosted, never Google Fonts', () => {
     expect(css).not.toContain('fonts.googleapis.com');
-    expect(css).toContain('@fontsource-variable/manrope');
-    expect(css).toContain('@fontsource-variable/dm-sans');
+    expect(css).toContain('assets/fonts/manrope-wght-400-800.woff2');
+    expect(css).toContain('assets/fonts/dm-sans-wght-400-800.woff2');
   });
 
   test('honours prefers-reduced-motion', () => {
