@@ -8,6 +8,9 @@ const services = readContent<any[]>('services');
 const engagement = readContent<any[]>('engagement');
 const portfolio = readContent<any[]>('portfolio');
 const clients = readContent<any[]>('clients');
+const insights = readContent<any[]>('insights');
+const pillars = readContent<any[]>('pillars');
+const standards = readContent<any[]>('standards');
 
 for (const lang of LOCALES) {
   test.describe(`services (${lang})`, () => {
@@ -53,6 +56,46 @@ for (const lang of LOCALES) {
       const items = page.locator('[data-clients] li');
       await expect(items).toHaveCount(clients.length);
       for (const c of clients) await expect(items.filter({ hasText: c.name }).first()).toBeVisible();
+    });
+  });
+
+  test.describe(`insights (${lang})`, () => {
+    test.beforeEach(async ({ page }) => {
+      await page.goto(pathFor('research', lang));
+    });
+
+    test('shows every article with category, summary and at least three highlights', async ({ page }) => {
+      await expect(page.locator('main h1')).toHaveText(pages.insights.title[lang]);
+      for (const i of insights) {
+        const article = page.locator(`article#${i.slug}`);
+        await expect(article.locator('h2')).toHaveText(i.title[lang]);
+        await expect(article).toContainText(i.category[lang]);
+        await expect(article).toContainText(i.summary[lang]);
+        expect(await article.locator('li').count()).toBeGreaterThanOrEqual(3);
+      }
+    });
+
+    test('is labelled Wawasan / Insights in the navigation', async ({ page }) => {
+      const label = lang === 'id' ? 'Wawasan' : 'Insights';
+      await expect(page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: label, exact: true })).toHaveAttribute('href', pathFor('research', lang));
+    });
+  });
+
+  test.describe(`about (${lang})`, () => {
+    test.beforeEach(async ({ page }) => {
+      await page.goto(pathFor('about', lang));
+    });
+
+    test('tells the story in three paragraphs', async ({ page }) => {
+      await expect(page.locator('main h1')).toHaveText(pages.about.title[lang]);
+      for (const para of pages.about.story[lang]) await expect(page.locator('main').getByText(para, { exact: true })).toBeVisible();
+    });
+
+    test('lists the five pillars and the standards exactly as migrated', async ({ page }) => {
+      for (const p of pillars) await expect(page.getByText(p.title[lang], { exact: true })).toBeVisible();
+      const std = page.locator('section', { has: page.getByRole('heading', { level: 2, name: pages.about.standardsTitle[lang] }) });
+      await expect(std.locator('dt')).toHaveCount(standards.length);
+      for (const s of standards) await expect(std.locator('dt', { hasText: s.code })).toBeVisible();
     });
   });
 }

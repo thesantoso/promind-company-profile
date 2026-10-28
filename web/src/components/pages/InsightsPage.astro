@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BulletList from '../BulletList.astro';
+import PageHero from '../PageHero.astro';
+import { loadInsights, loadPages } from '../../content/load';
+import type { Locale } from '../../i18n/locales';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const { insights: page } = loadPages();
+---
+
+<BaseLayout lang={lang} routeKey="research" title={page.seo.title[lang]} description={page.seo.description[lang]}>
+  <PageHero eyebrow={page.eyebrow[lang]} title={page.title[lang]} subtitle={page.subtitle[lang]} />
+
+  {loadInsights().map((i) => (
+    <article id={i.slug} class="grid gap-6 border-t border-hairline py-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+      <header>
+        <p class="m-0 font-display text-xs font-bold uppercase tracking-[0.14em] text-accent">{i.category[lang]}</p>
+        <h2 class="mt-3 text-2xl font-extrabold">{i.title[lang]}</h2>
+      </header>
+      <div>
+        <p class="m-0">{i.summary[lang]}</p>
+        <BulletList class="mt-6" items={i.highlights[lang]} />
+      </div>
+    </article>
+  ))}
+</BaseLayout>

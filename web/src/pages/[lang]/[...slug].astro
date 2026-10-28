@@ -1,4 +1,6 @@
 ---
+import AboutPage from '../../components/pages/AboutPage.astro';
+import InsightsPage from '../../components/pages/InsightsPage.astro';
 import PlaceholderPage from '../../components/PlaceholderPage.astro';
 import PortfolioPage from '../../components/pages/PortfolioPage.astro';
 import ServicesPage from '../../components/pages/ServicesPage.astro';
@@ -19,4 +21,6 @@ const { lang, routeKey } = Astro.props;
 
 {routeKey === 'services' ? <ServicesPage lang={lang} />
   : routeKey === 'portfolio' ? <PortfolioPage lang={lang} />
+  : routeKey === 'research' ? <InsightsPage lang={lang} />
+  : routeKey === 'about' ? <AboutPage lang={lang} />
   : <PlaceholderPage lang={lang} routeKey={routeKey} />}

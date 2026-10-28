@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DefinitionRows from '../DefinitionRows.astro';
+import PageHero from '../PageHero.astro';
+import Section from '../Section.astro';
+import { loadPages, loadPillars, loadStandards } from '../../content/load';
+import type { Locale } from '../../i18n/locales';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const { about: page } = loadPages();
+---
+
+<BaseLayout lang={lang} routeKey="about" title={page.seo.title[lang]} description={page.seo.description[lang]}>
+  <PageHero eyebrow={page.eyebrow[lang]} title={page.title[lang]} />
+
+  <div class="max-w-3xl space-y-6 pb-16 text-lg lg:pb-24">
+    {page.story[lang].map((paragraph) => <p class="m-0">{paragraph}</p>)}
+  </div>
+
+  <Section title={page.pillarsTitle[lang]}>
+    <DefinitionRows items={loadPillars().map((p) => ({ title: p.title[lang], text: p.summary[lang] }))} />
+  </Section>
+
+  <Section title={page.standardsTitle[lang]}>
+    <DefinitionRows items={loadStandards().map((s) => ({ title: s.code, text: s.name[lang] }))} />
+  </Section>
+</BaseLayout>
