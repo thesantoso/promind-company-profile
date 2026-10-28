@@ -1,1 +1,46 @@
-[]
+[
+  {
+    "slug": "full-property-management",
+    "title": {
+      "id": "Pengelolaan Penuh (Full Management)",
+      "en": "Full Property Management"
+    },
+    "summary": {
+      "id": "Penempatan tim lengkap PROMIND di lokasi properti untuk menangani seluruh aspek teknis, operasional, keuangan, dan layanan penghuni.",
+      "en": "Deployment of a complete PROMIND on-site team to manage all technical, operational, financial, and tenant service functions."
+    }
+  },
+  {
+    "slug": "corporate-facility-management",
+    "title": {
+      "id": "Manajemen Fasilitas Korporat (Facility Management)",
+      "en": "Corporate Facility Management"
+    },
+    "summary": {
+      "id": "Pengelolaan fasilitas gedung kantor atau institusi agar kegiatan operasional utama perusahaan berjalan lancar setiap hari.",
+      "en": "Dedicated facility management for corporate headquarters or institutional campuses so core business operations run without disruption."
+    }
+  },
+  {
+    "slug": "technical-audit-pre-opening-consultancy",
+    "title": {
+      "id": "Konsultansi & Audit Teknis Gedung",
+      "en": "Technical Audit & Pre-Opening Consultancy"
+    },
+    "summary": {
+      "id": "Pendampingan berjangka waktu untuk evaluasi kondisi fisik bangunan, efisiensi biaya operasional, maupun persiapan serah terima gedung baru.",
+      "en": "Fixed-term advisory for physical building condition reviews, operating cost optimization, or new building handover preparation."
+    }
+  },
+  {
+    "slug": "sop-standardization-digital-operational-support",
+    "title": {
+      "id": "Pendampingan SOP & Sistem Operasional",
+      "en": "SOP Standardization & Digital Operational Support"
+    },
+    "summary": {
+      "id": "Penerapan standar operasional baru yang didukung oleh sistem digital untuk meningkatkan kerapian kerja tim internal gedung.",
+      "en": "Implementation of structured operating procedures supported by a digital operational system for internal building teams."
+    }
+  }
+]

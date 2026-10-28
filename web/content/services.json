@@ -1,1 +1,150 @@
-[]
+[
+  {
+    "slug": "property-preliminary-management",
+    "title": {
+      "id": "Property Preliminary Management",
+      "en": "Property Preliminary Management"
+    },
+    "summary": {
+      "id": "Pendampingan menyeluruh sejak tahap perencanaan hingga kesiapan operasional gedung (From Planning to Operation).",
+      "en": "End-to-end support from the planning stage to the operational readiness of the building."
+    },
+    "deliverables": {
+      "id": [
+        "Technical Assistance",
+        "Design Review",
+        "Legal Review",
+        "Testing & Commissioning",
+        "Hand Over Unit to Customer"
+      ],
+      "en": [
+        "Technical Assistance",
+        "Design Review",
+        "Legal Review",
+        "Testing & Commissioning",
+        "Hand Over Unit to Customer"
+      ]
+    }
+  },
+  {
+    "slug": "property-management",
+    "title": {
+      "id": "Property Management",
+      "en": "Property Management"
+    },
+    "summary": {
+      "id": "Pengelolaan profesional untuk mengoptimalkan kinerja fisik dan finansial aset properti (Optimizing Asset Performance).",
+      "en": "Professional management to optimize the physical and financial performance of the asset."
+    },
+    "deliverables": {
+      "id": [
+        "Property Assessment / Audit",
+        "Property Operational",
+        "Property Monitoring & Evaluation"
+      ],
+      "en": [
+        "Property Assessment / Audit",
+        "Property Operational",
+        "Property Monitoring & Evaluation"
+      ]
+    }
+  },
+  {
+    "slug": "staff-outsourcing",
+    "title": {
+      "id": "Property Management Staff Outsourcing",
+      "en": "Property Management Staff Outsourcing"
+    },
+    "summary": {
+      "id": "Penyediaan sumber daya manusia yang andal dan terlatih untuk mendukung keunggulan operasional properti setiap hari (Reliable People for Excellent Operations).",
+      "en": "Reliable, trained people placed on site to support day-to-day property operations."
+    },
+    "deliverables": {
+      "id": [
+        "Penempatan personel manajemen dan teknis gedung berpengalaman",
+        "Seleksi dan supervisi tim operasional sesuai standar kompetensi",
+        "Evaluasi kinerja berkala untuk menjaga kualitas layanan di lokasi"
+      ],
+      "en": [
+        "Placement of experienced building management and technical personnel",
+        "Competency-based selection and operational supervision",
+        "Periodic performance evaluation to maintain on-site service excellence"
+      ]
+    }
+  },
+  {
+    "slug": "training-centre",
+    "title": {
+      "id": "Property Management Training Centre",
+      "en": "Property Management Training Centre"
+    },
+    "summary": {
+      "id": "Program pelatihan terstruktur untuk membangun kompetensi sumber daya manusia di bidang pengelolaan properti (Building Competent People).",
+      "en": "Structured training programs that build competence across property management disciplines."
+    },
+    "deliverables": {
+      "id": [
+        "Building Management, Engineering, HSE, Tenant Relation, Finance, Accounting & Tax, House Keeping, Security, Parking",
+        "Property Legal & Law, Property Insurance",
+        "Property Procurement Management",
+        "Property Asset Management"
+      ],
+      "en": [
+        "Building Management, Engineering, HSE, Tenant Relation, Finance, Accounting & Tax, House Keeping, Security, Parking",
+        "Property Legal & Law, Property Insurance",
+        "Property Procurement Management",
+        "Property Asset Management"
+      ]
+    }
+  },
+  {
+    "slug": "integrated-system-application",
+    "title": {
+      "id": "Property Management Integrated System Application",
+      "en": "Property Management Integrated System Application"
+    },
+    "summary": {
+      "id": "Solusi sistem aplikasi terintegrasi untuk mendukung pengelolaan gedung yang lebih cerdas, terukur, dan transparan (Digital Solution for Smarter Management).",
+      "en": "An integrated application system for smarter, more measurable, and more transparent building management."
+    },
+    "deliverables": {
+      "id": [
+        "Pencatatan digital operasional harian, inspeksi teknis, dan pemeliharaan",
+        "Manajemen layanan dan penanganan keluhan penghuni / penyewa",
+        "Integrasi administrasi penagihan dan pelaporan manajemen real-time"
+      ],
+      "en": [
+        "Digital logging for daily operations, technical inspections, and maintenance",
+        "Structured tenant and resident service request management",
+        "Integrated billing administration and real-time management reporting"
+      ]
+    }
+  },
+  {
+    "slug": "integrated-property-management",
+    "title": {
+      "id": "Integrated Property Management (Kontrak Lumsum)",
+      "en": "Integrated Property Management (Kontrak Lumsum)"
+    },
+    "summary": {
+      "id": "Solusi pengelolaan properti lengkap di bawah satu kemitraan terpadu (A Complete Solution Under One Partnership).",
+      "en": "Complete property management delivered under one integrated partnership."
+    },
+    "deliverables": {
+      "id": [
+        "Building Management",
+        "BM Outsourcing",
+        "Engineering Service",
+        "House Keeping Service",
+        "Security Service"
+      ],
+      "en": [
+        "Building Management",
+        "BM Outsourcing",
+        "Engineering Service",
+        "House Keeping Service",
+        "Security Service"
+      ]
+    }
+  }
+]

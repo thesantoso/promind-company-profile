@@ -41,3 +41,26 @@ describe('content gate', () => {
     expect(strings(data).flatMap(findBrandViolations)).toEqual([]);
   });
 });
+
+describe('migrated company-wide content', () => {
+  test('has every item from the old site', () => {
+    expect(load.loadServices()).toHaveLength(6);
+    expect(load.loadPropertyTypes()).toHaveLength(6);
+    expect(load.loadPillars()).toHaveLength(5);
+    expect(load.loadFieldwork()).toHaveLength(4);
+    expect(load.loadEngagement()).toHaveLength(4);
+    expect(load.loadStandards()).toHaveLength(5);
+  });
+
+  test('field photos reference files that will live in src/assets/photos and have alt text', () => {
+    for (const f of load.loadFieldwork()) {
+      expect(f.image.src).toMatch(/^[a-z-]+\.jpg$/);
+      expect(f.image.alt.en.length).toBeGreaterThan(20);
+    }
+  });
+
+  test('English is not a copy of the Indonesian text', () => {
+    for (const s of load.loadServices()) expect(s.summary.en).not.toBe(s.summary.id);
+    for (const p of load.loadPropertyTypes()) expect(p.detail.en).not.toBe(p.detail.id);
+  });
+});

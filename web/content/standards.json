@@ -1,1 +1,37 @@
-[]
+[
+  {
+    "code": "ISO 9001",
+    "name": {
+      "id": "Quality Management System (QMS)",
+      "en": "Quality Management System (QMS)"
+    }
+  },
+  {
+    "code": "ISO 14001",
+    "name": {
+      "id": "Environmental Management System (EMS)",
+      "en": "Environmental Management System (EMS)"
+    }
+  },
+  {
+    "code": "ISO 45001:2018",
+    "name": {
+      "id": "Occupational Health and Safety Management System (OH&S)",
+      "en": "Occupational Health and Safety Management System (OH&S)"
+    }
+  },
+  {
+    "code": "SMK3",
+    "name": {
+      "id": "Sistem Manajemen Keselamatan dan Kesehatan Kerja (PP No. 50 Tahun 2012)",
+      "en": "Occupational Health and Safety Management System (Government Regulation No. 50 of 2012)"
+    }
+  },
+  {
+    "code": "BMS",
+    "name": {
+      "id": "Building Management System untuk operasional yang terintegrasi",
+      "en": "Building Management System for integrated operations"
+    }
+  }
+]

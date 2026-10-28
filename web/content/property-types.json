@@ -1,1 +1,92 @@
-[]
+[
+  {
+    "slug": "apartment",
+    "title": {
+      "id": "Apartment",
+      "en": "Apartment"
+    },
+    "summary": {
+      "id": "Pengelolaan hunian vertikal terpadu, kemitraan PPPSRS, kenyamanan penghuni, dan keandalan fasilitas bersama.",
+      "en": "Integrated vertical living management, PPPSRS partnership, resident comfort, and shared facility reliability."
+    },
+    "detail": {
+      "id": "Mendampingi pemilik dan pengurus PPPSRS dalam menciptakan lingkungan hunian yang tertib, pengelolaan IPL & Sinking Fund yang transparan, penanganan komplain unit yang responsif, serta perawatan fasilitas bersama.",
+      "en": "Partnering with owners and PPPSRS boards to maintain orderly living environments, transparent IPL and Sinking Fund accounting, responsive unit servicing, and well-kept shared amenities."
+    }
+  },
+  {
+    "slug": "office-building",
+    "title": {
+      "id": "Office Building",
+      "en": "Office Building"
+    },
+    "summary": {
+      "id": "Operasional gedung perkantoran korporat, keandalan sistem M&E, keamanan terpadu, dan efisiensi biaya (OPEX).",
+      "en": "Commercial tower operations, M&E systems reliability, integrated security, and operating cost (OPEX) efficiency."
+    },
+    "detail": {
+      "id": "Menjaga kontinuitas bisnis penyewa korporat melalui pemeliharaan preventif sistem pendingin (HVAC), lift, kelistrikan, tata graha ruang kerja, serta pengendalian biaya operasional (OPEX) gedung perkantoran.",
+      "en": "Supporting business continuity for corporate tenants through preventive maintenance of HVAC, elevators, electrical systems, executive housekeeping, and disciplined OPEX control."
+    }
+  },
+  {
+    "slug": "retail-commercial-building",
+    "title": {
+      "id": "Retail & Commercial Building",
+      "en": "Retail & Commercial Building"
+    },
+    "summary": {
+      "id": "Manajemen pusat perbelanjaan dan gedung komersial, koordinasi tenant ritel, kebersihan, dan ketertiban area publik.",
+      "en": "Shopping center and commercial property management, retail tenant coordination, cleanliness, and public area order."
+    },
+    "detail": {
+      "id": "Mengelola alur pengunjung, pengawasan fit-out penyewa ritel, kebersihan area komersial bertrafik tinggi, manajemen parkir, serta kesiapan utilitas pendukung operasional setiap hari.",
+      "en": "Managing visitor flow, retail tenant fit-out supervision, high-traffic commercial housekeeping, parking operations, and daily utility readiness."
+    }
+  },
+  {
+    "slug": "estate-cluster",
+    "title": {
+      "id": "Estate Cluster",
+      "en": "Estate Cluster"
+    },
+    "summary": {
+      "id": "Pengelolaan klaster hunian dan residensial, tata lingkungan rapi, perawatan lanskap, sistem drainase, dan keamanan 24 jam.",
+      "en": "Residential cluster management, organized environment, landscape upkeep, drainage systems, and 24/7 security."
+    },
+    "detail": {
+      "id": "Pengelolaan lingkungan klaster perumahan yang mencakup perawatan taman, jalan, saluran air, pengelolaan sampah, serta sistem keamanan lingkungan 24 jam.",
+      "en": "Residential cluster management covering parks, roadways, stormwater drainage, waste management, and dedicated 24-hour estate security."
+    }
+  },
+  {
+    "slug": "district-area",
+    "title": {
+      "id": "District Area",
+      "en": "District Area"
+    },
+    "summary": {
+      "id": "Manajemen kawasan distrik multi-fungsi, integrasi fasilitas bersama, koordinasi utilitas, dan kelancaran mobilitas kawasan.",
+      "en": "Multi-functional district area management, shared amenities integration, utility coordination, and traffic flow."
+    },
+    "detail": {
+      "id": "Manajemen operasional kawasan distrik terpadu, sinkronisasi utilitas publik, pengelolaan area komunal multi-properti, dan ketertiban tata ruang kawasan.",
+      "en": "Operational governance for mixed-use districts, common utility synchronization, multi-property communal space management, and district zoning compliance."
+    }
+  },
+  {
+    "slug": "township",
+    "title": {
+      "id": "Township",
+      "en": "Township"
+    },
+    "summary": {
+      "id": "Pengelolaan skala kota mandiri secara komprehensif, infrastruktur makro, WTP/STP kawasan, dan tata kelola lingkungan terpadu.",
+      "en": "Comprehensive township-scale management, macro infrastructure, regional WTP/STP, and sustainable environmental care."
+    },
+    "detail": {
+      "id": "Pengelolaan kota mandiri berskala makro mencakup pemeliharaan infrastruktur umum, instalasi air bersih (WTP) & limbah (STP), PJU, dan manajemen kelestarian lingkungan kawasan.",
+      "en": "Macro-scale township management covering regional utilities, municipal water & wastewater systems (WTP/STP), public lighting, and sustainable environmental preservation."
+    }
+  }
+]

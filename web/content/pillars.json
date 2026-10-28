@@ -1,1 +1,57 @@
-[]
+[
+  {
+    "slug": "professional-management",
+    "title": {
+      "id": "Professional Management",
+      "en": "Professional Management"
+    },
+    "summary": {
+      "id": "Sumber daya manusia berpengalaman dan standar kerja teruji untuk pengelolaan properti yang andal.",
+      "en": "Experienced people and proven standards for reliable property management."
+    }
+  },
+  {
+    "slug": "value-enhancement",
+    "title": {
+      "id": "Value Enhancement",
+      "en": "Value Enhancement"
+    },
+    "summary": {
+      "id": "Meningkatkan nilai aset, kualitas layanan, serta performa properti secara berkelanjutan.",
+      "en": "Enhancing asset value, service quality and property performance."
+    }
+  },
+  {
+    "slug": "operational-excellence",
+    "title": {
+      "id": "Operational Excellence",
+      "en": "Operational Excellence"
+    },
+    "summary": {
+      "id": "Pengoperasian gedung dan fasilitas yang efektif, terukur, serta efisien setiap hari.",
+      "en": "Effective and efficient building operation."
+    }
+  },
+  {
+    "slug": "sustainable-environment",
+    "title": {
+      "id": "Sustainable Environment",
+      "en": "Sustainable Environment"
+    },
+    "summary": {
+      "id": "Menciptakan lingkungan properti yang aman, nyaman, dan bertanggung jawab terhadap kelestarian lingkungan.",
+      "en": "Creating safe, comfortable and environmentally responsible properties."
+    }
+  },
+  {
+    "slug": "technology-driven-management",
+    "title": {
+      "id": "Technology Driven Management",
+      "en": "Technology Driven Management"
+    },
+    "summary": {
+      "id": "Menghadirkan pengelolaan properti yang lebih cerdas, terintegrasi, dan optimal melalui dukungan teknologi.",
+      "en": "Deliver smarter, integrated and optimal management."
+    }
+  }
+]
