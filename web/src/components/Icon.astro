@@ -1,7 +1,7 @@
 ---
 /** Lucide icons, same markup as the live site renders (lucide-react). Decorative: always aria-hidden. */
 interface Props {
-  name: 'arrow-up-right' | 'arrow-left' | 'menu' | 'x' | 'pause' | 'play' | 'calendar' | 'copy' | 'check' | 'link2' | 'share2';
+  name: 'arrow-up-right' | 'arrow-left' | 'chevron-left' | 'chevron-right' | 'menu' | 'x' | 'pause' | 'play' | 'calendar' | 'copy' | 'check' | 'link2' | 'share2';
   size?: number;
   class?: string;
 }
@@ -9,6 +9,8 @@ const { name, size = 24, class: className = '' } = Astro.props;
 const paths: Record<Props['name'], string> = {
   'arrow-up-right': '<path d="M7 7h10v10"></path><path d="M7 17 17 7"></path>',
   'arrow-left': '<path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path>',
+  'chevron-left': '<path d="m15 18-6-6 6-6"></path>',
+  'chevron-right': '<path d="m9 18 6-6-6-6"></path>',
   menu: '<line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line>',
   x: '<path d="M18 6 6 18"></path><path d="m6 6 12 12"></path>',
   pause: '<rect width="4" height="16" x="6" y="4"></rect><rect width="4" height="16" x="14" y="4"></rect>',

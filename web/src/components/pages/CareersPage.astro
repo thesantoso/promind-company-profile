@@ -6,11 +6,14 @@ import { filterActiveJobs, loadJobs, loadPages } from '../../content/load';
 import { formatShortDate } from '../../i18n/format';
 import type { Locale } from '../../i18n/locales';
 import { careerPath } from '../../i18n/routes';
+import { PAGE_SIZE } from '../../lib/paginate';
 import { ordinal } from '../../lib/ordinal';
+import { t } from '../../i18n/ui';
 import { todayUtc } from '../../lib/today';
 
 // Markup and classes follow the live CareersPage.jsx. The department tabs are radio buttons
-// (CSS hides the other groups); with five roles the live pagination never appears.
+// (CSS hides the other groups). Every open role is in the HTML; /src/scripts/careers-pager.ts shows
+// PAGE_SIZE per page, with the live pagination controls, only when more than that match.
 interface Props { lang: Locale }
 const { lang } = Astro.props;
 const { careers: page } = loadPages();
@@ -79,7 +82,7 @@ const deptLabel = (deptEn: string) => jobs.find((j) => j.department.en.trim() ==
               <p class="text-lg font-bold text-[#172b42] font-manrope mb-2">{page.emptyText[lang]}</p>
             </div>
           ) : (
-            <ul data-roles>
+            <ul data-roles data-page-size={PAGE_SIZE}>
               {jobs.map((j, i) => (
                 <li data-g={group(j.department.en)} class="py-8 border-b border-[#cbd2d9] grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                   <div class="lg:col-span-1">
@@ -114,7 +117,29 @@ const deptLabel = (deptEn: string) => jobs.find((j) => j.department.en.trim() ==
             </ul>
           )}
         </div>
+
+        {jobs.length > 0 && (
+          <nav class="career-pagination" aria-label={t(lang, 'careers.pagination')} data-pager hidden
+            data-summary={t(lang, 'careers.summary')} data-page-label={t(lang, 'careers.pageN')}>
+            <span class="career-pagination-info" role="status" data-pager-info></span>
+            <div class="career-pagination-btns">
+              <button type="button" class="career-page-nav-btn" data-pager-prev>
+                <Icon name="chevron-left" size={16} />
+                <span>{t(lang, 'careers.prev')}</span>
+              </button>
+              <span class="pager-pages" data-pager-pages></span>
+              <button type="button" class="career-page-nav-btn" data-pager-next>
+                <span>{t(lang, 'careers.next')}</span>
+                <Icon name="chevron-right" size={16} />
+              </button>
+            </div>
+          </nav>
+        )}
       </div>
     </section>
   </div>
 </BaseLayout>
+
+<script>
+  import '../../scripts/careers-pager';
+</script>

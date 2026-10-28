@@ -71,7 +71,12 @@ export type UiKey =
   | 'job.shareTo'
   | 'job.mailBody'
   | 'job.details'
-  | 'job.onThisPage';
+  | 'job.onThisPage'
+  | 'careers.pagination'
+  | 'careers.summary'
+  | 'careers.prev'
+  | 'careers.next'
+  | 'careers.pageN';
 
 export const UI: Record<Locale, Record<UiKey, string>> = {
   id: {
@@ -146,6 +151,11 @@ export const UI: Record<Locale, Record<UiKey, string>> = {
     'job.mailBody': 'Yth. Tim Human Resources PROMIND,\n\nSaya ingin mengajukan lamaran untuk posisi {title}.\nCV terbaru dan dokumen pendukung terlampir untuk pertimbangan.\n\nNama lengkap:\nNomor telepon:',
     'job.details': 'Detail posisi',
     'job.onThisPage': 'Isi halaman',
+    'careers.pagination': 'Halaman daftar lowongan',
+    'careers.summary': 'Menampilkan {start} - {end} dari total {total} posisi',
+    'careers.prev': 'Sebelumnya',
+    'careers.next': 'Berikutnya',
+    'careers.pageN': 'Halaman {n}',
   },
   en: {
     'nav.home': 'Home',
@@ -219,6 +229,11 @@ export const UI: Record<Locale, Record<UiKey, string>> = {
     'job.mailBody': 'Dear PROMIND Human Resources Team,\n\nI would like to apply for the {title} position.\nMy latest CV and supporting documents are attached for your consideration.\n\nFull name:\nPhone number:',
     'job.details': 'Position details',
     'job.onThisPage': 'On this page',
+    'careers.pagination': 'Job list pages',
+    'careers.summary': 'Showing {start} - {end} of {total} positions',
+    'careers.prev': 'Prev',
+    'careers.next': 'Next',
+    'careers.pageN': 'Page {n}',
   },
 };
 

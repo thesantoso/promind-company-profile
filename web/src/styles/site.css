@@ -75,3 +75,7 @@
 .technology-wordmark > span { color: #5a6a78; }
 /* a11y: live #a9c8f4 on #2b5caf is 3.76:1 (12px bold); #cde0fb is 4.81:1. */
 .contact-lead > .eyebrow { color: #cde0fb; }
+
+/* Careers pagination (src/scripts/careers-pager.ts): items and controls are shown or hidden with `hidden`. */
+[data-roles] > li[hidden], .career-pagination[hidden] { display: none; }
+.pager-pages { display: contents; }

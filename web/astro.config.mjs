@@ -6,5 +6,6 @@ export default defineConfig({
   output: 'static',
   trailingSlash: 'always',
   build: { format: 'directory', inlineStylesheets: 'never' },
-  vite: { plugins: [tailwindcss()] },
+  // assetsInlineLimit 0: Astro would otherwise inline small bundled <script> tags, which our CSP forbids.
+  vite: { plugins: [tailwindcss()], build: { assetsInlineLimit: 0 } },
 });
