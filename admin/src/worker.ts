@@ -19,6 +19,7 @@ export function createApp(options: { fetchImpl?: typeof fetch } = {}) {
   });
   app.use('/api/*', securityHeaders);
   app.use('/api/*', originCheck);
+  app.get('/api/config', (c) => c.json({ siteOrigin: c.env.SITE_ORIGIN }));
   app.route('/api/auth', authRoutes);
   app.route('/api/users', usersRoutes);
   app.route('/api/audit', auditRoutes);

@@ -100,3 +100,13 @@ describe('session and CSRF', () => {
     expect(res.headers.get('x-frame-options')).toBe('DENY');
   });
 });
+
+describe('public config', () => {
+  test('GET /api/config exposes only the site origin, with no session needed', async () => {
+    const s = setup();
+    const env = { ...s.env, SITE_ORIGIN: 'https://staging.promind.co.id', GITHUB_TOKEN: 'ghp_secret' } as unknown as Env;
+    const res = await createApp().request('https://admin.promind.co.id/api/config', {}, env);
+    expect(res.status).toBe(200);
+    expect(await res.json()).toEqual({ siteOrigin: 'https://staging.promind.co.id' });
+  });
+});
