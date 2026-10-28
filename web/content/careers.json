@@ -1,1 +1,382 @@
-[]
+[
+  {
+    "slug": "building-manager",
+    "title": {
+      "id": "Building Manager",
+      "en": "Building Manager"
+    },
+    "department": {
+      "id": "Building Operations",
+      "en": "Building Operations"
+    },
+    "type": {
+      "id": "Full-Time",
+      "en": "Full-time"
+    },
+    "experience": {
+      "id": "Pengalaman min. 5 tahun",
+      "en": "Minimum 5 years of experience"
+    },
+    "location": {
+      "id": "Jakarta Selatan (On-site Tower)",
+      "en": "South Jakarta (on-site, office tower)"
+    },
+    "summary": {
+      "id": "Memimpin seluruh kegiatan operasional harian gedung, menjaga komunikasi dengan pemilik atau pengurus PPPSRS, mengelola anggaran OPEX, serta memastikan pencapaian standar layanan.",
+      "en": "Leads day-to-day building operations, keeps open communication with owners or the PPPSRS board, manages the OPEX budget, and makes sure service standards are met."
+    },
+    "responsibilities": {
+      "id": [
+        "Memimpin koordinasi seluruh departemen operasional gedung (Engineering, Housekeeping, Security, Tenant Relations)",
+        "Menyusun dan mengawasi implementasi Standard Operating Procedure (SOP) dan House Rules gedung",
+        "Mengendalikan realisasi anggaran biaya operasional (OPEX) agar efisien dan sesuai target anggaran tahunan",
+        "Menjalin kemitraan strategis dan komunikasi berkala dengan pemilik gedung atau perwakilan PPPSRS",
+        "Menangani eskalasi keluhan tenant atau insiden operasional secara cepat dan solutif",
+        "Memastikan kepatuhan gedung terhadap seluruh regulasi pemerintah (SLF, K3, Amdal, Asuransi Gedung)"
+      ],
+      "en": [
+        "Lead coordination across all building operations teams (Engineering, Housekeeping, Security, Tenant Relations)",
+        "Develop and oversee implementation of the building SOPs and house rules",
+        "Control actual operating expenses (OPEX) against the approved annual budget",
+        "Maintain a strategic working relationship and regular communication with the building owner or PPPSRS representatives",
+        "Resolve tenant complaints and operational incidents quickly and constructively",
+        "Ensure the building complies with all government regulations (SLF, OHS, environmental permits, building insurance)"
+      ]
+    },
+    "qualifications": {
+      "id": [
+        "Pendidikan minimal S1 Teknik Sipil / Arsitektur / Manajemen / Perhotelan",
+        "Pengalaman minimal 5 tahun sebagai Building Manager di high-rise building (Office Tower / Luxury Apartment)",
+        "Memiliki sertifikasi Certified Building Manager atau sertifikasi profesi manajemen properti (nilai tambah)",
+        "Memahami sistem mekanikal-elektrikal gedung (HVAC, Lift, Fire Protection, STP/WTP) dan regulasi SLF",
+        "Memiliki kemampuan leadership, negosiasi, dan interpersonal yang sangat kuat",
+        "Terbiasa menggunakan sistem manajemen digital operasional properti (seperti PROAPPS)"
+      ],
+      "en": [
+        "Bachelor's degree in Civil Engineering, Architecture, Management, or Hospitality",
+        "At least 5 years as a Building Manager in a high-rise building (office tower or luxury apartment)",
+        "Certified Building Manager or another property management professional certification (an advantage)",
+        "Working knowledge of building mechanical and electrical systems (HVAC, elevators, fire protection, STP/WTP) and SLF regulations",
+        "Strong leadership, negotiation, and interpersonal skills",
+        "Comfortable using digital property operations systems such as PROAPPS"
+      ]
+    },
+    "benefits": {
+      "id": [
+        "Gaji kompetitif dan tunjangan jabatan",
+        "BPJS Ketenagakerjaan & BPJS Kesehatan",
+        "Asuransi kesehatan swasta",
+        "Program pelatihan dan sertifikasi profesi berkelanjutan"
+      ],
+      "en": [
+        "Competitive salary and position allowance",
+        "BPJS Ketenagakerjaan and BPJS Kesehatan",
+        "Private health insurance",
+        "Ongoing professional training and certification"
+      ]
+    },
+    "applicationEmail": "recruitment@promind.co.id",
+    "postedAt": "2026-10-17",
+    "active": true
+  },
+  {
+    "slug": "chief-engineer",
+    "title": {
+      "id": "Chief Engineer / Koordinator M&E",
+      "en": "Chief Engineer / M&E Coordinator"
+    },
+    "department": {
+      "id": "Engineering & Maintenance",
+      "en": "Engineering & Maintenance"
+    },
+    "type": {
+      "id": "Full-Time",
+      "en": "Full-time"
+    },
+    "experience": {
+      "id": "Pengalaman min. 4 tahun",
+      "en": "Minimum 4 years of experience"
+    },
+    "location": {
+      "id": "Jakarta (High-Rise Building)",
+      "en": "Jakarta (high-rise building)"
+    },
+    "summary": {
+      "id": "Mengelola perencanaan dan pelaksanaan perawatan preventif sistem mekanikal, elektrikal, HVAC, lift, genset, serta instalasi pengolahan air gedung.",
+      "en": "Plans and carries out preventive maintenance of mechanical, electrical, HVAC, elevator, generator, and water treatment systems."
+    },
+    "responsibilities": {
+      "id": [
+        "Menyusun jadwal dan checklist Preventive Maintenance (PM) untuk seluruh sistem M&E gedung",
+        "Memimpin tim teknisi shift dalam pemeliharaan harian, pengoperasian Chiller/HVAC, Trafo, dan Genset",
+        "Melakukan monitoring dan audit konsumsi daya listrik serta air gedung untuk program konservasi energi",
+        "Mengawasi kelayakan dan pengujian berkala sistem proteksi kebakaran (Hydrant, Sprinkler, Fire Alarm)",
+        "Mengkoordinasikan penanganan trouble ticketing dan perbaikan gangguan teknis tenant dengan SLA cepat",
+        "Mendampingi proses riksa uji berkala Disnaker dan perpanjangan sertifikasi laik fungsi instalasi teknik"
+      ],
+      "en": [
+        "Prepare preventive maintenance (PM) schedules and checklists for all building M&E systems",
+        "Lead the shift technician team in daily maintenance and operation of chillers/HVAC, transformers, and generators",
+        "Monitor and audit building power and water consumption for the energy conservation program",
+        "Oversee periodic readiness testing of fire protection systems (hydrants, sprinklers, fire alarms)",
+        "Coordinate trouble tickets and tenant technical repairs within fast SLAs",
+        "Support the periodic Disnaker inspections and renewal of technical installation certificates"
+      ]
+    },
+    "qualifications": {
+      "id": [
+        "Pendidikan minimal D3 / S1 Teknik Elektro / Mesin",
+        "Pengalaman minimal 4 tahun di bidang engineering gedung bertingkat (Office / Mall / Apartemen)",
+        "Memahami prinsip kerja sistem Chiller Water Cooled, AHU/FCU, Panel MV/LV, Transformer, dan STP/WTP",
+        "Memiliki Surat Ijin Kelaikan (SIO) atau sertifikasi K3 Listrik / Mekanikal (nilai plus)",
+        "Mampu membaca gambar teknis / As-Built Drawing dan skematik instalasi listrik",
+        "Disiplin, teliti, dan siap siaga dalam penanganan kondisi darurat operasional"
+      ],
+      "en": [
+        "Diploma (D3) or bachelor’s degree in Electrical or Mechanical Engineering",
+        "At least 4 years in engineering for multi-storey buildings (office, mall, or apartment)",
+        "Understanding of water-cooled chillers, AHU/FCU, MV/LV panels, transformers, and STP/WTP",
+        "Operator license (SIO) or electrical/mechanical OHS certification (a plus)",
+        "Able to read technical drawings, as-built drawings, and electrical schematics",
+        "Disciplined, meticulous, and ready to respond in operational emergencies"
+      ]
+    },
+    "benefits": {
+      "id": [
+        "Paket kompensasi menarik & tunjangan teknis",
+        "BPJS Ketenagakerjaan & Kesehatan",
+        "Pelatihan teknis dan sertifikasi K3 berkala"
+      ],
+      "en": [
+        "Attractive compensation package and technical allowance",
+        "BPJS Ketenagakerjaan and BPJS Kesehatan",
+        "Regular technical training and OHS certification"
+      ]
+    },
+    "applicationEmail": "recruitment@promind.co.id",
+    "postedAt": "2026-10-17",
+    "active": true
+  },
+  {
+    "slug": "tenant-relations-officer",
+    "title": {
+      "id": "Tenant Relations Officer",
+      "en": "Tenant Relations Officer"
+    },
+    "department": {
+      "id": "Hospitality & Tenant Service",
+      "en": "Hospitality & Tenant Service"
+    },
+    "type": {
+      "id": "Full-Time",
+      "en": "Full-time"
+    },
+    "experience": {
+      "id": "Pengalaman min. 2 tahun",
+      "en": "Minimum 2 years of experience"
+    },
+    "location": {
+      "id": "Jakarta Pusat / Selatan",
+      "en": "Central / South Jakarta"
+    },
+    "summary": {
+      "id": "Menangani komunikasi harian dengan penyewa dan penghuni, mengoordinasikan tindak lanjut permintaan layanan melalui PROAPPS, serta mengawasi administrasi fit-out.",
+      "en": "Handles daily communication with tenants and residents, coordinates follow-up on service requests through PROAPPS, and oversees fit-out administration."
+    },
+    "responsibilities": {
+      "id": [
+        "Menjadi titik kontak utama (single point of contact) bagi tenant perkantoran maupun penghuni gedung",
+        "Menerima, mencatat, dan mengoordinasikan penanganan tiket keluhan / permintaan layanan melalui sistem operasional gedung",
+        "Mengawasi permohonan izin kerja (Work Permit), pengangkutan barang (Move-in / Move-out), dan renovasi fit-out",
+        "Menjalankan survei kepuasan tenant secara berkala dan menganalisis masukan untuk perbaikan layanan",
+        "Mengelola informasi dan pengumuman gedung kepada seluruh penyewa secara profesional"
+      ],
+      "en": [
+        "Act as the single point of contact for office tenants and building residents",
+        "Receive, log, and coordinate handling of complaint and service request tickets through the building operations system",
+        "Oversee work permit applications, move-in and move-out logistics, and fit-out renovations",
+        "Run regular tenant satisfaction surveys and analyze feedback to improve service",
+        "Share building information and announcements with all tenants professionally"
+      ]
+    },
+    "qualifications": {
+      "id": [
+        "Pendidikan minimal D3 / S1 Komunikasi / Hubungan Masyarakat / Perhotelan / Manajemen",
+        "Pengalaman minimal 2 tahun di bidang Tenant Relations, Customer Service, atau Hospitality di properti",
+        "Kemampuan komunikasi verbal dan tertulis yang prima dalam Bahasa Indonesia dan Bahasa Inggris",
+        "Sikap ramah, berorientasi pada solusi, dan memiliki ketahanan stres yang baik",
+        "Terbiasa mengoperasikan software ticketing operasional dan Microsoft Office"
+      ],
+      "en": [
+        "Diploma (D3) or bachelor’s degree in Communication, Public Relations, Hospitality, or Management",
+        "At least 2 years in tenant relations, customer service, or property hospitality",
+        "Excellent spoken and written communication in Indonesian and English",
+        "Friendly, solution-oriented, and resilient under pressure",
+        "Comfortable using operational ticketing software and Microsoft Office"
+      ]
+    },
+    "benefits": {
+      "id": [
+        "Gaji pokok & tunjangan representasi",
+        "BPJS Kesehatan & Ketenagakerjaan",
+        "Jenjang karir ke Property Management Services"
+      ],
+      "en": [
+        "Base salary and representation allowance",
+        "BPJS Kesehatan and BPJS Ketenagakerjaan",
+        "Career path into Property Management Services"
+      ]
+    },
+    "applicationEmail": "recruitment@promind.co.id",
+    "postedAt": "2026-10-17",
+    "active": true
+  },
+  {
+    "slug": "finance-supervisor",
+    "title": {
+      "id": "Building Finance & Accounting Supervisor",
+      "en": "Building Finance & Accounting Supervisor"
+    },
+    "department": {
+      "id": "Finance & Administration",
+      "en": "Finance & Administration"
+    },
+    "type": {
+      "id": "Full-Time",
+      "en": "Full-time"
+    },
+    "experience": {
+      "id": "Pengalaman min. 3 tahun",
+      "en": "Minimum 3 years of experience"
+    },
+    "location": {
+      "id": "Jakarta (Head Office & On-site)",
+      "en": "Jakarta (head office and on-site)"
+    },
+    "summary": {
+      "id": "Mengelola administrasi penagihan Service Charge/IPL, rekonsiliasi utilitas, pengendalian anggaran operasional, serta penyusunan laporan keuangan berkala.",
+      "en": "Manages service charge and IPL billing, utility reconciliation, operating budget control, and periodic financial reporting."
+    },
+    "responsibilities": {
+      "id": [
+        "Mengelola siklus penagihan rutin Service Charge, IPL, Sinking Fund, serta tagihan listrik & air tenant",
+        "Melakukan rekonsiliasi bank dan pencatatan kas masuk / kas keluar operasional harian gedung",
+        "Memonitor realisasi pengeluaran kas terhadap anggaran OPEX bulanan yang disetujui",
+        "Menyusun laporan keuangan bulanan (Neraca, Laba Rugi, Arus Kas) untuk manajemen dan pemilik aset/PPPSRS",
+        "Mengawasi penagihan piutang tertunggak (Aging AR) dan melakukan koordinasi penagihan persuasif"
+      ],
+      "en": [
+        "Manage the regular billing cycle for service charge, IPL, sinking fund, and tenant electricity and water",
+        "Perform bank reconciliation and record the building’s daily operating cash receipts and disbursements",
+        "Monitor cash spending against the approved monthly OPEX budget",
+        "Prepare monthly financial statements (balance sheet, income statement, cash flow) for management and asset owners or the PPPSRS",
+        "Oversee overdue receivables (AR aging) and coordinate courteous collection follow-up"
+      ]
+    },
+    "qualifications": {
+      "id": [
+        "Pendidikan minimal S1 Akuntansi / Keuangan",
+        "Pengalaman minimal 3 tahun di bidang akuntansi properti, building management, atau perhotelan",
+        "Memahami perpajakan properti (PPN, PPh 4 ayat 2, PPh 23, PPh 21)",
+        "Mahir menggunakan spreadsheet (Excel) lanjutan dan software akuntansi / ERP properti",
+        "Jujur, teliti dengan angka, dan memiliki integritas tinggi"
+      ],
+      "en": [
+        "Bachelor's degree in Accounting or Finance",
+        "At least 3 years in property accounting, building management, or hospitality",
+        "Knowledge of property taxation (VAT, Article 4(2), Article 23, and Article 21 income tax)",
+        "Advanced spreadsheet skills and experience with accounting or property ERP software",
+        "Honest, careful with numbers, and of high integrity"
+      ]
+    },
+    "benefits": {
+      "id": [
+        "Paket gaji kompetitif",
+        "BPJS Ketenagakerjaan & Kesehatan",
+        "Program bonus kinerja tahunan"
+      ],
+      "en": [
+        "Competitive salary package",
+        "BPJS Ketenagakerjaan and BPJS Kesehatan",
+        "Annual performance bonus program"
+      ]
+    },
+    "applicationEmail": "recruitment@promind.co.id",
+    "postedAt": "2026-10-17",
+    "active": true
+  },
+  {
+    "slug": "hse-officer",
+    "title": {
+      "id": "HSE & Fire Safety Officer",
+      "en": "HSE & Fire Safety Officer"
+    },
+    "department": {
+      "id": "Health, Safety & Environment",
+      "en": "Health, Safety & Environment"
+    },
+    "type": {
+      "id": "Full-Time",
+      "en": "Full-time"
+    },
+    "experience": {
+      "id": "Sertifikasi Ahli K3 Umum",
+      "en": "Certified General OHS Expert (Ahli K3 Umum)"
+    },
+    "location": {
+      "id": "Jakarta Selatan",
+      "en": "South Jakarta"
+    },
+    "summary": {
+      "id": "Mengawasi penerapan prosedur keselamatan kerja gedung, pemeriksaan berkala alat proteksi kebakaran, serta pelaksanaan pelatihan tanggap darurat.",
+      "en": "Oversees workplace safety procedures, periodic checks of fire protection equipment, and emergency response training."
+    },
+    "responsibilities": {
+      "id": [
+        "Mengawasi kepatuhan standar K3 (Keselamatan dan Kesehatan Kerja) bagi seluruh pekerja gedung dan kontraktor",
+        "Melakukan inspeksi berkala terhadap sistem proteksi kebakaran (APAR, Hydrant, Sprinkler, Smoke Detector, Fire Door)",
+        "Menyusun Hazard Identification Risk Assessment and Determining Control (HIRADC) untuk operasional gedung",
+        "Menyelenggarakan pelatihan K3 dan simulasi evakuasi kebakaran / gempa secara berkala bagi penghuni gedung",
+        "Mengelola investigasi kecelakaan kerja dan penyusunan laporan kepatuhan K3 ke instansi terkait"
+      ],
+      "en": [
+        "Oversee compliance with OHS (K3) standards for all building staff and contractors",
+        "Carry out periodic inspections of fire protection systems (extinguishers, hydrants, sprinklers, smoke detectors, fire doors)",
+        "Prepare the Hazard Identification, Risk Assessment and Determining Control (HIRADC) for building operations",
+        "Run regular OHS training and fire and earthquake evacuation drills for building occupants",
+        "Manage workplace accident investigations and prepare OHS compliance reports for the relevant authorities"
+      ]
+    },
+    "qualifications": {
+      "id": [
+        "Pendidikan minimal D3 / S1 K3 / Kesehatan Masyarakat / Teknik Lingkungan",
+        "Memiliki sertifikat kompetensi Ahli K3 Umum aktif dari Kemnaker RI",
+        "Pengalaman minimal 2 tahun sebagai HSE Officer di high-rise building atau konstruksi",
+        "Memahami manajemen tanggap darurat dan regulasi proteksi kebakaran (NFPA / Permenaker)",
+        "Memiliki ketegasan dalam penegakan kepatuhan keselamatan kerja"
+      ],
+      "en": [
+        "Diploma (D3) or bachelor’s degree in Occupational Health and Safety, Public Health, or Environmental Engineering",
+        "Active General OHS Expert (Ahli K3 Umum) competency certificate from the Ministry of Manpower",
+        "At least 2 years as an HSE officer in a high-rise building or construction",
+        "Knowledge of emergency response management and fire protection regulations (NFPA and Ministry of Manpower rules)",
+        "Firm in enforcing workplace safety compliance"
+      ]
+    },
+    "benefits": {
+      "id": [
+        "Gaji kompetitif & tunjangan profesi K3",
+        "BPJS Ketenagakerjaan & Kesehatan",
+        "Pelatihan sertifikasi lanjutan keselamatan gedung"
+      ],
+      "en": [
+        "Competitive salary and OHS professional allowance",
+        "BPJS Ketenagakerjaan and BPJS Kesehatan",
+        "Advanced building safety certification training"
+      ]
+    },
+    "applicationEmail": "recruitment@promind.co.id",
+    "postedAt": "2026-10-17",
+    "active": true
+  }
+]

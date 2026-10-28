@@ -21,3 +21,9 @@ Dimigrasi dari situs lama tanpa mengubah faktanya. Item di bawah ini meragukan d
 ## English
 
 - Teks English ditulis ulang agar natural (en-US). Mohon review nada dan istilah teknis sebelum rilis.
+
+## Lowongan (`careers.json`)
+
+- Lowongan `hse-officer` ada dua di data lama (satu berjudul "(Copy)"). Hanya satu yang dimigrasi.
+- Tanggal terbit semua lowongan 2026-10-17 (dari data lama) dan tidak ada tanggal berakhir. Mohon isi `validThrough` bila ada, dan nonaktifkan lowongan yang sudah ditutup. Google for Jobs menampilkan lowongan yang kadaluarsa sebagai masalah.
+- Gaji tidak dicantumkan. Google for Jobs lebih menyukai kisaran gaji bila ada.

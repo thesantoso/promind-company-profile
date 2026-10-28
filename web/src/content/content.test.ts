@@ -89,3 +89,36 @@ describe('migrated portfolio, clients, insights', () => {
     for (const i of load.loadInsights()) expect(i.highlights.en.length).toBeGreaterThanOrEqual(3);
   });
 });
+
+describe('migrated careers', () => {
+  const jobs = () => load.loadJobs();
+
+  test('keeps the five distinct jobs and drops the old "(Copy)" duplicate', () => {
+    expect(jobs().map((j) => j.slug)).toEqual([
+      'building-manager', 'chief-engineer', 'tenant-relations-officer', 'finance-supervisor', 'hse-officer',
+    ]);
+    for (const j of jobs()) expect(j.title.en).not.toMatch(/copy/i);
+  });
+
+  test('uses the company mail domain for applications', () => {
+    for (const j of jobs()) expect(j.applicationEmail).toMatch(/@promind\.co\.id$/);
+  });
+
+  test('every job lists at least three items per list in both languages', () => {
+    for (const j of jobs()) {
+      for (const l of [j.responsibilities, j.qualifications, j.benefits]) {
+        expect(l.id.length, j.slug).toBeGreaterThanOrEqual(3);
+        expect(l.en.length).toBe(l.id.length);
+      }
+    }
+  });
+
+  test('English job text contains no leftover Indonesian words', () => {
+    const bad = /\b(dan|serta|untuk|pengalaman|minimal|gedung|yang|dengan)\b/i;
+    for (const j of jobs()) {
+      for (const v of [j.summary.en, j.experience.en, j.location.en, ...j.responsibilities.en, ...j.qualifications.en, ...j.benefits.en]) {
+        expect(v, `${j.slug}: ${v}`).not.toMatch(bad);
+      }
+    }
+  });
+});
