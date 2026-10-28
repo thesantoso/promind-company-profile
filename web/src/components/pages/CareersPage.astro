@@ -6,11 +6,12 @@ import Section from '../Section.astro';
 import { filterActiveJobs, loadJobs, loadPages } from '../../content/load';
 import type { Locale } from '../../i18n/locales';
 import { careerPath } from '../../i18n/routes';
+import { todayUtc } from '../../lib/today';
 
 interface Props { lang: Locale }
 const { lang } = Astro.props;
 const { careers: page } = loadPages();
-const jobs = filterActiveJobs(loadJobs(), new Date().toISOString().slice(0, 10));
+const jobs = filterActiveJobs(loadJobs(), todayUtc());
 ---
 
 <BaseLayout lang={lang} routeKey="careers" title={page.seo.title[lang]} description={page.seo.description[lang]}>

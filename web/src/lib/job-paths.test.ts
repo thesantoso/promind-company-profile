@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import type { Job } from '../content/schema';
-import { jobStaticPaths } from './job-paths';
+import { filterActiveJobs } from '../content/load';
+import { jobSitemapPaths, jobStaticPaths } from './job-paths';
 
 const bl = { id: 'x', en: 'y' };
 const list = { id: ['a'], en: ['b'] };
@@ -27,5 +28,24 @@ describe('jobStaticPaths', () => {
       today,
     );
     expect(new Set(out.map((p) => p.job.slug))).toEqual(new Set(['ok']));
+  });
+});
+
+describe('one definition of "open job" everywhere', () => {
+  const today = '2026-10-28';
+  const jobs = [
+    job({ slug: 'open' }),
+    job({ slug: 'off', active: false }),
+    job({ slug: 'old', validThrough: '2026-10-27' }),
+    job({ slug: 'last-day', validThrough: today }),
+  ];
+
+  test('the careers list, the routes and the sitemap list the same jobs', () => {
+    const list = filterActiveJobs(jobs, today).map((j) => j.slug).sort();
+    const routes = [...new Set(jobStaticPaths(jobs, today).map((p) => p.job.slug))].sort();
+    const sitemap = jobSitemapPaths(jobs, today).map((p) => p.id.split('/').pop() || p.id.split('/').slice(-2)[0]).sort();
+    expect(list).toEqual(['last-day', 'open']);
+    expect(routes).toEqual(list);
+    expect(sitemap).toEqual(list);
   });
 });

@@ -1,12 +1,10 @@
 import type { APIRoute } from 'astro';
-import { loadActiveJobs } from '../content/load';
-import { careerPath } from '../i18n/routes';
+import { loadJobs } from '../content/load';
+import { jobSitemapPaths } from '../lib/job-paths';
 import { buildSitemap } from '../lib/sitemap';
+import { todayUtc } from '../lib/today';
 
-export const GET: APIRoute = ({ site }) => {
-  const today = new Date().toISOString().slice(0, 10);
-  const jobs = loadActiveJobs(today).map((j) => ({ id: careerPath(j.slug, 'id'), en: careerPath(j.slug, 'en') }));
-  return new Response(buildSitemap(site!.href, jobs), {
+export const GET: APIRoute = ({ site }) =>
+  new Response(buildSitemap(site!.href, jobSitemapPaths(loadJobs(), todayUtc())), {
     headers: { 'Content-Type': 'application/xml; charset=utf-8' },
   });
-};

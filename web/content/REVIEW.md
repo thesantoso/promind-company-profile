@@ -31,3 +31,8 @@ Dimigrasi dari situs lama tanpa mengubah faktanya. Item di bawah ini meragukan d
 ## Logo
 
 - Berkas logo header (`promind-header-brand.png`) memuat teks alamat kecil di sebelah logo. Di lebar 176 px teks itu tidak terbaca dan terlihat seperti noda. Sebaiknya sediakan versi logo tanpa teks alamat (lambang dan nama saja).
+
+## Penamaan layanan
+
+- "Property Management Training Centre" ditulis "Training Center" di sisi English (en-US) dan tetap "Training Centre" di sisi Indonesia. Bila nama resmi unit ini memang "Centre", beri tahu agar sisi English disamakan.
+- Istilah K3 di teks English ditulis lengkap ("occupational health and safety") agar jelas bagi pembaca AS, dengan "(K3)" dan "(Ahli K3 Umum)" dipertahankan.

@@ -3,10 +3,11 @@ import { expect, test, type Page } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import { LOCALES } from '../../src/i18n/locales';
 import { ROUTES, careerPath, pathFor, type RouteKey } from '../../src/i18n/routes';
+import { todayUtc } from '../../src/lib/today';
 import { readContent } from './content';
 
 const keys = Object.keys(ROUTES) as RouteKey[];
-const today = new Date().toISOString().slice(0, 10);
+const today = todayUtc();
 const jobs = readContent<any[]>('careers').filter((j) => j.active && (!j.validThrough || j.validThrough >= today));
 const pages = [
   ...keys.flatMap((k) => LOCALES.map((l) => ({ key: k, lang: l, path: pathFor(k, l) }))),

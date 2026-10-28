@@ -1,10 +1,11 @@
 import { expect, test } from '@playwright/test';
 import { LOCALES } from '../../src/i18n/locales';
 import { careerPath, pathFor } from '../../src/i18n/routes';
+import { todayUtc } from '../../src/lib/today';
 import { readContent } from './content';
 
 const pages = readContent('pages');
-const today = new Date().toISOString().slice(0, 10);
+const today = todayUtc();
 const jobs = readContent<any[]>('careers').filter((j) => j.active && (!j.validThrough || j.validThrough >= today));
 
 for (const lang of LOCALES) {

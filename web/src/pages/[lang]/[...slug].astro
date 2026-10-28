@@ -11,6 +11,7 @@ import { loadJobs } from '../../content/load';
 import { LOCALES } from '../../i18n/locales';
 import { ROUTES, type RouteKey } from '../../i18n/routes';
 import { jobStaticPaths } from '../../lib/job-paths';
+import { todayUtc } from '../../lib/today';
 
 export function getStaticPaths() {
   const keys = (Object.keys(ROUTES) as RouteKey[]).filter((k) => k !== 'home');
@@ -20,8 +21,7 @@ export function getStaticPaths() {
       props: { lang, routeKey, job: undefined },
     })),
   );
-  const today = new Date().toISOString().slice(0, 10);
-  const jobs = jobStaticPaths(loadJobs(), today).map(({ lang, slug, job }) => ({
+  const jobs = jobStaticPaths(loadJobs(), todayUtc()).map(({ lang, slug, job }) => ({
     params: { lang, slug },
     props: { lang, routeKey: 'careers' as RouteKey, job },
   }));
