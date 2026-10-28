@@ -4,6 +4,8 @@ import BulletList from '../BulletList.astro';
 import PageHero from '../PageHero.astro';
 import Section from '../Section.astro';
 import { loadPages } from '../../content/load';
+import { loadSettings } from '../../content/schema';
+import { jobPostingLd } from '../../lib/jsonld';
 import type { Job } from '../../content/schema';
 import type { Locale } from '../../i18n/locales';
 import { careerPath, pathFor } from '../../i18n/routes';
@@ -22,7 +24,15 @@ const sections = [
 ] as const;
 ---
 
-<BaseLayout lang={lang} routeKey="careers" title={title} description={job.summary[lang]} paths={paths}>
+<BaseLayout
+  lang={lang}
+  routeKey="careers"
+  title={title}
+  description={job.summary[lang]}
+  paths={paths}
+  jsonLd={[jobPostingLd(job, lang, Astro.site!.href, loadSettings())]}
+  crumbs={[{ name: job.title[lang], path: paths[lang] }]}
+>
   <p class="m-0 pt-8"><a class="inline-flex min-h-11 items-center" href={pathFor('careers', lang)}>← {t(lang, 'job.all')}</a></p>
   <PageHero eyebrow={job.department[lang]} title={job.title[lang]} subtitle={job.summary[lang]}>
     <p class="mt-6 text-sm">{job.type[lang]} · {job.experience[lang]} · {job.location[lang]}</p>

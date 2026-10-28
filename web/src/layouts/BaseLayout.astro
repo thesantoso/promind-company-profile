@@ -7,11 +7,39 @@ import Header from '../components/Header.astro';
 import SeoHead from '../components/SeoHead.astro';
 import { htmlLang, type Locale } from '../i18n/locales';
 import type { RouteKey } from '../i18n/routes';
-import { t } from '../i18n/ui';
+import { loadSettings } from '../content/schema';
+import { pathFor } from '../i18n/routes';
+import { breadcrumbLd, organizationLd, serializeLd } from '../lib/jsonld';
 import { getOgImage } from '../lib/og';
+import { t, type UiKey } from '../i18n/ui';
 
-interface Props { lang: Locale; routeKey: RouteKey; title: string; description: string; paths?: Record<Locale, string> }
-const { lang, routeKey, title, description, paths } = Astro.props;
+interface Props {
+  lang: Locale;
+  routeKey: RouteKey;
+  title: string;
+  description: string;
+  paths?: Record<Locale, string>;
+  /** Extra JSON-LD objects for this page (the organization and breadcrumbs are added here). */
+  jsonLd?: object[];
+  /** Breadcrumb entries after the route's own (e.g. the job title). */
+  crumbs?: { name: string; path: string }[];
+}
+const { lang, routeKey, title, description, paths, jsonLd = [], crumbs = [] } = Astro.props;
+const siteUrl = Astro.site!.href;
+const graph: object[] = [organizationLd(lang, loadSettings(), siteUrl)];
+if (routeKey !== 'home') {
+  graph.push(
+    breadcrumbLd(
+      [
+        { name: t(lang, 'nav.home'), path: pathFor('home', lang) },
+        { name: t(lang, `nav.${routeKey}` as UiKey), path: pathFor(routeKey, lang) },
+        ...crumbs,
+      ],
+      siteUrl,
+    ),
+  );
+}
+graph.push(...jsonLd);
 const ogImage = await getOgImage(Astro.site!);
 ---
 
@@ -26,6 +54,7 @@ const ogImage = await getOgImage(Astro.site!);
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preload" href={manropeFont} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={dmSansFont} as="font" type="font/woff2" crossorigin />
+    <script is:inline type="application/ld+json" set:html={serializeLd(graph)} />
     <SeoHead lang={lang} routeKey={routeKey} title={title} description={description} ogImage={ogImage} paths={paths} />
   </head>
   <body>
