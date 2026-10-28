@@ -9,6 +9,7 @@ const { lang } = Astro.props;
 const s = loadSettings();
 const keys = Object.keys(ROUTES).filter((k) => k !== 'home') as RouteKey[];
 const year = new Date().getFullYear();
+const tap = 'inline-flex min-h-11 items-center';
 ---
 
 <footer class="mt-24 border-t border-hairline bg-surface">
@@ -17,14 +18,14 @@ const year = new Date().getFullYear();
       <p class="m-0 font-display text-lg font-extrabold text-heading">PROMIND</p>
       <p class="mt-1 text-sm">{s.legalName}</p>
       <address class="mt-4 max-w-prose text-sm not-italic">{s.address[lang]}</address>
-      <p class="mt-4 text-sm">
-        <a href={`mailto:${s.email}`}>{s.email}</a><br />
-        <a href={`tel:${s.phone.replace(/\s/g, '')}`}>{s.phone}</a>
-      </p>
+      <ul class="mt-4 list-none space-y-0 p-0 text-sm">
+        <li><a class={tap} href={`mailto:${s.email}`}>{s.email}</a></li>
+        <li><a class={tap} href={`tel:${s.phone.replace(/\s/g, '')}`}>{s.phone}</a></li>
+      </ul>
     </div>
     <nav aria-label="Footer">
-      <ul class="m-0 list-none space-y-1 p-0 text-sm">
-        {keys.map((k) => <li><a href={pathFor(k, lang)}>{t(lang, `nav.${k}` as UiKey)}</a></li>)}
+      <ul class="m-0 list-none p-0 text-sm">
+        {keys.map((k) => <li><a class={tap} href={pathFor(k, lang)}>{t(lang, `nav.${k}` as UiKey)}</a></li>)}
       </ul>
     </nav>
   </div>

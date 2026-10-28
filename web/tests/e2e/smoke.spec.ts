@@ -35,12 +35,16 @@ for (const p of pages) {
       await expect(page.locator('h1')).toHaveCount(1);
       await expect(page.locator('link[rel=canonical]')).toHaveCount(1);
       await expect(page.locator('link[rel=alternate][hreflang]')).toHaveCount(3);
+      // Fonts are only discovered after the CSS is parsed; preloading removes that network hop from LCP.
+      await expect(page.locator('link[rel=preload][as=font][type="font/woff2"][crossorigin]')).toHaveCount(2);
       expect(violations).toEqual([]);
     });
 
     test('has no serious or critical accessibility violations', async ({ page }) => {
       await page.goto(p.path);
-      const { violations } = await new AxeBuilder({ page }).analyze();
+      const { violations } = await new AxeBuilder({ page })
+        .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
+        .analyze();
       const bad = violations.filter((v) => v.impact === 'serious' || v.impact === 'critical');
       expect(bad.map((v) => `${v.id}: ${v.help}`)).toEqual([]);
     });

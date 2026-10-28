@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import manropeFont from '@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2?url';
+import dmSansFont from '@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2?url';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import SeoHead from '../components/SeoHead.astro';
@@ -20,6 +22,8 @@ const { lang, routeKey, title, description } = Astro.props;
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" href={manropeFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={dmSansFont} as="font" type="font/woff2" crossorigin />
     <SeoHead lang={lang} routeKey={routeKey} title={title} description={description} />
   </head>
   <body>
