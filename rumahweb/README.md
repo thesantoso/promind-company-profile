@@ -2,12 +2,16 @@
 
 Satu berkas PHP kecil yang dipanggil Worker admin untuk mengirim pesan form kontak lewat email cPanel.
 
-## Pasang (sekali)
+## Kenapa subdomain `forms.promind.co.id`
 
-1. Di cPanel, buat folder `public_html/mail/` (nama bebas, tapi URL-nya dipakai di `CONTACT_MAILER_URL`).
-2. Unggah `contact-mailer.php` dan `.htaccess` dari folder ini ke sana.
-3. Salin `contact-mailer.config.example.php` menjadi `contact-mailer.config.php` **di server**, lalu isi `hmac_key` dengan string acak minimal 32 karakter (sama persis dengan secret Worker `CONTACT_HMAC_KEY`; jangan tulis di repo atau chat). Pastikan `from` adalah alamat di domain `promind.co.id` (agar lolos SPF) dan `to` adalah kotak masuk tujuan.
-4. Uji: `curl -i https://promind.co.id/mail/contact-mailer.php` harus membalas `405` (hanya POST), dan `https://promind.co.id/mail/contact-mailer.config.php` harus `403`.
+Saat cutover, `promind.co.id` dan `www` pindah ke Cloudflare Workers, sehingga folder `public_html` di Rumahweb tidak lagi terjangkau lewat domain utama. Endpoint ini butuh hostname sendiri yang tetap menunjuk ke Rumahweb: `forms.promind.co.id`. Rekor DNS-nya dibuat otomatis oleh gue (A, lewat proxy Cloudflare, ke IP Rumahweb yang sama dengan domain lama).
+
+## Pasang (sekali, di cPanel)
+
+1. cPanel -> **Domains** (atau Subdomains) -> buat subdomain `forms.promind.co.id` dengan *document root* `public_html/forms`.
+2. Unggah `contact-mailer.php` dan `.htaccess` dari folder ini ke `public_html/forms/`.
+3. Di folder itu buat `contact-mailer.config.php` (salin dari `contact-mailer.config.example.php`) lalu isi `hmac_key` dengan nilai `CONTACT_HMAC_KEY` dari `~/.promind-secrets.env` (jangan tulis di repo atau chat). `from` harus alamat di domain `promind.co.id` (agar lolos SPF), `to` adalah kotak masuk tujuan (mis. `corporate@promind.co.id`, pastikan kotak itu ada).
+4. Uji: `curl -i https://forms.promind.co.id/contact-mailer.php` harus `405` (hanya POST), dan `https://forms.promind.co.id/contact-mailer.config.php` harus `403`.
 
 ## Keamanan
 
