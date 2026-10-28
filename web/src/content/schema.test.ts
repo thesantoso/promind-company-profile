@@ -40,3 +40,50 @@ describe('siteSettings', () => {
     expect(s.address.en.length).toBeGreaterThan(0);
   });
 });
+
+import { blList, dateOnly, jobSchema, slug } from './schema';
+
+describe('blList', () => {
+  test('rejects mismatched lengths between languages', () => {
+    expect(blList.safeParse({ id: ['a', 'b'], en: ['a'] }).success).toBe(false);
+  });
+
+  test('rejects an empty list and blank items', () => {
+    expect(blList.safeParse({ id: [], en: [] }).success).toBe(false);
+    expect(blList.safeParse({ id: ['a'], en: ['  '] }).success).toBe(false);
+  });
+
+  test('accepts aligned lists', () => {
+    expect(blList.safeParse({ id: ['a'], en: ['b'] }).success).toBe(true);
+  });
+});
+
+describe('slug and dateOnly', () => {
+  test.each(['building-manager', 'a1', 'hse-officer'])('slug accepts %s', (v) => {
+    expect(slug.safeParse(v).success).toBe(true);
+  });
+  test.each(['Building', 'a_b', '-a', 'a--b ', ''])('slug rejects %j', (v) => {
+    expect(slug.safeParse(v).success).toBe(false);
+  });
+  test('dateOnly accepts YYYY-MM-DD only', () => {
+    expect(dateOnly.safeParse('2026-10-28').success).toBe(true);
+    expect(dateOnly.safeParse('2026-10-28T00:30:00+07:00').success).toBe(false);
+    expect(dateOnly.safeParse('2026-13-40').success).toBe(false);
+  });
+});
+
+describe('jobSchema', () => {
+  const bl = { id: 'x', en: 'y' };
+  const list = { id: ['a'], en: ['b'] };
+  const job = {
+    slug: 'building-manager', title: bl, department: bl, type: bl, experience: bl, location: bl, summary: bl,
+    responsibilities: list, qualifications: list, benefits: list,
+    applicationEmail: 'recruitment@promind.co.id', postedAt: '2026-10-28', active: true,
+  };
+  test('accepts a complete job without validThrough', () => {
+    expect(jobSchema.safeParse(job).success).toBe(true);
+  });
+  test('rejects a datetime in postedAt', () => {
+    expect(jobSchema.safeParse({ ...job, postedAt: '2026-10-28T00:00:00Z' }).success).toBe(false);
+  });
+});
