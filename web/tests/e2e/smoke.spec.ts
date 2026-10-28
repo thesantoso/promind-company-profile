@@ -15,7 +15,9 @@ const pages = [
 ];
 const csp = /Content-Security-Policy:\s*(.+)/.exec(readFileSync('public/_headers', 'utf8'))![1].trim();
 
-// astro preview ignores _headers, so apply the real CSP to documents and fail on any violation.
+// astro preview ignores _headers, so apply the real CSP to the site's own documents and fail on any violation.
+// Third-party hosts are never touched: Turnstile is stubbed so tests do not depend on the network.
+const TURNSTILE_STUB = "window.turnstile = { reset: function () {} };";
 async function withCsp(page: Page) {
   const violations: string[] = [];
   page.on('console', (m) => {
@@ -24,11 +26,13 @@ async function withCsp(page: Page) {
   await page.route('**/*', async (route) => {
     const res = await route.fetch();
     const type = res.headers()['content-type'] ?? '';
+    const sameOrigin = new URL(route.request().url()).origin === 'http://127.0.0.1:4321';
     await route.fulfill({
       response: res,
-      headers: type.includes('text/html') ? { ...res.headers(), 'content-security-policy': csp } : res.headers(),
+      headers: type.includes('text/html') && sameOrigin ? { ...res.headers(), 'content-security-policy': csp } : res.headers(),
     });
   });
+  await page.route('https://challenges.cloudflare.com/**', (r) => r.fulfill({ contentType: 'application/javascript', body: TURNSTILE_STUB }));
   return violations;
 }
 

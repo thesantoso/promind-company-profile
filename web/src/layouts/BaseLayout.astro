@@ -55,6 +55,7 @@ const ogImage = await getOgImage(Astro.site!);
     <link rel="preload" href={manropeFont} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={dmSansFont} as="font" type="font/woff2" crossorigin />
     <script is:inline type="application/ld+json" set:html={serializeLd(graph)} />
+    <slot name="head" />
     <SeoHead lang={lang} routeKey={routeKey} title={title} description={description} ogImage={ogImage} paths={paths} />
   </head>
   <body>

@@ -25,4 +25,12 @@ describe('public/_headers', () => {
   test('hashed assets are immutable for a year', () => {
     expect(headers).toMatch(/\/_astro\/\*\s+Cache-Control: public, max-age=31536000, immutable/);
   });
+
+  test('allows Cloudflare Turnstile (script and frame) and nothing else new', () => {
+    const csp = /Content-Security-Policy:\s*(.+)/.exec(headers)?.[1] ?? '';
+    expect(csp).toMatch(/script-src 'self' https:\/\/challenges\.cloudflare\.com;/);
+    expect(csp).toMatch(/frame-src https:\/\/challenges\.cloudflare\.com;/);
+    expect(csp).toContain("connect-src 'self'");
+    expect((csp.match(/https?:\/\/[^\s;]+/g) ?? []).every((u) => u === 'https://challenges.cloudflare.com')).toBe(true);
+  });
 });

@@ -116,12 +116,12 @@ for (const lang of LOCALES) {
       await expect(page.locator('[data-list=service-areas] li')).toHaveCount(pages.contact.serviceAreas[lang].length);
     });
 
-    test('has exactly one primary call to action and no form yet', async ({ page }) => {
+    test('has exactly one primary call to action (the form has its own submit button)', async ({ page }) => {
       const cta = page.locator('[data-cta] a');
       await expect(cta).toHaveCount(1);
       await expect(cta).toHaveAttribute('href', `mailto:${settings.email}`);
       await expect(cta).toHaveText(pages.contact.ctaLabel[lang]);
-      await expect(page.locator('main form')).toHaveCount(0);
+      await expect(page.locator('main form')).toHaveCount(1);
     });
   });
 }

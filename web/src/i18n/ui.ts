@@ -21,7 +21,22 @@ export type UiKey =
   | 'job.responsibilities'
   | 'job.qualifications'
   | 'job.benefits'
-  | 'job.all';
+  | 'job.all'
+  | 'form.title'
+  | 'form.name'
+  | 'form.email'
+  | 'form.phone'
+  | 'form.topic'
+  | 'form.topic.choose'
+  | 'form.message'
+  | 'form.submit'
+  | 'form.sending'
+  | 'form.success'
+  | 'form.error.required'
+  | 'form.error.verify'
+  | 'form.error.rate'
+  | 'form.error.unavailable'
+  | 'form.error.failed';
 
 export const UI: Record<Locale, Record<UiKey, string>> = {
   id: {
@@ -44,6 +59,21 @@ export const UI: Record<Locale, Record<UiKey, string>> = {
     'job.qualifications': 'Kualifikasi',
     'job.benefits': 'Benefit',
     'job.all': 'Semua lowongan',
+    'form.title': 'Kirim pesan langsung',
+    'form.name': 'Nama',
+    'form.email': 'Alamat email',
+    'form.phone': 'Telepon (opsional)',
+    'form.topic': 'Topik',
+    'form.topic.choose': 'Pilih topik',
+    'form.message': 'Pesan',
+    'form.submit': 'Kirim pesan',
+    'form.sending': 'Mengirim…',
+    'form.success': 'Terima kasih. Pesan Anda sudah kami terima dan tim PROMIND akan menghubungi Anda.',
+    'form.error.required': 'Mohon lengkapi kolom yang ditandai: nama, email yang valid, topik, dan pesan minimal 10 karakter.',
+    'form.error.verify': 'Verifikasi keamanan belum selesai. Coba lagi sebentar lagi.',
+    'form.error.rate': 'Terlalu banyak pesan dari jaringan Anda. Coba lagi nanti, atau kirim email langsung ke',
+    'form.error.unavailable': 'Pesan belum bisa terkirim saat ini. Silakan kirim email langsung ke',
+    'form.error.failed': 'Pesan tidak dapat dikirim. Periksa isian Anda, atau kirim email langsung ke',
     'home.title': 'Manajemen properti terintegrasi',
     'site.description': 'PROMIND menyediakan layanan manajemen properti terintegrasi, dari persiapan operasional dan asesmen gedung hingga engineering, HSE, dan layanan tenant.',
   },
@@ -67,6 +97,21 @@ export const UI: Record<Locale, Record<UiKey, string>> = {
     'job.qualifications': 'Qualifications',
     'job.benefits': 'Benefits',
     'job.all': 'All open roles',
+    'form.title': 'Send us a message',
+    'form.name': 'Name',
+    'form.email': 'Email address',
+    'form.phone': 'Phone (optional)',
+    'form.topic': 'Topic',
+    'form.topic.choose': 'Choose a topic',
+    'form.message': 'Message',
+    'form.submit': 'Send message',
+    'form.sending': 'Sending…',
+    'form.success': 'Thank you. We received your message and the PROMIND team will get back to you.',
+    'form.error.required': 'Please complete the highlighted fields: name, a valid email, topic, and a message of at least 10 characters.',
+    'form.error.verify': 'The security check has not finished. Please try again in a moment.',
+    'form.error.rate': 'Too many messages from your network. Please try again later, or email us directly at',
+    'form.error.unavailable': 'We could not send your message right now. Please email us directly at',
+    'form.error.failed': 'Your message could not be sent. Check your details, or email us directly at',
     'home.title': 'Integrated property management',
     'site.description': 'PROMIND provides integrated property management, from pre-opening operations and building assessments to engineering, HSE, and tenant services.',
   },

@@ -9,6 +9,8 @@ export default defineConfig({
     command: 'npm run build && npm run preview',
     url: 'http://127.0.0.1:4321/id/',
     reuseExistingServer: !process.env.CI,
+    // Cloudflare's published test site key: always passes; makes the contact form render in tests.
+    env: { PUBLIC_TURNSTILE_SITEKEY: '1x00000000000000000000AA' },
     timeout: 120_000,
   },
 });

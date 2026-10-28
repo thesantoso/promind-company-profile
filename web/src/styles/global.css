@@ -64,6 +64,15 @@
   }
 }
 
+/* Kolom jebakan bot (honeypot): di luar layar, tidak bisa difokus, tidak dibaca pembaca layar. */
+.hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
