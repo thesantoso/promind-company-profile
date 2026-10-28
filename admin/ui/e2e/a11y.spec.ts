@@ -1,5 +1,5 @@
 import type { Page } from '@playwright/test';
-import { AUTH, BASE_URL, codeFromSecret, expect, expectAccessible, expectNoOverflow, rowAction, screenshot, test } from './helpers';
+import { AUTH, BASE_URL, codeFromSecret, expect, expectAccessible, expectNoOverflow, readManualKey, rowAction, screenshot, submitCredentials, test } from './helpers';
 
 /** axe (semua dampak), tanpa gulir horizontal, dan tangkapan layar untuk pemeriksaan visual. */
 async function check(page: Page, name: string) {
@@ -38,20 +38,24 @@ for (const viewport of VIEWPORTS) {
     test.describe('signed out', () => {
       test.use({ storageState: { cookies: [], origins: [] } });
 
-      test('login and 2FA re-activation screens', async ({ page }) => {
+      test('login steps and the accept-invite error screen', async ({ page }) => {
         await page.goto('/');
         await expect(page.getByRole('heading', { level: 1, name: 'Masuk' })).toBeVisible();
-        await check(page, 'login');
-        await page.getByLabel('Email').fill(`a11y-login-${viewport.width}-${scheme}@promind.co.id`);
-        await page.getByLabel('Kata sandi').fill('salah');
-        await page.getByLabel('Kode verifikasi (6 angka)').fill('111111');
+        await check(page, 'login-step1');
+        await submitCredentials(page, `a11y-login-${viewport.width}-${scheme}@promind.co.id`, 'salah');
+        await expect(page.getByRole('alert')).toBeVisible();
+        await check(page, 'login-step1-error');
+        // Pengguna yang sudah terdaftar autentikator: langkah kode.
+        // Dua akun bergantian agar kode salah tidak melewati batas percobaan (5 per akun).
+        await submitCredentials(page, viewport.width === 390 ? 'login@promind.co.id' : 'admin@promind.co.id');
+        await expect(page.getByLabel('Kode verifikasi (6 angka)')).toBeVisible();
+        await check(page, 'login-step2-code');
+        await page.getByLabel('Kode verifikasi (6 angka)').fill('000000');
         await page.getByRole('button', { name: 'Masuk', exact: true }).click();
         await expect(page.getByRole('alert')).toBeVisible();
-        await page.getByRole('button', { name: /Pakai kode pemulihan/ }).click();
-        await check(page, 'login-error-recovery');
-        await page.goto('/aktifkan-2fa');
-        await expect(page.getByRole('heading', { level: 1 })).toContainText('verifikasi 2 langkah');
-        await check(page, 'activate-2fa');
+        await check(page, 'login-step2-code-error');
+        await page.getByRole('button', { name: 'Pakai kode pemulihan' }).click();
+        await check(page, 'login-step2-recovery');
         await page.goto('/accept');
         await expect(page.getByRole('heading', { level: 1, name: 'Tautan undangan tidak lengkap' })).toBeVisible();
         await check(page, 'accept-missing-token');
@@ -61,8 +65,9 @@ for (const viewport of VIEWPORTS) {
     test.describe('administrator', () => {
       test.use({ storageState: AUTH.admin });
 
-      test('invitation steps (password, QR, recovery codes)', async ({ page, browser }) => {
-        const link = await invite(page, `a11y-${viewport.width}-${scheme}@promind.co.id`, `Uji Aksesibilitas ${viewport.width} ${scheme}`);
+      test('invitation steps (password, QR, recovery codes) and login-enroll', async ({ page, browser }) => {
+        const email = `a11y-${viewport.width}-${scheme}@promind.co.id`;
+        const link = await invite(page, email, `Uji Aksesibilitas ${viewport.width} ${scheme}`);
         const ctx = await browser.newContext({ viewport, colorScheme: scheme, storageState: { cookies: [], origins: [] } });
         const p = await ctx.newPage();
         await p.goto(link);
@@ -73,12 +78,27 @@ for (const viewport of VIEWPORTS) {
         await p.getByRole('button', { name: 'Simpan dan lanjut' }).click();
         await expect(p.getByRole('img', { name: 'Kode QR untuk aplikasi autentikator' })).toBeVisible();
         await check(p, 'accept-qr');
-        const secret = ((await p.getByTestId('totp-secret').textContent()) ?? '').replace(/\s+/g, '');
-        await p.getByLabel('Kode 6 angka dari aplikasi').fill(await codeFromSecret(page.request, secret));
-        await p.getByRole('button', { name: 'Konfirmasi kode' }).click();
-        await expect(p.getByTestId('recovery-codes').locator('li')).toHaveCount(8);
-        await check(p, 'accept-recovery-codes');
+        await p.getByText('Tidak bisa scan?').click();
+        await check(p, 'accept-qr-manual');
         await ctx.close();
+
+        // Akun yang belum menyiapkan autentikator dipandu dari layar masuk.
+        const ctx2 = await browser.newContext({ viewport, colorScheme: scheme, storageState: { cookies: [], origins: [] } });
+        const q = await ctx2.newPage();
+        await q.goto('/');
+        await submitCredentials(q, email, 'Kalimat-Rahasia-Uji-2026');
+        await expect(q.getByRole('img', { name: 'Kode QR untuk aplikasi autentikator' })).toBeVisible();
+        await check(q, 'login-step2-enroll');
+        const secret = await readManualKey(q);
+        await q.getByLabel('Masukkan kode 6 angka dari aplikasi').fill('000000');
+        await q.getByRole('button', { name: 'Verifikasi dan lanjut' }).click();
+        await expect(q.getByRole('alert')).toBeVisible();
+        await check(q, 'login-step2-enroll-error');
+        await q.getByLabel('Masukkan kode 6 angka dari aplikasi').fill(await codeFromSecret(q.request, secret));
+        await q.getByRole('button', { name: 'Verifikasi dan lanjut' }).click();
+        await expect(q.getByTestId('recovery-codes').locator('li')).toHaveCount(8);
+        await check(q, 'recovery-codes');
+        await ctx2.close();
       });
 
       test('users, dialogs, and audit log', async ({ page }) => {

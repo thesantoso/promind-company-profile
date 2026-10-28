@@ -48,19 +48,52 @@ export async function codeFor(request: APIRequestContext, email: string): Promis
   return ((await r.json()) as { code: string }).code;
 }
 
-/** Kode TOTP untuk kunci yang dibaca dari layar (dihitung server uji dengan modul totp Worker). */
+/** Kode TOTP untuk kunci yang dibaca dari layar (server uji menghitungnya dengan `totpCode` dari src/totp.ts). Kunci baru belum pernah dipakai, jadi tidak perlu menunggu. */
 export async function codeFromSecret(request: APIRequestContext, secret: string): Promise<string> {
   const r = await request.get(`${BASE_URL}/__test/code-for-secret?secret=${encodeURIComponent(secret.replace(/\s+/g, ''))}`);
   return ((await r.json()) as { code: string }).code;
 }
 
+/** Masuk (dua langkah) dengan kode TOTP segar. */
 export async function login(page: Page, email: string, password = PASSWORD): Promise<void> {
   await page.goto('/');
-  await page.getByLabel('Email').fill(email);
-  await page.getByLabel('Kata sandi').fill(password);
+  await submitCredentials(page, email, password);
   await page.getByLabel('Kode verifikasi (6 angka)').fill(await codeFor(page.request, email));
   await page.getByRole('button', { name: 'Masuk', exact: true }).click();
   await expect(page.getByRole('heading', { level: 1, name: 'Ringkasan' })).toBeVisible();
+}
+
+/** Membaca kunci manual dari layar penyiapan (membuka "Tidak bisa scan?" bila perlu). */
+export async function readManualKey(page: Page): Promise<string> {
+  const key = page.getByTestId('totp-secret');
+  if (!(await key.isVisible())) await page.getByText('Tidak bisa scan?').click();
+  await expect(key).toBeVisible();
+  const secret = ((await key.textContent()) ?? '').replace(/\s+/g, '');
+  expect(secret).toMatch(/^[A-Z2-7]{32}$/);
+  return secret;
+}
+
+/** Langkah 1 masuk: email dan kata sandi, lalu "Lanjut". */
+export async function submitCredentials(page: Page, email: string, password = PASSWORD): Promise<void> {
+  await page.getByLabel('Email').fill(email);
+  await page.getByLabel('Kata sandi').fill(password);
+  await page.getByRole('button', { name: 'Lanjut', exact: true }).click();
+}
+
+/**
+ * Dari layar penyiapan: memasukkan kode, menyimpan kode pemulihan, dan masuk ke portal.
+ * Mengembalikan kode pemulihan yang ditampilkan.
+ */
+export async function finishSetup(page: Page, secret: string): Promise<string[]> {
+  await page.getByLabel('Masukkan kode 6 angka dari aplikasi').fill(await codeFromSecret(page.request, secret));
+  await page.getByRole('button', { name: 'Verifikasi dan lanjut' }).click();
+  const codes = page.getByTestId('recovery-codes').locator('li');
+  await expect(codes).toHaveCount(8);
+  const recovery = await codes.allTextContents();
+  await page.getByLabel('Saya sudah menyimpan kode pemulihan').check();
+  await page.getByRole('button', { name: 'Masuk ke portal' }).click();
+  await expect(page.getByRole('heading', { level: 1, name: 'Ringkasan' })).toBeVisible();
+  return recovery;
 }
 
 /** axe-core: semua tingkat dampak, nol pelanggaran. */

@@ -40,6 +40,9 @@ const SEEDS = [
 ];
 const users = new Map<string, SeedUser>();
 for (const s of SEEDS) users.set(s.email, await seedUser(ctx, { ...s, password: PASSWORD }));
+// Pengguna dengan autentikator yang belum disiapkan (untuk demo dan uji alur penyiapan). Rahasianya tidak dibuka lewat /__test/*;
+// uji membacanya dari kunci manual di layar penyiapan.
+await seedUser(ctx, { email: 'staf@promind.co.id', name: 'Staf Baru', role: 'editor', password: PASSWORD, confirmed: 0 });
 
 // ---- aset statis dengan aturan _headers ----------------------------------------------------------
 

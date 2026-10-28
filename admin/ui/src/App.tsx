@@ -19,7 +19,6 @@ function Redirect({ to }: { to: string }) {
 
 const EditorPage = lazy(() => import('./editor/EditorPage'));
 const AcceptInvite = lazy(() => import('./pages/Enrol').then((m) => ({ default: m.AcceptInvite })));
-const ActivateTwoFactor = lazy(() => import('./pages/Enrol').then((m) => ({ default: m.ActivateTwoFactor })));
 const Users = lazy(() => import('./pages/Users').then((m) => ({ default: m.Users })));
 const Audit = lazy(() => import('./pages/Audit').then((m) => ({ default: m.Audit })));
 
@@ -47,10 +46,13 @@ function Routes() {
 export function App({ inviteToken }: { inviteToken: string | null }) {
   const { path } = useLocation();
   let body;
-  if (path === '/accept' || path === '/aktifkan-2fa') {
+  if (path === '/aktifkan-2fa') {
+    // Halaman lama dihapus: masuk biasa sudah memandu penyiapan autentikator bila perlu.
+    body = <Redirect to="/masuk" />;
+  } else if (path === '/accept') {
     body = (
       <Suspense fallback={<main className="mx-auto max-w-md p-8"><Loading what="halaman" /></main>}>
-        {path === '/accept' ? <AcceptInvite token={inviteToken} /> : <ActivateTwoFactor />}
+        <AcceptInvite token={inviteToken} />
       </Suspense>
     );
   }

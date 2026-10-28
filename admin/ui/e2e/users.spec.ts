@@ -1,14 +1,10 @@
-import { AUTH, BASE_URL, codeFromSecret, expect, PASSWORD, rowAction, test } from './helpers';
-import type { Browser, Page } from '@playwright/test';
+import { AUTH, BASE_URL, expect, finishSetup, PASSWORD, readManualKey, rowAction, submitCredentials, test } from './helpers';
+import type { Browser } from '@playwright/test';
 
 test.use({ storageState: AUTH.admin });
 
-async function readSecret(page: Page) {
-  return ((await page.getByTestId('totp-secret').textContent()) ?? '').replace(/\s+/g, '');
-}
-
-/** Membuka tautan undangan di browser bersih dan menyelesaikan seluruh pendaftaran. Mengembalikan kode pemulihan. */
-async function acceptInvite(browser: Browser, link: string, email: string) {
+/** Membuka tautan undangan di browser bersih dan menyelesaikan pendaftaran sampai masuk ke portal. */
+async function acceptInvite(browser: Browser, link: string) {
   const ctx = await browser.newContext({ storageState: { cookies: [], origins: [] } });
   const page = await ctx.newPage();
   await page.goto(link);
@@ -25,37 +21,15 @@ async function acceptInvite(browser: Browser, link: string, email: string) {
   await page.getByLabel('Ulangi kata sandi').fill('Kalimat-Rahasia-Nadia-2026');
   await page.getByRole('button', { name: 'Simpan dan lanjut' }).click();
 
+  // Langsung ke penyiapan autentikator, tanpa halaman masuk di tengah.
   await expect(page.getByRole('img', { name: 'Kode QR untuk aplikasi autentikator' })).toBeVisible();
-  const secret = await readSecret(page);
-  expect(secret).toMatch(/^[A-Z2-7]{32}$/);
-  await page.getByText('Tampilkan tautan otpauth').click();
-  await expect(page.locator('.otpauth')).toContainText('otpauth://totp/PROMIND%20Admin:');
-  await page.getByLabel('Kode 6 angka dari aplikasi').fill('000000');
-  await page.getByRole('button', { name: 'Konfirmasi kode' }).click();
+  const secret = await readManualKey(page);
+  await page.getByLabel('Masukkan kode 6 angka dari aplikasi').fill('000000');
+  await page.getByRole('button', { name: 'Verifikasi dan lanjut' }).click();
   await expect(page.getByRole('alert')).toContainText('Kode verifikasi salah');
-  await page.getByLabel('Kode 6 angka dari aplikasi').fill(await codeFromSecret(page.request, secret));
-  await page.getByRole('button', { name: 'Konfirmasi kode' }).click();
-
-  const codes = page.getByTestId('recovery-codes').locator('li');
-  await expect(codes).toHaveCount(8);
-  const recovery = await codes.allTextContents();
-  const next = page.getByRole('button', { name: 'Lanjut ke halaman masuk' });
-  await expect(next).toBeDisabled();
-  const download = page.waitForEvent('download');
-  await page.getByRole('button', { name: 'Unduh .txt' }).click();
-  expect((await download).suggestedFilename()).toBe('kode-pemulihan-promind.txt');
-  await page.getByLabel('Saya sudah menyimpan kode pemulihan').check();
-  await next.click();
-
-  // Masuk pertama memakai kode pemulihan (kode TOTP langkah yang sama tidak boleh dipakai ulang).
-  await expect(page.getByRole('heading', { level: 1, name: 'Masuk' })).toBeVisible();
-  await expect(page.getByLabel('Email')).toHaveValue(email);
-  await page.getByLabel('Kata sandi').fill('Kalimat-Rahasia-Nadia-2026');
-  await page.getByRole('button', { name: /Pakai kode pemulihan/ }).click();
-  await page.getByLabel('Kode pemulihan').fill(recovery[0]!);
-  await page.getByRole('button', { name: 'Masuk', exact: true }).click();
-  await expect(page.getByRole('heading', { level: 1, name: 'Ringkasan' })).toBeVisible();
+  const recovery = await finishSetup(page, secret);
   await expect(page.getByRole('banner')).toContainText('Nadia Putri');
+  expect(recovery).toHaveLength(8);
   return { ctx, page };
 }
 
@@ -65,6 +39,9 @@ test('invite → accept → 2FA → recovery codes → sign in; reset 2FA; deact
   await page.getByRole('button', { name: 'Undang pengguna' }).click();
   let dialog = page.getByRole('dialog', { name: 'Undang pengguna' });
   await expect(dialog.getByLabel('Nama')).toBeFocused();
+  await expect(dialog).toContainText('Membuat kata sandi');
+  await expect(dialog).toContainText('Menyiapkan aplikasi autentikator');
+  await expect(dialog).toContainText('Menyimpan kode pemulihan');
   await dialog.getByLabel('Nama').fill('Nadia Putri');
   await dialog.getByLabel('Email').fill('nadia@promind.co.id');
   await dialog.getByLabel('Peran').selectOption('editor');
@@ -88,31 +65,30 @@ test('invite → accept → 2FA → recovery codes → sign in; reset 2FA; deact
   await expect(dialog.getByRole('alert')).toContainText('Sudah ada pengguna dengan email ini');
   await dialog.getByRole('button', { name: 'Batal' }).click();
 
-  const { ctx, page: nadia } = await acceptInvite(browser, link, 'nadia@promind.co.id');
+  const { ctx, page: nadia } = await acceptInvite(browser, link);
 
   await page.reload();
   const row = page.locator('tbody tr', { hasText: 'nadia@promind.co.id' });
   await expect(row).toContainText('Aktif');
   await expect(row).toContainText('Editor');
 
-  // Reset 2FA → sesi Nadia berakhir → ia mengaktifkan ulang lewat /aktifkan-2fa.
+  // Reset 2FA → sesi Nadia berakhir → saat masuk berikutnya ia dipandu menyiapkan autentikator baru.
   await rowAction(row, 'Nadia Putri', 'Reset 2FA');
   dialog = page.getByRole('alertdialog', { name: 'Reset verifikasi 2 langkah Nadia Putri?' });
-  await expect(dialog).toContainText('/aktifkan-2fa');
+  await expect(dialog).toContainText('semua sesinya berakhir');
+  await expect(dialog).toContainText('dipandu menyiapkan autentikator baru');
+  await expect(dialog).not.toContainText('/aktifkan-2fa');
   await dialog.getByRole('button', { name: 'Ya, reset 2FA' }).click();
   await expect(page.getByRole('status').filter({ hasText: 'direset' })).toBeVisible();
   await expect(row).toContainText('Menunggu aktivasi 2 langkah');
   await nadia.getByRole('navigation', { name: 'Navigasi utama' }).getByRole('link', { name: 'Konten', exact: true }).click();
   await expect(nadia.getByRole('heading', { level: 1, name: 'Masuk' })).toBeVisible();
   await expect(nadia.getByText('Sesi Anda sudah berakhir')).toBeVisible();
-  await nadia.getByRole('link', { name: 'Aktifkan ulang di sini' }).click();
-  await nadia.getByLabel('Email').fill('nadia@promind.co.id');
-  await nadia.getByLabel('Kata sandi').fill('Kalimat-Rahasia-Nadia-2026');
-  await nadia.getByRole('button', { name: 'Lanjut' }).click();
+  await submitCredentials(nadia, 'nadia@promind.co.id', 'Kalimat-Rahasia-Nadia-2026');
+  await expect(nadia.getByLabel('Kode verifikasi (6 angka)')).toHaveCount(0);
   await expect(nadia.getByRole('img', { name: 'Kode QR untuk aplikasi autentikator' })).toBeVisible();
-  await nadia.getByLabel('Kode 6 angka dari aplikasi').fill(await codeFromSecret(nadia.request, await readSecret(nadia)));
-  await nadia.getByRole('button', { name: 'Konfirmasi kode' }).click();
-  await expect(nadia.getByTestId('recovery-codes').locator('li')).toHaveCount(8);
+  await finishSetup(nadia, await readManualKey(nadia));
+  await expect(nadia.getByRole('banner')).toContainText('Nadia Putri');
   await ctx.close();
 
   // Nonaktifkan.

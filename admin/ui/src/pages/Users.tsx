@@ -97,6 +97,14 @@ function InviteDialog({ open, onClose, onInvited }: { open: boolean; onClose: ()
         </div>
       ) : (
         <form id="invite-form" onSubmit={(e) => void submit(e)} noValidate className="space-y-4">
+          <div className="rounded-md border bg-subtle p-3 text-muted-foreground">
+            <p className="font-medium text-foreground">Yang akan dilakukan pengguna yang diundang:</p>
+            <ol className="mt-1 list-decimal space-y-0.5 pl-5">
+              <li>Membuat kata sandi.</li>
+              <li>Menyiapkan aplikasi autentikator (Google Authenticator atau sejenisnya) dengan memindai kode QR.</li>
+              <li>Menyimpan kode pemulihan, lalu langsung masuk ke portal.</li>
+            </ol>
+          </div>
           <div>
             <Label htmlFor="inv-name">Nama</Label>
             <Input id="inv-name" value={name} onChange={(e) => setName(e.target.value)} maxLength={80} required data-autofocus />
@@ -354,13 +362,13 @@ export function Users() {
         danger
         onClose={() => setAction(null)}
         onConfirm={() =>
-          run(() => post(`/api/users/${a!.user.id}/reset-2fa`), `Verifikasi 2 langkah ${a!.user.name} direset. Minta ia membuka halaman Aktifkan 2FA.`)
+          run(() => post(`/api/users/${a!.user.id}/reset-2fa`), `Verifikasi 2 langkah ${a!.user.name} direset. Ia akan dipandu menyiapkan autentikator baru saat masuk berikutnya.`)
         }
       >
         <p>
           Pakai ini bila {a?.user.name} kehilangan ponsel atau kode pemulihan. Aplikasi autentikator dan kode pemulihan
-          lamanya tidak berlaku lagi, dan semua sesinya berakhir. Setelah itu ia harus membuka{' '}
-          <code className="text-foreground">{window.location.origin}/aktifkan-2fa</code>, masuk dengan email dan kata sandi, lalu memindai kode QR baru.
+          lamanya tidak berlaku lagi, dan semua sesinya berakhir (keluar dari semua perangkat). Saat masuk berikutnya dengan email dan
+          kata sandi yang sama, ia akan dipandu menyiapkan autentikator baru dan menyimpan kode pemulihan baru.
           {self && <strong> Ini akun Anda sendiri: Anda akan langsung keluar.</strong>}
         </p>
       </ConfirmDialog>
