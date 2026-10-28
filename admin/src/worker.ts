@@ -4,6 +4,7 @@ import { ConflictError, GitHubError } from './github';
 import { originCheck, securityHeaders, type AppEnv } from './middleware';
 import { PublishError } from './publish';
 import { authRoutes } from './routes/auth';
+import { contactRoutes } from './routes/contact';
 import { contentRoutes, publishRoutes } from './routes/content';
 import { imageRoutes } from './routes/images';
 import { auditRoutes, usersRoutes } from './routes/users';
@@ -18,8 +19,10 @@ export function createApp(options: { fetchImpl?: typeof fetch } = {}) {
     await next();
   });
   app.use('/api/*', securityHeaders);
-  app.use('/api/*', originCheck);
+  // Form kontak adalah publik dan memeriksa origin-nya sendiri (situs, bukan admin).
+  app.use('/api/*', (c, next) => (c.req.path === '/api/contact' ? next() : originCheck(c, next)));
   app.get('/api/config', (c) => c.json({ siteOrigin: c.env.SITE_ORIGIN }));
+  app.route('/api/contact', contactRoutes);
   app.route('/api/auth', authRoutes);
   app.route('/api/users', usersRoutes);
   app.route('/api/audit', auditRoutes);

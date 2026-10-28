@@ -1,0 +1,5 @@
+# Config berisi kunci HMAC: tidak boleh diunduh dari browser.
+<FilesMatch "^contact-mailer\.config(\.example)?\.php$">
+    Require all denied
+</FilesMatch>
+Options -Indexes
