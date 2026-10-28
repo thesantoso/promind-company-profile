@@ -31,11 +31,26 @@ export function resolveRoute(lang: string, slug: string | undefined): RouteKey |
   return match ?? null;
 }
 
-export function alternates(key: RouteKey, siteUrl: string): { hreflang: string; href: string }[] {
+export function careerPath(slug: string, lang: Locale): string {
+  return `${pathFor('careers', lang)}${slug}/`;
+}
+
+export function pathsFor(key: RouteKey): Record<Locale, string> {
+  return { id: pathFor(key, 'id'), en: pathFor(key, 'en') };
+}
+
+export function alternatesFromPaths(
+  paths: Record<Locale, string>,
+  siteUrl: string,
+): { hreflang: string; href: string }[] {
   const base = siteUrl.replace(/\/$/, '');
   return [
-    ...LOCALES.map((lang) => ({ hreflang: htmlLang(lang), href: `${base}${pathFor(key, lang)}` })),
+    ...LOCALES.map((lang) => ({ hreflang: htmlLang(lang), href: `${base}${paths[lang]}` })),
     // Points at the default-language page, which is itself in the sitemap and the hreflang set.
-    { hreflang: 'x-default', href: `${base}${pathFor(key, DEFAULT_LOCALE)}` },
+    { hreflang: 'x-default', href: `${base}${paths[DEFAULT_LOCALE]}` },
   ];
+}
+
+export function alternates(key: RouteKey, siteUrl: string): { hreflang: string; href: string }[] {
+  return alternatesFromPaths(pathsFor(key), siteUrl);
 }

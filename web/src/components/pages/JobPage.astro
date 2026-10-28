@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BulletList from '../BulletList.astro';
+import PageHero from '../PageHero.astro';
+import Section from '../Section.astro';
+import { loadPages } from '../../content/load';
+import type { Job } from '../../content/schema';
+import type { Locale } from '../../i18n/locales';
+import { careerPath, pathFor } from '../../i18n/routes';
+import { t } from '../../i18n/ui';
+
+interface Props { lang: Locale; job: Job }
+const { lang, job } = Astro.props;
+const { careers: page } = loadPages();
+const paths = { id: careerPath(job.slug, 'id'), en: careerPath(job.slug, 'en') };
+const title = `${job.title[lang]} | ${page.seo.title[lang]}`;
+const subject = encodeURIComponent(`${t(lang, 'job.subject')}: ${job.title[lang]}`);
+const sections = [
+  ['responsibilities', 'job.responsibilities'],
+  ['qualifications', 'job.qualifications'],
+  ['benefits', 'job.benefits'],
+] as const;
+---
+
+<BaseLayout lang={lang} routeKey="careers" title={title} description={job.summary[lang]} paths={paths}>
+  <p class="m-0 pt-8"><a class="inline-flex min-h-11 items-center" href={pathFor('careers', lang)}>← {t(lang, 'job.all')}</a></p>
+  <PageHero eyebrow={job.department[lang]} title={job.title[lang]} subtitle={job.summary[lang]}>
+    <p class="mt-6 text-sm">{job.type[lang]} · {job.experience[lang]} · {job.location[lang]}</p>
+  </PageHero>
+
+  {sections.map(([key, label]) => (
+    <Section title={t(lang, label)}>
+      <div data-list={key}><BulletList items={job[key][lang]} /></div>
+    </Section>
+  ))}
+
+  <div data-apply class="border-t border-hairline py-12">
+    <a
+      href={`mailto:${job.applicationEmail}?subject=${subject}`}
+      class="inline-flex min-h-12 items-center bg-accent px-6 font-display font-bold text-white no-underline hover:bg-accent-hover hover:text-white"
+    >{t(lang, 'job.apply')}</a>
+  </div>
+</BaseLayout>

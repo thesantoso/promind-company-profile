@@ -1,26 +1,38 @@
 ---
 import AboutPage from '../../components/pages/AboutPage.astro';
+import CareersPage from '../../components/pages/CareersPage.astro';
 import InsightsPage from '../../components/pages/InsightsPage.astro';
+import JobPage from '../../components/pages/JobPage.astro';
 import PlaceholderPage from '../../components/PlaceholderPage.astro';
 import PortfolioPage from '../../components/pages/PortfolioPage.astro';
 import ServicesPage from '../../components/pages/ServicesPage.astro';
+import { loadJobs } from '../../content/load';
 import { LOCALES } from '../../i18n/locales';
 import { ROUTES, type RouteKey } from '../../i18n/routes';
+import { jobStaticPaths } from '../../lib/job-paths';
 
 export function getStaticPaths() {
   const keys = (Object.keys(ROUTES) as RouteKey[]).filter((k) => k !== 'home');
-  return keys.flatMap((routeKey) =>
+  const pages = keys.flatMap((routeKey) =>
     LOCALES.map((lang) => ({
       params: { lang, slug: ROUTES[routeKey][lang] },
-      props: { lang, routeKey },
+      props: { lang, routeKey, job: undefined },
     })),
   );
+  const today = new Date().toISOString().slice(0, 10);
+  const jobs = jobStaticPaths(loadJobs(), today).map(({ lang, slug, job }) => ({
+    params: { lang, slug },
+    props: { lang, routeKey: 'careers' as RouteKey, job },
+  }));
+  return [...pages, ...jobs];
 }
-const { lang, routeKey } = Astro.props;
+const { lang, routeKey, job } = Astro.props;
 ---
 
-{routeKey === 'services' ? <ServicesPage lang={lang} />
+{job ? <JobPage lang={lang} job={job} />
+  : routeKey === 'services' ? <ServicesPage lang={lang} />
   : routeKey === 'portfolio' ? <PortfolioPage lang={lang} />
   : routeKey === 'research' ? <InsightsPage lang={lang} />
   : routeKey === 'about' ? <AboutPage lang={lang} />
+  : routeKey === 'careers' ? <CareersPage lang={lang} />
   : <PlaceholderPage lang={lang} routeKey={routeKey} />}

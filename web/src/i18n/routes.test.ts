@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import { LOCALES, isLocale, htmlLang } from './locales';
-import { ROUTES, alternates, pathFor, resolveRoute, type RouteKey } from './routes';
+import { ROUTES, alternates, alternatesFromPaths, careerPath, pathFor, resolveRoute, type RouteKey } from './routes';
 
 const SITE = 'https://promind.co.id';
 const keys = Object.keys(ROUTES) as RouteKey[];
@@ -50,5 +50,21 @@ describe('route table', () => {
     expect(isLocale('fr')).toBe(false);
     expect(htmlLang('id')).toBe('id-ID');
     expect(htmlLang('en')).toBe('en-US');
+  });
+});
+
+describe('career paths', () => {
+  test('careerPath uses the translated careers slug', () => {
+    expect(careerPath('building-manager', 'id')).toBe('/id/karir/building-manager/');
+    expect(careerPath('building-manager', 'en')).toBe('/en/careers/building-manager/');
+  });
+
+  test('alternatesFromPaths pairs the two languages and points x-default at the default language', () => {
+    const paths = { id: '/id/karir/a/', en: '/en/careers/a/' };
+    expect(alternatesFromPaths(paths, SITE)).toEqual([
+      { hreflang: 'id-ID', href: `${SITE}/id/karir/a/` },
+      { hreflang: 'en-US', href: `${SITE}/en/careers/a/` },
+      { hreflang: 'x-default', href: `${SITE}/id/karir/a/` },
+    ]);
   });
 });

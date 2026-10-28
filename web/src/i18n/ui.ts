@@ -15,7 +15,13 @@ export type UiKey =
   | 'footer.rights'
   | 'placeholder.soon'
   | 'home.title'
-  | 'site.description';
+  | 'site.description'
+  | 'job.apply'
+  | 'job.subject'
+  | 'job.responsibilities'
+  | 'job.qualifications'
+  | 'job.benefits'
+  | 'job.all';
 
 export const UI: Record<Locale, Record<UiKey, string>> = {
   id: {
@@ -32,6 +38,12 @@ export const UI: Record<Locale, Record<UiKey, string>> = {
     'lang.choose': 'Pilih bahasa',
     'footer.rights': 'Hak cipta dilindungi.',
     'placeholder.soon': 'Konten halaman ini sedang disiapkan.',
+    'job.apply': 'Lamar lewat Email',
+    'job.subject': 'Lamaran',
+    'job.responsibilities': 'Tanggung Jawab',
+    'job.qualifications': 'Kualifikasi',
+    'job.benefits': 'Benefit',
+    'job.all': 'Semua lowongan',
     'home.title': 'Manajemen properti terintegrasi',
     'site.description': 'PROMIND menyediakan layanan manajemen properti terintegrasi, dari persiapan operasional dan asesmen gedung hingga engineering, HSE, dan layanan tenant.',
   },
@@ -49,6 +61,12 @@ export const UI: Record<Locale, Record<UiKey, string>> = {
     'lang.choose': 'Choose a language',
     'footer.rights': 'All rights reserved.',
     'placeholder.soon': 'This page is being prepared.',
+    'job.apply': 'Apply by Email',
+    'job.subject': 'Application',
+    'job.responsibilities': 'Responsibilities',
+    'job.qualifications': 'Qualifications',
+    'job.benefits': 'Benefits',
+    'job.all': 'All open roles',
     'home.title': 'Integrated property management',
     'site.description': 'PROMIND provides integrated property management, from pre-opening operations and building assessments to engineering, HSE, and tenant services.',
   },

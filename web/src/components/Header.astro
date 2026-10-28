@@ -6,8 +6,8 @@ import { ROUTES, pathFor, type RouteKey } from '../i18n/routes';
 import { t, type UiKey } from '../i18n/ui';
 import LangSwitch from './LangSwitch.astro';
 
-interface Props { lang: Locale; routeKey: RouteKey }
-const { lang, routeKey } = Astro.props;
+interface Props { lang: Locale; routeKey: RouteKey; paths?: Record<Locale, string> }
+const { lang, routeKey, paths } = Astro.props;
 const keys = Object.keys(ROUTES).filter((k) => k !== 'home') as RouteKey[];
 const items = keys.map((key) => ({
   key,
@@ -33,7 +33,7 @@ const link = 'block px-3 py-3 font-display text-sm font-semibold text-heading no
     </nav>
 
     <div class="flex items-center gap-2">
-      <LangSwitch lang={lang} routeKey={routeKey} />
+      <LangSwitch lang={lang} routeKey={routeKey} paths={paths} />
       <details class="mobile-menu relative lg:hidden">
         <summary class="inline-flex min-h-11 cursor-pointer list-none items-center border border-hairline-strong px-3 font-display text-sm font-bold text-heading">
           {t(lang, 'nav.menu')}

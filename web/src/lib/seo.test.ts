@@ -27,4 +27,16 @@ describe('buildSeo', () => {
   test('tolerates a site URL with a trailing slash', () => {
     expect(buildSeo({ ...input, siteUrl: `${SITE}/` }).canonical).toBe(`${SITE}/en/about/`);
   });
+
+  test('a paths override replaces the route-based canonical and alternates', () => {
+    const paths = { id: '/id/karir/building-manager/', en: '/en/careers/building-manager/' };
+    const seo = buildSeo({ ...input, routeKey: 'careers', paths });
+    expect(seo.canonical).toBe(`${SITE}/en/careers/building-manager/`);
+    expect(seo.alternates.map((a) => a.href)).toEqual([
+      `${SITE}/id/karir/building-manager/`,
+      `${SITE}/en/careers/building-manager/`,
+      `${SITE}/id/karir/building-manager/`,
+    ]);
+    expect(seo.og.url).toBe(seo.canonical);
+  });
 });

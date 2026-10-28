@@ -10,8 +10,8 @@ import type { RouteKey } from '../i18n/routes';
 import { t } from '../i18n/ui';
 import { getOgImage } from '../lib/og';
 
-interface Props { lang: Locale; routeKey: RouteKey; title: string; description: string }
-const { lang, routeKey, title, description } = Astro.props;
+interface Props { lang: Locale; routeKey: RouteKey; title: string; description: string; paths?: Record<Locale, string> }
+const { lang, routeKey, title, description, paths } = Astro.props;
 const ogImage = await getOgImage(Astro.site!);
 ---
 
@@ -26,11 +26,11 @@ const ogImage = await getOgImage(Astro.site!);
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preload" href={manropeFont} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={dmSansFont} as="font" type="font/woff2" crossorigin />
-    <SeoHead lang={lang} routeKey={routeKey} title={title} description={description} ogImage={ogImage} />
+    <SeoHead lang={lang} routeKey={routeKey} title={title} description={description} ogImage={ogImage} paths={paths} />
   </head>
   <body>
     <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:bg-surface focus:p-3">{t(lang, 'nav.skip')}</a>
-    <Header lang={lang} routeKey={routeKey} />
+    <Header lang={lang} routeKey={routeKey} paths={paths} />
     <main id="main" class="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
       <slot />
     </main>

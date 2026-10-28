@@ -38,6 +38,18 @@ describe('buildSitemap', () => {
   });
 });
 
+describe('buildSitemap with extra paths', () => {
+  const extra = [{ id: '/id/karir/building-manager/', en: '/en/careers/building-manager/' }];
+  const xml = buildSitemap(SITE, extra);
+
+  test('adds two urls per extra entry and keeps every alternate listed', () => {
+    const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+    expect(locs).toHaveLength(16);
+    expect(locs).toContain(`${SITE}/en/careers/building-manager/`);
+    for (const h of [...xml.matchAll(/href="([^"]+)"/g)].map((m) => m[1])) expect(locs, h).toContain(h);
+  });
+});
+
 describe('buildRobots', () => {
   const txt = buildRobots(SITE);
 

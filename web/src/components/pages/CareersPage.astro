@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DefinitionRows from '../DefinitionRows.astro';
+import PageHero from '../PageHero.astro';
+import Section from '../Section.astro';
+import { filterActiveJobs, loadJobs, loadPages } from '../../content/load';
+import type { Locale } from '../../i18n/locales';
+import { careerPath } from '../../i18n/routes';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const { careers: page } = loadPages();
+const jobs = filterActiveJobs(loadJobs(), new Date().toISOString().slice(0, 10));
+---
+
+<BaseLayout lang={lang} routeKey="careers" title={page.seo.title[lang]} description={page.seo.description[lang]}>
+  <PageHero eyebrow={page.eyebrow[lang]} title={page.title[lang]} subtitle={page.subtitle[lang]} />
+
+  <div class="border-t border-hairline py-12">
+    <DefinitionRows items={page.culture.map((c) => ({ title: c.title[lang], text: c.summary[lang] }))} />
+  </div>
+
+  <Section title={page.openRolesTitle[lang]}>
+    {jobs.length === 0 ? (
+      <p class="m-0">{page.emptyText[lang]}</p>
+    ) : (
+      <ul data-roles class="m-0 list-none p-0">
+        {jobs.map((j) => (
+          <li class="border-t border-hairline py-5 first:border-t-0 first:pt-0">
+            <a
+              href={careerPath(j.slug, lang)}
+              class="inline-flex min-h-11 items-center font-display text-lg font-bold no-underline"
+            >{j.title[lang]}</a>
+            <p class="m-0 text-sm">{j.department[lang]} · {j.type[lang]} · {j.location[lang]}</p>
+            <p class="mt-2">{j.summary[lang]}</p>
+          </li>
+        ))}
+      </ul>
+    )}
+  </Section>
+</BaseLayout>

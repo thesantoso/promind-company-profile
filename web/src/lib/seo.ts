@@ -1,5 +1,5 @@
 import { htmlLang, type Locale } from '../i18n/locales';
-import { alternates, pathFor, type RouteKey } from '../i18n/routes';
+import { alternatesFromPaths, pathsFor, type RouteKey } from '../i18n/routes';
 
 export interface SeoInput {
   lang: Locale;
@@ -8,6 +8,8 @@ export interface SeoInput {
   description: string;
   siteUrl: string;
   ogImage: string;
+  /** Per-language paths for dynamic pages (e.g. a job); defaults to the route table. */
+  paths?: Record<Locale, string>;
 }
 
 export interface SeoMeta {
@@ -27,12 +29,13 @@ export interface SeoMeta {
 
 export function buildSeo(i: SeoInput): SeoMeta {
   const base = i.siteUrl.replace(/\/$/, '');
-  const canonical = `${base}${pathFor(i.routeKey, i.lang)}`;
+  const paths = i.paths ?? pathsFor(i.routeKey);
+  const canonical = `${base}${paths[i.lang]}`;
   return {
     title: i.title,
     description: i.description,
     canonical,
-    alternates: alternates(i.routeKey, base),
+    alternates: alternatesFromPaths(paths, base),
     og: {
       title: i.title,
       description: i.description,
