@@ -8,7 +8,7 @@ export const SESSION_COOKIE = 'promind_session';
 
 export type AppEnv = {
   Bindings: Env;
-  Variables: { session: { user: User; csrf: string; sessionId: number; token: string } };
+  Variables: { session: { user: User; csrf: string; sessionId: number; token: string }; fetchImpl: typeof fetch };
 };
 
 export const ctxOf = (env: Env): Ctx => ({ db: env.DB, key: env.ENCRYPTION_KEY, now: Date.now });

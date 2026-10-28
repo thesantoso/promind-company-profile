@@ -2,6 +2,7 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, test } from 'vitest';
 import { findBrandViolations } from './brand';
+import { englishStrings, findBritishSpelling, findUnexplainedAbbreviations } from './rules';
 import * as load from './load';
 
 const dir = join(process.cwd(), 'content');
@@ -158,21 +159,12 @@ describe('page copy', () => {
 });
 
 describe('English is US English', () => {
-  const BRITISH = /\b(centre|centres|storey|storeys|colour|labour|licence|programme|behaviour|favour|organis\w*|optimis\w*|analyse\w*|whilst|grey)\b/i;
-  const englishStrings = (v: unknown): string[] =>
-    Array.isArray(v)
-      ? v.flatMap(englishStrings)
-      : v && typeof v === 'object'
-        ? Object.entries(v).flatMap(([k, x]) => (k === 'en' ? strings(x) : englishStrings(x)))
-        : [];
-
-  test.each(readdirSync(dir).filter((f) => f.endsWith('.json')))('%s uses US spelling', (file) => {
+  test.each(readdirSync(dir).filter((f) => f.endsWith('.json')))('%s uses US spelling and spells out abbreviations', (file) => {
     const data = JSON.parse(readFileSync(join(dir, file), 'utf8'));
-    expect(englishStrings(data).filter((s) => BRITISH.test(s))).toEqual([]);
-  });
-
-  test('English job text spells out OHS for US readers', () => {
-    const text = englishStrings(JSON.parse(readFileSync(join(dir, 'careers.json'), 'utf8')));
-    expect(text.filter((s) => /\bOHS\b/.test(s))).toEqual([]);
+    const issues = englishStrings(data).flatMap(([path, text]) => [
+      ...findBritishSpelling(text).map((w) => `${path}: ${w}`),
+      ...findUnexplainedAbbreviations(text).map((w) => `${path}: ${w}`),
+    ]);
+    expect(issues).toEqual([]);
   });
 });
