@@ -1,0 +1,18 @@
+---
+import PlaceholderPage from '../../components/PlaceholderPage.astro';
+import { LOCALES } from '../../i18n/locales';
+import { ROUTES, type RouteKey } from '../../i18n/routes';
+
+export function getStaticPaths() {
+  const keys = (Object.keys(ROUTES) as RouteKey[]).filter((k) => k !== 'home');
+  return keys.flatMap((routeKey) =>
+    LOCALES.map((lang) => ({
+      params: { lang, slug: ROUTES[routeKey][lang] },
+      props: { lang, routeKey },
+    })),
+  );
+}
+const { lang, routeKey } = Astro.props;
+---
+
+<PlaceholderPage lang={lang} routeKey={routeKey} />

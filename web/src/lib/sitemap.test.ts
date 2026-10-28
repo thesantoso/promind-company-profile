@@ -1,4 +1,6 @@
 import { describe, expect, test } from 'vitest';
+import { LOCALES } from '../i18n/locales';
+import { ROUTES, pathFor, type RouteKey } from '../i18n/routes';
 import { buildRobots, buildSitemap } from './sitemap';
 
 const SITE = 'https://promind.co.id';
@@ -20,8 +22,19 @@ describe('buildSitemap', () => {
     }
   });
 
-  test('never lists the 404 page', () => {
-    expect(xml).not.toContain('404');
+  test('every loc is a real route and every alternate href is itself listed', () => {
+    const expected = (Object.keys(ROUTES) as RouteKey[]).flatMap((k) =>
+      LOCALES.map((l) => `${SITE}${pathFor(k, l)}`),
+    );
+    const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+    expect(locs.sort()).toEqual([...expected].sort());
+    const hrefs = [...xml.matchAll(/href="([^"]+)"/g)].map((m) => m[1]);
+    for (const h of hrefs) expect(locs, h).toContain(h);
+  });
+
+  test('a site URL with a trailing slash yields the same sitemap and robots', () => {
+    expect(buildSitemap(`${SITE}/`)).toBe(xml);
+    expect(buildRobots(`${SITE}/`)).toBe(buildRobots(SITE));
   });
 });
 

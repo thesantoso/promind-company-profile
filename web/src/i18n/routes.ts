@@ -1,4 +1,4 @@
-import { LOCALES, htmlLang, isLocale, type Locale } from './locales';
+import { DEFAULT_LOCALE, LOCALES, htmlLang, isLocale, type Locale } from './locales';
 
 export type RouteKey =
   | 'home'
@@ -35,6 +35,7 @@ export function alternates(key: RouteKey, siteUrl: string): { hreflang: string; 
   const base = siteUrl.replace(/\/$/, '');
   return [
     ...LOCALES.map((lang) => ({ hreflang: htmlLang(lang), href: `${base}${pathFor(key, lang)}` })),
-    { hreflang: 'x-default', href: `${base}/` },
+    // Points at the default-language page, which is itself in the sitemap and the hreflang set.
+    { hreflang: 'x-default', href: `${base}${pathFor(key, DEFAULT_LOCALE)}` },
   ];
 }

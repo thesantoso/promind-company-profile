@@ -14,6 +14,9 @@ describe('design tokens', () => {
     ['--color-accent', '#2b5caf'],
     ['--color-accent-hover', '#194586'],
     ['--color-navy', '#183b68'],
+    ['--color-subsurface', '#eef2f4'],
+    ['--color-hairline', '#d8dfe5'],
+    ['--color-body-alt', '#586878'],
   ])('%s is %s', (name, hex) => {
     expect(tokenValue(name)).toBe(hex);
   });

@@ -33,7 +33,7 @@ describe('alternates', () => {
     const alts = alternates('about', SITE);
     expect(alts).toContainEqual({ hreflang: 'id-ID', href: `${SITE}/id/tentang-kami/` });
     expect(alts).toContainEqual({ hreflang: 'en-US', href: `${SITE}/en/about/` });
-    expect(alts).toContainEqual({ hreflang: 'x-default', href: `${SITE}/` });
+    expect(alts).toContainEqual({ hreflang: 'x-default', href: `${SITE}/id/tentang-kami/` });
   });
 });
 

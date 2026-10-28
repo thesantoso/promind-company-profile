@@ -13,7 +13,9 @@ export type UiKey =
   | 'lang.switch'
   | 'lang.choose'
   | 'footer.rights'
-  | 'placeholder.soon';
+  | 'placeholder.soon'
+  | 'home.title'
+  | 'site.description';
 
 export const UI: Record<Locale, Record<UiKey, string>> = {
   id: {
@@ -30,6 +32,8 @@ export const UI: Record<Locale, Record<UiKey, string>> = {
     'lang.choose': 'Pilih bahasa',
     'footer.rights': 'Hak cipta dilindungi.',
     'placeholder.soon': 'Konten halaman ini sedang disiapkan.',
+    'home.title': 'Manajemen properti terintegrasi',
+    'site.description': 'PROMIND menyediakan layanan manajemen properti terintegrasi, dari persiapan operasional dan asesmen gedung hingga engineering, HSE, dan layanan tenant.',
   },
   en: {
     'nav.home': 'Home',
@@ -45,6 +49,8 @@ export const UI: Record<Locale, Record<UiKey, string>> = {
     'lang.choose': 'Choose a language',
     'footer.rights': 'All rights reserved.',
     'placeholder.soon': 'This page is being prepared.',
+    'home.title': 'Integrated property management',
+    'site.description': 'PROMIND provides integrated property management, from pre-opening operations and building assessments to engineering, HSE, and tenant services.',
   },
 };
 
