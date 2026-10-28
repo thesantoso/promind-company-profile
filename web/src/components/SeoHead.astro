@@ -1,7 +1,7 @@
 ---
 import { buildSeo, type SeoInput } from '../lib/seo';
 
-type Props = Omit<SeoInput, 'siteUrl'>;
+type Props = Omit<SeoInput, 'siteUrl'>; // ogImage is required: pages pass the 1200x630 preview
 const seo = buildSeo({ ...Astro.props, siteUrl: Astro.site!.href });
 ---
 

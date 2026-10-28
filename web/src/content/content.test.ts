@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, test } from 'vitest';
 import { findBrandViolations } from './brand';
@@ -56,6 +56,12 @@ describe('migrated company-wide content', () => {
     for (const f of load.loadFieldwork()) {
       expect(f.image.src).toMatch(/^[a-z-]+\.jpg$/);
       expect(f.image.alt.en.length).toBeGreaterThan(20);
+    }
+  });
+
+  test('every referenced field photo exists in src/assets/photos', () => {
+    for (const f of load.loadFieldwork()) {
+      expect(existsSync(join(process.cwd(), 'src/assets/photos', f.image.src)), f.image.src).toBe(true);
     }
   });
 

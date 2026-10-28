@@ -1,0 +1,29 @@
+---
+import { Image } from 'astro:assets';
+
+const photos = import.meta.glob<{ default: ImageMetadata }>('../assets/photos/*.jpg', { eager: true });
+
+interface Props {
+  name: string;
+  alt: string;
+  sizes: string;
+  priority?: boolean;
+  widths?: number[];
+  class?: string;
+}
+const { name, alt, sizes, priority = false, widths = [480, 720, 960, 1280], class: className } = Astro.props;
+const photo = photos[`../assets/photos/${name}`];
+if (!photo) throw new Error(`Unknown photo: ${name}`);
+---
+
+<Image
+  src={photo.default}
+  alt={alt}
+  widths={widths}
+  sizes={sizes}
+  format="avif"
+  loading={priority ? 'eager' : 'lazy'}
+  fetchpriority={priority ? 'high' : undefined}
+  decoding={priority ? 'sync' : 'async'}
+  class={className}
+/>

@@ -7,7 +7,7 @@ export interface SeoInput {
   title: string;
   description: string;
   siteUrl: string;
-  ogImage?: string;
+  ogImage: string;
 }
 
 export interface SeoMeta {
@@ -37,7 +37,7 @@ export function buildSeo(i: SeoInput): SeoMeta {
       title: i.title,
       description: i.description,
       url: canonical,
-      image: i.ogImage ?? `${base}/images/promind-header-brand.png`,
+      image: i.ogImage,
       locale: htmlLang(i.lang).replace('-', '_') as 'id_ID' | 'en_US',
       type: 'website',
     },

@@ -35,6 +35,16 @@ for (const p of pages) {
       await expect(page.locator('h1')).toHaveCount(1);
       await expect(page.locator('link[rel=canonical]')).toHaveCount(1);
       await expect(page.locator('link[rel=alternate][hreflang]')).toHaveCount(3);
+      // Social preview: a real JPEG at the 1.91:1 Open Graph ratio and at least 1000px wide, not the logo.
+      const og = await page.locator('meta[property="og:image"]').getAttribute('content');
+      expect(og).toMatch(/\.jpg$/);
+      const size = await page.evaluate(async (u) => {
+        const bmp = await createImageBitmap(await (await fetch(u)).blob());
+        return [bmp.width, bmp.height];
+      }, new URL(og!).pathname);
+      expect(size[0]).toBeGreaterThanOrEqual(1000);
+      expect(size[0] / size[1]).toBeCloseTo(1.91, 1);
+      await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image');
       // Fonts are only discovered after the CSS is parsed; preloading removes that network hop from LCP.
       await expect(page.locator('link[rel=preload][as=font][type="font/woff2"][crossorigin]')).toHaveCount(2);
       expect(violations).toEqual([]);
