@@ -1,11 +1,69 @@
 ---
-import PlaceholderPage from '../../components/PlaceholderPage.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DefinitionRows from '../../components/DefinitionRows.astro';
+import Photo from '../../components/Photo.astro';
+import Section from '../../components/Section.astro';
+import { loadFieldwork, loadPages, loadPillars, loadPropertyTypes } from '../../content/load';
 import { LOCALES } from '../../i18n/locales';
+import { pathFor } from '../../i18n/routes';
 
 export function getStaticPaths() {
   return LOCALES.map((lang) => ({ params: { lang }, props: { lang } }));
 }
 const { lang } = Astro.props;
+const { home } = loadPages();
+const fieldwork = loadFieldwork();
+const hero = fieldwork[0];
 ---
 
-<PlaceholderPage lang={lang} routeKey="home" />
+<BaseLayout lang={lang} routeKey="home" title={home.seo.title[lang]} description={home.seo.description[lang]}>
+  <div data-hero class="grid items-center gap-12 py-16 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16 lg:py-24">
+    <div>
+      <p class="m-0 font-display text-xs font-bold uppercase tracking-[0.14em] text-accent">{home.hero.eyebrow[lang]}</p>
+      <h1 class="mt-4 text-4xl font-extrabold lg:text-6xl">{home.hero.title[lang]}</h1>
+      <p class="mt-6 max-w-2xl text-lg">{home.hero.description[lang]}</p>
+      <a
+        href={pathFor(home.hero.cta.route, lang)}
+        class="mt-8 inline-flex min-h-12 items-center bg-accent px-6 font-display font-bold text-white no-underline hover:bg-accent-hover hover:text-white"
+      >{home.hero.cta.label[lang]}</a>
+    </div>
+    <Photo
+      name={hero.image.src}
+      alt={hero.image.alt[lang]}
+      sizes="(min-width: 1024px) 40vw, 100vw"
+      priority
+      class="aspect-[4/5] w-full object-cover object-[50%_35%]"
+    />
+  </div>
+
+  <Section eyebrow={home.focus.eyebrow[lang]} title={home.focus.title[lang]} subtitle={home.focus.body[lang]}>
+    <DefinitionRows items={loadPillars().map((p) => ({ title: p.title[lang], text: p.summary[lang] }))} />
+  </Section>
+
+  <Section eyebrow={home.sectors.eyebrow[lang]} title={home.sectors.title[lang]} subtitle={home.sectors.subtitle[lang]}>
+    <DefinitionRows items={loadPropertyTypes().map((p) => ({ title: p.title[lang], text: p.detail[lang] }))} />
+  </Section>
+
+  <Section eyebrow={home.fieldwork.eyebrow[lang]} title={home.fieldwork.title[lang]} subtitle={home.fieldwork.subtitle[lang]}>
+    <div class="grid gap-8 sm:grid-cols-2">
+      {fieldwork.map((f) => (
+        <figure class="m-0">
+          <Photo
+            name={f.image.src}
+            alt={f.image.alt[lang]}
+            sizes="(min-width: 1024px) 28vw, (min-width: 640px) 45vw, 100vw"
+            class="aspect-[4/3] w-full object-cover object-[50%_40%]"
+          />
+          <figcaption class="mt-4">
+            <h3 class="m-0 text-lg font-bold">{f.title[lang]}</h3>
+            <p class="mt-2">{f.summary[lang]}</p>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </Section>
+
+  <Section eyebrow={home.technology.eyebrow[lang]} title={home.technology.title[lang]} subtitle={home.technology.description[lang]}>
+    <DefinitionRows items={home.technology.steps.map((s) => ({ title: s.title[lang], text: s.summary[lang] }))} />
+  </Section>
+</BaseLayout>

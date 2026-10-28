@@ -1,0 +1,13 @@
+---
+interface Props { items: { title: string; text: string }[] }
+const { items } = Astro.props;
+---
+
+<dl class="m-0">
+  {items.map((i) => (
+    <div class="grid gap-2 border-t border-hairline py-5 first:border-t-0 first:pt-0 sm:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] sm:gap-8">
+      <dt class="font-display text-lg font-bold text-heading">{i.title}</dt>
+      <dd class="m-0">{i.text}</dd>
+    </div>
+  ))}
+</dl>
