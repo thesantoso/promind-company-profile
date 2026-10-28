@@ -22,11 +22,10 @@ export default function App() {
   const [cmsResolved, setCmsResolved] = useState(true);
 
   useEffect(() => {
-    // Try live CMS API first so updates in EmDash admin appear immediately
-    const liveCmsEndpoint = 'https://promind.thesantoso.workers.dev/api/site-content.json';
-    fetch(liveCmsEndpoint)
+    // Fetch directly from local API on Rumahweb hosting with cache-busting
+    fetch('/api/site-content.json?t=' + Date.now())
       .then((res) => {
-        if (!res.ok) throw new Error('Live CMS fetch failed');
+        if (!res.ok) throw new Error('Local API fetch failed');
         return res.json();
       })
       .then((data) => {
@@ -35,15 +34,10 @@ export default function App() {
         }
       })
       .catch(() => {
-        // Fallback to local static API if offline or blocked
-        fetch('/api/site-content.json')
-          .then((res) => res.json())
-          .then((data) => {
-            if (data && !data.error) {
-              setCmsContent(data);
-            }
-          })
-          .catch(() => {});
+        // Fallback to static bundled content if offline
+        if (cachedSiteContent) {
+          setCmsContent(cachedSiteContent);
+        }
       })
       .finally(() => setCmsResolved(true));
   }, []);
