@@ -67,7 +67,7 @@ export async function verifyPassword(password: string, stored: string): Promise<
   }
 }
 
-async function aesKey(keyB64: string, usage: KeyUsage): Promise<CryptoKey> {
+async function aesKey(keyB64: string, usage: 'encrypt' | 'decrypt'): Promise<CryptoKey> {
   const raw = b64decode(keyB64);
   if (raw.length !== 32) throw new Error('ENCRYPTION_KEY must be 32 bytes (base64)');
   return crypto.subtle.importKey('raw', raw, 'AES-GCM', false, [usage]);

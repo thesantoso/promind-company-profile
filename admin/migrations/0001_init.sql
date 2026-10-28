@@ -9,6 +9,7 @@ CREATE TABLE users (
   password_hash TEXT NOT NULL,
   totp_secret_enc TEXT,
   totp_confirmed INTEGER NOT NULL DEFAULT 0,
+  totp_last_step INTEGER,
   active INTEGER NOT NULL DEFAULT 1,
   created_at INTEGER NOT NULL,
   last_login_at INTEGER
