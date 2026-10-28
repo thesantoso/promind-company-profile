@@ -1,0 +1,11 @@
+export const LOCALES = ['id', 'en'] as const;
+export type Locale = (typeof LOCALES)[number];
+export const DEFAULT_LOCALE: Locale = 'id';
+
+export function isLocale(value: string): value is Locale {
+  return (LOCALES as readonly string[]).includes(value);
+}
+
+export function htmlLang(lang: Locale): 'id-ID' | 'en-US' {
+  return lang === 'id' ? 'id-ID' : 'en-US';
+}
