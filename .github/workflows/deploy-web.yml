@@ -55,7 +55,8 @@ jobs:
           else
             echo "SITE_URL=${{ vars.SITE_URL_STAGING || 'https://staging.promind.co.id' }}" >> "$GITHUB_ENV"
           fi
-          echo "PUBLIC_TURNSTILE_SITEKEY=${{ vars.TURNSTILE_SITEKEY }}" >> "$GITHUB_ENV"
+          # Kunci situs Turnstile bersifat publik (bukan rahasia); variabel repo boleh menimpanya.
+          echo "PUBLIC_TURNSTILE_SITEKEY=${{ vars.TURNSTILE_SITEKEY || '0x4AAAAAAFpT4HV5XoBn8rg0' }}" >> "$GITHUB_ENV"
       - name: Build
         run: npm run build
       - name: Deploy to Cloudflare (${{ env.TARGET }})
