@@ -36,3 +36,7 @@ Dimigrasi dari situs lama tanpa mengubah faktanya. Item di bawah ini meragukan d
 
 - "Property Management Training Centre" ditulis "Training Center" di sisi English (en-US) dan tetap "Training Centre" di sisi Indonesia. Bila nama resmi unit ini memang "Centre", beri tahu agar sisi English disamakan.
 - Istilah K3 di teks English ditulis lengkap ("occupational health and safety") agar jelas bagi pembaca AS, dengan "(K3)" dan "(Ahli K3 Umum)" dipertahankan.
+
+## Nama PROAPPS
+
+- `AGENTS.md` (aturan lama) melarang "PROAPPS" di konten publik, tetapi teks lowongan menyebut PROAPPS sebagai sistem manajemen operasional (Building Manager dan Tenant Relations Officer). Teks itu dimigrasi apa adanya dengan penulisan kapital. Mohon putuskan apakah PROAPPS boleh disebut di situs publik; jika tidak, kata itu diganti "sistem operasional digital".

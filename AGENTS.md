@@ -4,6 +4,31 @@ Dokumen ini adalah **single source of truth** untuk semua Autonomous Agent dan d
 
 ---
 
+## 0. Mulai dari sini: dua aplikasi dalam satu repo
+
+| | Situs LAMA (live) | Situs BARU (revamp) |
+|---|---|---|
+| Lokasi | root repo (`src/`, `public/`, `public/portal/`) | `web/` |
+| Stack | Vite + React SPA, portal PHP | Astro statis, konten JSON dua bahasa |
+| Hosting | Rumahweb via FTP (`deploy.yml`, dari `main`) | Belum di-deploy (tahap 4) |
+| Status | Produksi di `promind.co.id`. Jangan diubah kecuali perbaikan darurat. | Tahap 1 dan 2 selesai di branch `revamp` |
+
+**Pekerjaan revamp dilakukan di `web/` pada branch `revamp`.** Dokumentasi lengkap ada di [`docs/README.md`](docs/README.md): arsitektur, panduan konten, kualitas dan pengujian, log keputusan, roadmap. Baca itu sebelum mengubah apa pun di `web/`.
+
+Aturan kerja untuk `web/`:
+
+1. **TDD.** Tulis tes yang gagal dulu, lihat gagal, baru implementasi. Jalankan `cd web && npx vitest run && npx playwright test` sebelum klaim selesai. Tes konten dan e2e menegakkan aturan brand, dua bahasa, aksesibilitas, dan SEO.
+2. **Konten ada di `web/content/*.json`**, bukan di komponen. Kedua bahasa wajib terisi, English ditulis native en-US. Lihat [`docs/content-guide.md`](docs/content-guide.md).
+3. **Jangan mengarang klaim** (angka, sertifikasi, klien). Data yang meragukan dicatat di `web/content/REVIEW.md`.
+4. **Jangan lemahkan standar mutu** (ambang Lighthouse, tes axe, `@ts-ignore`, tes yang dilewati). Bila anggaran tidak tercapai, perbaiki penyebabnya. Pengecualian harus dicatat di [`docs/decisions.md`](docs/decisions.md) dan dilaporkan ke pemilik.
+5. **Jangan merge `revamp` ke `main`** sebelum tahap 4: `deploy.yml` di `main` otomatis meng-upload ke produksi.
+6. **Jangan menulis token, password, atau secret** ke repo. Jangan commit apa pun di `node_modules/` (ter-track di repo lama).
+7. Aturan brand di bagian 3 di bawah berlaku untuk situs baru juga. Catatan: bagian 1 melarang "PROAPPS" di konten publik, tetapi teks lowongan menyebut PROAPPS sebagai sistem operasional. Pemilik perlu memutuskan (lihat `web/content/REVIEW.md`).
+
+Bagian 1 sampai 6 di bawah menjelaskan **situs lama yang masih live**.
+
+---
+
 ## 1. Project Overview & Identitas Brand
 
 - **Nama Entitas**: PT Properti Manajemen Inovasi Indonesia
@@ -121,7 +146,7 @@ File CI/CD: [`.github/workflows/deploy.yml`](file:///.github/workflows/deploy.ym
 - **FTP Target Path**: `/public_html`
 - **Admin Portal URL**: `https://portal.promind.co.id`
   - **Username Default**: `admin`
-  - **Password Default**: `Promind2026!`
+  - **Password**: tidak dicatat di repo. Password default lama sudah bocor dan harus diganti oleh pemilik.
 - **Cloudflare Account**:
   - Akun Baru: `Pmii.promind@gmail.com`
   - Account ID: `7652f9cb63208f7960df98b60dab1eab`

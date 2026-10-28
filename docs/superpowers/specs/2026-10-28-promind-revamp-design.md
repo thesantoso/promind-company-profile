@@ -105,7 +105,7 @@ Admin:
 - Token GitHub fine-grained, hanya untuk satu repo dengan izin konten, disimpan sebagai secret Worker.
 - Dependabot aktif. Tidak ada FTP.
 
-**Tindakan segera (tidak menunggu revamp):** password admin lama `Promind2026!` tercatat di `HANDOVER.md` dan harus diganti, lalu dihapus dari dokumen.
+**Tindakan segera (tidak menunggu revamp):** password admin lama password default lama tercatat di `HANDOVER.md` dan harus diganti, lalu dihapus dari dokumen.
 
 ## 8. Migrasi dan pengujian
 

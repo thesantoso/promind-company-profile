@@ -28,3 +28,7 @@ Design direction: a restrained consulting profile with Promind blue, warm neutra
 ## Company information
 
 The office address and `corporate@promind.id` come from the project’s PROMIND brand asset and were confirmed by the user. The user also confirmed ISO 41001, ISO 55001, and ISO 9001 certifications. The footer lists the standard numbers without edition years because certificate editions and expiry dates were not provided. The consultation form assembles the visitor's structured input into an email draft addressed to `corporate@promind.id`; no form backend is connected.
+
+## Revamp
+
+Situs baru (Astro statis, dua bahasa, portal admin di roadmap) ada di folder `web/` pada branch `revamp`. Dokumentasi lengkap: [docs/README.md](docs/README.md).

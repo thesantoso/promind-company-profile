@@ -61,7 +61,7 @@ flowchart TD
 - **Lokasi File**: `/public_html/portal` (di repo: `public/portal/`).
 - **Kredensial Default**:
   - **Username**: `admin`
-  - **Password**: `Promind2026!` *(Bcrypt hash tersimpan di `portal/config.php`)*
+  - **Password**: *(tidak dicatat di dokumen ini. Password default lama sudah bocor dan harus diganti; simpan yang baru di password manager. Hash bcrypt ada di `portal/config.php`.)*
 - **Fitur**:
   1. **Lowongan Karir (Careers)**: Tambah, edit, hapus lowongan karir aktif (judul, departemen, deskripsi, tanggung jawab, kualifikasi, benefit, email penerimaan CV).
   2. **Info Kontak & HQ**: Alamat kantor Mangkuluhur City, nomor WhatsApp, nomor telepon, dan email resmi.
