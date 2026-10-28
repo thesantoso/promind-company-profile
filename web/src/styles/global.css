@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+/* Latin subset only: Indonesian and US English need nothing else. */
+@font-face {
+  font-family: "Manrope Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url("@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2") format("woff2-variations");
+}
+
+@font-face {
+  font-family: "DM Sans Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 1000;
+  src: url("@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2") format("woff2-variations");
+}
+
+@theme {
+  --color-bg: #f6f5f1;
+  --color-surface: #ffffff;
+  --color-subsurface: #eef2f4;
+  --color-subsurface-warm: #f9f8f5;
+  --color-hairline: #d8dfe5;
+  --color-hairline-strong: #cbd2d9;
+  --color-heading: #172b42;
+  --color-body: #526374;
+  --color-body-alt: #586878;
+  --color-accent: #2b5caf;
+  --color-accent-hover: #194586;
+  --color-navy: #183b68;
+
+  --font-display: "Manrope Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "DM Sans Variable", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    background: var(--color-bg);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-body);
+    font-family: var(--font-body);
+    line-height: 1.75;
+  }
+
+  h1, h2, h3, h4 {
+    color: var(--color-heading);
+    font-family: var(--font-display);
+    line-height: 1.2;
+  }
+
+  a { color: var(--color-accent); }
+  a:hover { color: var(--color-accent-hover); }
+
+  :focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0s !important;
+  }
+}
