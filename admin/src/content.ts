@@ -1,6 +1,6 @@
 import { findBrandViolations } from '../../web/src/content/brand';
 import * as s from '../../web/src/content/schema';
-import { allStrings, englishStrings, findBritishSpelling, findUnexplainedAbbreviations } from '../../web/src/content/rules';
+import { allStrings, englishStrings, findBritishSpelling, findForbiddenTerms, findUnexplainedAbbreviations } from '../../web/src/content/rules';
 
 export type ContentKey =
   | 'settings' | 'pages' | 'services' | 'property-types' | 'pillars' | 'fieldwork'
@@ -81,7 +81,8 @@ export function validateContent(key: ContentKey, data: unknown, opts: { knownIma
   }
 
   for (const [path, text] of allStrings(data)) {
-    for (const v of findBrandViolations(text)) issues.push({ path, message: `Penulisan brand salah: "${v}" (tulis PROMIND/PROAPPS dengan huruf kapital)` });
+    for (const v of findBrandViolations(text)) issues.push({ path, message: `Penulisan brand salah: "${v}" (tulis PROMIND dengan huruf kapital)` });
+    for (const v of findForbiddenTerms(text)) issues.push({ path, message: `Istilah "${v}" tidak boleh tampil di situs publik` });
   }
   for (const [path, text] of englishStrings(data)) {
     for (const w of findBritishSpelling(text)) issues.push({ path, message: `Ejaan Inggris Britania "${w}": gunakan ejaan en-US` });

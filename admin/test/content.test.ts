@@ -68,6 +68,14 @@ describe('validation rules', () => {
     expect(check('fieldwork', d, new Set([...photos, 'tidak-ada.jpg']))).toEqual([]);
   });
 
+  test('PROAPPS is refused anywhere (it must not appear on the public site)', () => {
+    const d = clone(real('careers'));
+    d[0].summary.id = 'Terbiasa dengan sistem seperti PROAPPS';
+    d[0].summary.en = 'Comfortable with systems such as PROAPPS';
+    const msgs = check('careers', d).map((i) => i.message);
+    expect(msgs.filter((m) => /PROAPPS/.test(m) && /tidak boleh|not allowed|dilarang/i.test(m)).length).toBe(2);
+  });
+
   test('wrong top-level shape is reported instead of throwing', () => {
     expect(check('services', { not: 'an array' }).length).toBeGreaterThan(0);
     expect(check('settings', [1, 2]).length).toBeGreaterThan(0);

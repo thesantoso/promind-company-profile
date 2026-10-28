@@ -39,4 +39,4 @@ Dimigrasi dari situs lama tanpa mengubah faktanya. Item di bawah ini meragukan d
 
 ## Nama PROAPPS
 
-- `AGENTS.md` (aturan lama) melarang "PROAPPS" di konten publik, tetapi teks lowongan menyebut PROAPPS sebagai sistem manajemen operasional (Building Manager dan Tenant Relations Officer). Teks itu dimigrasi apa adanya dengan penulisan kapital. Mohon putuskan apakah PROAPPS boleh disebut di situs publik; jika tidak, kata itu diganti "sistem operasional digital".
+- Keputusan pemilik: "PROAPPS" **tidak tampil** di situs publik. Kata itu dihapus dari teks Wawasan dan lowongan (diganti "sistem manajemen gedung" atau dihilangkan). Aturan ini ditegakkan oleh tes konten dan oleh validasi portal admin.

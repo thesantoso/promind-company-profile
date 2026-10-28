@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { allStrings, englishStrings, findBritishSpelling, findUnexplainedAbbreviations } from './rules';
+import { allStrings, englishStrings, findBritishSpelling, findForbiddenTerms, findUnexplainedAbbreviations } from './rules';
 
 describe('findBritishSpelling', () => {
   test('finds British spellings, case-insensitively, and returns the words', () => {
@@ -26,5 +26,15 @@ describe('string walkers', () => {
   });
   test('englishStrings returns only text under an "en" key', () => {
     expect(englishStrings(data).map(([, s]) => s).sort()).toEqual(['one', 'three', 'two', 'z']);
+  });
+});
+
+describe('findForbiddenTerms', () => {
+  test('flags PROAPPS in any case (owner decision: it must not appear on the public site)', () => {
+    expect(findForbiddenTerms('Gunakan sistem seperti PROAPPS')).toEqual(['PROAPPS']);
+    expect(findForbiddenTerms('proapps dan ProApps')).toEqual(['proapps', 'ProApps']);
+  });
+  test('leaves other text alone', () => {
+    expect(findForbiddenTerms('PROMIND mengelola properti')).toEqual([]);
   });
 });

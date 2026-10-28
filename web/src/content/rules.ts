@@ -13,6 +13,13 @@ export function findUnexplainedAbbreviations(text: string): string[] {
   return [...text.matchAll(/\bOHS\b/g)].map((m) => m[0]);
 }
 
+/** Istilah yang tidak boleh tampil di situs publik (keputusan pemilik). */
+const FORBIDDEN = /\bproapps\b/gi;
+
+export function findForbiddenTerms(text: string): string[] {
+  return [...text.matchAll(FORBIDDEN)].map((m) => m[0]);
+}
+
 type Entry = [path: string, value: string];
 
 /** Semua string beserta path-nya, mis. `list.en[1]` atau `[2].title.id`. */

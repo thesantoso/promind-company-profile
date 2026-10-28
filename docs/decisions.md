@@ -12,6 +12,7 @@ Keputusan yang diambil selama tahap 1 dan 2, dengan alasan dan biaya bila keliru
 | D4 | Email tetap di Rumahweb | Email unlimited di cPanel; hanya record web yang pindah. |
 | D5 | Perubahan admin live sekitar 1–2 menit setelah Publish | Konsekuensi build statis, diterima pemilik. |
 | D6 | Keempat fitur interaktif lama dibuang | Tidak terpakai di situs, dan ROI Calculator/Ticker bertentangan dengan prinsip "tanpa klaim tak terdukung". |
+| D8 | Kata "PROAPPS" tidak boleh tampil di situs publik (2026-10-28); ditegakkan oleh tes dan portal admin | Keputusan pemilik; berbeda dari situs live, yang masih menyebutnya |
 | D7 | Dua bahasa dengan URL terpisah dan slug diterjemahkan; English ditulis native (en-US) | SEO dan kualitas bahasa. |
 
 ## Keputusan implementasi tahap 1

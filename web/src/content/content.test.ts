@@ -2,7 +2,7 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, test } from 'vitest';
 import { findBrandViolations } from './brand';
-import { englishStrings, findBritishSpelling, findUnexplainedAbbreviations } from './rules';
+import { allStrings, englishStrings, findBritishSpelling, findForbiddenTerms, findUnexplainedAbbreviations } from './rules';
 import * as load from './load';
 
 const dir = join(process.cwd(), 'content');
@@ -179,5 +179,12 @@ describe('English is US English', () => {
       ...findUnexplainedAbbreviations(text).map((w) => `${path}: ${w}`),
     ]);
     expect(issues).toEqual([]);
+  });
+});
+
+describe('terms that must not appear on the public site', () => {
+  test.each(readdirSync(dir).filter((f) => f.endsWith('.json')))('%s has no forbidden terms (PROAPPS)', (file) => {
+    const data = JSON.parse(readFileSync(join(dir, file), 'utf8'));
+    expect(allStrings(data).flatMap(([path, text]) => findForbiddenTerms(text).map((w) => `${path}: ${w}`))).toEqual([]);
   });
 });

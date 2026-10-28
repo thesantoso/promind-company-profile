@@ -23,7 +23,7 @@ Aturan kerja untuk `web/`:
 4. **Jangan lemahkan standar mutu** (ambang Lighthouse, tes axe, `@ts-ignore`, tes yang dilewati). Bila anggaran tidak tercapai, perbaiki penyebabnya. Pengecualian harus dicatat di [`docs/decisions.md`](docs/decisions.md) dan dilaporkan ke pemilik.
 5. **Jangan merge `revamp` ke `main`** sebelum tahap 4: `deploy.yml` di `main` otomatis meng-upload ke produksi.
 6. **Jangan menulis token, password, atau secret** ke repo. Jangan commit apa pun di `node_modules/` (ter-track di repo lama).
-7. Aturan brand di bagian 3 di bawah berlaku untuk situs baru juga. Catatan: bagian 1 melarang "PROAPPS" di konten publik, tetapi teks lowongan menyebut PROAPPS sebagai sistem operasional. Pemilik perlu memutuskan (lihat `web/content/REVIEW.md`).
+7. Aturan brand di bagian 3 di bawah berlaku untuk situs baru juga. **Keputusan pemilik (2026-10-28): kata "PROAPPS" tidak boleh tampil di situs publik.** Aturan ini ditegakkan oleh tes konten dan oleh validasi portal admin (`findForbiddenTerms` di `web/src/content/rules.ts`).
 
 Bagian 1 sampai 6 di bawah menjelaskan **situs lama yang masih live**.
 
