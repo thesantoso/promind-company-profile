@@ -12,6 +12,8 @@
 .header-solid { background: #ffffff; opacity: 1; backdrop-filter: none; -webkit-backdrop-filter: none; }
 .brand-box { display: flex; align-items: center; width: 185px; height: 58px; overflow: hidden; }
 .brand-img { display: block; width: 320px; max-width: none; height: auto; }
+/* Home page logo as a background (see Header.astro): same box as the <img> (640x154 file shown at 320px). */
+.brand-img-bg { display: block; width: 320px; height: 77px; background: url('../assets/promind-header-brand-640.webp') 0 0 / 320px 77px no-repeat; }
 
 /* Footer navigation is buttons on live: keep the live `.footer-column > a` rule off these links. */
 .footer-column > a.footer-nav-link { display: block; width: auto; gap: 0; margin-bottom: 0.75rem; font-size: 0.875rem; line-height: 1.25rem; color: #31475f; }

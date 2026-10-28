@@ -9,6 +9,10 @@ import Icon from './Icon.astro';
 
 // Markup and classes follow the live Navbar.jsx (the mobile drawer is inside the header, so opening it pushes the page down) so the live stylesheet renders it identically.
 // Live inline styles (forbidden by our CSP) are classes in site.css: header-solid, brand-box, brand-img.
+// Logo: an <img> on every page except the home page, where it is a CSS background (decorative: the link has the aria-label).
+// The home page already has the hero photo in the first burst of requests; with the logo and the menu script that is more than
+// the six parallel connections Lighthouse's simulated HTTP/1 load allows, and the LCP budget fails. As a background the logo
+// is requested once the stylesheet is parsed. On the other pages that same change costs ~75 ms, so they keep the <img>.
 interface Props { lang: Locale; routeKey: RouteKey; paths?: Record<Locale, string> }
 const { lang, routeKey, paths } = Astro.props;
 const other: Locale = lang === 'id' ? 'en' : 'id';
@@ -31,7 +35,9 @@ const navLink = (current: boolean) =>
 <header class="site-header sticky top-0 z-40 border-b border-[#e0e1de] shadow-sm transition-all duration-200 header-solid">
   <div class="wrap flex items-center justify-between h-[84px] gap-6">
     <a href={pathFor('home', lang)} class="flex items-center shrink-0 cursor-pointer text-left border-0 bg-transparent p-0 brand-box" aria-label="PROMIND">
-      <Image src={logo} alt="" width={640} format="webp" quality={78} loading="eager" class="block mix-blend-multiply shrink-0 brand-img" />
+      {routeKey === 'home'
+        ? <span class="block mix-blend-multiply shrink-0 brand-img-bg" aria-hidden="true"></span>
+        : <Image src={logo} alt="" width={640} format="webp" quality={78} loading="eager" class="block mix-blend-multiply shrink-0 brand-img" />}
     </a>
 
     <nav aria-label="Primary" class="hidden lg:flex items-center space-x-7">
@@ -70,5 +76,4 @@ const navLink = (current: boolean) =>
       <a href={pathFor('contact', lang)} class="block w-full text-center py-3 bg-[#2959ab] text-white font-bold text-xs uppercase tracking-wider">{t(lang, 'nav.cta')}</a>
     </div>
   </nav>
-  <script is:inline src="/scripts/menu.js" defer></script>
 </header>
