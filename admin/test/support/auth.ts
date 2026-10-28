@@ -11,8 +11,8 @@ export interface TestCtx extends Ctx {
   clock: { t: number };
 }
 
-export function makeCtx(db: D1Database = createTestDb()): TestCtx {
-  const clock = { t: T0 };
+export function makeCtx(db: D1Database = createTestDb(), start: number = T0): TestCtx {
+  const clock = { t: start };
   return { db, key: KEY, now: () => clock.t, clock, advance: (ms: number) => void (clock.t += ms) };
 }
 

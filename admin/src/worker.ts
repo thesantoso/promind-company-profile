@@ -2,6 +2,7 @@ import { Hono } from 'hono';
 import { AuthError } from './auth';
 import { originCheck, securityHeaders, type AppEnv } from './middleware';
 import { authRoutes } from './routes/auth';
+import { auditRoutes, usersRoutes } from './routes/users';
 
 export function createApp() {
   const app = new Hono<AppEnv>();
@@ -9,6 +10,8 @@ export function createApp() {
   app.use('/api/*', securityHeaders);
   app.use('/api/*', originCheck);
   app.route('/api/auth', authRoutes);
+  app.route('/api/users', usersRoutes);
+  app.route('/api/audit', auditRoutes);
 
   app.notFound((c) => (c.req.path.startsWith('/api/') ? c.json({ error: 'not_found' }, 404) : c.env.ASSETS.fetch(c.req.raw)));
 

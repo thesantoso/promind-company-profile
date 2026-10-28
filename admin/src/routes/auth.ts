@@ -2,7 +2,7 @@ import { Hono } from 'hono';
 import { deleteCookie, setCookie } from 'hono/cookie';
 import { z } from 'zod';
 import {
-  acceptInvite, changePassword, confirmTotpEnrollment, login, logout,
+  acceptInvite, beginTotpEnrollment, changePassword, confirmTotpEnrollment, login, logout,
 } from '../auth';
 import { csrfCheck, ctxOf, requireSession, SESSION_COOKIE, type AppEnv } from '../middleware';
 
@@ -23,6 +23,12 @@ authRoutes.post('/invite/accept', async (c) => {
   if (!b) return bad(c);
   const r = await acceptInvite(ctxOf(c.env), b.token, b.password);
   return c.json({ email: r.user.email, name: r.user.name, totpSecret: r.totpSecret, otpauth: r.otpauth });
+});
+
+authRoutes.post('/totp/begin', async (c) => {
+  const b = await body(c.req.raw, z.object({ email: z.string().max(254), password: z.string().max(200) }));
+  if (!b) return bad(c);
+  return c.json(await beginTotpEnrollment(ctxOf(c.env), b));
 });
 
 authRoutes.post('/totp/confirm', async (c) => {

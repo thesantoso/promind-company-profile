@@ -195,6 +195,22 @@ function newRecoveryCode(): string {
   return `${hex.slice(0, 4)}-${hex.slice(4, 8)}-${hex.slice(8, 12)}`;
 }
 
+/** Menampilkan ulang kunci 2FA untuk user yang belum mengonfirmasi (setelah undangan atau reset 2FA). */
+export async function beginTotpEnrollment(
+  c: Ctx,
+  input: { email: string; password: string },
+): Promise<{ totpSecret: string; otpauth: string }> {
+  const email = String(input.email).toLowerCase();
+  await assertNotLimited(c, [[`totp:${email}`, MAX_ATTEMPTS]]);
+  const row = await c.db.prepare('SELECT * FROM users WHERE email = ?').bind(email).first<UserRow>();
+  if (!row || row.active !== 1 || row.totp_confirmed === 1 || !row.totp_secret_enc || !(await verifyPassword(String(input.password), row.password_hash))) {
+    await recordFailure(c, [`totp:${email}`]);
+    throw INVALID();
+  }
+  const totpSecret = await decryptSecret(row.totp_secret_enc, c.key);
+  return { totpSecret, otpauth: otpauthUri(row.email, totpSecret) };
+}
+
 export async function confirmTotpEnrollment(
   c: Ctx,
   input: { email: string; password: string; code: string },
