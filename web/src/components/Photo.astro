@@ -9,21 +9,30 @@ interface Props {
   sizes: string;
   priority?: boolean;
   widths?: number[];
+  /** height / width of the crop made at build time; omit to keep the photo's own ratio. */
+  ratio?: number;
+  quality?: number;
+  /** AVIF is smallest; WebP decodes faster, which matters for the above-the-fold image. */
+  format?: 'avif' | 'webp';
   class?: string;
 }
-const { name, alt, sizes, priority = false, widths = [480, 720, 960, 1280], class: className } = Astro.props;
+const { name, alt, sizes, priority = false, widths = [480, 720, 960, 1280], ratio, quality = 55, format = 'avif', class: className } = Astro.props;
 const photo = photos[`../assets/photos/${name}`];
 if (!photo) throw new Error(`Unknown photo: ${name}`);
+const largest = Math.max(...widths);
+const crop = ratio ? { width: largest, height: Math.round(largest * ratio), fit: 'cover' as const, position: 'center' as const } : {};
 ---
 
 <Image
   src={photo.default}
   alt={alt}
   widths={widths}
+  {...crop}
   sizes={sizes}
-  format="avif"
+  format={format}
+  quality={quality}
   loading={priority ? 'eager' : 'lazy'}
   fetchpriority={priority ? 'high' : undefined}
-  decoding={priority ? 'sync' : 'async'}
+  decoding="async"
   class={className}
 />

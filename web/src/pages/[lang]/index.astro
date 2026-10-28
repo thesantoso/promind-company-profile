@@ -30,9 +30,12 @@ const hero = fieldwork[0];
     <Photo
       name={hero.image.src}
       alt={hero.image.alt[lang]}
-      sizes="(min-width: 1024px) 40vw, 100vw"
+      sizes="(min-width: 1024px) 40vw, calc(100vw - 2rem)"
+      widths={[480, 640, 720, 800]}
+      ratio={0.75}
+      format="webp"
       priority
-      class="aspect-[4/5] w-full object-cover object-[50%_35%]"
+      class="aspect-[4/3] w-full object-cover"
     />
   </div>
 
@@ -52,7 +55,9 @@ const hero = fieldwork[0];
             name={f.image.src}
             alt={f.image.alt[lang]}
             sizes="(min-width: 1024px) 28vw, (min-width: 640px) 45vw, 100vw"
-            class="aspect-[4/3] w-full object-cover object-[50%_40%]"
+            widths={[360, 480, 640, 800]}
+            ratio={0.75}
+            class="aspect-[4/3] w-full object-cover"
           />
           <figcaption class="mt-4">
             <h3 class="m-0 text-lg font-bold">{f.title[lang]}</h3>
