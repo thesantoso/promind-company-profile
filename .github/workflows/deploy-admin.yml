@@ -1,0 +1,53 @@
+name: Deploy admin
+
+# Portal admin (Worker + D1 + SPA). Admin mengimpor skema konten dari web/, jadi perubahan skema ikut memicu deploy.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'admin/**'
+      - 'web/src/content/**'
+      - 'web/src/i18n/**'
+      - 'web/content/settings.json'
+      - '.github/workflows/deploy-admin.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-admin
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      WRANGLER_SEND_METRICS: 'false'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: admin/.node-version
+      - name: Install (web first, because admin imports its content schemas)
+        run: |
+          npm ci --prefix web
+          npm ci --prefix admin
+      - name: Typecheck and tests
+        working-directory: admin
+        run: |
+          npx tsc --noEmit -p .
+          npx vitest run
+      - name: Build the admin UI
+        working-directory: admin
+        run: npm run ui:build
+      - name: Apply D1 migrations
+        working-directory: admin
+        run: npx wrangler d1 migrations apply promind-admin --remote
+      - name: Deploy the Worker
+        working-directory: admin
+        run: npx wrangler deploy

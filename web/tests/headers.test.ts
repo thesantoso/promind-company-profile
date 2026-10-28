@@ -33,4 +33,11 @@ describe('public/_headers', () => {
     expect(csp).toContain("connect-src 'self'");
     expect((csp.match(/https?:\/\/[^\s;]+/g) ?? []).every((u) => u === 'https://challenges.cloudflare.com')).toBe(true);
   });
+
+  test('version.json is never cached and may be read by the admin portal only', () => {
+    const block = /\/version\.json\n((?:[ \t]+.+\n?)+)/.exec(headers)?.[1] ?? '';
+    expect(block).toContain('Cache-Control: no-store');
+    expect(block).toContain('Access-Control-Allow-Origin: https://admin.promind.co.id');
+    expect(block).not.toContain('*');
+  });
 });

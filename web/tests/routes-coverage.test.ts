@@ -28,6 +28,13 @@ describe('built pages', () => {
     expect(existsSync(file('/en/layanan/'))).toBe(false);
   });
 
+  test('the build writes version.json with the commit and build time (the admin polls it)', () => {
+    const v = JSON.parse(readFileSync(join(dist, 'version.json'), 'utf8'));
+    expect(Object.keys(v).sort()).toEqual(['builtAt', 'commit']);
+    expect(v.commit).toMatch(/^([0-9a-f]{7,40}|local)$/);
+    expect(new Date(v.builtAt).toISOString()).toBe(v.builtAt);
+  });
+
   test('a 404 page exists and is noindex', () => {
     const html = readFileSync(join(dist, '404.html'), 'utf8');
     expect(html).toContain('noindex');
