@@ -1,0 +1,34 @@
+---
+import { loadSettings } from '../content/schema';
+import type { Locale } from '../i18n/locales';
+import { ROUTES, pathFor, type RouteKey } from '../i18n/routes';
+import { t, type UiKey } from '../i18n/ui';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const s = loadSettings();
+const keys = Object.keys(ROUTES).filter((k) => k !== 'home') as RouteKey[];
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-24 border-t border-hairline bg-surface">
+  <div class="mx-auto grid w-full max-w-[1200px] gap-10 px-4 py-12 sm:px-6 md:grid-cols-[2fr_1fr]">
+    <div>
+      <p class="m-0 font-display text-lg font-extrabold text-heading">PROMIND</p>
+      <p class="mt-1 text-sm">{s.legalName}</p>
+      <address class="mt-4 max-w-prose text-sm not-italic">{s.address[lang]}</address>
+      <p class="mt-4 text-sm">
+        <a href={`mailto:${s.email}`}>{s.email}</a><br />
+        <a href={`tel:${s.phone.replace(/\s/g, '')}`}>{s.phone}</a>
+      </p>
+    </div>
+    <nav aria-label="Footer">
+      <ul class="m-0 list-none space-y-1 p-0 text-sm">
+        {keys.map((k) => <li><a href={pathFor(k, lang)}>{t(lang, `nav.${k}` as UiKey)}</a></li>)}
+      </ul>
+    </nav>
+  </div>
+  <p class="m-0 border-t border-hairline px-4 py-4 text-center text-xs sm:px-6">
+    © {year} PROMIND. {t(lang, 'footer.rights')}
+  </p>
+</footer>
