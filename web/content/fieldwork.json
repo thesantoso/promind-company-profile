@@ -2,12 +2,12 @@
   {
     "slug": "building-operations-inspections",
     "title": {
-      "id": "Operasional & Inspeksi Gedung",
-      "en": "Building Operations & Inspections"
+      "id": "Operasional & Pengawasan Harian Gedung",
+      "en": "Daily Building Operations & Oversight"
     },
     "summary": {
-      "id": "Koordinasi harian antara pimpinan gedung dan tim lapangan untuk memastikan seluruh area fasilitas berfungsi optimal sesuai prosedur operasi standar.",
-      "en": "Daily coordination between building leadership and field teams to keep all facility areas operating smoothly under established SOPs."
+      "id": "Pemeriksaan rutin berkala oleh pimpinan gedung dan tim lapangan untuk memastikan seluruh area fasilitas berfungsi optimal sesuai prosedur operasi standar.",
+      "en": "Regular checks by building leadership and field teams to keep every facility area running properly under standard operating procedures."
     },
     "image": {
       "src": "building-operations.jpg",

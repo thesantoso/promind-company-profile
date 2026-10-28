@@ -61,5 +61,13 @@
 .inquiry-form .form-success { color: #ffffff !important; font-weight: 700; }
 .inquiry-form [aria-invalid='true'] { border-color: #ffd0c2; box-shadow: 0 0 0 1px #ffd0c2; }
 .inquiry-form .cf-turnstile:empty { display: none; }
+/* One grid row for widget, messages and button, so an empty widget adds no row gap (live has none). */
+.inquiry-form .form-actions { display: flex; flex-direction: column; align-items: flex-start; }
+.inquiry-form .form-actions .cf-turnstile, .inquiry-form .form-actions .form-status { align-self: stretch; }
+.inquiry-form .form-actions .form-status { margin-bottom: 16px; }
 
 /* ---- 3. Accessibility fixes ---- */
+/* a11y: live #667786 on #e8edf1 is 3.91:1 (11px bold); #5a6a78 is 4.73:1. */
+.technology-wordmark > span { color: #5a6a78; }
+/* a11y: live #a9c8f4 on #2b5caf is 3.76:1 (12px bold); #cde0fb is 4.81:1. */
+.contact-lead > .eyebrow { color: #cde0fb; }

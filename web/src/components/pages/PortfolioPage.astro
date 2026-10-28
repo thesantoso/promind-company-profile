@@ -34,11 +34,11 @@ const labelOf = (sectorEn: string) => projects.find((p) => p.sector.en === secto
         <fieldset class="flex flex-wrap gap-2 mb-10 pb-4 border-b border-[#cbd2d9] filter-set">
           <legend class="sr-only">{page.filterLabel[lang]}</legend>
           <input type="radio" name="sector" id="sector-0" data-f="0" class="filter-input" checked />
-          <label for="sector-0" class="px-4 py-2.5 text-xs font-bold transition cursor-pointer bg-white text-[#334b63] border border-[#cbd5e1] hover:border-[#2959ab] pf-chip">{page.allLabel[lang]}</label>
+          <label for="sector-0" class="px-4 py-2.5 text-xs font-bold transition cursor-pointer bg-white text-[#334b63] border-[#cbd5e1] hover:border-[#2959ab] pf-chip">{page.allLabel[lang]}</label>
           {sectors.map((s) => (
             <>
               <input type="radio" name="sector" id={`sector-${group(s)}`} data-f={group(s)} class="filter-input" />
-              <label for={`sector-${group(s)}`} class="px-4 py-2.5 text-xs font-bold transition cursor-pointer bg-white text-[#334b63] border border-[#cbd5e1] hover:border-[#2959ab] pf-chip">{labelOf(s)}</label>
+              <label for={`sector-${group(s)}`} class="px-4 py-2.5 text-xs font-bold transition cursor-pointer bg-white text-[#334b63] border-[#cbd5e1] hover:border-[#2959ab] pf-chip">{labelOf(s)}</label>
             </>
           ))}
         </fieldset>

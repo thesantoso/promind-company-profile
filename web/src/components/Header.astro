@@ -62,7 +62,7 @@ const navLink = (current: boolean) =>
             <a
               href={i.href}
               aria-current={i.current ? 'page' : undefined}
-              class={`block w-full text-left py-2.5 border-b border-[#e5e5e0] text-sm font-bold ${i.current ? 'text-[#2b5caf]' : 'text-[#233547]'}`}
+              class={`block w-full text-left py-2.5 text-sm font-bold ${i.current ? 'text-[#2b5caf]' : 'text-[#233547]'}`}
             >{i.label}</a>
           ))}
           <div class="pt-2">

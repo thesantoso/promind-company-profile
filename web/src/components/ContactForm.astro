@@ -58,19 +58,21 @@ const { lang, topics, propertyTypes, labels, email, siteKey, endpoint = '/api/co
     <input id="cf-website" name="website" type="text" tabindex="-1" autocomplete="off" />
   </div>
 
-  <div class="cf-turnstile form-wide" data-sitekey={siteKey} data-language={lang} data-theme="light" data-appearance="interaction-only"></div>
+  <div class="form-wide form-actions">
+  <div class="cf-turnstile" data-sitekey={siteKey} data-language={lang} data-theme="light" data-appearance="interaction-only"></div>
 
-  <div class="form-wide form-status" role="alert" data-alert>
+  <div class="form-status" role="alert" data-alert>
     <p hidden data-status="error-required">{t(lang, 'form.error.required')}</p>
     <p hidden data-status="error-verify">{t(lang, 'form.error.verify')}</p>
     <p hidden data-status="error-rate">{t(lang, 'form.error.rate')} <a href={`mailto:${email}`}>{email}</a></p>
     <p hidden data-status="error-unavailable">{t(lang, 'form.error.unavailable')} <a href={`mailto:${email}`}>{email}</a></p>
     <p hidden data-status="error-failed">{t(lang, 'form.error.failed')} <a href={`mailto:${email}`}>{email}</a></p>
   </div>
-  <div class="form-wide form-status" role="status"><p hidden data-status="success" class="form-success">{t(lang, 'form.success')}</p></div>
+  <div class="form-status" role="status"><p hidden data-status="success" class="form-success">{t(lang, 'form.success')}</p></div>
 
   <button type="submit" class="button button-light form-submit">
     <span data-label>{labels.submit}</span>
     <Icon name="arrow-up-right" size={18} />
   </button>
+  </div>
 </form>
