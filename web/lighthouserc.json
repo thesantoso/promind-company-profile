@@ -10,7 +10,7 @@
         "http://localhost/id/karir/",
         "http://localhost/en/about/"
       ],
-      "numberOfRuns": 3
+      "numberOfRuns": 5
     },
     "assert": {
       "assertMatrix": [
