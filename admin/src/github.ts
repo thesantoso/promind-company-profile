@@ -38,7 +38,7 @@ const encodePath = (p: string) => p.split('/').map(encodeURIComponent).join('/')
 export class GitHub {
   constructor(
     private readonly cfg: GitHubConfig,
-    private readonly fetchImpl: typeof fetch = fetch,
+    private readonly fetchImpl: typeof fetch = (input, init) => fetch(input, init),
   ) {}
 
   private async request(method: string, path: string, body?: unknown, allow404 = false): Promise<any> {

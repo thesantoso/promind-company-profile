@@ -99,3 +99,21 @@ describe('errors', () => {
     expect(String(err.message)).not.toContain('SECRET');
   });
 });
+
+describe('GitHub default fetch', () => {
+  test('calls the global fetch without the client as `this` (Workers throw Illegal invocation otherwise)', async () => {
+    const original = globalThis.fetch;
+    let seenThis: unknown = 'unset';
+    globalThis.fetch = function (this: unknown) {
+      seenThis = this;
+      return Promise.resolve(new Response(JSON.stringify({ object: { sha: 'abc' } }), { status: 200 }));
+    } as typeof fetch;
+    try {
+      const gh = new GitHub({ repo: 'o/r', branch: 'b', token: 't' } as never);
+      await (gh as any).request('GET', '/git/ref/heads/b');
+      expect(seenThis === undefined || seenThis === globalThis).toBe(true);
+    } finally {
+      globalThis.fetch = original;
+    }
+  });
+});
