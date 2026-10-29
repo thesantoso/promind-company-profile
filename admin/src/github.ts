@@ -36,10 +36,15 @@ const enc = new TextEncoder();
 const encodePath = (p: string) => p.split('/').map(encodeURIComponent).join('/');
 
 export class GitHub {
+  private readonly fetchImpl: typeof fetch;
+
   constructor(
     private readonly cfg: GitHubConfig,
-    private readonly fetchImpl: typeof fetch = (input, init) => fetch(input, init),
-  ) {}
+    fetchImpl: typeof fetch = fetch,
+  ) {
+    // Workers reject a bare `fetch` called as a method of another object (Illegal invocation).
+    this.fetchImpl = (input, init) => fetchImpl(input, init);
+  }
 
   private async request(method: string, path: string, body?: unknown, allow404 = false): Promise<any> {
     const res = await this.fetchImpl(`${API}/repos/${this.cfg.repo}${path}`, {

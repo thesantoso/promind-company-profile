@@ -100,20 +100,15 @@ describe('errors', () => {
   });
 });
 
-describe('GitHub default fetch', () => {
-  test('calls the global fetch without the client as `this` (Workers throw Illegal invocation otherwise)', async () => {
-    const original = globalThis.fetch;
+describe('GitHub with an injected fetch', () => {
+  test('never invokes the injected fetch with the client as `this` (Workers: Illegal invocation)', async () => {
     let seenThis: unknown = 'unset';
-    globalThis.fetch = function (this: unknown) {
+    const strict = function (this: unknown) {
       seenThis = this;
       return Promise.resolve(new Response(JSON.stringify({ object: { sha: 'abc' } }), { status: 200 }));
     } as typeof fetch;
-    try {
-      const gh = new GitHub({ repo: 'o/r', branch: 'b', token: 't' } as never);
-      await (gh as any).request('GET', '/git/ref/heads/b');
-      expect(seenThis === undefined || seenThis === globalThis).toBe(true);
-    } finally {
-      globalThis.fetch = original;
-    }
+    const gh = new GitHub(cfg(), strict);
+    await (gh as any).request('GET', '/git/ref/heads/b');
+    expect(seenThis === undefined || seenThis === globalThis).toBe(true);
   });
 });
