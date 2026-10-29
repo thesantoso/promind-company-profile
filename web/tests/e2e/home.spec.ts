@@ -43,7 +43,7 @@ for (const lang of LOCALES) {
         pages.home.focus.title[lang],
         pages.home.sectors.title[lang],
         pages.services.title[lang],
-        pages.home.fieldwork.title[lang],
+        ...(loadFieldwork().length > 0 ? [pages.home.fieldwork.title[lang]] : []),
         pages.home.technology.title[lang],
         pages.home.clients.title[lang],
         pages.home.contact.title[lang],

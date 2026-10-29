@@ -8,11 +8,14 @@ import { ordinal } from '../lib/ordinal';
 interface Props { lang: Locale; class: string }
 const { lang, class: className } = Astro.props;
 const { fieldwork: heading } = loadPages().home;
+const items = loadFieldwork();
 const photos = import.meta.glob<{ default: ImageMetadata }>('../assets/photos/*.jpg', { eager: true });
 ---
 
+{(items.length > 0 || Astro.slots.has('default')) && (
 <section class={className}>
   <div class="wrap">
+    {items.length > 0 && <>
     <div class="fieldwork-heading">
       <div>
         <p class="eyebrow">{heading.eyebrow[lang]}</p>
@@ -22,7 +25,7 @@ const photos = import.meta.glob<{ default: ImageMetadata }>('../assets/photos/*.
     </div>
 
     <div class="fieldwork-grid">
-      {loadFieldwork().map((item, i) => (
+      {items.map((item, i) => (
         <figure class={`fieldwork-item fieldwork-item-${i + 1}`}>
           <div class="fieldwork-photo">
             <Picture
@@ -47,6 +50,8 @@ const photos = import.meta.glob<{ default: ImageMetadata }>('../assets/photos/*.
         </figure>
       ))}
     </div>
+    </>}
     <slot />
   </div>
 </section>
+)}

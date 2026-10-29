@@ -44,13 +44,11 @@ describe('content gate', () => {
 });
 
 describe('migrated company-wide content', () => {
-  test('has every item from the old site', () => {
-    expect(load.loadServices()).toHaveLength(6);
-    expect(load.loadPropertyTypes()).toHaveLength(6);
-    expect(load.loadPillars()).toHaveLength(5);
-    expect(load.loadFieldwork()).toHaveLength(4);
-    expect(load.loadEngagement()).toHaveLength(4);
-    expect(load.loadStandards()).toHaveLength(5);
+  test('collection item ids are unique (item counts are owned by the admin portal, not pinned here)', () => {
+    for (const [file, loader] of Object.entries(COLLECTIONS)) {
+      const ids = loader().map((x) => JSON.stringify(x));
+      expect(new Set(ids).size, file).toBe(ids.length);
+    }
   });
 
   test('field photos reference files that will live in src/assets/photos and have alt text', () => {
@@ -73,12 +71,6 @@ describe('migrated company-wide content', () => {
 });
 
 describe('migrated portfolio, clients, insights', () => {
-  test('has every item from the old site', () => {
-    expect(load.loadPortfolio()).toHaveLength(12);
-    expect(load.loadClients()).toHaveLength(14);
-    expect(load.loadInsights()).toHaveLength(4);
-  });
-
   test('portfolio sectors are the four known groups', () => {
     const sectors = new Set(load.loadPortfolio().map((p) => p.sector.en));
     expect([...sectors].sort()).toEqual(['Apartment', 'Mall & Commercial', 'Office Building', 'Real Estate & Facility']);
@@ -100,10 +92,9 @@ describe('migrated portfolio, clients, insights', () => {
 describe('migrated careers', () => {
   const jobs = () => load.loadJobs();
 
-  test('keeps the five distinct jobs and drops the old "(Copy)" duplicate', () => {
-    expect(jobs().map((j) => j.slug)).toEqual([
-      'building-manager', 'chief-engineer', 'tenant-relations-officer', 'finance-supervisor', 'hse-officer',
-    ]);
+  test('job slugs are unique and no title is an old "(Copy)" duplicate', () => {
+    const slugs = jobs().map((j) => j.slug);
+    expect(new Set(slugs).size).toBe(slugs.length);
     for (const j of jobs()) expect(j.title.en).not.toMatch(/copy/i);
   });
 
