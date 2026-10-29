@@ -7,7 +7,14 @@ export const CONTENT_KEYS = readdirSync(dir)
   .map((f) => f.replace(/\.json$/, ''))
   .sort();
 
-export const realText = (key: string): string => readFileSync(join(dir, `${key}.json`), 'utf8');
+// The portal owns the live content and an editor may empty a collection, so tests that need
+// sample items fall back to a frozen fixture when the live collection is empty.
+const fixtures = join(process.cwd(), 'test', 'support', 'fixtures');
+export const realText = (key: string): string => {
+  const text = readFileSync(join(dir, `${key}.json`), 'utf8');
+  const parsed = JSON.parse(text);
+  return Array.isArray(parsed) && parsed.length === 0 ? readFileSync(join(fixtures, `${key}.json`), 'utf8') : text;
+};
 export const real = <T = any>(key: string): T => JSON.parse(realText(key));
 
 /** Isi awal repo palsu: semua berkas konten nyata + foto placeholder yang dirujuk. */

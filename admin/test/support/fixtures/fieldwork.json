@@ -1,0 +1,74 @@
+[
+  {
+    "slug": "building-operations-inspections",
+    "title": {
+      "id": "Operasional & Pengawasan Harian Gedung",
+      "en": "Daily Building Operations & Oversight"
+    },
+    "summary": {
+      "id": "Pemeriksaan rutin berkala oleh pimpinan gedung dan tim lapangan untuk memastikan seluruh area fasilitas berfungsi optimal sesuai prosedur operasi standar.",
+      "en": "Regular checks by building leadership and field teams to keep every facility area running properly under standard operating procedures."
+    },
+    "image": {
+      "src": "building-operations.jpg",
+      "alt": {
+        "id": "Tiga petugas PROMIND menginspeksi sisi luar gedung: satu berbicara lewat radio, satu menunjuk ke atas, satu mencatat di papan klip.",
+        "en": "Three PROMIND staff inspecting a building exterior: one on a radio, one pointing upward, one taking notes on a clipboard."
+      }
+    }
+  },
+  {
+    "slug": "engineering-m-e-maintenance",
+    "title": {
+      "id": "Engineering & Pemeliharaan M&E",
+      "en": "Engineering & M&E Maintenance"
+    },
+    "summary": {
+      "id": "Pemeriksaan terjadwal pada sistem mekanikal, elektrikal, dan perpipaan guna mencegah gangguan operasional serta menjaga usia pakai peralatan gedung.",
+      "en": "Scheduled inspections across mechanical, electrical, and plumbing systems to prevent operational disruptions and extend equipment life."
+    },
+    "image": {
+      "src": "engineering.jpg",
+      "alt": {
+        "id": "Dua teknisi PROMIND berhelm memeriksa panel kelistrikan di ruang mesin gedung.",
+        "en": "Two PROMIND engineers in hard hats inspecting an electrical panel in a building plant room."
+      }
+    }
+  },
+  {
+    "slug": "building-safety-hse",
+    "title": {
+      "id": "Keselamatan Gedung & HSE",
+      "en": "Building Safety & HSE"
+    },
+    "summary": {
+      "id": "Penerapan standar Keselamatan dan Kesehatan Kerja (K3), kesiapan proteksi kebakaran, serta kepatuhan terhadap regulasi kelaikan bangunan.",
+      "en": "Implementation of workplace health and safety (K3) standards, fire protection readiness, and statutory building compliance."
+    },
+    "image": {
+      "src": "hse.jpg",
+      "alt": {
+        "id": "Petugas HSE PROMIND berseragam merah dan berhelm memeriksa pompa dan perpipaan pemadam kebakaran.",
+        "en": "A PROMIND safety officer in red coveralls and a hard hat checking fire protection pumps and piping."
+      }
+    }
+  },
+  {
+    "slug": "tenant-resident-relations",
+    "title": {
+      "id": "Layanan Tenant & Penghuni",
+      "en": "Tenant & Resident Relations"
+    },
+    "summary": {
+      "id": "Komunikasi yang sigap dan ramah dalam menangani kebutuhan penyewa maupun penghuni untuk menjaga kepuasan serta kenyamanan jangka panjang.",
+      "en": "Responsive, courteous communication in handling tenant and resident requests to maintain long-term satisfaction and comfort."
+    },
+    "image": {
+      "src": "tenant-relations.jpg",
+      "alt": {
+        "id": "Petugas layanan PROMIND tersenyum saat melayani tamu di meja resepsionis marmer.",
+        "en": "A PROMIND service officer smiling as she assists a visitor at a marble reception desk."
+      }
+    }
+  }
+]
