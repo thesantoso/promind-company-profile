@@ -8,8 +8,8 @@ Titik awal untuk siapa pun (developer, editor konten, agent AI) yang mengerjakan
 |---|---|---|
 | 1. Fondasi | Astro statis, token desain, font, i18n dua bahasa, SEO dasar, header keamanan, e2e, CI | Selesai |
 | 2. Konten dan halaman | Konten JSON bertipe, 7 halaman + detail lowongan, JSON-LD, `llms.txt`, gambar OG | Selesai |
-| 3. Portal admin | Worker + D1, editor dua bahasa, publish ke Git, form kontak | Belum dimulai (butuh keputusan dan akses dari pemilik, lihat [roadmap](roadmap.md)) |
-| 4. Hardening dan cutover | Deploy ke Cloudflare, staging, redirect 301, ganti DNS, pensiun portal PHP | Belum dimulai |
+| 3. Portal admin | Worker + D1, editor dua bahasa, publish ke Git, form kontak | Selesai, live di admin.promind.co.id |
+| 4. Hardening dan cutover | Deploy ke Cloudflare, staging, redirect 301, produksi | Cutover selesai 2026-10-29 (lihat D10). Sisa: pensiun portal PHP, proteksi branch main |
 
 Situs lama (Vite SPA + portal PHP di Rumahweb) **masih yang live** dan tidak tersentuh. Pekerjaan baru ada di branch `revamp`, folder `web/`, dan belum ter-push ke GitHub.
 

@@ -14,6 +14,7 @@ Keputusan yang diambil selama tahap 1 dan 2, dengan alasan dan biaya bila keliru
 | D6 | Keempat fitur interaktif lama dibuang | Tidak terpakai di situs, dan ROI Calculator/Ticker bertentangan dengan prinsip "tanpa klaim tak terdukung". |
 | D8 | Kata "PROAPPS" tidak boleh tampil di situs publik (2026-10-28); ditegakkan oleh tes dan portal admin | Keputusan pemilik; berbeda dari situs live, yang masih menyebutnya |
 | D9 | Portal admin adalah satu-satunya sumber konten (2026-10-29): tes tidak mengunci jumlah item atau slug hasil migrasi; menghapus item di portal berarti item hilang dari situs, dan section kosong tidak ditampilkan | Keputusan pemilik. Tes jumlah tetap (4 fieldwork, 5 lowongan, dst.) menggagalkan build setiap kali admin menghapus item sah | Aturan bentuk, brand, dua bahasa, dan keunikan tetap dijaga tes |
+| D10 | Cutover 2026-10-29: situs produksi dipasang lewat Worker route pada record apex/www yang sudah ter-proxy, bukan Custom Domain | MX, SRV, dan SPF email menunjuk ke host `promind.co.id`; Custom Domain akan menimpa record apex. Route tidak mengubah DNS sama sekali dan rollback tinggal menghapus route | Berkas statis dilayani sebelum Worker, jadi redirect www ke apex tidak berlaku (canonical tetap ke apex). Pasang Redirect Rule di dashboard bila ingin 301 |
 | D7 | Dua bahasa dengan URL terpisah dan slug diterjemahkan; English ditulis native (en-US) | SEO dan kualitas bahasa. |
 
 ## Keputusan implementasi tahap 1

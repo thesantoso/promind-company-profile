@@ -10,8 +10,8 @@ Dokumen ini adalah **single source of truth** untuk semua Autonomous Agent dan d
 |---|---|---|
 | Lokasi | root repo (`src/`, `public/`, `public/portal/`) | `web/` |
 | Stack | Vite + React SPA, portal PHP | Astro statis, konten JSON dua bahasa |
-| Hosting | Rumahweb via FTP (`deploy.yml`, dari `main`) | Belum di-deploy (tahap 4) |
-| Status | Produksi di `promind.co.id`. Jangan diubah kecuali perbaikan darurat. | Tahap 1 dan 2 selesai di branch `revamp` |
+| Hosting | Rumahweb (kini hanya email, mailer `forms.`, dan portal PHP lama) | **Live di `promind.co.id`** sejak 2026-10-29 (Cloudflare Worker route, DNS tidak berubah); `deploy.yml` FTP dihapus |
+| Status | Digantikan. Kode lama masih di root repo; jangan diubah. | Produksi dari branch `main`. Portal admin menulis ke `main`. `revamp` hanya untuk staging |
 
 **Pekerjaan revamp dilakukan di `web/` pada branch `revamp`.** Dokumentasi lengkap ada di [`docs/README.md`](docs/README.md): arsitektur, panduan konten, kualitas dan pengujian, log keputusan, roadmap. Baca itu sebelum mengubah apa pun di `web/`.
 
