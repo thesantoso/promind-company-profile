@@ -31,9 +31,11 @@
     "production": {
       "name": "promind-web",
       "workers_dev": false,
+      // Route (bukan custom domain) supaya record DNS apex/www tidak berubah: MX, SRV, dan SPF email
+      // menunjuk ke host promind.co.id. Rollback = hapus route, trafik kembali ke Rumahweb.
       "routes": [
-        { "pattern": "promind.co.id", "custom_domain": true },
-        { "pattern": "www.promind.co.id", "custom_domain": true }
+        { "pattern": "promind.co.id/*", "zone_name": "promind.co.id" },
+        { "pattern": "www.promind.co.id/*", "zone_name": "promind.co.id" }
       ],
       "assets": {
         "directory": "./dist",

@@ -1,0 +1,9 @@
+# URL lama (Vite SPA, path bersih) ke halaman Indonesia yang baru. URL berbasis hash (#/...) tidak bisa
+# dialihkan di server; situs lama tidak memakainya untuk SEO.
+/services       /id/layanan/        301
+/portfolio      /id/portofolio/     301
+/research       /id/riset/          301
+/about          /id/tentang-kami/   301
+/careers        /id/karir/          301
+/careers/:slug  /id/karir/:slug/    301
+/contact        /id/kontak/         301

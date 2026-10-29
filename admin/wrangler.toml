@@ -18,9 +18,8 @@ migrations_dir = "migrations"
 
 [vars]
 GITHUB_REPO = "thesantoso/promind-company-profile"
-# Staging membaca/menulis branch revamp; saat cutover (setelah merge ke main) ubah ke "main"
-GITHUB_BRANCH = "revamp"
+# Setelah cutover portal membaca dan menulis branch main
+GITHUB_BRANCH = "main"
 ADMIN_ORIGIN = "https://admin.promind.co.id"
-# Staging dulu; saat cutover ubah ke https://promind.co.id
-SITE_ORIGIN = "https://staging.promind.co.id"
+SITE_ORIGIN = "https://promind.co.id"
 CONTACT_MAILER_URL = "https://forms.promind.co.id/contact-mailer.php"
